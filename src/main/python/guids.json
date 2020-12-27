@@ -1,0 +1,1374 @@
+{
+    "AF945B93A7B9D64CA6DD00683627BC80": {
+        "class": "Scout",
+        "weapon": "Deepcore GK2",
+        "name": "Compact Ammo",
+        "cost": {
+            "credits": 7250,
+            "bismor": 125,
+            "croppa": 0,
+            "enor": 80,
+            "jadiz": 105,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+    "FF94B9E7834D774292DACCCA3EA023B9": {
+        "class": "Scout",
+        "weapon": "Deepcore GK2",
+        "name": "Electrifying Reload",
+        "cost": {
+            "credits": 7750,
+            "bismor": 105,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 65,
+            "umanite": 135
+        }
+    },
+    "11F123E174103140957957506BD576D7": {
+        "class": "Scout",
+        "weapon": "Deepcore GK2",
+        "name": "AI Stability Engine",
+        "cost": {
+            "credits": 8250,
+            "bismor": 0,
+            "croppa": 60,
+            "enor": 125,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 100
+        }
+    },
+    "4CDF41F3A0F8E4499D1BAC6168347799": {
+        "class": "Scout",
+        "weapon": "Deepcore GK2",
+        "name": "Homebrew Powder",
+        "cost": {
+            "credits": 8100,
+            "bismor": 95,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 140,
+            "magnite": 0,
+            "umanite": 65
+        }
+    },
+    "C3060324CE482C4AB6DC44ED498CBA39": {
+        "class": "Scout",
+        "weapon": "Deepcore GK2",
+        "name": "Overclocked Firing Mechanism",
+        "cost": {
+            "credits": 7950,
+            "bismor": 95,
+            "croppa": 0,
+            "enor": 120,
+            "jadiz": 0,
+            "magnite": 65,
+            "umanite": 0
+        }
+    },
+    "F6E2E547F2EB674DBDA591F47DE6D017": {
+        "class": "Scout",
+        "weapon": "Deepcore GK2",
+        "name": "Gas Rerouting",
+        "cost": {
+            "credits": 7800,
+            "bismor": 0,
+            "croppa": 60,
+            "enor": 0,
+            "jadiz": 125,
+            "magnite": 105,
+            "umanite": 0
+        }
+    },
+    "7306221F1264B04B8C025DB4DE9D1667": {
+        "class": "Scout",
+        "weapon": "Deepcore GK2",
+        "name": "Bullets of Mercy",
+        "cost": {
+            "credits": 8100,
+            "bismor": 90,
+            "croppa": 80,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 125,
+            "umanite": 0
+        }
+    },
+    "86AA0DD13FD37E43B2FBF176EE5DE815": {
+        "class": "Gunner",
+        "weapon": "'Thunderhead' Heavy Autocannon",
+        "name": "Big Bertha",
+        "cost": {
+            "credits": 8400,
+            "bismor": 125,
+            "croppa": 105,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 80
+        }
+    },
+    "8C0142A687637A4EA4CC8A7F84B9610A": {
+        "class": "Gunner",
+        "weapon": "'Thunderhead' Heavy Autocannon",
+        "name": "Carpet Bomber",
+        "cost": {
+            "credits": 7350,
+            "bismor": 0,
+            "croppa": 120,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 105,
+            "umanite": 70
+        }
+    },
+    "01E23067CBB9A6428AE4394C99F1D2BB": {
+        "class": "Gunner",
+        "weapon": "'Thunderhead' Heavy Autocannon",
+        "name": "Composite Drums",
+        "cost": {
+            "credits": 7850,
+            "bismor": 0,
+            "croppa": 135,
+            "enor": 70,
+            "jadiz": 0,
+            "magnite": 105,
+            "umanite": 0
+        }
+    },
+    "3DD5E8141C483E43AA3E0708CE75D663": {
+        "class": "Gunner",
+        "weapon": "'Thunderhead' Heavy Autocannon",
+        "name": "Combat Mobility",
+        "cost": {
+            "credits": 7650,
+            "bismor": 0,
+            "croppa": 70,
+            "enor": 0,
+            "jadiz": 120,
+            "magnite": 95,
+            "umanite": 0
+        }
+    },
+    "32654E9478165E4DA3F0DBD33B180341": {
+        "class": "Gunner",
+        "weapon": "'Thunderhead' Heavy Autocannon",
+        "name": "Neurotoxin Payload",
+        "cost": {
+            "credits": 8100,
+            "bismor": 0,
+            "croppa": 100,
+            "enor": 0,
+            "jadiz": 75,
+            "magnite": 135,
+            "umanite": 0
+        }
+    },
+    "CB83FD6C13C63F4982DC87B9796311C8": {
+        "class": "Gunner",
+        "weapon": "'Thunderhead' Heavy Autocannon",
+        "name": "Splintering Shells",
+        "cost": {
+            "credits": 7300,
+            "bismor": 0,
+            "croppa": 95,
+            "enor": 0,
+            "jadiz": 125,
+            "magnite": 65,
+            "umanite": 0
+        }
+    },
+    "D006E3EEE0540242A2B0BCA8ABCDB387": {
+        "class": "Scout",
+        "weapon": "M1000 Classic",
+        "name": "Minimal Clips",
+        "cost": {
+            "credits": 8200,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 95,
+            "jadiz": 130,
+            "magnite": 75,
+            "umanite": 0
+        }
+    },
+    "1073CEEBECBC014E8370E259040EB71C": {
+        "class": "Scout",
+        "weapon": "M1000 Classic",
+        "name": "Supercooling Chamber",
+        "cost": {
+            "credits": 8500,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 90,
+            "jadiz": 130,
+            "magnite": 70,
+            "umanite": 0
+        }
+    },
+    "AAC9B6E4458458478E50DB87324097EB": {
+        "class": "Scout",
+        "weapon": "M1000 Classic",
+        "name": "Electrocuting Focus Shots",
+        "cost": {
+            "credits": 8850,
+            "bismor": 120,
+            "croppa": 95,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 75
+        }
+    },
+    "2A12358F750B704996C37D467ECF1D36": {
+        "class": "Scout",
+        "weapon": "M1000 Classic",
+        "name": "Hipster",
+        "cost": {
+            "credits": 8900,
+            "bismor": 0,
+            "croppa": 125,
+            "enor": 105,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 80
+        }
+    },
+    "8A0122E44E42104BAAAD6B4534A9DE8F": {
+        "class": "Scout",
+        "weapon": "M1000 Classic",
+        "name": "Hoverclock",
+        "cost": {
+            "credits": 7350,
+            "bismor": 105,
+            "croppa": 135,
+            "enor": 0,
+            "jadiz": 65,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+    "D1544B3528938A48964E8D9A6309D1DA": {
+        "class": "Scout",
+        "weapon": "M1000 Classic",
+        "name": "Active Stability System",
+        "cost": {
+            "credits": 8150,
+            "bismor": 90,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 70,
+            "umanite": 135
+        }
+    },
+    "6F26A8B49F967C4D999F734645EAE2C4": {
+        "class": "Gunner",
+        "weapon": "BRT7 Burst Fire Gun",
+        "name": "Composite Casings",
+        "cost": {
+            "credits": 7950,
+            "bismor": 0,
+            "croppa": 140,
+            "enor": 75,
+            "jadiz": 0,
+            "magnite": 100,
+            "umanite": 0
+        }
+    },
+    "2FF3D4C92D59304592009FA2E39BFFC6": {
+        "class": "Gunner",
+        "weapon": "BRT7 Burst Fire Gun",
+        "name": "Compact Mags",
+        "cost": {
+            "credits": 7350,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 75,
+            "magnite": 135,
+            "umanite": 105
+        }
+    },
+    "4A4F93FE1AC31E41B897C1F1B264A672": {
+        "class": "Gunner",
+        "weapon": "BRT7 Burst Fire Gun",
+        "name": "Electro Minelets",
+        "cost": {
+            "credits": 7450,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 80,
+            "jadiz": 95,
+            "magnite": 0,
+            "umanite": 120
+        }
+    },
+    "414916957AD3D0409B5FE3692A46DD19": {
+        "class": "Gunner",
+        "weapon": "BRT7 Burst Fire Gun",
+        "name": "Full Chamber Seal",
+        "cost": {
+            "credits": 7850,
+            "bismor": 120,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 75,
+            "magnite": 110,
+            "umanite": 0
+        }
+    },
+    "88ABD40A78329942884C00D7F22DAC90": {
+        "class": "Gunner",
+        "weapon": "BRT7 Burst Fire Gun",
+        "name": "Experimental Rounds",
+        "cost": {
+            "credits": 8550,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 100,
+            "jadiz": 75,
+            "magnite": 130,
+            "umanite": 0
+        }
+    },
+    "8F1C6A1A23A6DF4CBCA5510C4A19F221": {
+        "class": "Gunner",
+        "weapon": "BRT7 Burst Fire Gun",
+        "name": "Micro Flechettes",
+        "cost": {
+            "credits": 7650,
+            "bismor": 80,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 100,
+            "magnite": 130,
+            "umanite": 0
+        }
+    },
+    "F1AE55CF592E7746A0001D61584BDF2A": {
+        "class": "Gunner",
+        "weapon": "BRT7 Burst Fire Gun",
+        "name": "Lead Spray",
+        "cost": {
+            "credits": 8050,
+            "bismor": 125,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 75,
+            "umanite": 105
+        }
+    },
+    "A0E018C45FE679418FD3730E6E9B631D": {
+        "class": "Driller",
+        "weapon": "Experimental Plasma Charger",
+        "name": "Heat Pipe",
+        "cost": {
+            "credits": 7450,
+            "bismor": 60,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 95,
+            "magnite": 0,
+            "umanite": 125
+        }
+    },
+    "55BB52A0ECFA7C43B37BBBE640114196": {
+        "class": "Driller",
+        "weapon": "Experimental Plasma Charger",
+        "name": "Overcharger",
+        "cost": {
+            "credits": 7050,
+            "bismor": 120,
+            "croppa": 95,
+            "enor": 60,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+    "97822071D586CE45ACD6489782B700FA": {
+        "class": "Driller",
+        "weapon": "Experimental Plasma Charger",
+        "name": "Energy Rerouting",
+        "cost": {
+            "credits": 7300,
+            "bismor": 130,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 100,
+            "magnite": 0,
+            "umanite": 65
+        }
+    },
+    "F1E6CC307C11DE4586B88B419E530ABF": {
+        "class": "Driller",
+        "weapon": "Experimental Plasma Charger",
+        "name": "Magnetic Cooling Unit",
+        "cost": {
+            "credits": 8900,
+            "bismor": 0,
+            "croppa": 95,
+            "enor": 0,
+            "jadiz": 80,
+            "magnite": 0,
+            "umanite": 125
+        }
+    },
+    "39E43E13CC0DAE4691DD51A11383E9E1": {
+        "class": "Driller",
+        "weapon": "Experimental Plasma Charger",
+        "name": "Heavy Hitter",
+        "cost": {
+            "credits": 8100,
+            "bismor": 140,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 60,
+            "umanite": 105
+        }
+    },
+    "165CD93E660B8147BCA2F86CDE5CF8F7": {
+        "class": "Driller",
+        "weapon": "Experimental Plasma Charger",
+        "name": "Persistent Plasma",
+        "cost": {
+            "credits": 8150,
+            "bismor": 0,
+            "croppa": 75,
+            "enor": 0,
+            "jadiz": 130,
+            "magnite": 95,
+            "umanite": 0
+        }
+    },
+    "CD4EEC38C029724E8317CCDC22D06057": {
+        "class": "Engineer",
+        "weapon": "'Warthog' Auto 210",
+        "name": "Light-Weight Magazines",
+        "cost": {
+            "credits": 7250,
+            "bismor": 0,
+            "croppa": 125,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 105,
+            "umanite": 60
+        }
+    },
+    "338DD238332A2E4EA5490208AAD7F502": {
+        "class": "Engineer",
+        "weapon": "'Warthog' Auto 210",
+        "name": "Stunner",
+        "cost": {
+            "credits": 7350,
+            "bismor": 100,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 135,
+            "magnite": 60,
+            "umanite": 0
+        }
+    },
+    "62D4C94C1367E8419691B677837DA4FB": {
+        "class": "Engineer",
+        "weapon": "'Warthog' Auto 210",
+        "name": "Mini Shells",
+        "cost": {
+            "credits": 7700,
+            "bismor": 0,
+            "croppa": 125,
+            "enor": 65,
+            "jadiz": 0,
+            "magnite": 90,
+            "umanite": 0
+        }
+    },
+    "70122BA2FBDABF4895DC09C90294E685": {
+        "class": "Engineer",
+        "weapon": "'Warthog' Auto 210",
+        "name": "Cycle Overload",
+        "cost": {
+            "credits": 8050,
+            "bismor": 125,
+            "croppa": 100,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 80
+        }
+    },
+    "07E9279956BF9C418EEA313E2DC59F8D": {
+        "class": "Engineer",
+        "weapon": "'Warthog' Auto 210",
+        "name": "Magnetic Pellet Alignment",
+        "cost": {
+            "credits": 7900,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 120,
+            "jadiz": 105,
+            "magnite": 0,
+            "umanite": 75
+        }
+    },
+    "CE660C4DD9980043A802A17A4569C0AC": {
+        "class": "Driller",
+        "weapon": "Cryo Cannon",
+        "name": "Improved Thermal Efficiency",
+        "cost": {
+            "credits": 8350,
+            "bismor": 0,
+            "croppa": 125,
+            "enor": 70,
+            "jadiz": 0,
+            "magnite": 110,
+            "umanite": 0
+        }
+    },
+    "6ADB23B3C8ED884086A88B8107C93CBE": {
+        "class": "Driller",
+        "weapon": "Cryo Cannon",
+        "name": "Perfectly Tuned Cooler",
+        "cost": {
+            "credits": 8750,
+            "bismor": 110,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 65,
+            "umanite": 130
+        }
+    },
+    "88F8EAB206EC7B46A31C8F034B44931A": {
+        "class": "Driller",
+        "weapon": "Cryo Cannon",
+        "name": "Flow Rate Expansion",
+        "cost": {
+            "credits": 8900,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 70,
+            "jadiz": 100,
+            "magnite": 125,
+            "umanite": 0
+        }
+    },
+    "7B11755997B6564E97B1032A828EB90F": {
+        "class": "Driller",
+        "weapon": "Cryo Cannon",
+        "name": "Ice Storm",
+        "cost": {
+            "credits": 7200,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 130,
+            "jadiz": 0,
+            "magnite": 105,
+            "umanite": 75
+        }
+    },
+    "D518CB371A32A0449B345E4F58D34C91": {
+        "class": "Driller",
+        "weapon": "Cryo Cannon",
+        "name": "Ice Spear",
+        "cost": {
+            "credits": 8950,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 60,
+            "jadiz": 130,
+            "magnite": 0,
+            "umanite": 110
+        }
+    },
+    "C1F16F970C9C1047AF836BF6CBFEBCAD": {
+        "class": "Driller",
+        "weapon": "Cryo Cannon",
+        "name": "Snowball",
+        "cost": {
+            "credits": 8400,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 90,
+            "magnite": 70,
+            "umanite": 130
+        }
+    },
+    "43CD8D27EAEAAA4A8E6DC43E0438A10C": {
+        "class": "Scout",
+        "weapon": "Zhukov NUK17",
+        "name": "Cryo Minelets",
+        "cost": {
+            "credits": 7300,
+            "bismor": 0,
+            "croppa": 65,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 135,
+            "umanite": 95
+        }
+    },
+    "24A286C31F45EA469A20102AF4D741D3": {
+        "class": "Scout",
+        "weapon": "Zhukov NUK17",
+        "name": "Custom Casings",
+        "cost": {
+            "credits": 7700,
+            "bismor": 95,
+            "croppa": 75,
+            "enor": 140,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+    "828B2BBC50EC424385EFD00EA6854597": {
+        "class": "Scout",
+        "weapon": "Zhukov NUK17",
+        "name": "Gas Recycling",
+        "cost": {
+            "credits": 7800,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 70,
+            "jadiz": 105,
+            "magnite": 125,
+            "umanite": 0
+        }
+    },
+    "FAF35071BA63B2429855FBC8A09BFFD0": {
+        "class": "Scout",
+        "weapon": "Zhukov NUK17",
+        "name": "Embedded Detonators",
+        "cost": {
+            "credits": 7550,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 135,
+            "magnite": 65,
+            "umanite": 90
+        }
+    },
+    "98A0452B235402459CFF5CC3B34CCC69": {
+        "class": "Scout",
+        "weapon": "Zhukov NUK17",
+        "name": "Minimal Magazines",
+        "cost": {
+            "credits": 8450,
+            "bismor": 130,
+            "croppa": 100,
+            "enor": 0,
+            "jadiz": 70,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+    "71588D43A7589A4ABE61A8DE2EB449BF": {
+        "class": "Driller",
+        "weapon": "CRSPR Flamethrower",
+        "name": "Compact Feed Valves",
+        "cost": {
+            "credits": 7350,
+            "bismor": 70,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 90,
+            "magnite": 0,
+            "umanite": 130
+        }
+    },
+    "6431A8DDEAA6894B90C57BAC7552A5FF": {
+        "class": "Driller",
+        "weapon": "CRSPR Flamethrower",
+        "name": "Face Melter",
+        "cost": {
+            "credits": 7000,
+            "bismor": 0,
+            "croppa": 130,
+            "enor": 70,
+            "jadiz": 0,
+            "magnite": 90,
+            "umanite": 0
+        }
+    },
+    "C5057A9608CF5E4BA4AAB32AD613BA3E": {
+        "class": "Driller",
+        "weapon": "CRSPR Flamethrower",
+        "name": "Lighter Tanks",
+        "cost": {
+            "credits": 7500,
+            "bismor": 125,
+            "croppa": 75,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 90
+        }
+    },
+    "19E85D1C3585B349B151779CBD7303D9": {
+        "class": "Driller",
+        "weapon": "CRSPR Flamethrower",
+        "name": "Fuel Stream Diffuser",
+        "cost": {
+            "credits": 7100,
+            "bismor": 100,
+            "croppa": 0,
+            "enor": 80,
+            "jadiz": 125,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+    "F28C3EE38A960D48965E9F69F56B3F19": {
+        "class": "Driller",
+        "weapon": "CRSPR Flamethrower",
+        "name": "Sticky Fuel",
+        "cost": {
+            "credits": 8800,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 110,
+            "jadiz": 140,
+            "magnite": 75,
+            "umanite": 0
+        }
+    },
+    "415F1D83A77E7A448DBF60383103FD6C": {
+        "class": "Driller",
+        "weapon": "CRSPR Flamethrower",
+        "name": "Sticky Additive",
+        "cost": {
+            "credits": 8250,
+            "bismor": 80,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 130,
+            "magnite": 100,
+            "umanite": 0
+        }
+    },
+    "2E9FBFB43B7B554FB3728780F1334824": {
+        "class": "Gunner",
+        "weapon": "'Lead Storm' Powered Minigun",
+        "name": "Compact Feed Mechanism",
+        "cost": {
+            "credits": 7450,
+            "bismor": 70,
+            "croppa": 95,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 130,
+            "umanite": 0
+        }
+    },
+    "01D4653903832F498C50F7719D58E89B": {
+        "class": "Gunner",
+        "weapon": "'Lead Storm' Powered Minigun",
+        "name": "Thinned Drum Walls",
+        "cost": {
+            "credits": 7650,
+            "bismor": 0,
+            "croppa": 75,
+            "enor": 125,
+            "jadiz": 95,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+    "7CD10E2C55583041B577141C854BEE62": {
+        "class": "Gunner",
+        "weapon": "'Lead Storm' Powered Minigun",
+        "name": "Lead Storm",
+        "cost": {
+            "credits": 8800,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 130,
+            "jadiz": 100,
+            "magnite": 65,
+            "umanite": 0
+        }
+    },
+    "FBB1014758606A41888E378F69E3CD61": {
+        "class": "Gunner",
+        "weapon": "'Lead Storm' Powered Minigun",
+        "name": "Exhaust Vectoring",
+        "cost": {
+            "credits": 7400,
+            "bismor": 140,
+            "croppa": 95,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 65,
+            "umanite": 0
+        }
+    },
+    "B55D6170EEA5D743AC4B28293C0C4673": {
+        "class": "Gunner",
+        "weapon": "'Lead Storm' Powered Minigun",
+        "name": "A Little More Oomph!",
+        "cost": {
+            "credits": 8700,
+            "bismor": 120,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 95,
+            "umanite": 75
+        }
+    },
+    "63156673F2174F449F598F8729AC0C65": {
+        "class": "Gunner",
+        "weapon": "'Lead Storm' Powered Minigun",
+        "name": "Burning Hell",
+        "cost": {
+            "credits": 8700,
+            "bismor": 0,
+            "croppa": 110,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 140,
+            "umanite": 65
+        }
+    },
+    "ED4036806A69E848BC72DDE3CDEAC456": {
+        "class": "Gunner",
+        "weapon": "'Lead Storm' Powered Minigun",
+        "name": "Bullet Hell",
+        "cost": {
+            "credits": 7600,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 105,
+            "jadiz": 0,
+            "magnite": 140,
+            "umanite": 75
+        }
+    },
+    "A97694E1A9B7484EB66E14DBF830DB6B": {
+        "class": "Engineer",
+        "weapon": "Deepcore 40mm PGL",
+        "name": "Pack Rat",
+        "cost": {
+            "credits": 7950,
+            "bismor": 80,
+            "croppa": 0,
+            "enor": 105,
+            "jadiz": 0,
+            "magnite": 120,
+            "umanite": 0
+        }
+    },
+    "EE5713FA91A0E245A1C0BFCE15212074": {
+        "class": "Engineer",
+        "weapon": "Deepcore 40mm PGL",
+        "name": "Compact Rounds",
+        "cost": {
+            "credits": 7900,
+            "bismor": 120,
+            "croppa": 0,
+            "enor": 100,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 70
+        }
+    },
+    "87D2434388D3FC45884E351DCBE70F7C": {
+        "class": "Engineer",
+        "weapon": "Deepcore 40mm PGL",
+        "name": "Fat Boy",
+        "cost": {
+            "credits": 8300,
+            "bismor": 120,
+            "croppa": 0,
+            "enor": 70,
+            "jadiz": 0,
+            "magnite": 105,
+            "umanite": 0
+        }
+    },
+    "B912059A3F86E44BA2985450D136CCB5": {
+        "class": "Engineer",
+        "weapon": "Deepcore 40mm PGL",
+        "name": "Clean Sweep",
+        "cost": {
+            "credits": 8100,
+            "bismor": 105,
+            "croppa": 0,
+            "enor": 70,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 135
+        }
+    },
+    "DB7EC788B46FCE4C9800A25010A0E8EA": {
+        "class": "Engineer",
+        "weapon": "Deepcore 40mm PGL",
+        "name": "RJ250 Compound",
+        "cost": {
+            "credits": 8800,
+            "bismor": 65,
+            "croppa": 0,
+            "enor": 110,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 120
+        }
+    },
+    "BC4CD684621BF6449607373A534A574F": {
+        "class": "Engineer",
+        "weapon": "Deepcore 40mm PGL",
+        "name": "Hyper Propellant",
+        "cost": {
+            "credits": 8950,
+            "bismor": 0,
+            "croppa": 90,
+            "enor": 0,
+            "jadiz": 70,
+            "magnite": 130,
+            "umanite": 0
+        }
+    },
+    "96940C7CDCEFA84084DD4D60D2E81B2D": {
+        "class": "Engineer",
+        "weapon": "Breach Cutter",
+        "name": "Light-Weight Cases",
+        "cost": {
+            "credits": 8700,
+            "bismor": 130,
+            "croppa": 100,
+            "enor": 0,
+            "jadiz": 80,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+    "3D7C9C85F6D3A549A2D6EDB09918314B": {
+        "class": "Engineer",
+        "weapon": "Breach Cutter",
+        "name": "Stronger Plasma Current",
+        "cost": {
+            "credits": 8650,
+            "bismor": 0,
+            "croppa": 100,
+            "enor": 0,
+            "jadiz": 140,
+            "magnite": 75,
+            "umanite": 0
+        }
+    },
+    "7FA184CB9D21874D82BF9DDAFC7C91D7": {
+        "class": "Engineer",
+        "weapon": "Breach Cutter",
+        "name": "High Voltage Crossover",
+        "cost": {
+            "credits": 8250,
+            "bismor": 120,
+            "croppa": 0,
+            "enor": 80,
+            "jadiz": 0,
+            "magnite": 100,
+            "umanite": 0
+        }
+    },
+    "8ED912F8267B844482EEDA86604451A5": {
+        "class": "Engineer",
+        "weapon": "Breach Cutter",
+        "name": "Inferno",
+        "cost": {
+            "credits": 7550,
+            "bismor": 0,
+            "croppa": 70,
+            "enor": 0,
+            "jadiz": 90,
+            "magnite": 135,
+            "umanite": 0
+        }
+    },
+    "744251ED25D4484AA38DFBDBF43BC5B9": {
+        "class": "Engineer",
+        "weapon": "Breach Cutter",
+        "name": "Return to Sender",
+        "cost": {
+            "credits": 7950,
+            "bismor": 140,
+            "croppa": 0,
+            "enor": 100,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 80
+        }
+    },
+    "05DB2FA3B969E04F8644F5BE6C204020": {
+        "class": "Engineer",
+        "weapon": "Breach Cutter",
+        "name": "Roll Control",
+        "cost": {
+            "credits": 8150,
+            "bismor": 0,
+            "croppa": 95,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 80,
+            "umanite": 135
+        }
+    },
+    "340AFBC6C306044281013181E0026E1B": {
+        "class": "Engineer",
+        "weapon": "Breach Cutter",
+        "name": "Spinning Death",
+        "cost": {
+            "credits": 7300,
+            "bismor": 75,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 95,
+            "umanite": 120
+        }
+    },
+    "A4AB7C627AF7FE4FA235E3AAC398ED1F": {
+        "class": "Driller",
+        "weapon": "Subata 120",
+        "name": "Chain Hit",
+        "cost": {
+            "credits": 7300,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 80,
+            "jadiz": 110,
+            "magnite": 120,
+            "umanite": 0
+        }
+    },
+    "F13E20C4E74976438E85C237AE071830": {
+        "class": "Driller",
+        "weapon": "Subata 120",
+        "name": "Oversized Magazine",
+        "cost": {
+            "credits": 9000,
+            "bismor": 0,
+            "croppa": 70,
+            "enor": 0,
+            "jadiz": 110,
+            "magnite": 0,
+            "umanite": 130
+        }
+    },
+    "2949A3BE68EA2A4197D532AF80549101": {
+        "class": "Driller",
+        "weapon": "Subata 120",
+        "name": "Explosive Reload",
+        "cost": {
+            "credits": 8100,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 95,
+            "jadiz": 0,
+            "magnite": 65,
+            "umanite": 125
+        }
+    },
+    "28A8E817E50A7346963E418BA08DFE18": {
+        "class": "Driller",
+        "weapon": "Subata 120",
+        "name": "Automatic Fire",
+        "cost": {
+            "credits": 7400,
+            "bismor": 95,
+            "croppa": 65,
+            "enor": 120,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+    "D57B542FBC793542B6BB5617C1A67229": {
+        "class": "Driller",
+        "weapon": "Subata 120",
+        "name": "Homebrew Powder",
+        "cost": {
+            "credits": 8100,
+            "bismor": 95,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 140,
+            "magnite": 0,
+            "umanite": 65
+        }
+    },
+    "587488BA77B28D4DA177400D995737A7": {
+        "class": "Driller",
+        "weapon": "Subata 120",
+        "name": "Tranquilizer Rounds",
+        "cost": {
+            "credits": 7150,
+            "bismor": 0,
+            "croppa": 95,
+            "enor": 0,
+            "jadiz": 135,
+            "magnite": 0,
+            "umanite": 75
+        }
+    },
+    "A937DC3938DEE8418CD0641CCE19B46A": {
+        "class": "Gunner",
+        "weapon": "'Bulldog' Heavy Revolver",
+        "name": "Six Shooter",
+        "cost": {
+            "credits": 7750,
+            "bismor": 120,
+            "croppa": 60,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 100,
+            "umanite": 0
+        }
+    },
+    "D53F94FBC05E0448B57BC9DF6846267B": {
+        "class": "Gunner",
+        "weapon": "'Bulldog' Heavy Revolver",
+        "name": "Elephant Rounds",
+        "cost": {
+            "credits": 7300,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 140,
+            "jadiz": 0,
+            "magnite": 90,
+            "umanite": 65
+        }
+    },
+    "5885A33B15AE844591A66B65A2E5494E": {
+        "class": "Gunner",
+        "weapon": "'Bulldog' Heavy Revolver",
+        "name": "Chain Hit",
+        "cost": {
+            "credits": 7300,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 80,
+            "jadiz": 110,
+            "magnite": 120,
+            "umanite": 0
+        }
+    },
+    "DB02B4E77D43BF44A4749982C0879B77": {
+        "class": "Gunner",
+        "weapon": "'Bulldog' Heavy Revolver",
+        "name": "Magic Bullets",
+        "cost": {
+            "credits": 8750,
+            "bismor": 0,
+            "croppa": 105,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 130,
+            "umanite": 75
+        }
+    },
+    "CD6993F938E27C49AC69293BF942A8F0": {
+        "class": "Gunner",
+        "weapon": "'Bulldog' Heavy Revolver",
+        "name": "Homebrew Powder",
+        "cost": {
+            "credits": 8100,
+            "bismor": 95,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 140,
+            "magnite": 0,
+            "umanite": 65
+        }
+    },
+    "D1306CBC8421B248A4B95B332DF3E056": {
+        "class": "Gunner",
+        "weapon": "'Bulldog' Heavy Revolver",
+        "name": "Volatile Bullets",
+        "cost": {
+            "credits": 7350,
+            "bismor": 0,
+            "croppa": 130,
+            "enor": 0,
+            "jadiz": 110,
+            "magnite": 60,
+            "umanite": 0
+        }
+    },
+    "EF0CAC2AEF57BD41A72155B4DA395D47": {
+        "class": "Scout",
+        "weapon": "Jury-Rigged Boomstick",
+        "name": "Shaped Shells",
+        "cost": {
+            "credits": 7700,
+            "bismor": 95,
+            "croppa": 0,
+            "enor": 70,
+            "jadiz": 135,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+    "0B1A2EC60168C54E9E47CA764C3B70BD": {
+        "class": "Scout",
+        "weapon": "Jury-Rigged Boomstick",
+        "name": "Jumbo Shells",
+        "cost": {
+            "credits": 8800,
+            "bismor": 65,
+            "croppa": 0,
+            "enor": 105,
+            "jadiz": 125,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+    "3F68CB7C2FAB2843B1446D133BD92C1D": {
+        "class": "Scout",
+        "weapon": "Jury-Rigged Boomstick",
+        "name": "Stuffed Shells",
+        "cost": {
+            "credits": 7850,
+            "bismor": 100,
+            "croppa": 0,
+            "enor": 135,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 80
+        }
+    },
+    "5F090BB3EFC96F4297F1BFC3F152C663": {
+        "class": "Scout",
+        "weapon": "Jury-Rigged Boomstick",
+        "name": "Double Barrel",
+        "cost": {
+            "credits": 7950,
+            "bismor": 0,
+            "croppa": 100,
+            "enor": 75,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 125
+        }
+    },
+    "FA40EE4A1F8CB04FBFAF916469E4B167": {
+        "class": "Scout",
+        "weapon": "Jury-Rigged Boomstick",
+        "name": "Compact Shells",
+        "cost": {
+            "credits": 8550,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 100,
+            "magnite": 65,
+            "umanite": 120
+        }
+    },
+    "E6DAF7D6065004439EF966D6FDBD69A6": {
+        "class": "Scout",
+        "weapon": "Jury-Rigged Boomstick",
+        "name": "Special Powder",
+        "cost": {
+            "credits": 7050,
+            "bismor": 95,
+            "croppa": 125,
+            "enor": 65,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+    "05B157A075E0734BB471EF8DAE692865": {
+        "class": "Engineer",
+        "weapon": "'Stubby' Volatic SMG",
+        "name": "Light-Weight Rounds",
+        "cost": {
+            "credits": 8700,
+            "bismor": 90,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 65,
+            "magnite": 0,
+            "umanite": 135
+        }
+    },
+    "CE9490445B036B49B89DB2BC8D18FD12": {
+        "class": "Engineer",
+        "weapon": "'Stubby' Volatic SMG",
+        "name": "Well Oiled Machine",
+        "cost": {
+            "credits": 8400,
+            "bismor": 0,
+            "croppa": 65,
+            "enor": 0,
+            "jadiz": 95,
+            "magnite": 140,
+            "umanite": 0
+        }
+    },
+    "81B842310E01B847BF99774DBC3DC0DD": {
+        "class": "Engineer",
+        "weapon": "'Stubby' Volatic SMG",
+        "name": "EM Refire Booster",
+        "cost": {
+            "credits": 8300,
+            "bismor": 60,
+            "croppa": 0,
+            "enor": 90,
+            "jadiz": 135,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+    "13CF1C4A6992924A9AFF5CEAF05B7106": {
+        "class": "Engineer",
+        "weapon": "'Stubby' Volatic SMG",
+        "name": "Super-Slim Rounds",
+        "cost": {
+            "credits": 8550,
+            "bismor": 90,
+            "croppa": 130,
+            "enor": 75,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+    "0C1BAA64B03CB94EBB77B7B55E7C6C87": {
+        "class": "Engineer",
+        "weapon": "'Stubby' Volatic SMG",
+        "name": "Turret EM Discharge",
+        "cost": {
+            "credits": 8450,
+            "bismor": 80,
+            "croppa": 0,
+            "enor": 105,
+            "jadiz": 125,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+    "3C42DBEA3021EE44AF6D944A91314D75": {
+        "class": "Engineer",
+        "weapon": "'Stubby' Volatic SMG",
+        "name": "Turret Arc",
+        "cost": {
+            "credits": 8350,
+            "bismor": 100,
+            "croppa": 135,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 60
+        }
+    }
+}

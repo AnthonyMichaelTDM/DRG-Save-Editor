@@ -1,0 +1,78 @@
+To edit DRG saves you will need:
+	-a hex editor (such as HxD, freeware)
+	-your save file (DRG Root Dir\FSD\Saved\SaveGames\<steam_ID>_Player.sav)
+	-this document
+	
+XP:
+	Search for "XP" or the hex sequence "58 50", there are six instances in the save file. The first four are for the different classes, the other two I don't know what they do. XP is encoded as a 4-byte, little endian, signed integer representing the total amount of XP, with character level being calculated at run-time. There are much more than 4 bytes after the "XP" string, and the 4 we're interested in are after the text "IntProperty" and are immediately to the left of the byte "1F" in a string of otherwise null ("00") bytes.
+	As an example, in the following hex sequence, the relevant bytes are "AC CB 01 00" and are indicated by "|" characters above them.
+	                                  || || || ||
+		00 04 00 00 00 00 00 00 00 00 AC CB 01 00 1F 00 00 00
+	
+	This pattern holds for all four classes.  For example, if a character has 40,000XP, they are rank 7 with 7,000XP towards rank 8. 
+	
+	-Engineer: 1st instance
+	-Scout: 2nd instance
+	-Driller: 3rd instance
+	-Gunner: 4th instance
+
+Here is a handy XP table (courtesy of the DRG wiki)
+Level 	To Next Level 	Total Experience Required
+1 		 3,000 			    N/A
+2 		 4,000 			  3,000
+3 		 5,000 			  7,000
+4 		 6,000 			 12,000
+5 		 7,000 			 18,000
+6 		 8,000 			 25,000
+7 		 9,000 			 33,000
+8 		10,000 			 42,000
+9 		11,000 			 52,000
+10 		12,000 			 63,000
+11 		13,000 			 75,000
+12 		14,000 			 88,000
+13 		15,000 			102,000
+14 		15,500 			117,000
+15 		16,000 			132,500
+16 		16,500 			148,500
+17 		17,000 			165,000
+18 		17,500 			182,000
+19 		18,000 			199,500
+20 		18,500 			217,500
+21 		19,000 			236,000
+22 		19,500 			255,000
+23 		20,000 			274,500
+24 		20,500 			294,500
+25 		   N/A 			315,000
+
+Credits:
+	Search for "credits" or the hex sequence "43 72 65 64 69 74 73" and look for a sequence of mostly null ("00") bytes after the text string "IntProperty" that immediately follows it. Similar to how XP values are stored, credits are encoded as a 4-byte, little endian, signed integer. With the relevant four bytes immediately to the left of the byte "08". As an example, in the following hex sequence, the relevant bytes are "10 04 00 00" and are indicated by "|" characters above them.
+	
+									  || || || || 
+		00 04 00 00 00 00 00 00 00 00 10 04 00 00 08 00 00 00
+
+Perk Points:
+	Search for "perkpoints" or the hex sequence "50 65 72 6B 50 6F 69 6E 74 73" and look for the text string "IntProperty" that immediately follows it. Perk points are encoded as a 4-byte, little endian, signed integer. With the relevant four bytes immediately to the left of the byte "19". As an example, in the following hex sequence, the relevant bytes are "04 00 00 00" and are indicated by "|" characters above them.
+	
+									  || || || ||
+		00 04 00 00 00 00 00 00 00 00 04 00 00 00 19 00 00 00
+	
+Resources:
+	Search for "OwnedResources" or the hex sequence "6E 65 64 52 65 73 6F" and look for the text string "FloatProperty" that immediately follows it. While the six mining resources can be purchased (at exorbitant prices) from the mineral terminal, the brewing resources, error cubes, and blank matrix cores cannot be purchased. Unlike XP and credits, resources are stored as 4-byte, little endian, single-precision floating point numbers. The relevant bytes are evenly spaced between each other at intervals of 20 bytes. The first resource (yeast cone) is 27 bytes after the "y" in "FloatProperty". In other words, skip 26 bytes after the "y" and the next four are the bytes for yeast cones. Skipping 16 bytes after the four for yeast cones brings you to the next set of four bytes that encode how many starch nuts you have. Continue skipping 16 bytes to reach each resource in turn. The resources, in order from left to right are:
+	- yeast cone 0
+	- starch nut 20
+	- barely bulb 40 
+	- bismor 60 
+	- enor pearl 80
+	- malt star 100
+	- umanite 120
+	- jadiz 140
+	- croppa 160
+	- magnite 180
+	- error cube 200
+	- blank cores 220
+
+	As an example, I have provided the full 254-byte sequence that immediately follows the "y" in "FloatProperty" below, with annotations to show which resource is where. The specific 4-byte sequences are indicated with "|" characters. (You may wish to turn off word wrapping to better visualize the data)
+
+                                                    yeast cone                              starch nut                              barley bulb                             bismor                                  enor pearl                              malt star                               umanite                                 jadiz                                   croppa                                  magnite                                 error cube                              blank cores
+													||||||||                                ||||||||                                ||||||||                                ||||||||                                ||||||||                                ||||||||                                ||||||||                                ||||||||                                ||||||||                                ||||||||                                ||||||||                                ||||||||
+0000000000000c000000078548b93232c04085f892e084a7410000d8ff4572312204e287bc41815540a0cf881280003c004622daa757ad7a8049891b17edcc2fe0980010ff45af0dc4fe8361bb48b32c92cc97e21de70040df44488d05146f5f754ba3d4610d08c0603e0000054541ea550c1d46c54bbe2e9ca5a7accb0600b8ff455f2bcf8347760a42a23b6edc07c0941d0080a44422bc4f7d07d13e43bfca81bd9c14b1af00c009458aa7fb43293a0b49b8be42ffe068a44c00900f45aaded8766c227d408032afd18d63561e00c005455828652c9a5de845a9e2e1b8b463c51600004040a10cb2853871fb499ac854a1cde2202c0000803f05000000

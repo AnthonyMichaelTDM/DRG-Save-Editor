@@ -1,0 +1,7 @@
+{
+    "app_name": "DRG Save Editor",
+    "author": "Rob",
+    "main_module": "src/main/python/main.py",
+    "version": "0.0.0",
+	"hidden_imports": ["PySide2.QtXml"]
+}
