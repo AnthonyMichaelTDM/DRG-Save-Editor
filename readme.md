@@ -10,4 +10,5 @@ Simply extract the zip file and start the editor using the "start editor.cmd" ba
 
 ## Usage
 The editor should be pretty self-explanatory, see the screenshot below.
+
 ![main_screen](sshot.png)
