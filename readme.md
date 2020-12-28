@@ -17,6 +17,16 @@ The editor should be pretty self-explanatory, see the screenshot below.
 
 ## To-Do
 - Auto-backup of save file on opening
-- Add cosmetic support
+- Cosmetic overclock support
+- GUI polish
+- Better readme
+
+## Would be nice, but ehh...
+- Promotion support
+- Assignment support
+- Character loadout support
+- Perk support
+- Weapon modification support
+- Milestone support
 - Bells
 - Whistles
