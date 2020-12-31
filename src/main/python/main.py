@@ -12,7 +12,6 @@ import re
 from pprint import pprint as pp
 import json
 import winreg
-import shutil
 
 class TextEditFocusChecking(QLineEdit):
     def __init__(self, *args, **kwargs):
@@ -116,14 +115,21 @@ def update_xp(dwarf, total_xp=0):
 @Slot()
 def open_file():
     global file_name
-    file_name = QFileDialog.getOpenFileName(None, 'Open Save File', steam_path, 'Player Save Files (*.sav)')[0]
+    file_name = QFileDialog.getOpenFileName(None, 'Open Save File...', steam_path, 'Player Save Files (*.sav)')[0]
     # print('about to open file')
-    shutil.copy(file_name, f'{file_name}.old')
+
     widget.setWindowTitle(f'DRG Save Editor - {file_name}')
     with open(file_name, 'rb') as f:
         save_data = f.read()
+
+    with open(f'{file_name}.old') as backup:
+        backup.write(save_data)
+
+    
     # print(f'opened: {file_name}')
 
+    widget.actionSave_changes.setEnabled(True)
+    widget.actionReset_to_original_values.setEnabled(True)
     widget.combo_oc_filter.setEnabled(True)
     init_values(save_data)
 
@@ -443,12 +449,15 @@ def save_changes():
     save_data = save_data[:perks_pos] + perks_bytes + save_data[perks_pos+4:]
 
     # write XP
-    xp_marker = b'XP\x00\x0c\x00\x00\x00IntP'
-    offset = 28
-    eng_xp_pos = save_data.find(xp_marker) + offset
-    scout_xp_pos = save_data.find(xp_marker, eng_xp_pos+1) + offset
-    drill_xp_pos = save_data.find(xp_marker, scout_xp_pos+1) + offset
-    gun_xp_pos = save_data.find(xp_marker, drill_xp_pos+1) + offset
+    en_marker = b'\x85\xEF\x62\x6C\x65\xF1\x02\x4A\x8D\xFE\xB5\xD0\xF3\x90\x9D\x2E\x03\x00\x00\x00\x58\x50'
+    sc_marker = b'\x30\xD8\xEA\x17\xD8\xFB\xBA\x4C\x95\x30\x6D\xE9\x65\x5C\x2F\x8C\x03\x00\x00\x00\x58\x50'
+    dr_marker = b'\x9E\xDD\x56\xF1\xEE\xBC\xC5\x48\x8D\x5B\x5E\x5B\x80\xB6\x2D\xB4\x03\x00\x00\x00\x58\x50'
+    gu_marker = b'\xAE\x56\xE1\x80\xFE\xC0\xC4\x4D\x96\xFA\x29\xC2\x83\x66\xB9\x7B\x03\x00\x00\x00\x58\x50'
+    offset = 48
+    eng_xp_pos = save_data.find(en_marker) + offset
+    scout_xp_pos = save_data.find(sc_marker) + offset
+    drill_xp_pos = save_data.find(dr_marker) + offset
+    gun_xp_pos = save_data.find(gu_marker) + offset
 
     eng_bytes = struct.pack('i', new_values['xp']['engineer'])
     scout_bytes = struct.pack('i', new_values['xp']['scout'])

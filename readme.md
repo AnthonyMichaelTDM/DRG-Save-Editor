@@ -11,11 +11,19 @@ Download the "DRG Save Editor.zip" file and extract the zip file and start the e
 ## Usage
 
 ### ALWAYS BACKUP YOUR SAVE FILE!
-The editor will make a backup of the save file you open in the same folder as the save file with the extension of `.old`.
+The editor will make a backup of the save file you open in the same folder as the save file with the extension of `.old`. The editor makes this backup at the moment you open the save file.
 
 The editor should be pretty self-explanatory, see the screenshot below.
 
 ![main_screen](sshot.png)
+## Changelog
+- v1.2
+    - Added auto-backup of save file upon opening the file
+    - Fixed bug with fetching xp values where the dwarves would have their xp values swapped
+- v1.1
+    - Fixed a bug with the overclock tree and overclock inventory wouldn't update properly when opening another save file after opening the first
+- v1.0
+    - Initial release
 
 ## To-Do
 - Cosmetic overclock support
