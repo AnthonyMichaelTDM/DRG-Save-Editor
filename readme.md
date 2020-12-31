@@ -37,5 +37,4 @@ The editor should be pretty self-explanatory, see the screenshot below.
 - Perk support
 - Weapon modification support
 - Milestone support
-- Bells
-- Whistles
+- Bells & Whistles
