@@ -122,7 +122,7 @@ def open_file():
     with open(file_name, 'rb') as f:
         save_data = f.read()
 
-    with open(f'{file_name}.old') as backup:
+    with open(f'{file_name}.old', 'wb') as backup:
         backup.write(save_data)
 
     
