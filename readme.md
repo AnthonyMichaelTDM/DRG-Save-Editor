@@ -11,12 +11,13 @@ Download the "DRG Save Editor.zip" file and extract the zip file and start the e
 ## Usage
 
 ### ALWAYS BACKUP YOUR SAVE FILE!
+The editor will make a backup of the save file you open in the same folder as the save file with the extension of `.old`.
+
 The editor should be pretty self-explanatory, see the screenshot below.
 
 ![main_screen](sshot.png)
 
 ## To-Do
-- Auto-backup of save file on opening
 - Cosmetic overclock support
 - GUI polish
 - Better readme

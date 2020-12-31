@@ -11,6 +11,8 @@ import struct
 import re
 from pprint import pprint as pp
 import json
+import winreg
+import shutil
 
 class TextEditFocusChecking(QLineEdit):
     def __init__(self, *args, **kwargs):
@@ -114,10 +116,13 @@ def update_xp(dwarf, total_xp=0):
 @Slot()
 def open_file():
     global file_name
-    file_name = QFileDialog.getOpenFileName(None, 'Open Save File', '.', 'Player Save Files (*.sav)')[0]
+    file_name = QFileDialog.getOpenFileName(None, 'Open Save File', steam_path, 'Player Save Files (*.sav)')[0]
+    # print('about to open file')
+    shutil.copy(file_name, f'{file_name}.old')
     widget.setWindowTitle(f'DRG Save Editor - {file_name}')
     with open(file_name, 'rb') as f:
         save_data = f.read()
+    # print(f'opened: {file_name}')
 
     widget.combo_oc_filter.setEnabled(True)
     init_values(save_data)
@@ -126,8 +131,11 @@ def open_file():
     global unacquired_ocs
     global unforged_ocs
 
+    # print('before ocs')
     forged_ocs, unacquired_ocs, unforged_ocs = get_overclocks(save_data, guid_dict)
+    # print('after ocs')
 
+    widget.overclock_tree.clear()
     overclock_tree = widget.overclock_tree.invisibleRootItem()
     build_oc_tree(overclock_tree, guid_dict)
     widget.overclock_tree.sortItems(0, PySide2.QtCore.Qt.AscendingOrder)
@@ -144,6 +152,7 @@ def open_file():
 
 
 def get_resources(save_bytes):
+    # print('getting resources')
     marker = b'OwnedResources'
     start_offset = 101
     offset = 20
@@ -175,13 +184,18 @@ def get_resources(save_bytes):
 
 
 def get_xp(save_bytes):
-    marker = b'XP\x00\x0c\x00\x00\x00IntP'
-    start_offset = 0
-    offset = 28
-    eng_xp_pos = save_bytes.find(marker) + offset
-    scout_xp_pos = save_bytes.find(marker, eng_xp_pos+1) + offset
-    drill_xp_pos = save_bytes.find(marker, scout_xp_pos+1) + offset
-    gun_xp_pos = save_bytes.find(marker, drill_xp_pos+1) + offset
+    # print('getting xp')
+    en_marker = b'\x85\xEF\x62\x6C\x65\xF1\x02\x4A\x8D\xFE\xB5\xD0\xF3\x90\x9D\x2E\x03\x00\x00\x00\x58\x50'
+    sc_marker = b'\x30\xD8\xEA\x17\xD8\xFB\xBA\x4C\x95\x30\x6D\xE9\x65\x5C\x2F\x8C\x03\x00\x00\x00\x58\x50'
+    dr_marker = b'\x9E\xDD\x56\xF1\xEE\xBC\xC5\x48\x8D\x5B\x5E\x5B\x80\xB6\x2D\xB4\x03\x00\x00\x00\x58\x50'
+    gu_marker = b'\xAE\x56\xE1\x80\xFE\xC0\xC4\x4D\x96\xFA\x29\xC2\x83\x66\xB9\x7B\x03\x00\x00\x00\x58\x50'
+
+    # start_offset = 0
+    offset = 48
+    eng_xp_pos = save_bytes.find(en_marker) + offset
+    scout_xp_pos = save_bytes.find(sc_marker) + offset
+    drill_xp_pos = save_bytes.find(dr_marker) + offset
+    gun_xp_pos = save_bytes.find(gu_marker) + offset
 
     eng_xp = struct.unpack('i', save_bytes[eng_xp_pos:eng_xp_pos+4])[0]
     scout_xp = struct.unpack('i', save_bytes[scout_xp_pos:scout_xp_pos+4])[0]
@@ -283,7 +297,11 @@ def get_overclocks(save_bytes, guid_source):
 
     # print(f'pos: {pos}, end_pos: {end_pos}')
     # print(f'owned_pos: {owned}, diff: {owned-pos}')
-    unforged = True if oc_data.find(b'Owned') else False
+    # unforged = True if oc_data.find(b'Owned') else False
+    if oc_data.find(b'Owned') > 0:
+        unforged = True
+    else:
+        unforged = False
     # print(unforged) # bool
     num_forged = struct.unpack('i', save_bytes[pos+63:pos+67])[0]
     forged = dict()
@@ -304,8 +322,10 @@ def get_overclocks(save_bytes, guid_source):
             # print(f'Error: {e}')
             pass
 
+    # print('after forged extraction')
     if unforged:
         unforged = dict()
+        # print('in unforged loop')
         num_pos = save_bytes.find(b'Owned', pos) + 62
         num_unforged = struct.unpack('i', save_bytes[num_pos:num_pos+4])[0]
         unforged_pos = num_pos + 77
@@ -317,7 +337,11 @@ def get_overclocks(save_bytes, guid_source):
                 unforged[uuid]['status'] = 'Unforged'
             except KeyError:
                 unforged.update({uuid: "Cosmetic"})
+    else:
+        unforged = dict()
 
+    # print('after unforged extraction')
+    # print(f'unforged: {unforged}')
     # forged OCs, unacquired OCs, unforged OCs
     return (forged, guids, unforged)
 
@@ -464,42 +488,50 @@ def set_all_25():
 
 @Slot()
 def reset_values():
+    # print('reset values')
     widget.bismor_text.setText(str(stats['minerals']['bismor']))
     widget.enor_text.setText(str(stats['minerals']['enor']))
     widget.jadiz_text.setText(str(stats['minerals']['jadiz']))
     widget.croppa_text.setText(str(stats['minerals']['croppa']))
     widget.magnite_text.setText(str(stats['minerals']['magnite']))
     widget.umanite_text.setText(str(stats['minerals']['umanite']))
+    # print('after minerals')
 
     widget.yeast_text.setText(str(stats['brewing']['yeast']))
     widget.starch_text.setText(str(stats['brewing']['starch']))
     widget.malt_text.setText(str(stats['brewing']['malt']))
     widget.barley_text.setText(str(stats['brewing']['barley']))
+    # print('after brewing')
 
     widget.error_text.setText(str(stats['misc']['error']))
     widget.core_text.setText(str(stats['misc']['cores']))
     widget.credits_text.setText(str(stats['misc']['credits']))
     widget.perk_text.setText(str(stats['misc']['perks']))
+    # print('after misc')
 
     widget.driller_xp.setText(str(stats['xp']['driller']))
     d_xp = xp_total_to_level(stats['xp']['driller'])
     widget.dr_lvl_text.setText(str(d_xp[0]))
     widget.driller_xp_2.setText(str(d_xp[1]))
+    # print('after driller')
 
     widget.engineer_xp.setText(str(stats['xp']['engineer']))
     e_xp = xp_total_to_level(stats['xp']['engineer'])
     widget.en_lvl_text.setText(str(e_xp[0]))
     widget.engineer_xp_2.setText(str(e_xp[1]))
+    # print('after engineer')
 
     widget.gunner_xp.setText(str(stats['xp']['gunner']))
     g_xp = xp_total_to_level(stats['xp']['gunner'])
     widget.gu_lvl_text.setText(str(g_xp[0]))
     widget.gunner_xp_2.setText(str(g_xp[1]))
+    # print('after gunner')
 
     widget.scout_xp.setText(str(stats['xp']['scout']))
     s_xp = xp_total_to_level(stats['xp']['scout'])
     widget.sc_lvl_text.setText(str(s_xp[0]))
     widget.scout_xp_2.setText(str(s_xp[1]))
+    # print('after scout')
 
 
 @Slot()
@@ -582,7 +614,7 @@ def add_resources(res_dict):
 
 def init_values(save_data):
     global stats
-
+    # print('init values')
     stats['xp'] = get_xp(save_data)
     stats['misc'] = dict()
     stats['misc']['credits'] = get_credits(save_data)
@@ -603,6 +635,8 @@ def init_values(save_data):
     stats['brewing']['barley'] = resources['Barley Bulb']
     stats['brewing']['malt'] = resources['Malt Star']
 
+    # print('printing stats')
+    # pp(stats)
 
     reset_values()
 
@@ -692,12 +726,9 @@ stats = dict()
 file_name = ''
 
 if __name__ == '__main__':
-    # Some code to obtain the form file name, ui_file_name
     print(os.getcwd())
-    # os.chdir(os.path.dirname(__file__))
     ui_file_name = 'editor.ui'
     appctext = ApplicationContext()
-    # app = QApplication()
     ui_file = QFile(ui_file_name)
     if not ui_file.open(QIODevice.ReadOnly):
         print("Cannot open {}: {}".format(ui_file_name, ui_file.errorString()))
@@ -705,6 +736,10 @@ if __name__ == '__main__':
 
     with open('guids.json', 'r') as g:
         guid_dict = json.loads(g.read())
+
+    steam_reg = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r'Software\Valve\Steam')
+    steam_path = winreg.QueryValueEx(steam_reg, 'SteamPath')[0]
+    steam_path += '/steamapps/common/Deep Rock Galactic/FSD/Saved/SaveGames'
 
     loader = QUiLoader()
     loader.registerCustomWidget(TextEditFocusChecking)
