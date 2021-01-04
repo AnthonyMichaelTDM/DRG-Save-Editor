@@ -2,7 +2,7 @@
 This is a standalone DRG save editor written in python (3.6.12), using PyQt5 (5.9.2) and PySide2 (5.15.2) and packaged using the [fman build system](https://build-system.fman.io). 
 
 ## Requirements
-- Windows 7 and up
+- Windows 7 (or compatibility mode)
 - ???
 
 ## Installation
@@ -22,6 +22,8 @@ Some notes:
 
 ![main_screen](sshot.png)
 ## Changelog
+- v1.3.2
+    - Fixed a bug in saving the game file that would truncate the save to a few hundred bytes
 - v1.3
     - Added promotion support
     - Added "Remove Selected" and "Remove All" buttons for the overclock inventory
