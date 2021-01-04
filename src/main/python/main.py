@@ -123,6 +123,7 @@ def update_xp(dwarf, total_xp=0):
 @Slot()
 def open_file():
     global file_name
+    global save_data
     file_name = QFileDialog.getOpenFileName(
         None, "Open Save File...", steam_path, "Player Save Files (*.sav)"
     )[0]
@@ -157,13 +158,18 @@ def open_file():
     # PySide2.QtCore.Qt.
     # populate list of unforged ocs
     unforged_list = widget.unforged_list
-    for k, v in unforged_ocs.items():
+    populate_unforged_list(unforged_list, unforged_ocs)
+
+
+def populate_unforged_list(list_widget, unforged):
+    list_widget.clear()
+    for k, v in unforged.items():
         oc = QListWidgetItem(None)
         try:
             oc.setText(f'{v["weapon"]}: {v["name"]} ({k})')
         except:
             oc.setText(f"Cosmetic: {k}")
-        unforged_list.addItem(oc)
+        list_widget.addItem(oc)
 
 
 def get_resources(save_bytes):
@@ -396,7 +402,7 @@ def get_overclocks(save_bytes, guid_source):
 def filter_overclocks():
     item_filter = widget.combo_oc_filter.currentText()
     # forged_ocs, unacquired_ocs, unforged_ocs = get_overclocks(save_data, guid_dict)
-    print(item_filter)
+    # print(item_filter)
     tree = widget.overclock_tree
     tree.clear()
     tree_root = tree.invisibleRootItem()
@@ -428,28 +434,32 @@ def oc_ctx_menu(pos):
 
 @Slot()
 def add_cores():
-    print("add cores")
+    # print("add cores")
     global unforged_ocs
+    global unacquired_ocs
     tree = widget.overclock_tree
     selected = tree.selectedItems()
     items_to_add = list()
     for i in selected:
-        items_to_add.append(f"{i.parent().text(0)}: {i.text(0)} ({i.text(2)})")
-        unforged_ocs.update({i.text(2): guid_dict[i.text(2)]})
+        if i.text(1) == "Unacquired":
+            items_to_add.append(f"{i.parent().text(0)}: {i.text(0)} ({i.text(2)})")
+            guid_dict[i.text(2)]["status"] = "Unforged"
+            unforged_ocs.update({i.text(2): guid_dict[i.text(2)]})
+            del unacquired_ocs[i.text(2)]
+            guid_dict[i.text(2)]["status"] = "Unforged"
 
     core_list = widget.unforged_list
     for item in items_to_add:
         core_list.addItem(item)
 
     core_list.sortItems()
+    filter_overclocks()
 
 
 @Slot()
 def save_changes():
     changes = get_values()
     changes["unforged"] = unforged_ocs
-    # with open('dummy.json', 'w') as d:
-    #     d.write(json.dumps(changes, indent=4))
     with open(file_name, "wb") as f:
         f.write(make_save_file(file_name, changes))
 
@@ -623,6 +633,9 @@ def set_all_25():
 @Slot()
 def reset_values():
     global stats
+    global unforged_ocs
+    global unacquired_ocs
+    global forged_ocs
     # print('reset values')
     widget.bismor_text.setText(str(stats["minerals"]["bismor"]))
     widget.enor_text.setText(str(stats["minerals"]["enor"]))
@@ -671,6 +684,12 @@ def reset_values():
     widget.scout_xp_2.setText(str(s_xp[1]))
     widget.scout_promo_box.setCurrentIndex(stats["xp"]["scout"]["promo"])
     # print('after scout')
+
+    forged_ocs, unacquired_ocs, unforged_ocs = get_overclocks(save_data, guid_dict)
+    unforged_list = widget.unforged_list
+    populate_unforged_list(unforged_list, unforged_ocs)
+
+    filter_overclocks()
 
 
 @Slot()
@@ -841,6 +860,52 @@ def get_values():
     return ns
 
 
+@Slot()
+def remove_selected_ocs():
+    global unforged_ocs
+    global unacquired_ocs
+    global file_name
+    global guid_re
+    list_items = widget.unforged_list.selectedItems()
+    items_to_remove = list()
+    for i in list_items:
+        items_to_remove.append(guid_re.search(i.text()).group(1))
+        item = widget.unforged_list.row(i)
+        widget.unforged_list.takeItem(item)
+
+    remove_ocs(items_to_remove)
+
+
+def remove_ocs(oc_list):
+    global unforged_ocs
+    global unacquired_ocs
+    global guid_dict
+
+    for i in oc_list:
+        oc = unforged_ocs[i]
+        oc["status"] = "Unacquired"
+        guid_dict[i]["status"] = "Unacquired"
+        unacquired_ocs.update(oc)
+        del unforged_ocs[i]
+
+    filter_overclocks()
+
+
+@Slot()
+def remove_all_ocs():
+    global unforged_ocs
+    global guid_re
+    # unforged_ocs = dict()
+    items_to_remove = list()
+    unforged_list = widget.unforged_list
+    for i in range(unforged_list.count()):
+        item = unforged_list.item(i)
+        items_to_remove.append(guid_re.search(item.text()).group(1))
+
+    remove_ocs(items_to_remove)
+    unforged_list.clear()
+
+
 xp_table = [
     0,
     3000,
@@ -894,6 +959,8 @@ unforged_ocs = dict()
 unacquired_ocs = dict()
 stats = dict()
 file_name = ""
+save_data = b""
+guid_re = re.compile(r".*\(([0-9A-F]*)\)")
 
 if __name__ == "__main__":
     print(os.getcwd())
@@ -943,6 +1010,8 @@ if __name__ == "__main__":
     widget.combo_oc_filter.currentTextChanged.connect(filter_overclocks)
     widget.overclock_tree.customContextMenuRequested.connect(oc_ctx_menu)
     widget.add_cores_button.clicked.connect(add_cores)
+    widget.remove_all_ocs.clicked.connect(remove_all_ocs)
+    widget.remove_selected_ocs.clicked.connect(remove_selected_ocs)
 
     widget.show()
     exit_code = appctext.app.exec_()

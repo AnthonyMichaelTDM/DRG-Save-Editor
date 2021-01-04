@@ -19,7 +19,6 @@ Some notes:
 - There is a context menu in the overclock tree listing to add overclocks to the inventory
 - You can CTRL+Click on overclocks to select more than one
 - Changing XP values will update the other relevant fields when the focus changes (i.e., click on a different part of the program or another program entirely)
-- 
 
 ![main_screen](sshot.png)
 ## Changelog
