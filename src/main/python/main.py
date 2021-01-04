@@ -251,7 +251,7 @@ def get_xp(save_bytes):
         "driller": {"xp": drill_xp, "promo": drill_num_promo},
         "gunner": {"xp": gun_xp, "promo": gun_num_promo},
     }
-    pp(xp_dict)
+    # pp(xp_dict)
     return xp_dict
 
 
@@ -460,14 +460,16 @@ def add_cores():
 def save_changes():
     changes = get_values()
     changes["unforged"] = unforged_ocs
+    # pp(changes)
+    save_file = make_save_file(file_name, changes)
     with open(file_name, "wb") as f:
-        f.write(make_save_file(file_name, changes))
+        f.write(save_file)
 
 
 def make_save_file(file_path, change_data):
     with open(file_path, "rb") as f:
         save_data = f.read()
-
+    # print(f'1. {len(save_data)}')
     # new_values = get_values()
     new_values = change_data
     # write resources
@@ -507,7 +509,7 @@ def make_save_file(file_path, change_data):
     perks_pos = save_data.find(perks_marker) + 36
     perks_bytes = struct.pack("i", new_values["misc"]["perks"])
     save_data = save_data[:perks_pos] + perks_bytes + save_data[perks_pos + 4 :]
-
+    # print(f'2. {len(save_data)}')
     # write XP
     en_marker = b"\x85\xEF\x62\x6C\x65\xF1\x02\x4A\x8D\xFE\xB5\xD0\xF3\x90\x9D\x2E\x03\x00\x00\x00\x58\x50"
     sc_marker = b"\x30\xD8\xEA\x17\xD8\xFB\xBA\x4C\x95\x30\x6D\xE9\x65\x5C\x2F\x8C\x03\x00\x00\x00\x58\x50"
@@ -596,12 +598,14 @@ def make_save_file(file_path, change_data):
         + gun_promo_level_bytes
         + save_data[gun_promo_pos + promo_levels_offset + 4 :]
     )
-
+    # print(f'3. {len(save_data)}')
     # write overclocks
     search_term = b"ForgedSchematics"  # \x00\x0F\x00\x00\x00Struct'
     search_end = b"\x1c\x00\x00\x00bFirstSchematicMessageShown"
     pos = save_data.find(search_term)
     end_pos = save_data.find(search_end)
+    # print(f'pos: {pos}, end_pos: {end_pos}')
+
     num_forged = struct.unpack("i", save_data[pos + 63 : pos + 67])[0]
     unforged_ocs = new_values["unforged"]
     if len(unforged_ocs) > 0:
@@ -616,7 +620,7 @@ def make_save_file(file_path, change_data):
     else:
         ocs = b""
     save_data = save_data[: pos + (num_forged * 16) + 141] + ocs + save_data[end_pos:]
-
+    # print(f'4. {len(save_data)}')
     return save_data
     # with open(f"{file_name}", "wb") as t:
     #     t.write(save_data)
