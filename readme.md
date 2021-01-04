@@ -15,8 +15,20 @@ The editor will make a backup of the save file you open in the same folder as th
 
 The editor should be pretty self-explanatory, see the screenshot below.
 
+Some notes:
+- There is a context menu in the overclock tree listing to add overclocks to the inventory
+- You can CTRL+Click on overclocks to select more than one
+- Changing XP values will update the other relevant fields when the focus changes (i.e., click on a different part of the program or another program entirely)
+- 
+
 ![main_screen](sshot.png)
 ## Changelog
+- v1.3
+    - Added promotion support
+    - Added "Remove Selected" and "Remove All" buttons for the overclock inventory
+    - Updated "DRG Save Editing.txt" to correctly specify XP locations
+    - Refactored code to integrate with pytest (6.2.1)
+    - Fixed a critical bug that caused the editor to crash on opening a save file
 - v1.2
     - Added auto-backup of save file upon opening the file
     - Fixed bug with fetching xp values where the dwarves would have their xp values swapped
@@ -29,9 +41,9 @@ The editor should be pretty self-explanatory, see the screenshot below.
 - Cosmetic overclock support
 - GUI polish
 - Better readme
+- "Restore from backup" option in toolbar menu
 
 ## Would be nice, but ehh...
-- Promotion support
 - Assignment support
 - Character loadout support
 - Perk support

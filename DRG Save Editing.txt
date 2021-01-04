@@ -4,17 +4,17 @@ To edit DRG saves you will need:
 	-this document
 	
 XP:
-	Search for "XP" or the hex sequence "58 50", there are six instances in the save file. The first four are for the different classes, the other two I don't know what they do. XP is encoded as a 4-byte, little endian, signed integer representing the total amount of XP, with character level being calculated at run-time. There are much more than 4 bytes after the "XP" string, and the 4 we're interested in are after the text "IntProperty" and are immediately to the left of the byte "1F" in a string of otherwise null ("00") bytes.
+	Search for the hex sequences listed below for the specific dwarf. XP is encoded as a 4-byte, little endian, signed integer representing the total amount of XP, with character level being calculated at run-time. There are much more than 4 bytes after the "XP" string, and the 4 we're interested in are after the text "IntProperty" and are immediately to the left of the byte "1F" in a string of otherwise null ("00") bytes.
 	As an example, in the following hex sequence, the relevant bytes are "AC CB 01 00" and are indicated by "|" characters above them.
 	                                  || || || ||
 		00 04 00 00 00 00 00 00 00 00 AC CB 01 00 1F 00 00 00
 	
 	This pattern holds for all four classes.  For example, if a character has 40,000XP, they are rank 7 with 7,000XP towards rank 8. 
 	
-	-Engineer: 1st instance
-	-Scout: 2nd instance
-	-Driller: 3rd instance
-	-Gunner: 4th instance
+	-Engineer: 85 EF 62 6C 65 F1 02 4A 8D FE B5 D0 F3 90 9D 2E 03 00 00 00 58 50
+	-Scout: 30 D8 EA 17 D8 FB BA 4C 95 30 6D E9 65 5C 2F 8C 03 00 00 00 58 50
+	-Driller: 9E DD 56 F1 EE BC C5 48 8D 5B 5E 5B 80 B6 2D B4 03 00 00 00 58 50
+	-Gunner: AE 56 E1 80 FE C0 C4 4D 96 FA 29 C2 83 66 B9 7B 03 00 00 00 58 50
 
 Here is a handy XP table (courtesy of the DRG wiki)
 Level 	To Next Level 	Total Experience Required
