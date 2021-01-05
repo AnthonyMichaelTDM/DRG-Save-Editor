@@ -177,34 +177,35 @@ def populate_unforged_list(list_widget, unforged):
 
 def get_resources(save_bytes):
     # print('getting resources')
-    marker = b"OwnedResources"
-    start_offset = 101
-    offset = 20
-    resources = [
-        "Yeast Cone",
-        "Starch Nut",
-        "Barley Bulb",
-        "Bismor",
-        "Enor Pearl",
-        "Malt Star",
-        "Umanite",
-        "Jadiz",
-        "Croppa",
-        "Magnite",
-        "Error Cube",
-        "Blank Matrix Core",
-    ]
-    res_amts = list()
-    marker_pos = save_bytes.find(marker)
-    pos = marker_pos + start_offset - 20
-    for i in range(len(resources)):
-        pos += offset
-        res_amts.append(int(struct.unpack("f", save_bytes[pos : pos + 4])[0]))
+    resources = {
+        "yeast": "078548B93232C04085F892E084A74100",
+        "starch": "72312204E287BC41815540A0CF881280",
+        "barley": "22DAA757AD7A8049891B17EDCC2FE098",
+        "bismor": "AF0DC4FE8361BB48B32C92CC97E21DE7",
+        "enor": "488D05146F5F754BA3D4610D08C0603E",
+        "malt": "41EA550C1D46C54BBE2E9CA5A7ACCB06",
+        "umanite": "5F2BCF8347760A42A23B6EDC07C0941D",
+        "jadiz": "22BC4F7D07D13E43BFCA81BD9C14B1AF",
+        "croppa": "8AA7FB43293A0B49B8BE42FFE068A44C",
+        "magnite": "AADED8766C227D408032AFD18D63561E",
+        "error": "5828652C9A5DE845A9E2E1B8B463C516",
+        "cores": "A10CB2853871FB499AC854A1CDE2202C",
+    }
+    guid_length = 16
+    res_marker = b"OwnedResources"
+    res_pos = save_bytes.find(res_marker)
+    print("getting resources")
+    for k, v in resources.items():
+        # print(f"key: {k}, value: {v}")
+        marker = bytes.fromhex(v)
+        pos = save_bytes.find(marker, res_pos) + guid_length
+        end_pos = pos + 4
+        temp = save_bytes[pos:end_pos]
+        unp = struct.unpack("f", temp)
+        resources[k] = int(unp[0])
 
-    # print(res_amts)
-    # print(resources)
-    res_dict = dict(zip(resources, res_amts))
-    return res_dict
+    pp(resources)
+    return resources
 
 
 def get_xp(save_bytes):
@@ -489,29 +490,54 @@ def make_save_file(file_path, change_data):
     new_values = change_data
     # write resources
     resource_bytes = list()
-    resources = [
-        new_values["brewing"]["yeast"],
-        new_values["brewing"]["starch"],
-        new_values["brewing"]["barley"],
-        new_values["minerals"]["bismor"],
-        new_values["minerals"]["enor"],
-        new_values["brewing"]["malt"],
-        new_values["minerals"]["umanite"],
-        new_values["minerals"]["jadiz"],
-        new_values["minerals"]["croppa"],
-        new_values["minerals"]["magnite"],
-        new_values["misc"]["error"],
-        new_values["misc"]["cores"],
-    ]
-    for i in range(len(resources)):
-        resource_bytes.append(struct.pack("f", resources[i]))
+    res_guids = {
+        "yeast": "078548B93232C04085F892E084A74100",
+        "starch": "72312204E287BC41815540A0CF881280",
+        "barley": "22DAA757AD7A8049891B17EDCC2FE098",
+        "bismor": "AF0DC4FE8361BB48B32C92CC97E21DE7",
+        "enor": "488D05146F5F754BA3D4610D08C0603E",
+        "malt": "41EA550C1D46C54BBE2E9CA5A7ACCB06",
+        "umanite": "5F2BCF8347760A42A23B6EDC07C0941D",
+        "jadiz": "22BC4F7D07D13E43BFCA81BD9C14B1AF",
+        "croppa": "8AA7FB43293A0B49B8BE42FFE068A44C",
+        "magnite": "AADED8766C227D408032AFD18D63561E",
+        "error": "5828652C9A5DE845A9E2E1B8B463C516",
+        "cores": "A10CB2853871FB499AC854A1CDE2202C",
+    }
+    resources = {
+        "yeast": new_values["brewing"]["yeast"],
+        "starch": new_values["brewing"]["starch"],
+        "barley": new_values["brewing"]["barley"],
+        "bismor": new_values["minerals"]["bismor"],
+        "enor": new_values["minerals"]["enor"],
+        "malt": new_values["brewing"]["malt"],
+        "umanite": new_values["minerals"]["umanite"],
+        "jadiz": new_values["minerals"]["jadiz"],
+        "croppa": new_values["minerals"]["croppa"],
+        "magnite": new_values["minerals"]["magnite"],
+        "error": new_values["misc"]["error"],
+        "cores": new_values["misc"]["cores"],
+    }
 
     res_marker = b"OwnedResources"
-    res_pos = save_data.find(res_marker) + 101
-    offset = 20
-    for i in resource_bytes:
-        save_data = save_data[:res_pos] + i + save_data[res_pos + 4 :]
-        res_pos += offset
+    res_pos = save_data.find(res_marker) + 85
+    res_length = 240
+    res_bytes = save_data[res_pos : res_pos + res_length]
+
+    for k, v in resources.items():
+        pos = res_bytes.find(bytes.fromhex(res_guids[k]))
+        res_bytes = res_bytes[: pos + 16] + struct.pack("f", v) + res_bytes[pos + 20 :]
+        print(
+            f'res: {k}, pos: {pos}, guid: {res_guids[k]}, val: {v}, v bytes: {struct.pack("f", v)}'
+        )
+
+    print(res_bytes.hex().upper())
+
+    save_data = save_data[:res_pos] + res_bytes + save_data[res_pos + res_length :]
+
+    # for i in resource_bytes:
+    #     save_data = save_data[:res_pos] + i + save_data[res_pos + 4 :]
+    #     res_pos += offset
 
     # write credits
     cred_marker = b"Credits"
@@ -820,20 +846,20 @@ def init_values(save_data):
     stats["misc"]["credits"] = get_credits(save_data)
     stats["misc"]["perks"] = get_perk_points(save_data)
     resources = get_resources(save_data)
-    stats["misc"]["cores"] = resources["Blank Matrix Core"]
-    stats["misc"]["error"] = resources["Error Cube"]
+    stats["misc"]["cores"] = resources["cores"]
+    stats["misc"]["error"] = resources["error"]
     stats["minerals"] = dict()
-    stats["minerals"]["bismor"] = resources["Bismor"]
-    stats["minerals"]["enor"] = resources["Enor Pearl"]
-    stats["minerals"]["jadiz"] = resources["Jadiz"]
-    stats["minerals"]["croppa"] = resources["Croppa"]
-    stats["minerals"]["magnite"] = resources["Magnite"]
-    stats["minerals"]["umanite"] = resources["Umanite"]
+    stats["minerals"]["bismor"] = resources["bismor"]
+    stats["minerals"]["enor"] = resources["enor"]
+    stats["minerals"]["jadiz"] = resources["jadiz"]
+    stats["minerals"]["croppa"] = resources["croppa"]
+    stats["minerals"]["magnite"] = resources["magnite"]
+    stats["minerals"]["umanite"] = resources["umanite"]
     stats["brewing"] = dict()
-    stats["brewing"]["yeast"] = resources["Yeast Cone"]
-    stats["brewing"]["starch"] = resources["Starch Nut"]
-    stats["brewing"]["barley"] = resources["Barley Bulb"]
-    stats["brewing"]["malt"] = resources["Malt Star"]
+    stats["brewing"]["yeast"] = resources["yeast"]
+    stats["brewing"]["starch"] = resources["starch"]
+    stats["brewing"]["barley"] = resources["barley"]
+    stats["brewing"]["malt"] = resources["malt"]
 
     return stats
     # print('printing stats')

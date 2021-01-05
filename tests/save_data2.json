@@ -21,21 +21,21 @@
         "credits": 9782,
         "perks": 3,
         "cores": 1,
-        "error": 26
+        "error": 14
     },
     "minerals": {
-        "bismor": 315,
-        "enor": 351,
-        "jadiz": 1122,
-        "croppa": 48,
-        "magnite": 727,
+        "bismor": 351,
+        "enor": 50,
+        "jadiz": 315,
+        "croppa": 727,
+        "magnite": 1122,
         "umanite": 952
     },
     "brewing": {
-        "yeast": 14,
+        "yeast": 8,
         "starch": 11,
-        "barley": 8,
-        "malt": 50
+        "barley": 48,
+        "malt": 26
     },
     "unforged": {}
 }

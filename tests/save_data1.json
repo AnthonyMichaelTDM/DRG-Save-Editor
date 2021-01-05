@@ -1,25 +1,13 @@
 {
-    "minerals": {
-        "bismor": 236497,
-        "croppa": 201073,
-        "enor": 264908,
-        "jadiz": 272157,
-        "magnite": 205235,
-        "umanite": 244014
-    },
-    "brewing": {
-        "yeast": 81836,
-        "starch": 81794,
-        "malt": 81562,
-        "barley": 81482
-    },
-    "misc": {
-        "error": 10,
-        "cores": 83,
-        "credits": 428509728,
-        "perks": 13
-    },
     "xp": {
+        "engineer": {
+            "xp": 0,
+            "promo": 1
+        },
+        "scout": {
+            "xp": 301821,
+            "promo": 1
+        },
         "driller": {
             "xp": 282753,
             "promo": 2
@@ -27,15 +15,27 @@
         "gunner": {
             "xp": 13186,
             "promo": 1
-        },
-        "scout": {
-            "xp": 301821,
-            "promo": 1
-        },
-        "engineer": {
-            "xp": 0,
-            "promo": 1
         }
+    },
+    "misc": {
+        "credits": 428509728,
+        "perks": 13,
+        "cores": 83,
+        "error": 10
+    },
+    "minerals": {
+        "bismor": 236497,
+        "enor": 264908,
+        "jadiz": 272157,
+        "croppa": 201073,
+        "magnite": 205235,
+        "umanite": 244014
+    },
+    "brewing": {
+        "yeast": 81836,
+        "starch": 81794,
+        "barley": 81482,
+        "malt": 81562
     },
     "unforged": {
         "28A8E817E50A7346963E418BA08DFE18": {

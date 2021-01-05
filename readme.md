@@ -27,6 +27,8 @@ Some notes:
     - Fixed a bug where resource counts would get mixed up
 - v1.3.2
     - Fixed a bug in saving the game file that would truncate the save to a few hundred bytes
+- v1.3.1
+    - Forgot what I fixed here, lol
 - v1.3
     - Added promotion support
     - Added "Remove Selected" and "Remove All" buttons for the overclock inventory
