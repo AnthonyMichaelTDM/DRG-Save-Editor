@@ -22,6 +22,9 @@ Some notes:
 
 ![main_screen](sshot.png)
 ## Changelog
+- v1.3.3
+    - Fixed a bug related to opening saves that have not forged any overclocks
+    - Fixed a bug where resource counts would get mixed up
 - v1.3.2
     - Fixed a bug in saving the game file that would truncate the save to a few hundred bytes
 - v1.3

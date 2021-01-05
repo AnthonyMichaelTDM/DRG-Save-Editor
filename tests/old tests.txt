@@ -1,0 +1,44 @@
+ @pytest.mark.parametrize(
+     "save_path,xp_dict,passing_test",
+     [
+         (
+             "tests/sample_save1.sav",
+             {
+                 "driller": {"xp": 282753, "promo": 2},
+                 "gunner": {"xp": 13186, "promo": 1},
+                 "scout": {"xp": 301821, "promo": 1},
+                 "engineer": {"xp": 0, "promo": 1},
+             },
+             True,
+         ),
+         (
+             "tests/sample_save1.sav",
+             {
+                 "this": "test should fail",
+             },
+             False,
+         ),
+     ],
+ )
+ def test_get_xp(save_path, xp_dict, passing_test):
+     with open(save_path, "rb") as s:
+         save_bytes = s.read()
+
+     if passing_test:
+         assert get_xp(save_bytes) == xp_dict
+     else:
+         assert get_xp(save_bytes) != xp_dict
+
+ @pytest.mark.parametrize(
+     "save_path,goal_path",
+     [("tests/sample_save1.sav", "tests/resource_data1.json")],
+ )
+ def test_get_resources(save_path, goal_path):
+     with open(save_path, "rb") as s:
+         save_data = s.read()
+     extracted_resources = get_resources(save_data)
+
+     with open(goal_path, "r") as g:
+         target_resources = json.loads(g.read())
+
+     assert extracted_resources == target_resources

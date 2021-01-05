@@ -141,7 +141,10 @@ def open_file():
     widget.actionSave_changes.setEnabled(True)
     widget.actionReset_to_original_values.setEnabled(True)
     widget.combo_oc_filter.setEnabled(True)
-    init_values(save_data)
+
+    global stats
+    stats = init_values(save_data)
+    reset_values()
 
     global forged_ocs
     global unacquired_ocs
@@ -331,65 +334,74 @@ def get_overclocks(save_bytes, guid_source):
     search_end = b"bFirstSchematicMessageShown"
     pos = save_bytes.find(search_term)
     end_pos = save_bytes.find(search_end)
-    oc_data = save_bytes[pos:end_pos]
-    oc_list_offset = 141
     for i in guid_source.values():
         i["status"] = "Unacquired"
 
     guids = deepcopy(guid_source)
+    if pos > 0:
+        oc_data = save_bytes[pos:end_pos]
+        oc_list_offset = 141
 
-    # print(f'pos: {pos}, end_pos: {end_pos}')
-    # print(f'owned_pos: {owned}, diff: {owned-pos}')
-    # unforged = True if oc_data.find(b'Owned') else False
-    if oc_data.find(b"Owned") > 0:
-        unforged = True
-    else:
-        unforged = False
-    # print(unforged) # bool
-    num_forged = struct.unpack("i", save_bytes[pos + 63 : pos + 67])[0]
-    forged = dict()
-    # print(num_forged)
+        # print(f'pos: {pos}, end_pos: {end_pos}')
+        # print(f'owned_pos: {owned}, diff: {owned-pos}')
+        # unforged = True if oc_data.find(b'Owned') else False
+        if oc_data.find(b"Owned") > 0:
+            unforged = True
+        else:
+            unforged = False
+        # print(unforged) # bool
+        num_forged = struct.unpack("i", save_bytes[pos + 63 : pos + 67])[0]
+        forged = dict()
+        # print(num_forged)
 
-    for i in range(num_forged):
-        uuid = (
-            save_bytes[
-                pos + oc_list_offset + (i * 16) : pos + oc_list_offset + (i * 16) + 16
-            ]
-            .hex()
-            .upper()
-        )
-        try:
-            a = guids[uuid]
-            guid_source[uuid]["status"] = "Forged"
-            a["status"] = "Forged"
-            del guids[uuid]
-            forged.update({uuid: a})
-
-            # print('success')
-        except Exception as e:
-            # print(f'Error: {e}')
-            pass
-
-    # print('after forged extraction')
-    if unforged:
-        unforged = dict()
-        # print('in unforged loop')
-        num_pos = save_bytes.find(b"Owned", pos) + 62
-        num_unforged = struct.unpack("i", save_bytes[num_pos : num_pos + 4])[0]
-        unforged_pos = num_pos + 77
-        for i in range(num_unforged):
+        for i in range(num_forged):
             uuid = (
-                save_bytes[unforged_pos + (i * 16) : unforged_pos + (i * 16) + 16]
+                save_bytes[
+                    pos
+                    + oc_list_offset
+                    + (i * 16) : pos
+                    + oc_list_offset
+                    + (i * 16)
+                    + 16
+                ]
                 .hex()
                 .upper()
             )
             try:
-                unforged.update({uuid: guids[uuid]})
-                guid_source[uuid]["status"] = "Unforged"
-                unforged[uuid]["status"] = "Unforged"
-            except KeyError:
-                unforged.update({uuid: "Cosmetic"})
+                a = guids[uuid]
+                guid_source[uuid]["status"] = "Forged"
+                a["status"] = "Forged"
+                del guids[uuid]
+                forged.update({uuid: a})
+
+                # print('success')
+            except Exception as e:
+                # print(f'Error: {e}')
+                pass
+
+        # print('after forged extraction')
+        if unforged:
+            unforged = dict()
+            # print('in unforged loop')
+            num_pos = save_bytes.find(b"Owned", pos) + 62
+            num_unforged = struct.unpack("i", save_bytes[num_pos : num_pos + 4])[0]
+            unforged_pos = num_pos + 77
+            for i in range(num_unforged):
+                uuid = (
+                    save_bytes[unforged_pos + (i * 16) : unforged_pos + (i * 16) + 16]
+                    .hex()
+                    .upper()
+                )
+                try:
+                    unforged.update({uuid: guids[uuid]})
+                    guid_source[uuid]["status"] = "Unforged"
+                    unforged[uuid]["status"] = "Unforged"
+                except KeyError:
+                    unforged.update({uuid: "Cosmetic"})
+        else:
+            unforged = dict()
     else:
+        forged = dict()
         unforged = dict()
 
     # print('after unforged extraction')
@@ -404,18 +416,21 @@ def filter_overclocks():
     # forged_ocs, unacquired_ocs, unforged_ocs = get_overclocks(save_data, guid_dict)
     # print(item_filter)
     tree = widget.overclock_tree
-    tree.clear()
     tree_root = tree.invisibleRootItem()
-    if item_filter == "All":
-        build_oc_tree(tree_root, guid_dict)
-    elif item_filter == "Forged":
-        build_oc_tree(tree_root, forged_ocs)
-    elif item_filter == "Unforged":
-        build_oc_tree(tree_root, unforged_ocs)
-    elif item_filter == "Unacquired":
-        build_oc_tree(tree_root, unacquired_ocs)
 
-    tree.sortItems(0, PySide2.QtCore.Qt.AscendingOrder)
+    for i in range(tree_root.childCount()):
+        # print(tree_root.child(i).text(0))
+        dwarf = tree_root.child(i)
+        for j in range(dwarf.childCount()):
+            weapon = dwarf.child(j)
+            # print(f'\t{weapon.text(0)}')
+            for k in range(weapon.childCount()):
+                oc = weapon.child(k)
+                # print(f'\t\t{oc.text(0)}')
+                if oc.text(1) == item_filter or item_filter == "All":
+                    oc.setHidden(False)
+                else:
+                    oc.setHidden(True)
 
 
 @Slot()
@@ -606,20 +621,23 @@ def make_save_file(file_path, change_data):
     end_pos = save_data.find(search_end)
     # print(f'pos: {pos}, end_pos: {end_pos}')
 
-    num_forged = struct.unpack("i", save_data[pos + 63 : pos + 67])[0]
-    unforged_ocs = new_values["unforged"]
-    if len(unforged_ocs) > 0:
-        ocs = (
-            b"\x10\x00\x00\x00\x4F\x77\x6E\x65\x64\x53\x63\x68\x65\x6D\x61\x74\x69\x63\x73\x00\x0E\x00\x00\x00\x41\x72\x72\x61\x79\x50\x72\x6F\x70\x65\x72\x74\x79\x00\x6D\x00\x00\x00\x00\x00\x00\x00\x0F\x00\x00\x00\x53\x74\x72\x75\x63\x74\x50\x72\x6F\x70\x65\x72\x74\x79\x00\x00"
-            + struct.pack("i", len(unforged_ocs))
-            + b"\x10\x00\x00\x00\x4F\x77\x6E\x65\x64\x53\x63\x68\x65\x6D\x61\x74\x69\x63\x73\x00\x0F\x00\x00\x00\x53\x74\x72\x75\x63\x74\x50\x72\x6F\x70\x65\x72\x74\x79\x00\x20\x00\x00\x00\x00\x00\x00\x00\x05\x00\x00\x00\x47\x75\x69\x64\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+    if pos > 0:
+        num_forged = struct.unpack("i", save_data[pos + 63 : pos + 67])[0]
+        unforged_ocs = new_values["unforged"]
+        if len(unforged_ocs) > 0:
+            ocs = (
+                b"\x10\x00\x00\x00\x4F\x77\x6E\x65\x64\x53\x63\x68\x65\x6D\x61\x74\x69\x63\x73\x00\x0E\x00\x00\x00\x41\x72\x72\x61\x79\x50\x72\x6F\x70\x65\x72\x74\x79\x00\x6D\x00\x00\x00\x00\x00\x00\x00\x0F\x00\x00\x00\x53\x74\x72\x75\x63\x74\x50\x72\x6F\x70\x65\x72\x74\x79\x00\x00"
+                + struct.pack("i", len(unforged_ocs))
+                + b"\x10\x00\x00\x00\x4F\x77\x6E\x65\x64\x53\x63\x68\x65\x6D\x61\x74\x69\x63\x73\x00\x0F\x00\x00\x00\x53\x74\x72\x75\x63\x74\x50\x72\x6F\x70\x65\x72\x74\x79\x00\x20\x00\x00\x00\x00\x00\x00\x00\x05\x00\x00\x00\x47\x75\x69\x64\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+            )
+            uuids = [bytes.fromhex(i) for i in unforged_ocs.keys()]
+            for i in uuids:
+                ocs += i
+        else:
+            ocs = b""
+        save_data = (
+            save_data[: pos + (num_forged * 16) + 141] + ocs + save_data[end_pos:]
         )
-        uuids = [bytes.fromhex(i) for i in unforged_ocs.keys()]
-        for i in uuids:
-            ocs += i
-    else:
-        ocs = b""
-    save_data = save_data[: pos + (num_forged * 16) + 141] + ocs + save_data[end_pos:]
     # print(f'4. {len(save_data)}')
     return save_data
     # with open(f"{file_name}", "wb") as t:
@@ -795,7 +813,7 @@ def add_resources(res_dict):
 
 
 def init_values(save_data):
-    global stats
+    # global stats
     # print('init values')
     stats["xp"] = get_xp(save_data)
     stats["misc"] = dict()
@@ -817,10 +835,9 @@ def init_values(save_data):
     stats["brewing"]["barley"] = resources["Barley Bulb"]
     stats["brewing"]["malt"] = resources["Malt Star"]
 
+    return stats
     # print('printing stats')
     # pp(stats)
-
-    reset_values()
 
 
 def get_values():
@@ -938,6 +955,7 @@ xp_table = [
     315000,
 ]
 promo_ranks = [
+    "None",
     "Bronze 1",
     "Bronze 2",
     "Bronze 3",
@@ -967,7 +985,7 @@ save_data = b""
 guid_re = re.compile(r".*\(([0-9A-F]*)\)")
 
 if __name__ == "__main__":
-    print(os.getcwd())
+    # print(os.getcwd())
     ui_file_name = "editor.ui"
     appctext = ApplicationContext()
     ui_file = QFile(ui_file_name)
@@ -999,7 +1017,6 @@ if __name__ == "__main__":
         widget.scout_promo_box,
     ]
     for i in promo_boxes:
-        i.addItem("None")
         for j in promo_ranks:
             i.addItem(j)
 

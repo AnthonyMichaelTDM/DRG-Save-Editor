@@ -1,0 +1,41 @@
+{
+    "xp": {
+        "engineer": {
+            "xp": 41384,
+            "promo": 1
+        },
+        "scout": {
+            "xp": 0,
+            "promo": 0
+        },
+        "driller": {
+            "xp": 0,
+            "promo": 0
+        },
+        "gunner": {
+            "xp": 0,
+            "promo": 0
+        }
+    },
+    "misc": {
+        "credits": 35836,
+        "perks": 3,
+        "cores": 1,
+        "error": 1
+    },
+    "minerals": {
+        "bismor": 717,
+        "enor": 497,
+        "jadiz": 721,
+        "croppa": 193,
+        "magnite": 133,
+        "umanite": 1020
+    },
+    "brewing": {
+        "yeast": 38,
+        "starch": 157,
+        "barley": 11,
+        "malt": 34
+    },
+    "unforged": {}
+}

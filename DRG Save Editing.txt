@@ -58,18 +58,18 @@ Perk Points:
 	
 Resources:
 	Search for "OwnedResources" or the hex sequence "6E 65 64 52 65 73 6F" and look for the text string "FloatProperty" that immediately follows it. While the six mining resources can be purchased (at exorbitant prices) from the mineral terminal, the brewing resources, error cubes, and blank matrix cores cannot be purchased. Unlike XP and credits, resources are stored as 4-byte, little endian, single-precision floating point numbers. The relevant bytes are evenly spaced between each other at intervals of 20 bytes. The first resource (yeast cone) is 27 bytes after the "y" in "FloatProperty". In other words, skip 26 bytes after the "y" and the next four are the bytes for yeast cones. Skipping 16 bytes after the four for yeast cones brings you to the next set of four bytes that encode how many starch nuts you have. Continue skipping 16 bytes to reach each resource in turn. The resources, in order from left to right are:
-	- yeast cone 0
-	- starch nut 20
-	- barely bulb 40 
-	- bismor 60 
-	- enor pearl 80
-	- malt star 100
-	- umanite 120
-	- jadiz 140
-	- croppa 160
-	- magnite 180
-	- error cube 200
-	- blank cores 220
+	- yeast cone 0   	078548B93232C04085F892E084A74100
+	- starch nut 20 	72312204E287BC41815540A0CF881280
+	- barely bulb 40 	22DAA757AD7A8049891B17EDCC2FE098
+	- bismor 60 		AF0DC4FE8361BB48B32C92CC97E21DE7
+	- enor pearl 80		488D05146F5F754BA3D4610D08C0603E
+	- malt star 100		41EA550C1D46C54BBE2E9CA5A7ACCB06
+	- umanite 120		5F2BCF8347760A42A23B6EDC07C0941D
+	- jadiz 140			22BC4F7D07D13E43BFCA81BD9C14B1AF
+	- croppa 160		8AA7FB43293A0B49B8BE42FFE068A44C
+	- magnite 180		AADED8766C227D408032AFD18D63561E
+	- error cube 200	5828652C9A5DE845A9E2E1B8B463C516
+	- blank cores 220	A10CB2853871FB499AC854A1CDE2202C
 
 	As an example, I have provided the full 254-byte sequence that immediately follows the "y" in "FloatProperty" below, with annotations to show which resource is where. The specific 4-byte sequences are indicated with "|" characters. (You may wish to turn off word wrapping to better visualize the data)
 
