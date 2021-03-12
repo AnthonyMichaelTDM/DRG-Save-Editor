@@ -10,7 +10,7 @@ save_num = 0
 test_list = list()
 
 for i in os.scandir("tests/"):
-    if i.name.endswith(".sav"):
+    if i.name.endswith(".sav") and i.name.startswith("sample"):
         save_num += 1
 
 for i in range(1, save_num + 1):
