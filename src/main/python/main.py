@@ -24,16 +24,21 @@ import winreg
 
 
 class TextEditFocusChecking(QLineEdit):
+    """
+    Custom single-line text box to allow for event-driven updating of XP totals
+    """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
     def focusOutEvent(self, e: PySide2.QtGui.QFocusEvent) -> None:
+        # check for blank text
         box = self.objectName()
         if self.text() == "":
             return super().focusOutEvent(e)
 
         value = int(self.text())
-        # print(box)
+        # lazy identification
         if box.startswith("d"):
             dwarf = "driller"
         elif box.startswith("e"):
@@ -47,26 +52,28 @@ class TextEditFocusChecking(QLineEdit):
             return super().focusOutEvent(e)
         # print(dwarf)
 
-        if box.endswith("xp"):
+        # decide/calculate how to update based on which box was changed
+        if box.endswith("xp"):  # total xp box changed
             # print('main xp')
             total = value
-        elif box.endswith("text"):
+        elif box.endswith("text"):  # dwarf level box changed
             # print('level xp')
             xp, level, rem = get_dwarf_xp(dwarf)
             if xp_table[value - 1] + rem == xp:
                 total = xp
             else:
                 total = xp_table[value - 1]
-        elif box.endswith("2"):
+        elif box.endswith("2"):  # xp for current level changed
             xp, level, rem = get_dwarf_xp(dwarf)
             total = xp_table[level - 1] + value
 
-        update_xp(dwarf, total)
+        update_xp(dwarf, total)  # update relevant xp fields
 
-        return super().focusOutEvent(e)
+        return super().focusOutEvent(e)  # call any other stuff that might happen (?)
 
 
 def get_dwarf_xp(dwarf):
+    # gets the total xp, level, and progress to the next level (rem)
     if dwarf == "driller":
         total = int(widget.driller_xp.text())
         level = int(widget.dr_lvl_text.text())
@@ -90,10 +97,11 @@ def get_dwarf_xp(dwarf):
 
 
 def update_xp(dwarf, total_xp=0):
-    if total_xp > 315000:
+    # updates the xp fields for the specified dwarf with the new xp total
+    if total_xp > 315000:  # max xp check
         total_xp = 315000
-    level, remainder = xp_total_to_level(total_xp)
-    bad_dwarf = False
+    level, remainder = xp_total_to_level(total_xp)  # transform XP total
+    bad_dwarf = False  # check for possible weirdness
     if dwarf == "driller":
         total_box = widget.driller_xp
         level_box = widget.dr_lvl_text
@@ -114,7 +122,7 @@ def update_xp(dwarf, total_xp=0):
         print("no valid dward specified")
         bad_dwarf = True
 
-    if not bad_dwarf:
+    if not bad_dwarf:  # update xp totals
         total_box.setText(str(total_xp))
         level_box.setText(str(level))
         remainder_box.setText(str(remainder))
@@ -124,24 +132,28 @@ def update_xp(dwarf, total_xp=0):
 def open_file():
     global file_name
     global save_data
+    # open file dialog box, start in steam install path if present
     file_name = QFileDialog.getOpenFileName(
         None, "Open Save File...", steam_path, "Player Save Files (*.sav)"
     )[0]
     # print('about to open file')
 
-    widget.setWindowTitle(f"DRG Save Editor - {file_name}")
+    widget.setWindowTitle(f"DRG Save Editor - {file_name}")  # window-dressing
     with open(file_name, "rb") as f:
         save_data = f.read()
 
+    # make a backup of the save file in case of weirdness or bugs
     with open(f"{file_name}.old", "wb") as backup:
         backup.write(save_data)
 
     # print(f'opened: {file_name}')
 
+    # enable widgets that don't work without a save file present
     widget.actionSave_changes.setEnabled(True)
     widget.actionReset_to_original_values.setEnabled(True)
     widget.combo_oc_filter.setEnabled(True)
 
+    # initialize and populate the text fields
     global stats
     stats = init_values(save_data)
     reset_values()
@@ -151,24 +163,27 @@ def open_file():
     global unforged_ocs
 
     # print('before ocs')
+    # parse save file and categorize weapon overclocks
     forged_ocs, unacquired_ocs, unforged_ocs = get_overclocks(save_data, guid_dict)
     # print('after ocs')
 
+    # clear and initialize overclock tree view
     widget.overclock_tree.clear()
     overclock_tree = widget.overclock_tree.invisibleRootItem()
     build_oc_tree(overclock_tree, guid_dict)
     widget.overclock_tree.sortItems(0, PySide2.QtCore.Qt.AscendingOrder)
-    # PySide2.QtCore.Qt.
+
     # populate list of unforged ocs
     unforged_list = widget.unforged_list
     populate_unforged_list(unforged_list, unforged_ocs)
 
 
 def populate_unforged_list(list_widget, unforged):
+    # populates the list on acquired but unforged overclocks (includes cosmetics)
     list_widget.clear()
     for k, v in unforged.items():
         oc = QListWidgetItem(None)
-        try:
+        try:  # cosmetic overclocks don't have these values
             oc.setText(f'{v["weapon"]}: {v["name"]} ({k})')
         except:
             oc.setText(f"Cosmetic: {k}")
@@ -176,7 +191,9 @@ def populate_unforged_list(list_widget, unforged):
 
 
 def get_resources(save_bytes):
+    # extracts the resource counts from the save file
     # print('getting resources')
+    # resource GUIDs
     resources = {
         "yeast": "078548B93232C04085F892E084A74100",
         "starch": "72312204E287BC41815540A0CF881280",
@@ -191,20 +208,25 @@ def get_resources(save_bytes):
         "error": "5828652C9A5DE845A9E2E1B8B463C516",
         "cores": "A10CB2853871FB499AC854A1CDE2202C",
     }
-    guid_length = 16
-    res_marker = b"OwnedResources"
+    guid_length = 16  # length of GUIDs in bytes
+    res_marker = (
+        b"OwnedResources"  # marks the beginning of where resource values can be found
+    )
     res_pos = save_bytes.find(res_marker)
     print("getting resources")
-    for k, v in resources.items():
+    for k, v in resources.items():  # iterate through resource list
         # print(f"key: {k}, value: {v}")
         marker = bytes.fromhex(v)
-        pos = save_bytes.find(marker, res_pos) + guid_length
-        end_pos = pos + 4
+        pos = (
+            save_bytes.find(marker, res_pos) + guid_length
+        )  # search for the matching GUID
+        end_pos = pos + 4  # offset for the actual value
+        # extract and unpack the value
         temp = save_bytes[pos:end_pos]
         unp = struct.unpack("f", temp)
-        resources[k] = int(unp[0])
+        resources[k] = int(unp[0])  # save resource count
 
-    pp(resources)
+    # pp(resources)  # pretty printing for some reason
     return resources
 
 
@@ -280,8 +302,11 @@ def get_credits(save_bytes):
 def get_perk_points(save_bytes):
     marker = b"PerkPoints"
     offset = 36
-    pos = save_bytes.find(marker) + offset
-    perk_points = struct.unpack("i", save_bytes[pos : pos + 4])[0]
+    if save_bytes.find(marker) == -1:
+        perk_points = 0
+    else:
+        pos = save_bytes.find(marker) + offset
+        perk_points = struct.unpack("i", save_bytes[pos : pos + 4])[0]
 
     return perk_points
 
@@ -525,19 +550,18 @@ def make_save_file(file_path, change_data):
     res_bytes = save_data[res_pos : res_pos + res_length]
 
     for k, v in resources.items():
-        pos = res_bytes.find(bytes.fromhex(res_guids[k]))
-        res_bytes = res_bytes[: pos + 16] + struct.pack("f", v) + res_bytes[pos + 20 :]
-        print(
-            f'res: {k}, pos: {pos}, guid: {res_guids[k]}, val: {v}, v bytes: {struct.pack("f", v)}'
-        )
+        if res_bytes.find(bytes.fromhex(res_guids[k])) > -1:
+            pos = res_bytes.find(bytes.fromhex(res_guids[k]))
+            res_bytes = (
+                res_bytes[: pos + 16] + struct.pack("f", v) + res_bytes[pos + 20 :]
+            )
+            print(
+                f'res: {k}, pos: {pos}, guid: {res_guids[k]}, val: {v}, v bytes: {struct.pack("f", v)}'
+            )
 
     print(res_bytes.hex().upper())
 
     save_data = save_data[:res_pos] + res_bytes + save_data[res_pos + res_length :]
-
-    # for i in resource_bytes:
-    #     save_data = save_data[:res_pos] + i + save_data[res_pos + 4 :]
-    #     res_pos += offset
 
     # write credits
     cred_marker = b"Credits"
@@ -546,10 +570,23 @@ def make_save_file(file_path, change_data):
     save_data = save_data[:cred_pos] + cred_bytes + save_data[cred_pos + 4 :]
 
     # write perk points
-    perks_marker = b"PerkPoints"
-    perks_pos = save_data.find(perks_marker) + 36
-    perks_bytes = struct.pack("i", new_values["misc"]["perks"])
-    save_data = save_data[:perks_pos] + perks_bytes + save_data[perks_pos + 4 :]
+    if new_values["misc"]["perks"] > 0:
+        perks_marker = b"PerkPoints"
+        perks_bytes = struct.pack("i", new_values["misc"]["perks"])
+        if save_data.find(perks_marker) != -1:
+            perks_pos = save_data.find(perks_marker) + 36
+            save_data = save_data[:perks_pos] + perks_bytes + save_data[perks_pos + 4 :]
+        else:
+            perks_entry = (
+                b"\x0B\x00\x00\x00\x50\x65\x72\x6B\x50\x6F\x69\x6E\x74\x73\x00\x0C\x00\x00\x00\x49\x6E\x74\x50\x72\x6F\x70\x65\x72\x74\x79\x00\x04\x00\x00\x00\x00\x00\x00\x00\x00"
+                + perks_bytes
+            )
+            perks_pos = save_data.find(
+                b"\x11\x00\x00\x00\x55\x6E\x4C\x6F\x63\x6B\x65\x64\x4D\x69\x73\x73\x69\x6F\x6E\x73\x00\x0E"
+            )
+            save_data = (
+                save_data[:perks_pos] + perks_entry + save_data[perks_pos:]
+            )  # inserting data, not overwriting
     # print(f'2. {len(save_data)}')
     # write XP
     en_marker = b"\x85\xEF\x62\x6C\x65\xF1\x02\x4A\x8D\xFE\xB5\xD0\xF3\x90\x9D\x2E\x03\x00\x00\x00\x58\x50"
@@ -953,6 +990,7 @@ def remove_all_ocs():
     unforged_list.clear()
 
 
+# xp_table[i] = XP needed for level i+1
 xp_table = [
     0,
     3000,
@@ -980,6 +1018,7 @@ xp_table = [
     294500,
     315000,
 ]
+# ordered list of the promotion ranks (low -> high)
 promo_ranks = [
     "None",
     "Bronze 1",
@@ -1002,6 +1041,7 @@ promo_ranks = [
     "Legendary 3",
 ]
 
+# global variable definitions
 forged_ocs = dict()
 unforged_ocs = dict()
 unacquired_ocs = dict()
@@ -1012,6 +1052,7 @@ guid_re = re.compile(r".*\(([0-9A-F]*)\)")
 
 if __name__ == "__main__":
     # print(os.getcwd())
+    # specify and open the UI
     ui_file_name = "editor.ui"
     appctext = ApplicationContext()
     ui_file = QFile(ui_file_name)
@@ -1019,13 +1060,16 @@ if __name__ == "__main__":
         print("Cannot open {}: {}".format(ui_file_name, ui_file.errorString()))
         sys.exit(-1)
 
+    # load reference data
     with open("guids.json", "r") as g:
         guid_dict = json.loads(g.read())
 
+    # find the install path for the steam version
     steam_reg = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Valve\Steam")
     steam_path = winreg.QueryValueEx(steam_reg, "SteamPath")[0]
     steam_path += "/steamapps/common/Deep Rock Galactic/FSD/Saved/SaveGames"
 
+    # load the UI and do a basic check
     loader = QUiLoader()
     loader.registerCustomWidget(TextEditFocusChecking)
     widget = loader.load(ui_file, None)
@@ -1034,8 +1078,12 @@ if __name__ == "__main__":
         print(loader.errorString())
         sys.exit(-1)
 
+    # connect file opening function to menu item
     widget.actionOpen_Save_File.triggered.connect(open_file)
+    # set column names for overclock treeview
     widget.overclock_tree.setHeaderLabels(["Overclock", "Status", "GUID"])
+
+    # populate the promotion drop downs
     promo_boxes = [
         widget.driller_promo_box,
         widget.gunner_promo_box,
@@ -1046,10 +1094,12 @@ if __name__ == "__main__":
         for j in promo_ranks:
             i.addItem(j)
 
+    # populate the filter drop down for overclocks
     sort_labels = ["All", "Unforged", "Forged", "Unacquired"]
     for i in sort_labels:
         widget.combo_oc_filter.addItem(i)
 
+    # connect functions to buttons and menu items
     widget.actionSave_changes.triggered.connect(save_changes)
     widget.actionSet_All_Classes_to_25.triggered.connect(set_all_25)
     widget.actionAdd_overclock_crafting_materials.triggered.connect(add_crafting_mats)
@@ -1060,6 +1110,7 @@ if __name__ == "__main__":
     widget.remove_all_ocs.clicked.connect(remove_all_ocs)
     widget.remove_selected_ocs.clicked.connect(remove_selected_ocs)
 
+    # actually display the thing
     widget.show()
     exit_code = appctext.app.exec_()
     sys.exit(exit_code)
