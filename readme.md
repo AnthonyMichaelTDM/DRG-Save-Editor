@@ -22,6 +22,9 @@ Some notes:
 
 ![main_screen](sshot.png)
 ## Changelog
+- v1.3.4
+    - Fixed a bug related to editing perk points when using a new save or a save that doesn't have any available perk points
+    - Added player rank calculation and rank title to the classes area
 - v1.3.3
     - Fixed a bug related to opening saves that have not forged any overclocks
     - Fixed a bug where resource counts would get mixed up

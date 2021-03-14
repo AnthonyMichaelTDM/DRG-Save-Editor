@@ -127,6 +127,36 @@ def update_xp(dwarf, total_xp=0):
         level_box.setText(str(level))
         remainder_box.setText(str(remainder))
 
+    update_rank()
+
+
+def update_rank():
+    s_promo = widget.scout_promo_box.currentIndex()
+    e_promo = widget.engineer_promo_box.currentIndex()
+    g_promo = widget.gunner_promo_box.currentIndex()
+    d_promo = widget.driller_promo_box.currentIndex()
+
+    try:
+        s_level = int(widget.sc_lvl_text.text())
+        e_level = int(widget.en_lvl_text.text())
+        g_level = int(widget.gu_lvl_text.text())
+        d_level = int(widget.dr_lvl_text.text())
+        total_levels = ((s_promo + e_promo + g_promo + d_promo)*25) + s_level + e_level + g_level + d_level - 4
+        rank = total_levels // 3  # integer division
+        rem = total_levels % 3
+    except:
+        rank = 1
+        rem = 0
+
+    try:
+        title = rank_titles[rank]
+    except:
+        title = "Lord of the Deep"
+
+    widget.classes_group.setTitle(f'Classes - Rank {rank+1} {rem}/3, {title}')
+
+    # groupbox.setTitle(string)
+
 
 @Slot()
 def open_file():
@@ -157,6 +187,7 @@ def open_file():
     global stats
     stats = init_values(save_data)
     reset_values()
+    update_rank()
 
     global forged_ocs
     global unacquired_ocs
@@ -775,6 +806,7 @@ def reset_values():
     populate_unforged_list(unforged_list, unforged_ocs)
 
     filter_overclocks()
+    update_rank()
 
 
 @Slot()
@@ -1041,6 +1073,85 @@ promo_ranks = [
     "Legendary 3",
 ]
 
+# ordered list of player rank titles (low -> high)
+rank_titles = [
+    'Greenbeard',
+    'Rock Hauler',
+    'Cave Runner',
+    'Stone Breaker',
+    'Pit Delver',
+    'Rookie Miner',
+    'Rookie Miner',
+    'Authorized Miner',
+    'Authorized Miner',
+    'Senior Miner',
+    'Senior Miner',
+    'Professional Miner',
+    'Professional Miner',
+    'Veteran Miner',
+    'Veteran Miner',
+    'Expert Miner',
+    'Expert Miner',
+    'Elite Miner',
+    'Elite Miner',
+    'Elite Miner',
+    'Supreme Miner',
+    'Supreme Miner',
+    'Supreme Miner',
+    'Master Miner',
+    'Master Miner',
+    'Master Miner',
+    'Epic Miner',
+    'Epic Miner',
+    'Epic Miner',
+    'Epic Miner',
+    'Legendary Miner',
+    'Legendary Miner',
+    'Legendary Miner',
+    'Legendary Miner',
+    'Legendary Miner',
+    'Mythic Miner',
+    'Mythic Miner',
+    'Mythic Miner',
+    'Mythic Miner',
+    'Mythic Miner',
+    'Stone Guard',
+    'Stone Guard',
+    'Stone Guard',
+    'Stone Guard',
+    'Stone Guard',
+    'Honor Guard',
+    'Honor Guard',
+    'Honor Guard',
+    'Honor Guard',
+    'Honor Guard',
+    'Iron Guard',
+    'Iron Guard',
+    'Iron Guard',
+    'Iron Guard',
+    'Iron Guard',
+    'Giant Guard',
+    'Giant Guard',
+    'Giant Guard',
+    'Giant Guard',
+    'Giant Guard',
+    'Night Carver',
+    'Night Carver',
+    'Night Carver',
+    'Night Carver',
+    'Night Carver',
+    'Longbeard',
+    'Longbeard',
+    'Longbeard',
+    'Longbeard',
+    'Longbeard',
+    'Gilded Master',
+    'Gilded Master',
+    'Gilded Master',
+    'Gilded Master',
+    'Gilded Master',
+]
+
 # global variable definitions
 forged_ocs = dict()
 unforged_ocs = dict()
@@ -1109,6 +1220,10 @@ if __name__ == "__main__":
     widget.add_cores_button.clicked.connect(add_cores)
     widget.remove_all_ocs.clicked.connect(remove_all_ocs)
     widget.remove_selected_ocs.clicked.connect(remove_selected_ocs)
+    widget.driller_promo_box.currentIndexChanged.connect(update_rank)
+    widget.engineer_promo_box.currentIndexChanged.connect(update_rank)
+    widget.gunner_promo_box.currentIndexChanged.connect(update_rank)
+    widget.scout_promo_box.currentIndexChanged.connect(update_rank)
 
     # actually display the thing
     widget.show()
