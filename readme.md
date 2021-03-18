@@ -19,9 +19,12 @@ Some notes:
 - There is a context menu in the overclock tree listing to add overclocks to the inventory
 - You can CTRL+Click on overclocks to select more than one
 - Changing XP values will update the other relevant fields when the focus changes (i.e., click on a different part of the program or another program entirely)
+- If you have promotions beyond Legendary 3 those promotions will be preserved as long as the drop-down is set to "Legendary 3+". If you don't have enough promotions for a specific dwarf and set them to "Legendary 3+" it will keep whatever the original value was.
 
 ![main_screen](sshot.png)
 ## Changelog
+- v1.3.5
+    - Fixed a bug where promotions beyond Legendary 3 would be lost when saving. As long as the promotion is set to "Legendary 3+" before saving, the original number of promotions (and thus player rank) is preserved.
 - v1.3.4
     - Fixed a bug related to editing perk points when using a new save or a save that doesn't have any available perk points
     - Added player rank calculation and rank title to the classes area

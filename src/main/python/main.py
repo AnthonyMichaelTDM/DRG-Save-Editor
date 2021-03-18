@@ -131,10 +131,28 @@ def update_xp(dwarf, total_xp=0):
 
 
 def update_rank():
-    s_promo = widget.scout_promo_box.currentIndex()
-    e_promo = widget.engineer_promo_box.currentIndex()
-    g_promo = widget.gunner_promo_box.currentIndex()
-    d_promo = widget.driller_promo_box.currentIndex()
+    global stats
+    global max_badges
+    s_promo = (
+        stats["xp"]["scout"]["promo"]
+        if int(widget.scout_promo_box.currentIndex()) == max_badges
+        else int(widget.scout_promo_box.currentIndex())
+    )
+    e_promo = (
+        stats["xp"]["engineer"]["promo"]
+        if int(widget.engineer_promo_box.currentIndex()) == max_badges
+        else int(widget.engineer_promo_box.currentIndex())
+    )
+    g_promo = (
+        stats["xp"]["gunner"]["promo"]
+        if int(widget.gunner_promo_box.currentIndex()) == max_badges
+        else int(widget.gunner_promo_box.currentIndex())
+    )
+    d_promo = (
+        stats["xp"]["driller"]["promo"]
+        if int(widget.driller_promo_box.currentIndex()) == max_badges
+        else int(widget.driller_promo_box.currentIndex())
+    )
 
     try:
         s_level = int(widget.sc_lvl_text.text())
@@ -161,8 +179,6 @@ def update_rank():
         title = "Lord of the Deep"
 
     widget.classes_group.setTitle(f"Classes - Rank {rank+1} {rem}/3, {title}")
-
-    # groupbox.setTitle(string)
 
 
 @Slot()
@@ -251,7 +267,7 @@ def get_resources(save_bytes):
         b"OwnedResources"  # marks the beginning of where resource values can be found
     )
     res_pos = save_bytes.find(res_marker)
-    print("getting resources")
+    # print("getting resources")
     for k, v in resources.items():  # iterate through resource list
         # print(f"key: {k}, value: {v}")
         marker = bytes.fromhex(v)
@@ -548,8 +564,7 @@ def save_changes():
 def make_save_file(file_path, change_data):
     with open(file_path, "rb") as f:
         save_data = f.read()
-    # print(f'1. {len(save_data)}')
-    # new_values = get_values()
+
     new_values = change_data
     # write resources
     resource_bytes = list()
@@ -593,11 +608,11 @@ def make_save_file(file_path, change_data):
             res_bytes = (
                 res_bytes[: pos + 16] + struct.pack("f", v) + res_bytes[pos + 20 :]
             )
-            print(
-                f'res: {k}, pos: {pos}, guid: {res_guids[k]}, val: {v}, v bytes: {struct.pack("f", v)}'
-            )
+            # print(
+            #     f'res: {k}, pos: {pos}, guid: {res_guids[k]}, val: {v}, v bytes: {struct.pack("f", v)}'
+            # )
 
-    print(res_bytes.hex().upper())
+    # print(res_bytes.hex().upper())
 
     save_data = save_data[:res_pos] + res_bytes + save_data[res_pos + res_length :]
 
@@ -759,6 +774,7 @@ def reset_values():
     global unforged_ocs
     global unacquired_ocs
     global forged_ocs
+    global max_badges
     # print('reset values')
     widget.bismor_text.setText(str(stats["minerals"]["bismor"]))
     widget.enor_text.setText(str(stats["minerals"]["enor"]))
@@ -784,28 +800,44 @@ def reset_values():
     d_xp = xp_total_to_level(stats["xp"]["driller"]["xp"])
     widget.dr_lvl_text.setText(str(d_xp[0]))
     widget.driller_xp_2.setText(str(d_xp[1]))
-    widget.driller_promo_box.setCurrentIndex(stats["xp"]["driller"]["promo"])
+    widget.driller_promo_box.setCurrentIndex(
+        stats["xp"]["driller"]["promo"]
+        if stats["xp"]["driller"]["promo"] < max_badges
+        else max_badges
+    )
     # print('after driller')
 
     widget.engineer_xp.setText(str(stats["xp"]["engineer"]["xp"]))
     e_xp = xp_total_to_level(stats["xp"]["engineer"]["xp"])
     widget.en_lvl_text.setText(str(e_xp[0]))
     widget.engineer_xp_2.setText(str(e_xp[1]))
-    widget.engineer_promo_box.setCurrentIndex(stats["xp"]["engineer"]["promo"])
+    widget.engineer_promo_box.setCurrentIndex(
+        stats["xp"]["engineer"]["promo"]
+        if stats["xp"]["engineer"]["promo"] < max_badges
+        else max_badges
+    )
     # print('after engineer')
 
     widget.gunner_xp.setText(str(stats["xp"]["gunner"]["xp"]))
     g_xp = xp_total_to_level(stats["xp"]["gunner"]["xp"])
     widget.gu_lvl_text.setText(str(g_xp[0]))
     widget.gunner_xp_2.setText(str(g_xp[1]))
-    widget.gunner_promo_box.setCurrentIndex(stats["xp"]["gunner"]["promo"])
+    widget.gunner_promo_box.setCurrentIndex(
+        stats["xp"]["gunner"]["promo"]
+        if stats["xp"]["gunner"]["promo"] < max_badges
+        else max_badges
+    )
     # print('after gunner')
 
     widget.scout_xp.setText(str(stats["xp"]["scout"]["xp"]))
     s_xp = xp_total_to_level(stats["xp"]["scout"]["xp"])
     widget.sc_lvl_text.setText(str(s_xp[0]))
     widget.scout_xp_2.setText(str(s_xp[1]))
-    widget.scout_promo_box.setCurrentIndex(stats["xp"]["scout"]["promo"])
+    widget.scout_promo_box.setCurrentIndex(
+        stats["xp"]["scout"]["promo"]
+        if stats["xp"]["scout"]["promo"] < max_badges
+        else max_badges
+    )
     # print('after scout')
 
     forged_ocs, unacquired_ocs, unforged_ocs = get_overclocks(save_data, guid_dict)
@@ -937,12 +969,15 @@ def init_values(save_data):
     stats["brewing"]["barley"] = resources["barley"]
     stats["brewing"]["malt"] = resources["malt"]
 
-    return stats
     # print('printing stats')
     # pp(stats)
+    return stats
 
 
 def get_values():
+    global stats
+    global max_badges
+
     ns = dict()
     ns["minerals"] = dict()
     ns["brewing"] = dict()
@@ -970,10 +1005,26 @@ def get_values():
     ns["xp"]["engineer"]["xp"] = int(widget.engineer_xp.text())
     ns["xp"]["gunner"]["xp"] = int(widget.gunner_xp.text())
     ns["xp"]["scout"]["xp"] = int(widget.scout_xp.text())
-    ns["xp"]["driller"]["promo"] = int(widget.driller_promo_box.currentIndex())
-    ns["xp"]["engineer"]["promo"] = int(widget.engineer_promo_box.currentIndex())
-    ns["xp"]["gunner"]["promo"] = int(widget.gunner_promo_box.currentIndex())
-    ns["xp"]["scout"]["promo"] = int(widget.scout_promo_box.currentIndex())
+
+    driller_promo = int(widget.driller_promo_box.currentIndex())
+    gunner_promo = int(widget.gunner_promo_box.currentIndex())
+    scout_promo = int(widget.scout_promo_box.currentIndex())
+    engineer_promo = int(widget.engineer_promo_box.currentIndex())
+
+    ns["xp"]["driller"]["promo"] = (
+        driller_promo if driller_promo < max_badges else stats["xp"]["driller"]["promo"]
+    )
+    ns["xp"]["engineer"]["promo"] = (
+        engineer_promo
+        if engineer_promo < max_badges
+        else stats["xp"]["engineer"]["promo"]
+    )
+    ns["xp"]["gunner"]["promo"] = (
+        gunner_promo if gunner_promo < max_badges else stats["xp"]["gunner"]["promo"]
+    )
+    ns["xp"]["scout"]["promo"] = (
+        scout_promo if scout_promo < max_badges else stats["xp"]["scout"]["promo"]
+    )
 
     ns["misc"]["error"] = int(widget.error_text.text())
     ns["misc"]["cores"] = int(widget.core_text.text())
@@ -1078,7 +1129,9 @@ promo_ranks = [
     "Legendary 1",
     "Legendary 2",
     "Legendary 3",
+    "Legendary 3+",
 ]
+max_badges = len(promo_ranks) - 1
 
 # ordered list of player rank titles (low -> high)
 rank_titles = [
