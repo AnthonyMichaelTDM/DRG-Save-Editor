@@ -23,6 +23,8 @@ Some notes:
 
 ![main_screen](sshot.png)
 ## Changelog
+- v1.3.6
+    - Fixed a bug where an unexpected number of resources in the save file would throw off reading/writing of new values. The editor now reads how many entries there are and adjusts accordingly.
 - v1.3.5
     - Fixed a bug where promotions beyond Legendary 3 would be lost when saving. As long as the promotion is set to "Legendary 3+" before saving, the original number of promotions (and thus player rank) is preserved.
 - v1.3.4

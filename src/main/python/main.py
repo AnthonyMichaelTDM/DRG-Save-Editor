@@ -599,7 +599,7 @@ def make_save_file(file_path, change_data):
 
     res_marker = b"OwnedResources"
     res_pos = save_data.find(res_marker) + 85
-    res_length = 240
+    res_length = struct.unpack("i", save_data[res_pos - 4 : res_pos])[0] * 20
     res_bytes = save_data[res_pos : res_pos + res_length]
 
     for k, v in resources.items():
