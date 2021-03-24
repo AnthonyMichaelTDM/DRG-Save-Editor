@@ -8,8 +8,12 @@ This is a standalone DRG save editor written in python (3.6.12), using PyQt5 (5.
 ## Installation
 Download the "DRG Save Editor.zip" file and extract the zip file and start the editor using the "start editor.cmd" batch file. 
 
-## Usage
+## Troubleshooting
+If the editor fails to start, please add a second line to the "start editor.cmd" that's just "pause". This will let you see any error messages that will be necessary for bug fixes. 
 
+If the editor opens but doesn't edit your save properly (i.e., values not being read properly, changes not being reflected in-game, etc) please open an issue, describe the problem as thoroughly as you can, and attach a copy of your save file from BEFORE any edits were attempted.
+
+## Usage
 ### ALWAYS BACKUP YOUR SAVE FILE!
 The editor will make a backup of the save file you open in the same folder as the save file with the extension of `.old`. The editor makes this backup at the moment you open the save file.
 
