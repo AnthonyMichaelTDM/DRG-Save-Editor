@@ -1235,10 +1235,13 @@ if __name__ == "__main__":
     with open("guids.json", "r") as g:
         guid_dict = json.loads(g.read())
 
-    # find the install path for the steam version
-    steam_reg = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Valve\Steam")
-    steam_path = winreg.QueryValueEx(steam_reg, "SteamPath")[0]
-    steam_path += "/steamapps/common/Deep Rock Galactic/FSD/Saved/SaveGames"
+    try:
+        # find the install path for the steam version
+        steam_reg = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Valve\Steam")
+        steam_path = winreg.QueryValueEx(steam_reg, "SteamPath")[0]
+        steam_path += "/steamapps/common/Deep Rock Galactic/FSD/Saved/SaveGames"
+    except:
+        steam_path = "."
 
     # load the UI and do a basic check
     loader = QUiLoader()

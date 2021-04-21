@@ -27,6 +27,8 @@ Some notes:
 
 ![main_screen](sshot.png)
 ## Changelog
+- v1.3.7
+    -Fixed a bug where the editor would crash with the microsoft store version of the game.
 - v1.3.6
     - Fixed a bug where an unexpected number of resources in the save file would throw off reading/writing of new values. The editor now reads how many entries there are and adjusts accordingly.
 - v1.3.5
