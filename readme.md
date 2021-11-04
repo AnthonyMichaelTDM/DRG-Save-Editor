@@ -1,6 +1,8 @@
 # Deep Rock Galactic Save Editor
 This is a standalone DRG save editor written in python (3.6.12), using PyQt5 (5.9.2) and PySide2 (5.15.2) and packaged using the [fman build system](https://build-system.fman.io). 
 
+## THIS IS NOT UPDATED FOR UPDATE 35! THERE ARE NO GUARANTEES IT WILL WORK. USE AT YOUR OWN RISK!
+
 ## Requirements
 - Windows 7 (or compatibility mode)
 - ???
