@@ -1376,11 +1376,11 @@
         "weapon": "'Hurricane' Guided Rocket System",
         "name": "Fragmentation Missiles",
         "cost": {
-            "credits": 0,
-            "bismor": 0,
-            "croppa": 0,
+            "credits": 7150,
+            "bismor": 100,
+            "croppa": 135,
             "enor": 0,
-            "jadiz": 0,
+            "jadiz": 60,
             "magnite": 0,
             "umanite": 0
         }
