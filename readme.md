@@ -31,7 +31,7 @@ Some notes:
 ## Changelog
 - v1.4
     - Updated for update 35
-        - Added new weapon overclocks (NB: Gunner 'Fragmentation Missiles' doesn't have )
+        - Added new weapon overclocks
         - Added support for data cell resource
         - Added support for season xp/level and scrip
 - v1.3.7
