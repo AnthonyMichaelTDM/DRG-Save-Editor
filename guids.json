@@ -1370,5 +1370,369 @@
             "magnite": 0,
             "umanite": 60
         }
+    },
+    "1E41880C9E18FC439B82B69F19F0A191": {
+        "class": "Gunner",
+        "weapon": "'Hurricane' Guided Rocket System",
+        "name": "Fragmentation Missiles",
+        "cost": {
+            "credits": 0,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+    "52DE47B5A2579E418564F19382240866": {
+        "class": "Gunner",
+        "weapon": "'Hurricane' Guided Rocket System",
+        "name": "Salvo Module",
+        "cost": {
+            "credits": 8650,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 65,
+            "jadiz": 110,
+            "magnite": 0,
+            "umanite": 130
+        }
+    },
+    "8E6816C3DAEE2C49B93E8FA67CF13B1A": {
+        "class": "Gunner",
+        "weapon": "'Hurricane' Guided Rocket System",
+        "name": "Manual Guidance Cutoff",
+        "cost": {
+            "credits": 7050,
+            "bismor": 75,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 105,
+            "magnite": 0,
+            "umanite": 130
+        }
+    },
+    "C24639FB04A00949BE8F00CD38462B84": {
+        "class": "Gunner",
+        "weapon": "'Hurricane' Guided Rocket System",
+        "name": "Jet Fuel Homebrew",
+        "cost": {
+            "credits": 7250,
+            "bismor": 70,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 130,
+            "magnite": 0,
+            "umanite": 100
+        }
+    },
+    "C873E29A463E4F4DAD4821D92BC31FB4": {
+        "class": "Gunner",
+        "weapon": "'Hurricane' Guided Rocket System",
+        "name": "Minelayer System",
+        "cost": {
+            "credits": 7500,
+            "bismor": 80,
+            "croppa": 125,
+            "enor": 90,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+    "01CD9AAD2398FB46818A3F6F6A96384A": {
+        "class": "Gunner",
+        "weapon": "'Hurricane' Guided Rocket System",
+        "name": "Plasma Burster Missiles",
+        "cost": {
+            "credits": 8500,
+            "bismor": 0,
+            "croppa": 105,
+            "enor": 80,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 140
+        }
+    },
+    "2A257648DF688844BA3DB091A3756BA5": {
+        "class": "Gunner",
+        "weapon": "'Hurricane' Guided Rocket System",
+        "name": "Overtuned Feed Mechanism",
+        "cost": {
+            "credits": 8950,
+            "bismor": 0,
+            "croppa": 65,
+            "enor": 0,
+            "jadiz": 105,
+            "magnite": 130,
+            "umanite": 0
+        }
+    },
+    "C1D77A8BAFD433408E4A8397F1A63AEC": {
+        "class": "Driller",
+        "weapon": "Corrosive Sludge Pump",
+        "name": "Disperser Compound",
+        "cost": {
+            "credits": 8800,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 135,
+            "magnite": 100,
+            "umanite": 60
+        }
+    },
+    "4CCC7E994163A14AAAC97AB3777FF1F9": {
+        "class": "Driller",
+        "weapon": "Corrosive Sludge Pump",
+        "name": "Goo Bomber Special",
+        "cost": {
+            "credits": 7450,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 90,
+            "jadiz": 140,
+            "magnite": 0,
+            "umanite": 65
+        }
+    },
+    "4956672BA68D3A439D4EC260F0B98CE4": {
+        "class": "Driller",
+        "weapon": "Corrosive Sludge Pump",
+        "name": "AG Mixture",
+        "cost": {
+            "credits": 7800,
+            "bismor": 0,
+            "croppa": 60,
+            "enor": 0,
+            "jadiz": 105,
+            "magnite": 0,
+            "umanite": 140
+        }
+    },
+    "ECCAB2551405F044A93FFB6C51FF9B39": {
+        "class": "Driller",
+        "weapon": "Corrosive Sludge Pump",
+        "name": "Hydrogen Ion Additive",
+        "cost": {
+            "credits": 8800,
+            "bismor": 135,
+            "croppa": 0,
+            "enor": 100,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 70
+        }
+    },
+    "539F16D0ECA50447B21BD3B1ADD439CB": {
+        "class": "Driller",
+        "weapon": "Corrosive Sludge Pump",
+        "name": "Volatile Impact Mixture",
+        "cost": {
+            "credits": 8500,
+            "bismor": 120,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 75,
+            "magnite": 100,
+            "umanite": 0
+        }
+    },
+    "EA7D273B56099B4B9F44768A099A8C1C": {
+        "class": "Driller",
+        "weapon": "Corrosive Sludge Pump",
+        "name": "Sludge Blast",
+        "cost": {
+            "credits": 8200,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 100,
+            "magnite": 120,
+            "umanite": 60
+        }
+    },
+    "5ABF1C487BF3BD4BAFDAF2A4428720EC": {
+        "class": "Scout",
+        "weapon": "DRAK-25 Plasma Carbine",
+        "name": "Rewiring Mod",
+        "cost": {
+            "credits": 8200,
+            "bismor": 130,
+            "croppa": 65,
+            "enor": 0,
+            "jadiz": 110,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+    "1BD74059739E094BBE0A3B79F2E94B46": {
+        "class": "Scout",
+        "weapon": "DRAK-25 Plasma Carbine",
+        "name": "Impact Deflection",
+        "cost": {
+            "credits": 7950,
+            "bismor": 0,
+            "croppa": 60,
+            "enor": 0,
+            "jadiz": 140,
+            "magnite": 0,
+            "umanite": 105
+        }
+    },
+    "00EA09DA14DA7646982DD5A1B2467A08": {
+        "class": "Scout",
+        "weapon": "DRAK-25 Plasma Carbine",
+        "name": "Thermal Liquid Coolant",
+        "cost": {
+            "credits": 8100,
+            "bismor": 75,
+            "croppa": 0,
+            "enor": 105,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 130
+        }
+    },
+    "BFFE0C3436AC584D890B6EFE9124AAF1": {
+        "class": "Scout",
+        "weapon": "DRAK-25 Plasma Carbine",
+        "name": "Thermal Exhaust Feedback",
+        "cost": {
+            "credits": 7500,
+            "bismor": 140,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 100,
+            "magnite": 0,
+            "umanite": 75
+        }
+    },
+    "9225769777355041BDEB70CACD946A27": {
+        "class": "Scout",
+        "weapon": "DRAK-25 Plasma Carbine",
+        "name": "Overtuned Particle Accelerator",
+        "cost": {
+            "credits": 7200,
+            "bismor": 100,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 65,
+            "magnite": 120,
+            "umanite": 0
+        }
+    },
+    "D831B000F2A2C84C8749A5B182348574": {
+        "class": "Scout",
+        "weapon": "DRAK-25 Plasma Carbine",
+        "name": "Aggressive Venting",
+        "cost": {
+            "credits": 8000,
+            "bismor": 130,
+            "croppa": 95,
+            "enor": 80,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+    "532714B803867C4F8AA6EA78FA4EAAEA": {
+        "class": "Scout",
+        "weapon": "DRAK-25 Plasma Carbine",
+        "name": "Shield Battery Booster",
+        "cost": {
+            "credits": 8850,
+            "bismor": 65,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 120,
+            "magnite": 105,
+            "umanite": 0
+        }
+    },
+    "B63D1376D90DDD4C986851D791E737AB": {
+        "class": "Engineer",
+        "weapon": "LOK-1 Smart Rifle",
+        "name": "Armor Break Module",
+        "cost": {
+            "credits": 7850,
+            "bismor": 0,
+            "croppa": 125,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 90,
+            "umanite": 80
+        }
+    },
+    "538A52E774FCB24C85E5F7F1CE63E3FA": {
+        "class": "Engineer",
+        "weapon": "LOK-1 Smart Rifle",
+        "name": "Eraser",
+        "cost": {
+            "credits": 8000,
+            "bismor": 0,
+            "croppa": 135,
+            "enor": 90,
+            "jadiz": 0,
+            "magnite": 70,
+            "umanite": 0
+        }
+    },
+    "8884ED69B093E44681F36C74FD1E772F": {
+        "class": "Engineer",
+        "weapon": "LOK-1 Smart Rifle",
+        "name": "Executioner",
+        "cost": {
+            "credits": 8750,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 130,
+            "jadiz": 105,
+            "magnite": 65,
+            "umanite": 0
+        }
+    },
+    "6FA83E783551F54A97BC04F09DF1A842": {
+        "class": "Engineer",
+        "weapon": "LOK-1 Smart Rifle",
+        "name": "Explosive Chemical Rounds",
+        "cost": {
+            "credits": 8500,
+            "bismor": 0,
+            "croppa": 65,
+            "enor": 0,
+            "jadiz": 130,
+            "magnite": 95,
+            "umanite": 0
+        }
+    },
+    "798B9546AB16B34CAD766DAB554150D9": {
+        "class": "Engineer",
+        "weapon": "LOK-1 Smart Rifle",
+        "name": "Seeker Rounds",
+        "cost": {
+            "credits": 8150,
+            "bismor": 60,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 135,
+            "umanite": 95
+        }
+    },
+    "956BB51F4D8F254291A0C0E740BD07CF": {
+        "class": "Engineer",
+        "weapon": "LOK-1 Smart Rifle",
+        "name": "Neuro-Lasso",
+        "cost": {
+            "credits": 8950,
+            "bismor": 0,
+            "croppa": 125,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 80,
+            "umanite": 100
+        }
     }
 }
