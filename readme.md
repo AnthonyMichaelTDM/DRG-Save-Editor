@@ -31,7 +31,7 @@ Some notes:
 ## Changelog
 - v1.4
     - Updated for update 35
-        - Added new weapon overclocks
+        - Added new weapon overclocks (special thanks to [Eleison](https://github.com/Eleison) for all the new OC data)
         - Added support for data cell resource
         - Added support for season xp/level and scrip
 - v1.3.7
