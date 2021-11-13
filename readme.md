@@ -1,7 +1,7 @@
 # Deep Rock Galactic Save Editor
 This is a standalone DRG save editor written in python (3.6.12), using PyQt5 (5.9.2) and PySide2 (5.15.2) and packaged using the [fman build system](https://build-system.fman.io). 
 
-## THIS IS NOT UPDATED FOR UPDATE 35! THERE ARE NO GUARANTEES IT WILL WORK. USE AT YOUR OWN RISK!
+## ~~THIS IS NOT UPDATED FOR UPDATE 35! THERE ARE NO GUARANTEES IT WILL WORK. USE AT YOUR OWN RISK!~~ Just updated for U35! There are likely to be bugs, see the Troubleshooting section!
 
 ## Requirements
 - Windows 7 (or compatibility mode)
@@ -29,6 +29,11 @@ Some notes:
 
 ![main_screen](sshot.png)
 ## Changelog
+- v1.4
+    - Updated for update 35
+        - Added new weapon overclocks (NB: Gunner 'Fragmentation Missiles' doesn't have )
+        - Added support for data cell resource
+        - Added support for season xp/level and scrip
 - v1.3.7
     - Fixed a bug where the editor would crash with the microsoft store version of the game.
 - v1.3.6

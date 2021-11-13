@@ -1,58 +1,46 @@
 {
     "xp": {
         "engineer": {
-            "xp": 0,
+            "xp": 4951,
             "promo": 1
         },
         "scout": {
-            "xp": 301821,
-            "promo": 1
+            "xp": 32802,
+            "promo": 3
         },
         "driller": {
-            "xp": 282753,
-            "promo": 2
+            "xp": 116885,
+            "promo": 4
         },
         "gunner": {
-            "xp": 13186,
+            "xp": 135416,
             "promo": 1
         }
     },
     "misc": {
-        "credits": 428509728,
-        "perks": 13,
-        "cores": 83,
-        "error": 10
+        "credits": 427559098,
+        "perks": 12,
+        "cores": 73,
+        "error": 11,
+        "data": 2
     },
     "minerals": {
-        "bismor": 236497,
-        "enor": 264908,
-        "jadiz": 272157,
-        "croppa": 201073,
-        "magnite": 205235,
-        "umanite": 244014
+        "bismor": 135747,
+        "enor": 165311,
+        "jadiz": 171225,
+        "croppa": 105383,
+        "magnite": 103851,
+        "umanite": 145722
     },
     "brewing": {
-        "yeast": 81836,
-        "starch": 81794,
-        "barley": 81482,
-        "malt": 81562
+        "yeast": 82010,
+        "starch": 82110,
+        "barley": 81263,
+        "malt": 81786
     },
-    "unforged": {
-        "28A8E817E50A7346963E418BA08DFE18": {
-            "class": "Driller",
-            "weapon": "Subata 120",
-            "name": "Automatic Fire",
-            "cost": {
-                "credits": 7400,
-                "bismor": 95,
-                "croppa": 65,
-                "enor": 120,
-                "jadiz": 0,
-                "magnite": 0,
-                "umanite": 0
-            },
-            "status": "Unforged"
-        },
-        "2B27BF047EC90142B4FB2D43CF97D6FE": "Cosmetic"
-    }
+    "season": {
+        "xp": 4667,
+        "scrip": 0
+    },
+    "unforged": {}
 }

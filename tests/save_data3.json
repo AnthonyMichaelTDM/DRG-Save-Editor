@@ -1,41 +1,46 @@
 {
     "xp": {
         "engineer": {
-            "xp": 41384,
+            "xp": 4951,
             "promo": 1
         },
         "scout": {
-            "xp": 0,
-            "promo": 0
+            "xp": 57695,
+            "promo": 3
         },
         "driller": {
-            "xp": 0,
-            "promo": 0
+            "xp": 187102,
+            "promo": 4
         },
         "gunner": {
-            "xp": 0,
-            "promo": 0
+            "xp": 148226,
+            "promo": 1
         }
     },
     "misc": {
-        "credits": 35836,
-        "perks": 3,
-        "cores": 1,
-        "error": 1
+        "credits": 427436384,
+        "perks": 18,
+        "cores": 72,
+        "error": 13,
+        "data": 5
     },
     "minerals": {
-        "bismor": 717,
-        "enor": 497,
-        "jadiz": 133,
-        "croppa": 193,
-        "magnite": 721,
-        "umanite": 1020
+        "bismor": 135338,
+        "enor": 164902,
+        "jadiz": 170914,
+        "croppa": 104667,
+        "magnite": 102958,
+        "umanite": 145039
     },
     "brewing": {
-        "yeast": 38,
-        "starch": 157,
-        "barley": 11,
-        "malt": 34
+        "yeast": 82025,
+        "starch": 82149,
+        "barley": 81247,
+        "malt": 81805
+    },
+    "season": {
+        "xp": 39517,
+        "scrip": 0
     },
     "unforged": {}
 }

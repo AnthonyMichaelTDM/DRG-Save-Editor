@@ -36,38 +36,53 @@ class TextEditFocusChecking(QLineEdit):
         box = self.objectName()
         if self.text() == "":
             return super().focusOutEvent(e)
-
+        season = False
         value = int(self.text())
-        # lazy identification
-        if box.startswith("d"):
+
+        if box.startswith("driller"):
             dwarf = "driller"
-        elif box.startswith("e"):
+        elif box.startswith("engineer"):
             dwarf = "engineer"
-        elif box.startswith("g"):
+        elif box.startswith("gunner"):
             dwarf = "gunner"
-        elif box.startswith("s"):
+        elif box.startswith("scout"):
             dwarf = "scout"
+        elif box.startswith("season"):
+            season = True
         else:
             print("abandon all hope, ye who see this message")
             return super().focusOutEvent(e)
         # print(dwarf)
 
-        # decide/calculate how to update based on which box was changed
-        if box.endswith("xp"):  # total xp box changed
-            # print('main xp')
-            total = value
-        elif box.endswith("text"):  # dwarf level box changed
-            # print('level xp')
-            xp, level, rem = get_dwarf_xp(dwarf)
-            if xp_table[value - 1] + rem == xp:
-                total = xp
-            else:
-                total = xp_table[value - 1]
-        elif box.endswith("2"):  # xp for current level changed
-            xp, level, rem = get_dwarf_xp(dwarf)
-            total = xp_table[level - 1] + value
+        if season:
+            if box.endswith("xp"):
+                if value >= 5000:
+                    widget.season_xp.setText("4999")
+                elif value < 0:
+                    widget.season_xp.setText("0")
+            elif box.endswith("lvl_text"):
+                if value < 0:
+                    widget.season_lvl_text.setText("0")
+                elif value > 100:
+                    widget.season_lvl_text.setText("100")
+                    widget.season_xp_.setText("0")
+        else:
+            # decide/calculate how to update based on which box was changed
+            if box.endswith("xp"):  # total xp box changed
+                # print('main xp')
+                total = value
+            elif box.endswith("text"):  # dwarf level box changed
+                # print('level xp')
+                xp, level, rem = get_dwarf_xp(dwarf)
+                if xp_table[value - 1] + rem == xp:
+                    total = xp
+                else:
+                    total = xp_table[value - 1]
+            elif box.endswith("2"):  # xp for current level changed
+                xp, level, rem = get_dwarf_xp(dwarf)
+                total = xp_table[level - 1] + value
 
-        update_xp(dwarf, total)  # update relevant xp fields
+            update_xp(dwarf, total)  # update relevant xp fields
 
         return super().focusOutEvent(e)  # call any other stuff that might happen (?)
 
@@ -244,24 +259,27 @@ def populate_unforged_list(list_widget, unforged):
         list_widget.addItem(oc)
 
 
+def get_season_data(save_bytes):
+    scrip_marker = bytes.fromhex("546F6B656E73")
+    scrip_offset = 32
+    season_xp_marker = bytes.fromhex("A47D407EC0E4364892CE2E03DE7DF0B3")
+    season_xp_offset = 48
+
+    season_xp_pos = save_bytes.find(season_xp_marker) + season_xp_offset
+    scrip_pos = save_bytes.find(scrip_marker) + scrip_offset
+
+    season_xp = struct.unpack("i", save_bytes[season_xp_pos : season_xp_pos + 4])[0]
+    scrip = struct.unpack("i", save_bytes[scrip_pos : scrip_pos + 4])[0]
+
+    return {"xp": season_xp, "scrip": scrip}
+
+
 def get_resources(save_bytes):
     # extracts the resource counts from the save file
     # print('getting resources')
     # resource GUIDs
-    resources = {
-        "yeast": "078548B93232C04085F892E084A74100",
-        "starch": "72312204E287BC41815540A0CF881280",
-        "barley": "22DAA757AD7A8049891B17EDCC2FE098",
-        "bismor": "AF0DC4FE8361BB48B32C92CC97E21DE7",
-        "enor": "488D05146F5F754BA3D4610D08C0603E",
-        "malt": "41EA550C1D46C54BBE2E9CA5A7ACCB06",
-        "umanite": "5F2BCF8347760A42A23B6EDC07C0941D",
-        "jadiz": "22BC4F7D07D13E43BFCA81BD9C14B1AF",
-        "croppa": "8AA7FB43293A0B49B8BE42FFE068A44C",
-        "magnite": "AADED8766C227D408032AFD18D63561E",
-        "error": "5828652C9A5DE845A9E2E1B8B463C516",
-        "cores": "A10CB2853871FB499AC854A1CDE2202C",
-    }
+    global resource_guids
+    resources = deepcopy(resource_guids)
     guid_length = 16  # length of GUIDs in bytes
     res_marker = (
         b"OwnedResources"  # marks the beginning of where resource values can be found
@@ -411,7 +429,7 @@ def build_oc_tree(tree, source_dict):
 
 def get_overclocks(save_bytes, guid_source):
     search_term = b"ForgedSchematics"
-    search_end = b"bFirstSchematicMessageShown"
+    search_end = b"SkinFixupCounter"
     pos = save_bytes.find(search_term)
     end_pos = save_bytes.find(search_end)
     for i in guid_source.values():
@@ -566,22 +584,10 @@ def make_save_file(file_path, change_data):
         save_data = f.read()
 
     new_values = change_data
+    global resource_guids
     # write resources
     resource_bytes = list()
-    res_guids = {
-        "yeast": "078548B93232C04085F892E084A74100",
-        "starch": "72312204E287BC41815540A0CF881280",
-        "barley": "22DAA757AD7A8049891B17EDCC2FE098",
-        "bismor": "AF0DC4FE8361BB48B32C92CC97E21DE7",
-        "enor": "488D05146F5F754BA3D4610D08C0603E",
-        "malt": "41EA550C1D46C54BBE2E9CA5A7ACCB06",
-        "umanite": "5F2BCF8347760A42A23B6EDC07C0941D",
-        "jadiz": "22BC4F7D07D13E43BFCA81BD9C14B1AF",
-        "croppa": "8AA7FB43293A0B49B8BE42FFE068A44C",
-        "magnite": "AADED8766C227D408032AFD18D63561E",
-        "error": "5828652C9A5DE845A9E2E1B8B463C516",
-        "cores": "A10CB2853871FB499AC854A1CDE2202C",
-    }
+    res_guids = deepcopy(resource_guids)
     resources = {
         "yeast": new_values["brewing"]["yeast"],
         "starch": new_values["brewing"]["starch"],
@@ -595,6 +601,7 @@ def make_save_file(file_path, change_data):
         "magnite": new_values["minerals"]["magnite"],
         "error": new_values["misc"]["error"],
         "cores": new_values["misc"]["cores"],
+        "data": new_values["misc"]["data"],
     }
 
     res_marker = b"OwnedResources"
@@ -732,9 +739,11 @@ def make_save_file(file_path, change_data):
     # print(f'3. {len(save_data)}')
     # write overclocks
     search_term = b"ForgedSchematics"  # \x00\x0F\x00\x00\x00Struct'
-    search_end = b"\x1c\x00\x00\x00bFirstSchematicMessageShown"
+    search_end = b"SkinFixupCounter"
     pos = save_data.find(search_term)
-    end_pos = save_data.find(search_end)
+    end_pos = (
+        save_data.find(search_end) - 4
+    )  # means I don't have to hardcode the boundary bytes
     # print(f'pos: {pos}, end_pos: {end_pos}')
 
     if pos > 0:
@@ -755,6 +764,25 @@ def make_save_file(file_path, change_data):
             save_data[: pos + (num_forged * 16) + 141] + ocs + save_data[end_pos:]
         )
     # print(f'4. {len(save_data)}')
+    # write season data
+    season_xp_marker = bytes.fromhex("A47D407EC0E4364892CE2E03DE7DF0B3")
+    season_xp_offset = 48
+    season_xp_pos = save_data.find(season_xp_marker) + season_xp_offset
+    scrip_marker = b"Tokens"
+    scrip_offset = 32
+    scrip_pos = save_data.find(scrip_marker) + scrip_offset
+
+    save_data = (
+        save_data[:season_xp_pos]
+        + struct.pack("i", new_values["season"]["xp"])
+        + save_data[season_xp_pos + 4 :]
+    )
+    save_data = (
+        save_data[:scrip_pos]
+        + struct.pack("i", new_values["season"]["scrip"])
+        + save_data[scrip_pos + 4 :]
+    )
+
     return save_data
     # with open(f"{file_name}", "wb") as t:
     #     t.write(save_data)
@@ -775,6 +803,7 @@ def reset_values():
     global unacquired_ocs
     global forged_ocs
     global max_badges
+    global xp_per_season_level
     # print('reset values')
     widget.bismor_text.setText(str(stats["minerals"]["bismor"]))
     widget.enor_text.setText(str(stats["minerals"]["enor"]))
@@ -794,6 +823,7 @@ def reset_values():
     widget.core_text.setText(str(stats["misc"]["cores"]))
     widget.credits_text.setText(str(stats["misc"]["credits"]))
     widget.perk_text.setText(str(stats["misc"]["perks"]))
+    widget.data_text.setText(str(stats["misc"]["data"]))
     # print('after misc')
 
     widget.driller_xp.setText(str(stats["xp"]["driller"]["xp"]))
@@ -846,6 +876,12 @@ def reset_values():
 
     filter_overclocks()
     update_rank()
+
+    # reset season data
+    season_total_xp = stats["season"]["xp"]
+    widget.season_xp.setText(str(season_total_xp % xp_per_season_level))
+    widget.season_lvl_text.setText(str(season_total_xp // xp_per_season_level))
+    widget.scrip_text.setText(str(stats["season"]["scrip"]))
 
 
 @Slot()
@@ -956,6 +992,7 @@ def init_values(save_data):
     resources = get_resources(save_data)
     stats["misc"]["cores"] = resources["cores"]
     stats["misc"]["error"] = resources["error"]
+    stats["misc"]["data"] = resources["data"]
     stats["minerals"] = dict()
     stats["minerals"]["bismor"] = resources["bismor"]
     stats["minerals"]["enor"] = resources["enor"]
@@ -968,6 +1005,7 @@ def init_values(save_data):
     stats["brewing"]["starch"] = resources["starch"]
     stats["brewing"]["barley"] = resources["barley"]
     stats["brewing"]["malt"] = resources["malt"]
+    stats["season"] = get_season_data(save_data)
 
     # print('printing stats')
     # pp(stats)
@@ -977,6 +1015,7 @@ def init_values(save_data):
 def get_values():
     global stats
     global max_badges
+    xp_per_season_level = 5000
 
     ns = dict()
     ns["minerals"] = dict()
@@ -1030,6 +1069,13 @@ def get_values():
     ns["misc"]["cores"] = int(widget.core_text.text())
     ns["misc"]["credits"] = int(widget.credits_text.text())
     ns["misc"]["perks"] = int(widget.perk_text.text())
+    ns["misc"]["data"] = int(widget.data_text.text())
+
+    ns["season"] = {
+        "xp": int(widget.season_xp.text())
+        + (xp_per_season_level * int(widget.season_lvl_text.text())),
+        "scrip": int(widget.scrip_text.text()),
+    }
 
     return ns
 
@@ -1219,7 +1265,23 @@ unacquired_ocs = dict()
 stats = dict()
 file_name = ""
 save_data = b""
+xp_per_season_level = 5000
 guid_re = re.compile(r".*\(([0-9A-F]*)\)")
+resource_guids = {
+    "yeast": "078548B93232C04085F892E084A74100",
+    "starch": "72312204E287BC41815540A0CF881280",
+    "barley": "22DAA757AD7A8049891B17EDCC2FE098",
+    "bismor": "AF0DC4FE8361BB48B32C92CC97E21DE7",
+    "enor": "488D05146F5F754BA3D4610D08C0603E",
+    "malt": "41EA550C1D46C54BBE2E9CA5A7ACCB06",
+    "umanite": "5F2BCF8347760A42A23B6EDC07C0941D",
+    "jadiz": "22BC4F7D07D13E43BFCA81BD9C14B1AF",
+    "croppa": "8AA7FB43293A0B49B8BE42FFE068A44C",
+    "magnite": "AADED8766C227D408032AFD18D63561E",
+    "error": "5828652C9A5DE845A9E2E1B8B463C516",
+    "cores": "A10CB2853871FB499AC854A1CDE2202C",
+    "data": "99FA526AD87748459498905A278693F6",
+}
 
 if __name__ == "__main__":
     # print(os.getcwd())
