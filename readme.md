@@ -29,6 +29,8 @@ Some notes:
 
 ![main_screen](sshot.png)
 ## Changelog
+- v1.4.1
+    - Fixed lack of new OCs showing up
 - v1.4
     - Updated for update 35
         - Added new weapon overclocks (special thanks to [Eleison](https://github.com/Eleison) for all the new OC data)
