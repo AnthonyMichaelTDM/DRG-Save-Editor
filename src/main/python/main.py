@@ -268,6 +268,10 @@ def get_season_data(save_bytes):
     season_xp_pos = save_bytes.find(season_xp_marker) + season_xp_offset
     scrip_pos = save_bytes.find(scrip_marker) + scrip_offset
 
+    if season_xp_pos == season_xp_offset - 1 and scrip_pos == scrip_offset - 1:
+        widget.season_group.setEnabled(False)
+        return {"xp": 0, "scrip": 0}
+
     season_xp = struct.unpack("i", save_bytes[season_xp_pos : season_xp_pos + 4])[0]
     scrip = struct.unpack("i", save_bytes[scrip_pos : scrip_pos + 4])[0]
 
@@ -432,6 +436,10 @@ def get_overclocks(save_bytes, guid_source):
     search_end = b"SkinFixupCounter"
     pos = save_bytes.find(search_term)
     end_pos = save_bytes.find(search_end)
+    if end_pos == -1:
+        search_end = b"bFirstSchematicMessageShown"
+        end_pos = save_bytes.find(search_end)
+
     for i in guid_source.values():
         i["status"] = "Unacquired"
 

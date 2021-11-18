@@ -8,7 +8,7 @@ This is a standalone DRG save editor written in python (3.6.12), using PyQt5 (5.
 - ???
 
 ## Installation
-Download the "DRG Save Editor.zip" file and extract the zip file and start the editor using the "start editor.cmd" batch file. 
+Download the [DRG Save Editor.zip](https://github.com/robertnunn/DRG-Save-Editor/blob/master/DRG%20Save%20Editor.zip) file and extract the zip file and start the editor using the "start editor.cmd" batch file. 
 
 ## Troubleshooting
 If the editor fails to start, please add a second line to the "start editor.cmd" that's just "pause". This will let you see any error messages that will be necessary for bug fixes. 
@@ -29,6 +29,8 @@ Some notes:
 
 ![main_screen](sshot.png)
 ## Changelog
+- v1.4.2
+    - Fixed a bug that would cause the editor to hang when opening old saves
 - v1.4.1
     - Fixed lack of new OCs showing up
 - v1.4
@@ -37,11 +39,11 @@ Some notes:
         - Added support for data cell resource
         - Added support for season xp/level and scrip
 - v1.3.7
-    - Fixed a bug where the editor would crash with the microsoft store version of the game.
+    - Fixed a bug where the editor would crash with the microsoft store version of the game
 - v1.3.6
-    - Fixed a bug where an unexpected number of resources in the save file would throw off reading/writing of new values. The editor now reads how many entries there are and adjusts accordingly.
+    - Fixed a bug where an unexpected number of resources in the save file would throw off reading/writing of new values. The editor now reads how many entries there are and adjusts accordingly
 - v1.3.5
-    - Fixed a bug where promotions beyond Legendary 3 would be lost when saving. As long as the promotion is set to "Legendary 3+" before saving, the original number of promotions (and thus player rank) is preserved.
+    - Fixed a bug where promotions beyond Legendary 3 would be lost when saving. As long as the promotion is set to "Legendary 3+" before saving, the original number of promotions (and thus player rank) is preserved
 - v1.3.4
     - Fixed a bug related to editing perk points when using a new save or a save that doesn't have any available perk points
     - Added player rank calculation and rank title to the classes area
