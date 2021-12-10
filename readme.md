@@ -10,6 +10,9 @@ This is a standalone DRG save editor written in python (3.6.12), using PyQt5 (5.
 ## Installation
 Download the [DRG Save Editor.zip](https://github.com/robertnunn/DRG-Save-Editor/blob/master/DRG%20Save%20Editor.zip) file and extract the zip file and start the editor using the "start editor.cmd" batch file. 
 
+## Known Issues
+- The editor works by looking for specific values in the raw data of the save, it doesn't decode the data into a nice, neat python object. As a result if certain things aren't present in the save (e.g., >0 forged overclocks, certain resources) the editor will malfunction and give nonsensical results. The solution is to acquire at least one of the resources in game _then_ use the editor.
+
 ## Troubleshooting
 If the editor fails to start, please add a second line to the "start editor.cmd" that's just "pause". This will let you see any error messages that will be necessary for bug fixes. 
 
