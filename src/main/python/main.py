@@ -91,19 +91,19 @@ def get_dwarf_xp(dwarf):
     # gets the total xp, level, and progress to the next level (rem)
     if dwarf == "driller":
         total = int(widget.driller_xp.text())
-        level = int(widget.dr_lvl_text.text())
+        level = int(widget.driller_lvl_text.text())
         rem = int(widget.driller_xp_2.text())
     elif dwarf == "engineer":
         total = int(widget.engineer_xp.text())
-        level = int(widget.en_lvl_text.text())
+        level = int(widget.engineer_lvl_text.text())
         rem = int(widget.engineer_xp_2.text())
     elif dwarf == "gunner":
         total = int(widget.gunner_xp.text())
-        level = int(widget.gu_lvl_text.text())
+        level = int(widget.gunner_lvl_text.text())
         rem = int(widget.gunner_xp_2.text())
     elif dwarf == "scout":
         total = int(widget.scout_xp.text())
-        level = int(widget.sc_lvl_text.text())
+        level = int(widget.scout_lvl_text.text())
         rem = int(widget.scout_xp_2.text())
     else:
         total = rem = level = -1
@@ -119,19 +119,19 @@ def update_xp(dwarf, total_xp=0):
     bad_dwarf = False  # check for possible weirdness
     if dwarf == "driller":
         total_box = widget.driller_xp
-        level_box = widget.dr_lvl_text
+        level_box = widget.driller_lvl_text
         remainder_box = widget.driller_xp_2
     elif dwarf == "engineer":
         total_box = widget.engineer_xp
-        level_box = widget.en_lvl_text
+        level_box = widget.engineer_lvl_text
         remainder_box = widget.engineer_xp_2
     elif dwarf == "gunner":
         total_box = widget.gunner_xp
-        level_box = widget.gu_lvl_text
+        level_box = widget.gunner_lvl_text
         remainder_box = widget.gunner_xp_2
     elif dwarf == "scout":
         total_box = widget.scout_xp
-        level_box = widget.sc_lvl_text
+        level_box = widget.scout_lvl_text
         remainder_box = widget.scout_xp_2
     else:
         print("no valid dward specified")
@@ -170,10 +170,10 @@ def update_rank():
     )
 
     try:
-        s_level = int(widget.sc_lvl_text.text())
-        e_level = int(widget.en_lvl_text.text())
-        g_level = int(widget.gu_lvl_text.text())
-        d_level = int(widget.dr_lvl_text.text())
+        s_level = int(widget.scout_lvl_text.text())
+        e_level = int(widget.engineer_lvl_text.text())
+        g_level = int(widget.gunner_lvl_text.text())
+        d_level = int(widget.driller_lvl_text.text())
         total_levels = (
             ((s_promo + e_promo + g_promo + d_promo) * 25)
             + s_level
@@ -836,7 +836,7 @@ def reset_values():
 
     widget.driller_xp.setText(str(stats["xp"]["driller"]["xp"]))
     d_xp = xp_total_to_level(stats["xp"]["driller"]["xp"])
-    widget.dr_lvl_text.setText(str(d_xp[0]))
+    widget.driller_lvl_text.setText(str(d_xp[0]))
     widget.driller_xp_2.setText(str(d_xp[1]))
     widget.driller_promo_box.setCurrentIndex(
         stats["xp"]["driller"]["promo"]
@@ -847,7 +847,7 @@ def reset_values():
 
     widget.engineer_xp.setText(str(stats["xp"]["engineer"]["xp"]))
     e_xp = xp_total_to_level(stats["xp"]["engineer"]["xp"])
-    widget.en_lvl_text.setText(str(e_xp[0]))
+    widget.engineer_lvl_text.setText(str(e_xp[0]))
     widget.engineer_xp_2.setText(str(e_xp[1]))
     widget.engineer_promo_box.setCurrentIndex(
         stats["xp"]["engineer"]["promo"]
@@ -858,7 +858,7 @@ def reset_values():
 
     widget.gunner_xp.setText(str(stats["xp"]["gunner"]["xp"]))
     g_xp = xp_total_to_level(stats["xp"]["gunner"]["xp"])
-    widget.gu_lvl_text.setText(str(g_xp[0]))
+    widget.gunner_lvl_text.setText(str(g_xp[0]))
     widget.gunner_xp_2.setText(str(g_xp[1]))
     widget.gunner_promo_box.setCurrentIndex(
         stats["xp"]["gunner"]["promo"]
@@ -869,7 +869,7 @@ def reset_values():
 
     widget.scout_xp.setText(str(stats["xp"]["scout"]["xp"]))
     s_xp = xp_total_to_level(stats["xp"]["scout"]["xp"])
-    widget.sc_lvl_text.setText(str(s_xp[0]))
+    widget.scout_lvl_text.setText(str(s_xp[0]))
     widget.scout_xp_2.setText(str(s_xp[1]))
     widget.scout_promo_box.setCurrentIndex(
         stats["xp"]["scout"]["promo"]

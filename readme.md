@@ -32,6 +32,8 @@ Some notes:
 
 ![main_screen](sshot.png)
 ## Changelog
+- v1.4.3
+    - Fixed a bug that prevented editing of XP levels for dwarves
 - v1.4.2
     - Fixed a bug that would cause the editor to hang when opening old saves
 - v1.4.1
