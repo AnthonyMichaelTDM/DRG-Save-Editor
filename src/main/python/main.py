@@ -202,7 +202,7 @@ def open_file():
     global save_data
     # open file dialog box, start in steam install path if present
     file_name = QFileDialog.getOpenFileName(
-        None, "Open Save File...", steam_path, "Player Save Files (*.sav)"
+        None, "Open Save File...", steam_path, "Player Save Files (*.sav);;All Fils (*.*)"
     )[0]
     # print('about to open file')
 
