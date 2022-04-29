@@ -202,7 +202,10 @@ def open_file():
     global save_data
     # open file dialog box, start in steam install path if present
     file_name = QFileDialog.getOpenFileName(
-        None, "Open Save File...", steam_path, "Player Save Files (*.sav);;All Fils (*.*)"
+        None,
+        "Open Save File...",
+        steam_path,
+        "Player Save Files (*.sav);;All Files (*.*)",
     )[0]
     # print('about to open file')
 
@@ -259,14 +262,19 @@ def populate_unforged_list(list_widget, unforged):
         list_widget.addItem(oc)
 
 
+def update_season_data():
+    pass
+
+
 def get_season_data(save_bytes):
-    scrip_marker = bytes.fromhex("546F6B656E73")
-    scrip_offset = 32
-    season_xp_marker = bytes.fromhex("A47D407EC0E4364892CE2E03DE7DF0B3")
+    global season_guid
+    # scrip_marker = bytes.fromhex("546F6B656E73")
+    season_xp_marker = bytes.fromhex(season_guid)
     season_xp_offset = 48
+    scrip_offset = 88
 
     season_xp_pos = save_bytes.find(season_xp_marker) + season_xp_offset
-    scrip_pos = save_bytes.find(scrip_marker) + scrip_offset
+    scrip_pos = save_bytes.find(season_xp_marker) + scrip_offset
 
     if season_xp_pos == season_xp_offset - 1 and scrip_pos == scrip_offset - 1:
         widget.season_group.setEnabled(False)
@@ -593,6 +601,7 @@ def make_save_file(file_path, change_data):
 
     new_values = change_data
     global resource_guids
+    global season_guid
     # write resources
     resource_bytes = list()
     res_guids = deepcopy(resource_guids)
@@ -610,6 +619,7 @@ def make_save_file(file_path, change_data):
         "error": new_values["misc"]["error"],
         "cores": new_values["misc"]["cores"],
         "data": new_values["misc"]["data"],
+        "phazyonite": new_values["misc"]["phazyonite"],
     }
 
     res_marker = b"OwnedResources"
@@ -754,31 +764,39 @@ def make_save_file(file_path, change_data):
     )  # means I don't have to hardcode the boundary bytes
     # print(f'pos: {pos}, end_pos: {end_pos}')
 
-    if pos > 0:
-        num_forged = struct.unpack("i", save_data[pos + 63 : pos + 67])[0]
-        unforged_ocs = new_values["unforged"]
-        if len(unforged_ocs) > 0:
-            ocs = (
-                b"\x10\x00\x00\x00\x4F\x77\x6E\x65\x64\x53\x63\x68\x65\x6D\x61\x74\x69\x63\x73\x00\x0E\x00\x00\x00\x41\x72\x72\x61\x79\x50\x72\x6F\x70\x65\x72\x74\x79\x00\x6D\x00\x00\x00\x00\x00\x00\x00\x0F\x00\x00\x00\x53\x74\x72\x75\x63\x74\x50\x72\x6F\x70\x65\x72\x74\x79\x00\x00"
-                + struct.pack("i", len(unforged_ocs))
-                + b"\x10\x00\x00\x00\x4F\x77\x6E\x65\x64\x53\x63\x68\x65\x6D\x61\x74\x69\x63\x73\x00\x0F\x00\x00\x00\x53\x74\x72\x75\x63\x74\x50\x72\x6F\x70\x65\x72\x74\x79\x00\x20\x00\x00\x00\x00\x00\x00\x00\x05\x00\x00\x00\x47\x75\x69\x64\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-            )
-            uuids = [bytes.fromhex(i) for i in unforged_ocs.keys()]
-            for i in uuids:
-                ocs += i
-        else:
-            ocs = b""
-        save_data = (
-            save_data[: pos + (num_forged * 16) + 141] + ocs + save_data[end_pos:]
-        )
-    # print(f'4. {len(save_data)}')
+    # this is currently broken, don't care enough to put more effort into fixing it.
+    # the problem seems to be related to the \x5D in the middle of the first hex string,
+    # this changes to \x6D when going from 1->2 overclocks. Similarly, the \x10 in the 
+    # middle of the second hex string (\x74\x79\x00\x10 <- this one) changes to \x20
+    # when going from 1->2 overclocks. My testing involved one weapon OC and one cosmetic OC.
+    # If someone can provide a save file with more than 2 overclocks waiting to be forged,
+    # that might help figure it out, but I'm currently stumped.
+    # 
+    # if pos > 0:
+    #     num_forged = struct.unpack("i", save_data[pos + 63 : pos + 67])[0]
+    #     unforged_ocs = new_values["unforged"]
+    #     if len(unforged_ocs) > 0:
+    #         ocs = (
+    #             b"\x10\x00\x00\x00\x4F\x77\x6E\x65\x64\x53\x63\x68\x65\x6D\x61\x74\x69\x63\x73\x00\x0E\x00\x00\x00\x41\x72\x72\x61\x79\x50\x72\x6F\x70\x65\x72\x74\x79\x00\x5D\x00\x00\x00\x00\x00\x00\x00\x0F\x00\x00\x00\x53\x74\x72\x75\x63\x74\x50\x72\x6F\x70\x65\x72\x74\x79\x00\x00"
+    #             + struct.pack("i", len(unforged_ocs))
+    #             + b"\x10\x00\x00\x00\x4F\x77\x6E\x65\x64\x53\x63\x68\x65\x6D\x61\x74\x69\x63\x73\x00\x0F\x00\x00\x00\x53\x74\x72\x75\x63\x74\x50\x72\x6F\x70\x65\x72\x74\x79\x00\x10\x00\x00\x00\x00\x00\x00\x00\x05\x00\x00\x00\x47\x75\x69\x64\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+    #         )
+    #         uuids = [bytes.fromhex(i) for i in unforged_ocs.keys()]
+    #         for i in uuids:
+    #             ocs += i
+    #     else:
+    #         ocs = b""
+    #     save_data = (
+    #         save_data[: pos + (num_forged * 16) + 141] + ocs + save_data[end_pos:]
+    #     )
+
     # write season data
-    season_xp_marker = bytes.fromhex("A47D407EC0E4364892CE2E03DE7DF0B3")
+    season_xp_marker = bytes.fromhex(season_guid)
     season_xp_offset = 48
     season_xp_pos = save_data.find(season_xp_marker) + season_xp_offset
-    scrip_marker = b"Tokens"
-    scrip_offset = 32
-    scrip_pos = save_data.find(scrip_marker) + scrip_offset
+    # scrip_marker = b"Tokens"
+    scrip_offset = 88
+    scrip_pos = save_data.find(season_xp_marker) + scrip_offset
 
     save_data = (
         save_data[:season_xp_pos]
@@ -832,6 +850,7 @@ def reset_values():
     widget.credits_text.setText(str(stats["misc"]["credits"]))
     widget.perk_text.setText(str(stats["misc"]["perks"]))
     widget.data_text.setText(str(stats["misc"]["data"]))
+    widget.phazy_text.setText(str(stats["misc"]["phazyonite"]))
     # print('after misc')
 
     widget.driller_xp.setText(str(stats["xp"]["driller"]["xp"]))
@@ -1001,6 +1020,7 @@ def init_values(save_data):
     stats["misc"]["cores"] = resources["cores"]
     stats["misc"]["error"] = resources["error"]
     stats["misc"]["data"] = resources["data"]
+    stats["misc"]["phazyonite"] = resources["phazyonite"]
     stats["minerals"] = dict()
     stats["minerals"]["bismor"] = resources["bismor"]
     stats["minerals"]["enor"] = resources["enor"]
@@ -1078,6 +1098,7 @@ def get_values():
     ns["misc"]["credits"] = int(widget.credits_text.text())
     ns["misc"]["perks"] = int(widget.perk_text.text())
     ns["misc"]["data"] = int(widget.data_text.text())
+    ns["misc"]["phazyonite"] = int(widget.phazy_text.text())
 
     ns["season"] = {
         "xp": int(widget.season_xp.text())
@@ -1266,6 +1287,11 @@ rank_titles = [
     "Gilded Master",
 ]
 
+season_guids = {
+    1: "A47D407EC0E4364892CE2E03DE7DF0B3",
+    2: "B860B55F1D1BB54D8EE2E41FDA9F5838",
+}
+
 # global variable definitions
 forged_ocs = dict()
 unforged_ocs = dict()
@@ -1274,6 +1300,7 @@ stats = dict()
 file_name = ""
 save_data = b""
 xp_per_season_level = 5000
+season_guid = season_guids[2]
 guid_re = re.compile(r".*\(([0-9A-F]*)\)")
 resource_guids = {
     "yeast": "078548B93232C04085F892E084A74100",
@@ -1289,6 +1316,7 @@ resource_guids = {
     "error": "5828652C9A5DE845A9E2E1B8B463C516",
     "cores": "A10CB2853871FB499AC854A1CDE2202C",
     "data": "99FA526AD87748459498905A278693F6",
+    "phazyonite": "67668AAE828FDB48A9111E1B912DBFA4",
 }
 
 if __name__ == "__main__":
@@ -1338,6 +1366,9 @@ if __name__ == "__main__":
         for j in promo_ranks:
             i.addItem(j)
 
+    # for k,v in season_guids.items():
+    #     widget.season_picker.addItem(f'Season {v}')
+
     # populate the filter drop down for overclocks
     sort_labels = ["All", "Unforged", "Forged", "Unacquired"]
     for i in sort_labels:
@@ -1349,7 +1380,7 @@ if __name__ == "__main__":
     widget.actionAdd_overclock_crafting_materials.triggered.connect(add_crafting_mats)
     widget.actionReset_to_original_values.triggered.connect(reset_values)
     widget.combo_oc_filter.currentTextChanged.connect(filter_overclocks)
-    widget.overclock_tree.customContextMenuRequested.connect(oc_ctx_menu)
+    # widget.overclock_tree.customContextMenuRequested.connect(oc_ctx_menu)
     widget.add_cores_button.clicked.connect(add_cores)
     widget.remove_all_ocs.clicked.connect(remove_all_ocs)
     widget.remove_selected_ocs.clicked.connect(remove_selected_ocs)

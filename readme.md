@@ -2,7 +2,7 @@
 
 This is a standalone DRG save editor written in python (3.6.12), using PyQt5 (5.9.2) and PySide2 (5.15.2) and packaged using the [fman build system](https://build-system.fman.io).
 
-## ~~THIS IS NOT UPDATED FOR UPDATE 35! THERE ARE NO GUARANTEES IT WILL WORK. USE AT YOUR OWN RISK!~~ Just updated for U35! There are likely to be bugs, see the Troubleshooting section!
+## There are likely to be bugs, see the Known Issues and Troubleshooting section!
 ## I have largely moved on from this project, so no new features are planned, no major updates are in the pipeline, and only simple bug fixes will be performed. You are welcome to fork and continue the project on your own, just give credit.
 
 ## Requirements
@@ -14,6 +14,7 @@ Download the [DRG Save Editor.zip](https://github.com/robertnunn/DRG-Save-Editor
 
 
 ## Known Issues
+- Due to a change in how overclocks are stored adding overclocks is broken and will completely reset your save if you try it. As such, adding OCs has been disabled and will not happen, even if you somehow manage to add some to the "Acquired but unforged" section.
 - The editor works by looking for specific values in the raw data of the save, it doesn't decode the data into a nice, neat python object. As a result if certain things aren't present in the save (e.g., >0 forged overclocks, certain resources) the editor will malfunction and give nonsensical results. The solution is to acquire at least one of the resources in game _then_ use the editor.
 
 ## Troubleshooting
@@ -35,6 +36,12 @@ Some notes:
 
 ![main_screen](sshot.png)
 ## Changelog
+- v1.5
+    - Updated editor for Season 2
+    - Can adjust season xp and scrip
+    - Can edit amount of phazyonite
+    - Disabled adding OCs as it's currently broken and it's more effort than I'm willing to put in to figure it out. See the comments in main.py (line 767) if you're interested.
+    - Missing data for the new overclocks (for the new secondary weapons)
 - v1.4.4
     - Added option to select all files when opening save files
 - v1.4.3

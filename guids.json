@@ -1734,5 +1734,19 @@
             "magnite": 80,
             "umanite": 100
         }
+    },
+    "80DEA90AD5F3174695138FF47A32A96A": {
+        "class": "Gunner",
+        "weapon": "Armskore Coil Gun",
+        "name": "Hellfire",
+        "cost": {
+            "credits": 8700,
+            "bismor": 0,
+            "croppa": 125,
+            "enor": 80,
+            "jadiz": 1000,
+            "magnite": 0,
+            "umanite": 0
+        }
     }
 }
