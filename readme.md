@@ -10,11 +10,16 @@ This is a standalone DRG save editor written in python (3.6.12), using PyQt5 (5.
 - ???
 
 ## Installation
-Download the [DRG Save Editor.zip](https://github.com/robertnunn/DRG-Save-Editor/blob/master/DRG%20Save%20Editor.zip) file and extract the zip file and start the editor using the "start editor.cmd" batch file. 
+Download the [DRG Save Editor.zip](https://github.com/robertnunn/DRG-Save-Editor/blob/master/DRG%20Save%20Editor.zip) file and extract the zip file and start the editor using the "start editor.cmd" batch file. **note: this will run **
 
+or:
+- clone the repo
+- open your terminal in the base directory of the project
+- install the required packages with pip using the following command: `pip install -r ./requirements.txt`
+- if you're on anything but windows, edit main.py to remove all references to the winreg package
+- start the program with the `python3 ./src/main/python/main.py` command
 
 ## Known Issues
-- Due to a change in how overclocks are stored adding overclocks is broken and will completely reset your save if you try it. As such, adding OCs has been disabled and will not happen, even if you somehow manage to add some to the "Acquired but unforged" section.
 - The editor works by looking for specific values in the raw data of the save, it doesn't decode the data into a nice, neat python object. As a result if certain things aren't present in the save (e.g., >0 forged overclocks, certain resources) the editor will malfunction and give nonsensical results. The solution is to acquire at least one of the resources in game _then_ use the editor.
 
 ## Troubleshooting
@@ -36,6 +41,8 @@ Some notes:
 
 ![main_screen](sshot.png)
 ## Changelog
+- v1.6
+    - issue with adding OC's fixed by [Anthony](https://github.com/AnthonyMichaelTDM) in #45
 - v1.5
     - Updated editor for Season 2
     - Can adjust season xp and scrip
