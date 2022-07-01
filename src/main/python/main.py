@@ -771,24 +771,48 @@ def make_save_file(file_path, change_data):
     # when going from 1->2 overclocks. My testing involved one weapon OC and one cosmetic OC.
     # If someone can provide a save file with more than 2 overclocks waiting to be forged,
     # that might help figure it out, but I'm currently stumped.
-    # 
-    # if pos > 0:
-    #     num_forged = struct.unpack("i", save_data[pos + 63 : pos + 67])[0]
-    #     unforged_ocs = new_values["unforged"]
-    #     if len(unforged_ocs) > 0:
-    #         ocs = (
-    #             b"\x10\x00\x00\x00\x4F\x77\x6E\x65\x64\x53\x63\x68\x65\x6D\x61\x74\x69\x63\x73\x00\x0E\x00\x00\x00\x41\x72\x72\x61\x79\x50\x72\x6F\x70\x65\x72\x74\x79\x00\x5D\x00\x00\x00\x00\x00\x00\x00\x0F\x00\x00\x00\x53\x74\x72\x75\x63\x74\x50\x72\x6F\x70\x65\x72\x74\x79\x00\x00"
-    #             + struct.pack("i", len(unforged_ocs))
-    #             + b"\x10\x00\x00\x00\x4F\x77\x6E\x65\x64\x53\x63\x68\x65\x6D\x61\x74\x69\x63\x73\x00\x0F\x00\x00\x00\x53\x74\x72\x75\x63\x74\x50\x72\x6F\x70\x65\x72\x74\x79\x00\x10\x00\x00\x00\x00\x00\x00\x00\x05\x00\x00\x00\x47\x75\x69\x64\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-    #         )
-    #         uuids = [bytes.fromhex(i) for i in unforged_ocs.keys()]
-    #         for i in uuids:
-    #             ocs += i
-    #     else:
-    #         ocs = b""
-    #     save_data = (
-    #         save_data[: pos + (num_forged * 16) + 141] + ocs + save_data[end_pos:]
-    #     )
+    if pos > 0:
+        num_forged = struct.unpack("i", save_data[pos + 63 : pos + 67])[0]
+        unforged_ocs = new_values["unforged"]
+        
+        schematic_save_marker = b"SchematicSave"
+        schematic_save_offset = 33
+        schematic_save_pos = save_data.find(schematic_save_marker) + schematic_save_offset
+        schematic_save_size = b""
+        
+        if len(unforged_ocs) > 0:
+            ocs = (
+                b"\x10\x00\x00\x00\x4F\x77\x6E\x65\x64\x53\x63\x68\x65\x6D\x61\x74\x69\x63\x73\x00\x0E\x00\x00\x00\x41\x72\x72\x61\x79\x50\x72\x6F\x70\x65\x72\x74\x79\x00"
+                # number of bytes between position of first "OwnedSchematic" and end_pos, -62, as a 64bit unsigned integer
+                + struct.pack("L", 139 + len(unforged_ocs)*16 - 62)                
+                + b"\x0F\x00\x00\x00\x53\x74\x72\x75\x63\x74\x50\x72\x6F\x70\x65\x72\x74\x79\x00\x00"
+                # number of unforged ocs, stored as a 32bit unsigned integer
+                + struct.pack("I", len(unforged_ocs))
+                
+                + b"\x10\x00\x00\x00\x4F\x77\x6E\x65\x64\x53\x63\x68\x65\x6D\x61\x74\x69\x63\x73\x00\x0F\x00\x00\x00\x53\x74\x72\x75\x63\x74\x50\x72\x6F\x70\x65\x72\x74\x79\x00"
+                # number of bytes taken up by the GUID's of the unforged oc's, stored as a 64bit unsigned integer
+                + struct.pack("L", len(unforged_ocs)*16)
+                + b"\x05\x00\x00\x00\x47\x75\x69\x64\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+            )
+            #print(ocs)
+            uuids = [bytes.fromhex(i) for i in unforged_ocs.keys()]
+            for i in uuids:
+                ocs += i
+            
+            # the number of bytes between position of first "SchematicSave" and end_pos, -17, as a 64bit unsigned integer
+            schematic_save_size = struct.pack("L", 139 + (141 + num_forged*16) + 4 + (139 + len(unforged_ocs)*16) - 17 )
+            
+        else:
+            ocs = b""
+            # the number of bytes between position of first "SchematicSave" and end_pos, -17, as a 64bit unsigned integer
+            schematic_save_size = struct.pack("L", 139 + (141 + num_forged*16) - 17 )
+            
+        save_data = (
+            save_data[: pos + (num_forged * 16) + 141] + ocs + save_data[end_pos:]
+        )
+        save_data = (
+            save_data[:schematic_save_pos] + schematic_save_size + save_data[end_pos:]
+        )
 
     # write season data
     season_xp_marker = bytes.fromhex(season_guid)
