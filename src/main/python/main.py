@@ -778,6 +778,7 @@ def make_save_file(file_path, change_data):
         schematic_save_marker = b"SchematicSave"
         schematic_save_offset = 33
         schematic_save_pos = save_data.find(schematic_save_marker) + schematic_save_offset
+        schematic_save_end_pos = schematic_save_pos + 8
         schematic_save_size = b""
         
         if len(unforged_ocs) > 0:
@@ -811,7 +812,7 @@ def make_save_file(file_path, change_data):
             save_data[: pos + (num_forged * 16) + 141] + ocs + save_data[end_pos:]
         )
         save_data = (
-            save_data[:schematic_save_pos] + schematic_save_size + save_data[end_pos:]
+            save_data[:schematic_save_pos] + schematic_save_size + save_data[schematic_save_end_pos:]
         )
 
     # write season data
