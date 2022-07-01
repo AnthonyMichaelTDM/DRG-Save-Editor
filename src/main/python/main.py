@@ -785,14 +785,14 @@ def make_save_file(file_path, change_data):
             ocs = (
                 b"\x10\x00\x00\x00\x4F\x77\x6E\x65\x64\x53\x63\x68\x65\x6D\x61\x74\x69\x63\x73\x00\x0E\x00\x00\x00\x41\x72\x72\x61\x79\x50\x72\x6F\x70\x65\x72\x74\x79\x00"
                 # number of bytes between position of first "OwnedSchematic" and end_pos, -62, as a 64bit unsigned integer
-                + struct.pack("L", 139 + len(unforged_ocs)*16 - 62)                
+                + struct.pack("Q", 139 + len(unforged_ocs)*16 - 62)                
                 + b"\x0F\x00\x00\x00\x53\x74\x72\x75\x63\x74\x50\x72\x6F\x70\x65\x72\x74\x79\x00\x00"
                 # number of unforged ocs, stored as a 32bit unsigned integer
                 + struct.pack("I", len(unforged_ocs))
                 
                 + b"\x10\x00\x00\x00\x4F\x77\x6E\x65\x64\x53\x63\x68\x65\x6D\x61\x74\x69\x63\x73\x00\x0F\x00\x00\x00\x53\x74\x72\x75\x63\x74\x50\x72\x6F\x70\x65\x72\x74\x79\x00"
                 # number of bytes taken up by the GUID's of the unforged oc's, stored as a 64bit unsigned integer
-                + struct.pack("L", len(unforged_ocs)*16)
+                + struct.pack("Q", len(unforged_ocs)*16)
                 + b"\x05\x00\x00\x00\x47\x75\x69\x64\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
             )
             #print(ocs)
@@ -801,12 +801,12 @@ def make_save_file(file_path, change_data):
                 ocs += i
             
             # the number of bytes between position of first "SchematicSave" and end_pos, -17, as a 64bit unsigned integer
-            schematic_save_size = struct.pack("L", 139 + (141 + num_forged*16) + 4 + (139 + len(unforged_ocs)*16) - 17 )
+            schematic_save_size = struct.pack("Q", 139 + (141 + num_forged*16) + 4 + (139 + len(unforged_ocs)*16) - 17 )
             
         else:
             ocs = b""
             # the number of bytes between position of first "SchematicSave" and end_pos, -17, as a 64bit unsigned integer
-            schematic_save_size = struct.pack("L", 139 + (141 + num_forged*16) - 17 )
+            schematic_save_size = struct.pack("Q", 139 + (141 + num_forged*16) - 17 )
             
         save_data = (
             save_data[: pos + (num_forged * 16) + 141] + ocs + save_data[end_pos:]
