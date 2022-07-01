@@ -42,7 +42,7 @@ Some notes:
 ![main_screen](sshot.png)
 ## Changelog
 - v1.6
-    - issue with adding OC's fixed by [Anthony](https://github.com/AnthonyMichaelTDM) in #45
+    - issue with adding OC's fixed by [Anthony](https://github.com/AnthonyMichaelTDM) in [PR #45](https://github.com/robertnunn/DRG-Save-Editor/pull/45)
 - v1.5
     - Updated editor for Season 2
     - Can adjust season xp and scrip
