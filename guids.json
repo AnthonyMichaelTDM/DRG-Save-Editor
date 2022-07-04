@@ -1744,9 +1744,37 @@
             "bismor": 0,
             "croppa": 125,
             "enor": 80,
-            "jadiz": 1000,
+            "jadiz": 100,
             "magnite": 0,
             "umanite": 0
+        }
+    },
+    "6C464531820EA849BB3C80C0F190A74F": {
+        "class": "Scout",
+        "weapon": "Nishanka Boltshark X-80",
+        "name": "The Specialist",
+        "cost": {
+            "credits": 7900,
+            "bismor": 0,
+            "croppa": 65,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 130,
+            "umanite": 90
+        }
+    },
+    "DDCA81E29C6BE8488C2DF4F0B0C72A72": {
+        "class": "Scout",
+        "weapon": "Nishanka Boltshark X-80",
+        "name": "Fire Bolt",
+        "cost": {
+            "credits": 7100,
+            "bismor": 0,
+            "croppa": 90,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 70,
+            "umanite": 130
         }
     }
 }
