@@ -1735,7 +1735,63 @@
             "umanite": 100
         }
     },
-    "F82F326576E8A74899753CB6316B7C20": {
+    "5F614059B3ADA14E930831EF4B609802": {
+        "class":"Driller",
+        "weapon":"Colette Wave Cooker",
+        "name":"Liquid Cooling System",
+        "cost": { 
+            "credits": 7400,
+            "bismor": 125,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 65,
+            "magnite": 0,
+            "umanite": 95
+        }
+    },
+    "71D81BC3DBC28F4D905A6C9F4A8B55AE": {
+        "class":"Engineer",
+        "weapon":"Shard Diffractor",
+        "name":"Automated Beam Controller",
+        "cost": {
+            "credits": 8050,
+            "bismor": 90,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 130,
+            "magnite": 65,
+            "umanite": 0
+        }
+    },
+    "F1880C6F7BEF10478E77EE4FC63481F6": {
+        "class":"Engineer",
+        "weapon":"Shard Diffractor",
+        "name":"Feedback Loop",
+        "cost": {
+            "credits": 7200,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 125,
+            "jadiz": 0,
+            "magnite": 65,
+            "umanite": 100
+        }
+    },
+    "7BB7C21FA1D1E64A8C007CE6A023A412": {
+        "class":"Engineer",
+        "weapon":"Shard Diffractor",
+        "name":"Volatile Impact Reactor",
+        "cost": {
+            "credits": 8300,
+            "bismor": 65,
+            "croppa": 0,
+            "enor": 105,
+            "jadiz": 0,
+            "magnite": 125,
+            "umanite": 0
+        }
+    },
+    "80DEA90AD5F3174695138FF47A32A96A": {
         "class": "Gunner",
         "weapon": "Armskore Coil Gun",
         "name": "Hellfire",
@@ -1749,7 +1805,7 @@
             "umanite": 0
         }
     },
-    "80DEA90AD5F3174695138FF47A32A96A": {
+    "F82F326576E8A74899753CB6316B7C20": {
         "class": "Gunner",
         "weapon": "Armskore Coil Gun",
         "name": "Backfeeding Module",
