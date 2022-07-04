@@ -1735,7 +1735,7 @@
             "umanite": 100
         }
     },
-    "80DEA90AD5F3174695138FF47A32A96A": {
+    "F82F326576E8A74899753CB6316B7C20": {
         "class": "Gunner",
         "weapon": "Armskore Coil Gun",
         "name": "Hellfire",
@@ -1746,6 +1746,20 @@
             "enor": 80,
             "jadiz": 100,
             "magnite": 0,
+            "umanite": 0
+        }
+    },
+    "80DEA90AD5F3174695138FF47A32A96A": {
+        "class": "Gunner",
+        "weapon": "Armskore Coil Gun",
+        "name": "Backfeeding Module",
+        "cost": {
+            "credits": 8100,
+            "bismor": 125,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 105,
+            "magnite": 70,
             "umanite": 0
         }
     },
