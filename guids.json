@@ -1749,6 +1749,76 @@
             "umanite": 95
         }
     },
+    "79A870ED00C9814A942BE4AD49A10B63": {
+        "class":"Driller",
+        "weapon":"Colette Wave Cooker",
+        "name":"Super Focus Lens",
+        "cost": { 
+            "credits": 7400,
+            "bismor": 125,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 65,
+            "magnite": 0,
+            "umanite": 95
+        }
+    },
+    "0CD9E18B85E271449901D38D50BA62B4": {
+        "class":"Driller",
+        "weapon":"Colette Wave Cooker",
+        "name":"Diffusion Ray",
+        "cost": { 
+            "credits": 8300,
+            "bismor": 0,
+            "croppa": 105,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 130,
+            "umanite": 65
+        }
+    },
+    "A3E85790ABCBC74ABCCB3CC636509A1B": {
+        "class":"Driller",
+        "weapon":"Colette Wave Cooker",
+        "name":"Mega Power Supply",
+        "cost": { 
+            "credits": 8100,
+            "bismor": 0,
+            "croppa": 95,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 95,
+            "umanite": 140
+        }
+    },
+    "48648832AA11E04DAE9F2E8ADF89AD8D": {
+        "class":"Driller",
+        "weapon":"Colette Wave Cooker",
+        "name":"Blistering Necrosis",
+        "cost": { 
+            "credits": 7850,
+            "bismor": 70,
+            "croppa": 130,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 100,
+            "umanite": 0
+        }
+    },
+    "5EDD2987DB047F498ADD72FCEB6C1EE3": {
+        "class":"Driller",
+        "weapon":"Colette Wave Cooker",
+        "name":"Gamma Contamination",
+        "cost": { 
+            "credits": 8350,
+            "bismor": 100,
+            "croppa": 0,
+            "enor": 130,
+            "jadiz": 0,
+            "magnite": 80,
+            "umanite": 0
+        }
+    },
     "71D81BC3DBC28F4D905A6C9F4A8B55AE": {
         "class":"Engineer",
         "weapon":"Shard Diffractor",
@@ -1777,6 +1847,20 @@
             "umanite": 100
         }
     },
+    "187A18BA5283D24C905A37F4FB123BA0": {
+        "class":"Engineer",
+        "weapon":"Shard Diffractor",
+        "name":"Overdrive Booster",
+        "cost": {
+            "credits": 7900,
+            "bismor": 120,
+            "croppa": 110,
+            "enor": 0,
+            "jadiz": 75,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
     "7BB7C21FA1D1E64A8C007CE6A023A412": {
         "class":"Engineer",
         "weapon":"Shard Diffractor",
@@ -1788,6 +1872,48 @@
             "enor": 105,
             "jadiz": 0,
             "magnite": 125,
+            "umanite": 0
+        }
+    },
+    "8C5D24BD68D5F14A89A6B87A857CCD9B": {
+        "class": "Gunner",
+        "weapon": "Armskore Coil Gun",
+        "name": "Re-atomizer",
+        "cost": {
+            "credits": 7750,
+            "bismor": 90,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 65,
+            "magnite": 135,
+            "umanite": 0
+        }
+    },
+    "F82F326576E8A74899753CB6316B7C20": {
+        "class": "Gunner",
+        "weapon": "Armskore Coil Gun",
+        "name": "Backfeeding Module",
+        "cost": {
+            "credits": 8100,
+            "bismor": 125,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 105,
+            "magnite": 70,
+            "umanite": 0
+        }
+    },
+    "56471F219BE014448DFE5F087CABD447": {
+        "class": "Gunner",
+        "weapon": "Armskore Coil Gun",
+        "name": "The Mole",
+        "cost": {
+            "credits": 8100,
+            "bismor": 70,
+            "croppa": 0,
+            "enor": 95,
+            "jadiz": 125,
+            "magnite": 0,
             "umanite": 0
         }
     },
@@ -1805,17 +1931,17 @@
             "umanite": 0
         }
     },
-    "F82F326576E8A74899753CB6316B7C20": {
+    "A6751DA1B87C134EBC5710C7431C1453": {
         "class": "Gunner",
         "weapon": "Armskore Coil Gun",
-        "name": "Backfeeding Module",
+        "name": "Triple-tech Chambers",
         "cost": {
-            "credits": 8100,
-            "bismor": 125,
-            "croppa": 0,
+            "credits": 8500,
+            "bismor": 70,
+            "croppa": 125,
             "enor": 0,
-            "jadiz": 105,
-            "magnite": 70,
+            "jadiz": 100,
+            "magnite": 95,
             "umanite": 0
         }
     },
