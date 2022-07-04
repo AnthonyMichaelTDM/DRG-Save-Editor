@@ -1289,7 +1289,7 @@
     },
     "05B157A075E0734BB471EF8DAE692865": {
         "class": "Engineer",
-        "weapon": "'Stubby' Volatic SMG",
+        "weapon": "'Stubby' Voltaic SMG",
         "name": "Light-Weight Rounds",
         "cost": {
             "credits": 8700,
@@ -1303,7 +1303,7 @@
     },
     "CE9490445B036B49B89DB2BC8D18FD12": {
         "class": "Engineer",
-        "weapon": "'Stubby' Volatic SMG",
+        "weapon": "'Stubby' Voltaic SMG",
         "name": "Well Oiled Machine",
         "cost": {
             "credits": 8400,
@@ -1317,7 +1317,7 @@
     },
     "81B842310E01B847BF99774DBC3DC0DD": {
         "class": "Engineer",
-        "weapon": "'Stubby' Volatic SMG",
+        "weapon": "'Stubby' Voltaic SMG",
         "name": "EM Refire Booster",
         "cost": {
             "credits": 8300,
@@ -1331,7 +1331,7 @@
     },
     "13CF1C4A6992924A9AFF5CEAF05B7106": {
         "class": "Engineer",
-        "weapon": "'Stubby' Volatic SMG",
+        "weapon": "'Stubby' Voltaic SMG",
         "name": "Super-Slim Rounds",
         "cost": {
             "credits": 8550,
@@ -1345,7 +1345,7 @@
     },
     "0C1BAA64B03CB94EBB77B7B55E7C6C87": {
         "class": "Engineer",
-        "weapon": "'Stubby' Volatic SMG",
+        "weapon": "'Stubby' Voltaic SMG",
         "name": "Turret EM Discharge",
         "cost": {
             "credits": 8450,
@@ -1359,7 +1359,7 @@
     },
     "3C42DBEA3021EE44AF6D944A91314D75": {
         "class": "Engineer",
-        "weapon": "'Stubby' Volatic SMG",
+        "weapon": "'Stubby' Voltaic SMG",
         "name": "Turret Arc",
         "cost": {
             "credits": 8350,
@@ -1819,6 +1819,20 @@
             "umanite": 0
         }
     },
+    "F1432F121F68E04DA0C5DD8E50CF717D": {
+        "class":"Engineer",
+        "weapon":"Shard Diffractor",
+        "name":"Efficiency Tweaks",
+        "cost": { 
+            "credits": 7650,
+            "bismor": 0,
+            "croppa": 120,
+            "enor": 0,
+            "jadiz": 90,
+            "magnite": 70,
+            "umanite": 0
+        }
+    },
     "71D81BC3DBC28F4D905A6C9F4A8B55AE": {
         "class":"Engineer",
         "weapon":"Shard Diffractor",
@@ -1847,20 +1861,6 @@
             "umanite": 100
         }
     },
-    "187A18BA5283D24C905A37F4FB123BA0": {
-        "class":"Engineer",
-        "weapon":"Shard Diffractor",
-        "name":"Overdrive Booster",
-        "cost": {
-            "credits": 7900,
-            "bismor": 120,
-            "croppa": 110,
-            "enor": 0,
-            "jadiz": 75,
-            "magnite": 0,
-            "umanite": 0
-        }
-    },
     "7BB7C21FA1D1E64A8C007CE6A023A412": {
         "class":"Engineer",
         "weapon":"Shard Diffractor",
@@ -1875,6 +1875,34 @@
             "umanite": 0
         }
     },
+    "D330723969BCE44CB1EBE9009A2F6E0D": {
+        "class":"Engineer",
+        "weapon":"Shard Diffractor",
+        "name":"Plascrete Catalyst",
+        "cost": {
+            "credits": 8300,
+            "bismor": 65,
+            "croppa": 0,
+            "enor": 105,
+            "jadiz": 0,
+            "magnite": 125,
+            "umanite": 0
+        }
+    },
+    "187A18BA5283D24C905A37F4FB123BA0": {
+        "class":"Engineer",
+        "weapon":"Shard Diffractor",
+        "name":"Overdrive Booster",
+        "cost": {
+            "credits": 7900,
+            "bismor": 120,
+            "croppa": 110,
+            "enor": 0,
+            "jadiz": 75,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
     "8C5D24BD68D5F14A89A6B87A857CCD9B": {
         "class": "Gunner",
         "weapon": "Armskore Coil Gun",
@@ -1886,6 +1914,20 @@
             "enor": 0,
             "jadiz": 65,
             "magnite": 135,
+            "umanite": 0
+        }
+    },
+    "26841EB5823A284B81BF7DA3792708D7": {
+        "class": "Gunner",
+        "weapon": "Armskore Coil Gun",
+        "name": "Ultra-Magnetic Coils",
+        "cost": {
+            "credits": 7900,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 125,
+            "jadiz": 70,
+            "magnite": 110,
             "umanite": 0
         }
     },
@@ -1945,6 +1987,20 @@
             "umanite": 0
         }
     },
+    "1CFA57FA35D0DB49A9AAF87CAA011EF4": {
+        "class": "Scout",
+        "weapon": "Nishanka Boltshark X-80",
+        "name": "Quick Fire",
+        "cost": {
+            "credits": 8400,
+            "bismor": 0,
+            "croppa": 95,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 125
+        }
+    },
     "6C464531820EA849BB3C80C0F190A74F": {
         "class": "Scout",
         "weapon": "Nishanka Boltshark X-80",
@@ -1959,6 +2015,20 @@
             "umanite": 90
         }
     },
+    "75CFD0A90F31C94A9D6A8D02147DE1FC": {
+        "class": "Scout",
+        "weapon": "Nishanka Boltshark X-80",
+        "name": "Cryo Bolt",
+        "cost": {
+            "credits": 7350,
+            "bismor": 0,
+            "croppa": 75,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 135,
+            "umanite": 105
+        }
+    },
     "DDCA81E29C6BE8488C2DF4F0B0C72A72": {
         "class": "Scout",
         "weapon": "Nishanka Boltshark X-80",
@@ -1971,6 +2041,34 @@
             "jadiz": 0,
             "magnite": 70,
             "umanite": 130
+        }
+    },
+    "AECB0F241DFA194AB04BBB86563FA840": {
+        "class": "Scout",
+        "weapon": "Nishanka Boltshark X-80",
+        "name": "Bodkin Points",
+        "cost": {
+            "credits": 8400,
+            "bismor": 0,
+            "croppa": 110,
+            "enor": 0,
+            "jadiz": 80,
+            "magnite": 140,
+            "umanite": 0
+        }
+    },
+    "62FE96DE32A5454EB0F1952BD68DBAF4": {
+        "class": "Scout",
+        "weapon": "Nishanka Boltshark X-80",
+        "name": "Trifork Volley",
+        "cost": {
+            "credits": 7650,
+            "bismor": 130,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 100,
+            "magnite": 65,
+            "umanite": 0
         }
     }
 }
