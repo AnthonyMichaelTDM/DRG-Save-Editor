@@ -8,7 +8,7 @@ that said, I'm in college right now and likely won't have time to implement many
 
 ## Requirements
 ~~- Windows 7 (or compatibility mode)~~
-with the updated installation instructions, any computer with __Python3 to run the code__, __git (and/or a browser) to download the code__, and a display should be able to make use of this project
+with the updated installation instructions, any computer with __git__ (and/or a browser) to download the code, __pip__ to download the required python packages, __Python3__ to run the code, and a display should be able to make use of this project
 
 
 ## Installation
