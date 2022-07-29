@@ -28,8 +28,6 @@ for a up-to-date and working version:
 
 If the editor opens but doesn't edit your save properly (i.e., values not being read properly, changes not being reflected in-game, etc) please open an issue, describe the problem as thoroughly as you can, and attach a copy of your save file from BEFORE any edits were attempted.
 
-NOTE: because this is a fork, you can't open issues, so open one in the [forked repository](https://github.com/robertnunn/DRG-Save-Editor) and ping/mention me (AnthonyMichaelTDM) in it. Alternatively, you can fix the issue yourself and open a pull request here.
-
 ## Usage
 ### ALWAYS BACKUP YOUR SAVE FILE!
 The editor will make a backup of the save file you open in the same folder as the save file with the extension of `.old`. The editor makes this backup at the moment you open the save file.
