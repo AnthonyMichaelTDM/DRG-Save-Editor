@@ -12,7 +12,7 @@ with the updated installation instructions, any computer with __git__ (and/or a 
 
 
 ## Installation
-~~Download the [DRG Save Editor.zip](https://github.com/robertnunn/DRG-Save-Editor/blob/master/DRG%20Save%20Editor.zip) file and extract the zip file and start the editor using the "start editor.cmd" batch file. **note: this will run **~~the build in the zip file doesn't work on the most recent versions of DRG, use the other instalation instructions bellow
+~~Download the [DRG Save Editor.zip](https://github.com/robertnunn/DRG-Save-Editor/blob/master/DRG%20Save%20Editor.zip) file and extract the zip file and start the editor using the "start editor.cmd" batch file. note: this will run~~ the build in the zip file doesn't work on the most recent versions of DRG, use the other instalation instructions bellow
 
 for a up-to-date and working version:
 - clone the repo: `git clone https://github.com/AnthonyMichaelTDM/DRG-Save-Editor.git` (or download the source code from github)
