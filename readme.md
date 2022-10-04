@@ -7,14 +7,9 @@ This is a standalone DRG save editor written in python (3.6.12), using PyQt5 (5.
 that said, I'm in college right now and likely won't have time to implement many of the To-Do items at the end of this file
 
 ## Requirements
-~~- Windows 7 (or compatibility mode)~~
-with the updated installation instructions, any computer with __git__ (and/or a browser) to download the code, __pip__ to download the required python packages, __Python3__ to run the code, and a display should be able to make use of this project
-
+any computer with __git__ (and/or a browser) to download the code, __pip__ to download the required python packages, __Python3__ to run the code, and a display should be able to make use of this project
 
 ## Installation
-~~Download the [DRG Save Editor.zip](https://github.com/robertnunn/DRG-Save-Editor/blob/master/DRG%20Save%20Editor.zip) file and extract the zip file and start the editor using the "start editor.cmd" batch file. note: this will run~~ the build in the zip file doesn't work on the most recent versions of DRG, use the other instalation instructions bellow
-
-for a up-to-date and working version:
 - clone the repo: `git clone https://github.com/AnthonyMichaelTDM/DRG-Save-Editor.git` (or download the source code from github)
 - open your terminal in the base directory of the project
 - install the required packages with pip using the following command: `pip install -r ./requirements.txt`
@@ -24,8 +19,6 @@ for a up-to-date and working version:
 - The editor works by looking for specific values in the raw data of the save, it doesn't decode the data into a nice, neat python object. As a result if certain things aren't present in the save (e.g., >0 forged overclocks, certain resources) the editor will malfunction and give nonsensical results. The solution is to acquire at least one of the resources in game _then_ use the editor.
 
 ## Troubleshooting
-~~If the editor fails to start, please add a second line to the "start editor.cmd" that's just "pause". This will let you see any error messages that will be necessary for bug fixes.~~ we aren't using the executable version so this doesn't apply 
-
 If the editor opens but doesn't edit your save properly (i.e., values not being read properly, changes not being reflected in-game, etc) please open an issue, describe the problem as thoroughly as you can, and attach a copy of your save file from BEFORE any edits were attempted.
 
 ## Usage
