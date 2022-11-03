@@ -1318,6 +1318,7 @@ rank_titles = [
 season_guids = {
     1: "A47D407EC0E4364892CE2E03DE7DF0B3",
     2: "B860B55F1D1BB54D8EE2E41FDA9F5838",
+    3: "D8810F6C76D374419AE6A18EF5B3BA26",
 }
 
 # global variable definitions
@@ -1328,7 +1329,7 @@ stats = dict()
 file_name = ""
 save_data = b""
 xp_per_season_level = 5000
-season_guid = season_guids[2]
+season_guid = season_guids[3]
 guid_re = re.compile(r".*\(([0-9A-F]*)\)")
 resource_guids = {
     "yeast": "078548B93232C04085F892E084A74100",
