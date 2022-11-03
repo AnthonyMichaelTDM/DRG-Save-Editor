@@ -3,7 +3,7 @@
 This is a standalone DRG save editor written in python (3.6.12), using PyQt5 (5.9.2) and PySide2 (5.15.2) and packaged using the [fman build system](https://build-system.fman.io).
 
 ## There are likely to be bugs, see the Known Issues and Troubleshooting section!
-## this fork is aimed at providing continued support and updates for this tool as the original creator has "Largely moved on from this project"
+## Repo is aimed at providing continued support and updates for [robertnunn/DRG-Save-Editor](https://github.com/robertnunn/DRG-Save-Editor) as the original creator has "Largely moved on from this project"
 that said, I'm in college right now and likely won't have time to implement many of the To-Do items at the end of this file
 
 ## Requirements
