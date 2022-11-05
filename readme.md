@@ -4,7 +4,7 @@ This is a DRG save editor written in python (3.6.12), using PyQt5 (5.9.2) and Py
 
 ## There are likely to be bugs, see the Known Issues and Troubleshooting section!
 ## Repo is aimed at providing continued support and updates for [robertnunn/DRG-Save-Editor](https://github.com/robertnunn/DRG-Save-Editor) as the original creator has "Largely moved on from this project"
-that said, I'm in college right now and likely won't have time to implement many of the To-Do items at the end of this file
+That said, I'm in college right now and likely won't have time to implement many of the To-Do items at the end of this file, not without help anyway ;)
 
 ## Requirements
 any computer with __git__ (and/or a browser) to download the code, __pip__ to download the required python packages, __Python3__ to run the code, and a display should be able to make use of this project
