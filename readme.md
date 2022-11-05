@@ -41,6 +41,7 @@ Some notes:
 - v1.7
     - Updated for season 3
         - updated season guid
+    - Anthony's fork detached from original repo to better enable continued development
 - v1.6
     - issue with adding OC's fixed by [Anthony](https://github.com/AnthonyMichaelTDM) in [PR #45](https://github.com/robertnunn/DRG-Save-Editor/pull/45)
 - v1.5
