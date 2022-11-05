@@ -94,6 +94,7 @@ Some notes:
     - Initial release
 
 ## To-Do
+- Refactor project to follow SOLID design principles
 - Cosmetic overclock support
 - GUI polish
 - Better readme
