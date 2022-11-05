@@ -1,6 +1,6 @@
 # Deep Rock Galactic Save Editor
 
-This is a standalone DRG save editor written in python (3.6.12), using PyQt5 (5.9.2) and PySide2 (5.15.2) and packaged using the [fman build system](https://build-system.fman.io).
+This is a DRG save editor written in python (3.6.12), using PyQt5 (5.9.2) and PySide2 (5.15.2).
 
 ## There are likely to be bugs, see the Known Issues and Troubleshooting section!
 ## Repo is aimed at providing continued support and updates for [robertnunn/DRG-Save-Editor](https://github.com/robertnunn/DRG-Save-Editor) as the original creator has "Largely moved on from this project"
@@ -14,6 +14,8 @@ any computer with __git__ (and/or a browser) to download the code, __pip__ to do
 - open your terminal in the base directory of the project
 - install the required packages with pip using the following command: `pip install -r ./requirements.txt`
 - start the program with the `python3 ./src/main/python/main.py` command
+
+if these instructions are unclear a member of the community, [NerdyJosh1](https://github.com/NerdyJosh1), has made a [video tutorial for windows users](https://www.youtube.com/watch?v=2h2-nZ2ptRo&ab_channel=NerdyJosh)
 
 ## Known Issues
 - The editor works by looking for specific values in the raw data of the save, it doesn't decode the data into a nice, neat python object. As a result if certain things aren't present in the save (e.g., >0 forged overclocks, certain resources) the editor will malfunction and give nonsensical results. The solution is to acquire at least one of the resources in game _then_ use the editor.
