@@ -1,27 +1,21 @@
-import PySide2
-from PySide2.QtUiTools import QUiLoader
-from PySide2.QtCore import QFile, QIODevice, Slot
-from PySide2.QtWidgets import (
-    QApplication,
-    QFileDialog,
-    QPlainTextEdit,
-    QTreeWidgetItem,
-    QListWidgetItem,
-    QMenu,
-    QAction,
-    QLineEdit,
-)
-
-from PySide2.QtGui import QColor, QCursor
-from fbs_runtime.application_context.PySide2 import ApplicationContext
-from copy import deepcopy
-import sys
-import os
-import struct
-import re
-from pprint import pprint as pp
 import json
+import os
+import re
+import struct
+import sys
+from copy import deepcopy
+from pprint import pprint as pp
 from sys import platform
+
+import PySide2
+from fbs_runtime.application_context.PySide2 import ApplicationContext
+from PySide2.QtCore import QFile, QIODevice, Slot
+from PySide2.QtGui import QColor, QCursor
+from PySide2.QtUiTools import QUiLoader
+from PySide2.QtWidgets import (QAction, QApplication, QFileDialog, QLineEdit,
+                               QListWidgetItem, QMenu, QPlainTextEdit,
+                               QTreeWidgetItem)
+
 if platform == "win32":
     import winreg
 
