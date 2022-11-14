@@ -1,6 +1,4 @@
 import json
-import os
-import re
 import struct
 import sys
 from copy import deepcopy
@@ -15,6 +13,8 @@ from PySide2.QtUiTools import QUiLoader
 from PySide2.QtWidgets import (QAction, QApplication, QFileDialog, QLineEdit,
                                QListWidgetItem, QMenu, QPlainTextEdit,
                                QTreeWidgetItem)
+
+from lib import definitions
 
 if platform == "win32":
     import winreg
@@ -71,13 +71,13 @@ class TextEditFocusChecking(QLineEdit):
             elif box.endswith("text"):  # dwarf level box changed
                 # print('level xp')
                 xp, level, rem = get_dwarf_xp(dwarf)
-                if xp_table[value - 1] + rem == xp:
+                if definitions.XP_TABLE[value - 1] + rem == xp:
                     total = xp
                 else:
-                    total = xp_table[value - 1]
+                    total = definitions.XP_TABLE[value - 1]
             elif box.endswith("2"):  # xp for current level changed
                 xp, level, rem = get_dwarf_xp(dwarf)
-                total = xp_table[level - 1] + value
+                total = definitions.XP_TABLE[level - 1] + value
 
             update_xp(dwarf, total)  # update relevant xp fields
 
@@ -144,25 +144,24 @@ def update_xp(dwarf, total_xp=0):
 
 def update_rank():
     global stats
-    global max_badges
     s_promo = (
         stats["xp"]["scout"]["promo"]
-        if int(widget.scout_promo_box.currentIndex()) == max_badges
+        if int(widget.scout_promo_box.currentIndex()) == definitions.MAX_BADGES
         else int(widget.scout_promo_box.currentIndex())
     )
     e_promo = (
         stats["xp"]["engineer"]["promo"]
-        if int(widget.engineer_promo_box.currentIndex()) == max_badges
+        if int(widget.engineer_promo_box.currentIndex()) == definitions.MAX_BADGES
         else int(widget.engineer_promo_box.currentIndex())
     )
     g_promo = (
         stats["xp"]["gunner"]["promo"]
-        if int(widget.gunner_promo_box.currentIndex()) == max_badges
+        if int(widget.gunner_promo_box.currentIndex()) == definitions.MAX_BADGES
         else int(widget.gunner_promo_box.currentIndex())
     )
     d_promo = (
         stats["xp"]["driller"]["promo"]
-        if int(widget.driller_promo_box.currentIndex()) == max_badges
+        if int(widget.driller_promo_box.currentIndex()) == definitions.MAX_BADGES
         else int(widget.driller_promo_box.currentIndex())
     )
 
@@ -186,7 +185,7 @@ def update_rank():
         rem = 0
 
     try:
-        title = rank_titles[rank]
+        title = definitions.RANK_TITLES[rank]
     except:
         title = "Lord of the Deep"
 
@@ -264,9 +263,8 @@ def update_season_data():
 
 
 def get_season_data(save_bytes):
-    global season_guid
     # scrip_marker = bytes.fromhex("546F6B656E73")
-    season_xp_marker = bytes.fromhex(season_guid)
+    season_xp_marker = bytes.fromhex(definitions.SEASON_GUID)
     season_xp_offset = 48
     scrip_offset = 88
 
@@ -287,8 +285,7 @@ def get_resources(save_bytes):
     # extracts the resource counts from the save file
     # print('getting resources')
     # resource GUIDs
-    global resource_guids
-    resources = deepcopy(resource_guids)
+    resources = deepcopy(definitions.RESOURCE_GUIDS)
     guid_length = 16  # length of GUIDs in bytes
     res_marker = (
         b"OwnedResources"  # marks the beginning of where resource values can be found
@@ -363,10 +360,10 @@ def get_xp(save_bytes):
 
 
 def xp_total_to_level(xp):
-    for i in xp_table:
+    for i in definitions.XP_TABLE:
         if xp < i:
-            level = xp_table.index(i)
-            remainder = xp - xp_table[level - 1]
+            level = definitions.XP_TABLE.index(i)
+            remainder = xp - definitions.XP_TABLE[level - 1]
             return (level, remainder)
     return (25, 0)
 
@@ -597,11 +594,9 @@ def make_save_file(file_path, change_data):
         save_data = f.read()
 
     new_values = change_data
-    global resource_guids
-    global season_guid
     # write resources
     resource_bytes = list()
-    res_guids = deepcopy(resource_guids)
+    # res_guids = deepcopy(resource_guids)
     resources = {
         "yeast": new_values["brewing"]["yeast"],
         "starch": new_values["brewing"]["starch"],
@@ -625,8 +620,8 @@ def make_save_file(file_path, change_data):
     res_bytes = save_data[res_pos : res_pos + res_length]
 
     for k, v in resources.items():
-        if res_bytes.find(bytes.fromhex(res_guids[k])) > -1:
-            pos = res_bytes.find(bytes.fromhex(res_guids[k]))
+        if res_bytes.find(bytes.fromhex(definitions.RESOURCE_GUIDS[k])) > -1:
+            pos = res_bytes.find(bytes.fromhex(definitions.RESOURCE_GUIDS[k]))
             res_bytes = (
                 res_bytes[: pos + 16] + struct.pack("f", v) + res_bytes[pos + 20 :]
             )
@@ -813,7 +808,7 @@ def make_save_file(file_path, change_data):
         )
 
     # write season data
-    season_xp_marker = bytes.fromhex(season_guid)
+    season_xp_marker = bytes.fromhex(definitions.SEASON_GUID)
     season_xp_offset = 48
     season_xp_pos = save_data.find(season_xp_marker) + season_xp_offset
     # scrip_marker = b"Tokens"
@@ -850,8 +845,6 @@ def reset_values():
     global unforged_ocs
     global unacquired_ocs
     global forged_ocs
-    global max_badges
-    global xp_per_season_level
     # print('reset values')
     widget.bismor_text.setText(str(stats["minerals"]["bismor"]))
     widget.enor_text.setText(str(stats["minerals"]["enor"]))
@@ -881,8 +874,8 @@ def reset_values():
     widget.driller_xp_2.setText(str(d_xp[1]))
     widget.driller_promo_box.setCurrentIndex(
         stats["xp"]["driller"]["promo"]
-        if stats["xp"]["driller"]["promo"] < max_badges
-        else max_badges
+        if stats["xp"]["driller"]["promo"] < definitions.MAX_BADGES
+        else definitions.MAX_BADGES
     )
     # print('after driller')
 
@@ -892,8 +885,8 @@ def reset_values():
     widget.engineer_xp_2.setText(str(e_xp[1]))
     widget.engineer_promo_box.setCurrentIndex(
         stats["xp"]["engineer"]["promo"]
-        if stats["xp"]["engineer"]["promo"] < max_badges
-        else max_badges
+        if stats["xp"]["engineer"]["promo"] < definitions.MAX_BADGES
+        else definitions.MAX_BADGES
     )
     # print('after engineer')
 
@@ -903,8 +896,8 @@ def reset_values():
     widget.gunner_xp_2.setText(str(g_xp[1]))
     widget.gunner_promo_box.setCurrentIndex(
         stats["xp"]["gunner"]["promo"]
-        if stats["xp"]["gunner"]["promo"] < max_badges
-        else max_badges
+        if stats["xp"]["gunner"]["promo"] < definitions.MAX_BADGES
+        else definitions.MAX_BADGES
     )
     # print('after gunner')
 
@@ -914,8 +907,8 @@ def reset_values():
     widget.scout_xp_2.setText(str(s_xp[1]))
     widget.scout_promo_box.setCurrentIndex(
         stats["xp"]["scout"]["promo"]
-        if stats["xp"]["scout"]["promo"] < max_badges
-        else max_badges
+        if stats["xp"]["scout"]["promo"] < definitions.MAX_BADGES
+        else definitions.MAX_BADGES
     )
     # print('after scout')
 
@@ -928,8 +921,8 @@ def reset_values():
 
     # reset season data
     season_total_xp = stats["season"]["xp"]
-    widget.season_xp.setText(str(season_total_xp % xp_per_season_level))
-    widget.season_lvl_text.setText(str(season_total_xp // xp_per_season_level))
+    widget.season_xp.setText(str(season_total_xp % definitions.XP_PER_SEASON_LEVEL))
+    widget.season_lvl_text.setText(str(season_total_xp // definitions.XP_PER_SEASON_LEVEL))
     widget.scrip_text.setText(str(stats["season"]["scrip"]))
 
 
@@ -1064,7 +1057,6 @@ def init_values(save_data):
 
 def get_values():
     global stats
-    global max_badges
     xp_per_season_level = 5000
 
     ns = dict()
@@ -1101,18 +1093,18 @@ def get_values():
     engineer_promo = int(widget.engineer_promo_box.currentIndex())
 
     ns["xp"]["driller"]["promo"] = (
-        driller_promo if driller_promo < max_badges else stats["xp"]["driller"]["promo"]
+        driller_promo if driller_promo < definitions.MAX_BADGES else stats["xp"]["driller"]["promo"]
     )
     ns["xp"]["engineer"]["promo"] = (
         engineer_promo
-        if engineer_promo < max_badges
+        if engineer_promo < definitions.MAX_BADGES
         else stats["xp"]["engineer"]["promo"]
     )
     ns["xp"]["gunner"]["promo"] = (
-        gunner_promo if gunner_promo < max_badges else stats["xp"]["gunner"]["promo"]
+        gunner_promo if gunner_promo < definitions.MAX_BADGES else stats["xp"]["gunner"]["promo"]
     )
     ns["xp"]["scout"]["promo"] = (
-        scout_promo if scout_promo < max_badges else stats["xp"]["scout"]["promo"]
+        scout_promo if scout_promo < definitions.MAX_BADGES else stats["xp"]["scout"]["promo"]
     )
 
     ns["misc"]["error"] = int(widget.error_text.text())
@@ -1136,11 +1128,10 @@ def remove_selected_ocs():
     global unforged_ocs
     global unacquired_ocs
     global file_name
-    global guid_re
     list_items = widget.unforged_list.selectedItems()
     items_to_remove = list()
     for i in list_items:
-        items_to_remove.append(guid_re.search(i.text()).group(1))
+        items_to_remove.append(definitions.GUID_RE.search(i.text()).group(1))
         item = widget.unforged_list.row(i)
         widget.unforged_list.takeItem(item)
 
@@ -1165,155 +1156,16 @@ def remove_ocs(oc_list):
 @Slot()
 def remove_all_ocs():
     global unforged_ocs
-    global guid_re
     # unforged_ocs = dict()
     items_to_remove = list()
     unforged_list = widget.unforged_list
     for i in range(unforged_list.count()):
         item = unforged_list.item(i)
-        items_to_remove.append(guid_re.search(item.text()).group(1))
+        items_to_remove.append(definitions.GUID_RE.search(item.text()).group(1))
 
     remove_ocs(items_to_remove)
     unforged_list.clear()
 
-
-# xp_table[i] = XP needed for level i+1
-xp_table = [
-    0,
-    3000,
-    7000,
-    12000,
-    18000,
-    25000,
-    33000,
-    42000,
-    52000,
-    63000,
-    75000,
-    88000,
-    102000,
-    117000,
-    132500,
-    148500,
-    165000,
-    182000,
-    199500,
-    217500,
-    236000,
-    255000,
-    274500,
-    294500,
-    315000,
-]
-# ordered list of the promotion ranks (low -> high)
-promo_ranks = [
-    "None",
-    "Bronze 1",
-    "Bronze 2",
-    "Bronze 3",
-    "Silver 1",
-    "Silver 2",
-    "Silver 3",
-    "Gold 1",
-    "Gold 2",
-    "Gold 3",
-    "Platinum 1",
-    "Platinum 2",
-    "Platinum 3",
-    "Diamond 1",
-    "Diamond 2",
-    "Diamond 3",
-    "Legendary 1",
-    "Legendary 2",
-    "Legendary 3",
-    "Legendary 3+",
-]
-max_badges = len(promo_ranks) - 1
-
-# ordered list of player rank titles (low -> high)
-rank_titles = [
-    "Greenbeard",
-    "Rock Hauler",
-    "Cave Runner",
-    "Stone Breaker",
-    "Pit Delver",
-    "Rookie Miner",
-    "Rookie Miner",
-    "Authorized Miner",
-    "Authorized Miner",
-    "Senior Miner",
-    "Senior Miner",
-    "Professional Miner",
-    "Professional Miner",
-    "Veteran Miner",
-    "Veteran Miner",
-    "Expert Miner",
-    "Expert Miner",
-    "Elite Miner",
-    "Elite Miner",
-    "Elite Miner",
-    "Supreme Miner",
-    "Supreme Miner",
-    "Supreme Miner",
-    "Master Miner",
-    "Master Miner",
-    "Master Miner",
-    "Epic Miner",
-    "Epic Miner",
-    "Epic Miner",
-    "Epic Miner",
-    "Legendary Miner",
-    "Legendary Miner",
-    "Legendary Miner",
-    "Legendary Miner",
-    "Legendary Miner",
-    "Mythic Miner",
-    "Mythic Miner",
-    "Mythic Miner",
-    "Mythic Miner",
-    "Mythic Miner",
-    "Stone Guard",
-    "Stone Guard",
-    "Stone Guard",
-    "Stone Guard",
-    "Stone Guard",
-    "Honor Guard",
-    "Honor Guard",
-    "Honor Guard",
-    "Honor Guard",
-    "Honor Guard",
-    "Iron Guard",
-    "Iron Guard",
-    "Iron Guard",
-    "Iron Guard",
-    "Iron Guard",
-    "Giant Guard",
-    "Giant Guard",
-    "Giant Guard",
-    "Giant Guard",
-    "Giant Guard",
-    "Night Carver",
-    "Night Carver",
-    "Night Carver",
-    "Night Carver",
-    "Night Carver",
-    "Longbeard",
-    "Longbeard",
-    "Longbeard",
-    "Longbeard",
-    "Longbeard",
-    "Gilded Master",
-    "Gilded Master",
-    "Gilded Master",
-    "Gilded Master",
-    "Gilded Master",
-]
-
-season_guids = {
-    1: "A47D407EC0E4364892CE2E03DE7DF0B3",
-    2: "B860B55F1D1BB54D8EE2E41FDA9F5838",
-    3: "D8810F6C76D374419AE6A18EF5B3BA26",
-}
 
 # global variable definitions
 forged_ocs = dict()
@@ -1322,25 +1174,6 @@ unacquired_ocs = dict()
 stats = dict()
 file_name = ""
 save_data = b""
-xp_per_season_level = 5000
-season_guid = season_guids[3]
-guid_re = re.compile(r".*\(([0-9A-F]*)\)")
-resource_guids = {
-    "yeast": "078548B93232C04085F892E084A74100",
-    "starch": "72312204E287BC41815540A0CF881280",
-    "barley": "22DAA757AD7A8049891B17EDCC2FE098",
-    "bismor": "AF0DC4FE8361BB48B32C92CC97E21DE7",
-    "enor": "488D05146F5F754BA3D4610D08C0603E",
-    "malt": "41EA550C1D46C54BBE2E9CA5A7ACCB06",
-    "umanite": "5F2BCF8347760A42A23B6EDC07C0941D",
-    "jadiz": "22BC4F7D07D13E43BFCA81BD9C14B1AF",
-    "croppa": "8AA7FB43293A0B49B8BE42FFE068A44C",
-    "magnite": "AADED8766C227D408032AFD18D63561E",
-    "error": "5828652C9A5DE845A9E2E1B8B463C516",
-    "cores": "A10CB2853871FB499AC854A1CDE2202C",
-    "data": "99FA526AD87748459498905A278693F6",
-    "phazyonite": "67668AAE828FDB48A9111E1B912DBFA4",
-}
 
 if __name__ == "__main__":
     # print(os.getcwd())
@@ -1389,7 +1222,7 @@ if __name__ == "__main__":
         widget.scout_promo_box,
     ]
     for i in promo_boxes:
-        for j in promo_ranks:
+        for j in definitions.PROMO_RANKS:
             i.addItem(j)
 
     # for k,v in season_guids.items():
