@@ -14,7 +14,7 @@ from PySide2.QtWidgets import (QAction, QApplication, QFileDialog, QLineEdit,
                                QListWidgetItem, QMenu, QPlainTextEdit,
                                QTreeWidgetItem)
 
-from lib import definitions
+from main.python import definitions
 
 if platform == "win32":
     import winreg
