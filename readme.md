@@ -7,7 +7,7 @@ This is a DRG save editor written in python (3.6.12), using PyQt5 (5.9.2) and Py
 That said, I'm in college right now and likely won't have time to implement many of the To-Do items at the end of this file, not without help anyway ;)
 
 ## Requirements
-any computer with __git__ (and/or a browser) to download the code, __pip__ to download the required python packages, __Python3__ to run the code, and a display should be able to make use of this project
+any computer with __git__ (and/or a browser) to download the code, __pip__ to download the required python packages, __Python3__ (version<3.11, PySide2 doesn't have a python 3.11 version working yet) to run the code, and a display should be able to make use of this project
 
 ## Installation
 - clone the repo: `git clone https://github.com/AnthonyMichaelTDM/DRG-Save-Editor.git` (or download the source code from github)
