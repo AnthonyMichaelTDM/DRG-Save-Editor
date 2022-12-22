@@ -13,7 +13,7 @@ any computer with __git__ (and/or a browser) to download the code, __pip__ to do
 - clone the repo: `git clone https://github.com/AnthonyMichaelTDM/DRG-Save-Editor.git` (or download the source code from github)
 - open your terminal in the base directory of the project
 - install the required packages with pip using the following command: `pip install -r ./requirements.txt`
-- start the program with the `python3 ./src/main/python/main.py` command
+- start the program with the `python ./src/main/python/main.py` command
 
 if these instructions are unclear a member of the community, [NerdyJosh1](https://github.com/NerdyJosh1), has made a [video tutorial for windows users](https://www.youtube.com/watch?v=2h2-nZ2ptRo&ab_channel=NerdyJosh)
 
