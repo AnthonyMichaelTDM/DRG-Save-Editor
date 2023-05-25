@@ -137,7 +137,7 @@ RANK_TITLES: list[str] = [
     "Gilded Master",
 ]
 
-RESOURCE_GUIDS = {
+RESOURCE_GUIDS: dict[str, str] = {
     "yeast": "078548B93232C04085F892E084A74100",
     "starch": "72312204E287BC41815540A0CF881280",
     "barley": "22DAA757AD7A8049891B17EDCC2FE098",
@@ -156,7 +156,7 @@ RESOURCE_GUIDS = {
 
 XP_PER_SEASON_LEVEL: int = 5000
 
-GUID_RE = re.compile(r".*\(([0-9A-F]*)\)")
+GUID_RE: re.Pattern[str] = re.compile(r".*\(([0-9A-F]*)\)")
 
 SEASON_GUIDS: dict[int, str] = {
     1: "A47D407EC0E4364892CE2E03DE7DF0B3",
