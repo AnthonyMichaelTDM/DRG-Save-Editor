@@ -30,7 +30,8 @@ attach a copy of your save file from BEFORE any edits were attempted
 Add any other context about the problem here.
 
 **Checklist**
-[ ] - I know how to use check boxes
-[ ] - I am using the most recent version of the editor
-[ ] - If the issue is with editing save files, I attached a copy of my save file from before any edits were attempted
-[ ] - I have read through relevant Discussions and Issues (including closed ones) and confirm that my issue wasn't resolved previously
+- [ ] I know how to use check boxes
+- [ ] I am using the most recent version of the editor
+- [ ] I have installed the editor and all it's dependencies correctly (see [this video tutorial](https://www.youtube.com/watch?v=2h2-nZ2ptRo) if you're on windows)
+- [ ] If the issue is with editing save files, I attached a copy of my save file from before any edits were attempted
+- [ ] I have read through relevant Discussions and Issues (including closed ones) and confirm that my issue wasn't resolved previously
