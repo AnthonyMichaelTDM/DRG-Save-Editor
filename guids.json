@@ -1402,7 +1402,7 @@
     "8E6816C3DAEE2C49B93E8FA67CF13B1A": {
         "class": "Gunner",
         "weapon": "'Hurricane' Guided Rocket System",
-        "name": "Manual Guidance Cutoff",
+        "name": "Rocket Barrage",
         "cost": {
             "credits": 7050,
             "bismor": 75,
