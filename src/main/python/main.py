@@ -66,7 +66,7 @@ class TextEditFocusChecking(QLineEdit):
                     widget.season_lvl_text.setText("0")
                 elif value > 100:
                     widget.season_lvl_text.setText("100")
-                    widget.season_xp_.setText("0")
+                    widget.season_xp.setText("0")
         else:
             # decide/calculate how to update based on which box was changed
             if box.endswith("xp"):  # total xp box changed
