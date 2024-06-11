@@ -97,7 +97,7 @@
             "umanite": 0
         }
     },
-    "86AA0DD13FD37E43B2FBF176EE5DE815": {
+    "D10DAA86437ED33F76F1FBB215E85DEE": {
         "class": "Gunner",
         "weapon": "'Thunderhead' Heavy Autocannon",
         "name": "Big Bertha",
@@ -111,7 +111,7 @@
             "umanite": 80
         }
     },
-    "8C0142A687637A4EA4CC8A7F84B9610A": {
+    "A642018C4E7A63877F8ACCA40A61B984": {
         "class": "Gunner",
         "weapon": "'Thunderhead' Heavy Autocannon",
         "name": "Carpet Bomber",
@@ -125,7 +125,7 @@
             "umanite": 70
         }
     },
-    "01E23067CBB9A6428AE4394C99F1D2BB": {
+    "6730E20142A6B9CB4C39E48ABBD2F199": {
         "class": "Gunner",
         "weapon": "'Thunderhead' Heavy Autocannon",
         "name": "Composite Drums",
@@ -139,7 +139,7 @@
             "umanite": 0
         }
     },
-    "3DD5E8141C483E43AA3E0708CE75D663": {
+    "14E8D53D433E481C08073EAA63D675CE": {
         "class": "Gunner",
         "weapon": "'Thunderhead' Heavy Autocannon",
         "name": "Combat Mobility",
@@ -153,7 +153,7 @@
             "umanite": 0
         }
     },
-    "32654E9478165E4DA3F0DBD33B180341": {
+    "944E65324D5E1678D3DBF0A34103183B": {
         "class": "Gunner",
         "weapon": "'Thunderhead' Heavy Autocannon",
         "name": "Neurotoxin Payload",
@@ -167,7 +167,7 @@
             "umanite": 0
         }
     },
-    "CB83FD6C13C63F4982DC87B9796311C8": {
+    "6CFD83CB493FC613B987DC82C8116379": {
         "class": "Gunner",
         "weapon": "'Thunderhead' Heavy Autocannon",
         "name": "Splintering Shells",
@@ -181,7 +181,7 @@
             "umanite": 0
         }
     },
-    "D006E3EEE0540242A2B0BCA8ABCDB387": {
+    "EEE306D0420254E0A8BCB0A287B3CDAB": {
         "class": "Scout",
         "weapon": "M1000 Classic",
         "name": "Minimal Clips",
@@ -195,7 +195,7 @@
             "umanite": 0
         }
     },
-    "1073CEEBECBC014E8370E259040EB71C": {
+    "EBCE73104E01BCEC59E270831CB70E04": {
         "class": "Scout",
         "weapon": "M1000 Classic",
         "name": "Supercooling Chamber",
@@ -209,7 +209,7 @@
             "umanite": 0
         }
     },
-    "AAC9B6E4458458478E50DB87324097EB": {
+    "E4B6C9AA4758844587DB508EEB974032": {
         "class": "Scout",
         "weapon": "M1000 Classic",
         "name": "Electrocuting Focus Shots",
@@ -223,7 +223,7 @@
             "umanite": 75
         }
     },
-    "2A12358F750B704996C37D467ECF1D36": {
+    "8F35122A49700B75467DC396361DCF7E": {
         "class": "Scout",
         "weapon": "M1000 Classic",
         "name": "Hipster",
@@ -237,7 +237,7 @@
             "umanite": 80
         }
     },
-    "8A0122E44E42104BAAAD6B4534A9DE8F": {
+    "E422018A4B10424E456BADAA8FDEA934": {
         "class": "Scout",
         "weapon": "M1000 Classic",
         "name": "Hoverclock",
@@ -251,7 +251,7 @@
             "umanite": 0
         }
     },
-    "D1544B3528938A48964E8D9A6309D1DA": {
+    "354B54D1488A93289A8D4E96DAD10963": {
         "class": "Scout",
         "weapon": "M1000 Classic",
         "name": "Active Stability System",
