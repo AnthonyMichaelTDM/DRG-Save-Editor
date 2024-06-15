@@ -2070,7 +2070,7 @@
             "magnite": 65,
             "umanite": 0
         }
-    }
+    },
     "3D3BE03547F25513D022FBB7151ACC24": {
         "class": "Scout",
         "weapon": "Deepcore GK2",
@@ -2238,6 +2238,5 @@
             "magnite": 80,
             "umanite": 130
         }
-    },
-    
+    }
 }
