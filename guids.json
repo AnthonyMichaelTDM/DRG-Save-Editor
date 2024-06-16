@@ -1,5 +1,5 @@
 {
-    "0405D1E94DE9C099476793A583D85608": {
+    "AF945B93A7B9D64CA6DD00683627BC80": {
         "class": "Scout",
         "weapon": "Deepcore GK2",
         "name": "Compact Ammo",
@@ -13,7 +13,7 @@
             "umanite": 0
         }
     },
-    "B63CF58D495978DCFFDB8EB529E1A760}": {
+    "FF94B9E7834D774292DACCCA3EA023B9": {
         "class": "Scout",
         "weapon": "Deepcore GK2",
         "name": "Electrifying Reload",
@@ -27,7 +27,7 @@
             "umanite": 135
         }
     },
-    "6991FBE24FB38BC9291305A5FD8514A5": {
+    "11F123E174103140957957506BD576D7": {
         "class": "Scout",
         "weapon": "Deepcore GK2",
         "name": "AI Stability Engine",
@@ -41,7 +41,7 @@
             "umanite": 100
         }
     },
-    "B577C2B64828712C2BE9A5AC2329A868}": {
+    "4CDF41F3A0F8E4499D1BAC6168347799": {
         "class": "Scout",
         "weapon": "Deepcore GK2",
         "name": "Homebrew Powder",
@@ -55,7 +55,7 @@
             "umanite": 65
         }
     },
-    "6F55265B49AB998081FDA6A0E5243ABB": {
+    "C3060324CE482C4AB6DC44ED498CBA39": {
         "class": "Scout",
         "weapon": "Deepcore GK2",
         "name": "Overclocked Firing Mechanism",
@@ -69,7 +69,7 @@
             "umanite": 0
         }
     },
-    "390696314BE4DD5FD4035A8571895CEB": {
+    "F6E2E547F2EB674DBDA591F47DE6D017": {
         "class": "Scout",
         "weapon": "Deepcore GK2",
         "name": "Gas Rerouting",
@@ -83,7 +83,7 @@
             "umanite": 0
         }
     },
-    "8758738C4562B36914F1AE8053965038": {
+    "7306221F1264B04B8C025DB4DE9D1667": {
         "class": "Scout",
         "weapon": "Deepcore GK2",
         "name": "Bullets of Mercy",
@@ -97,7 +97,7 @@
             "umanite": 0
         }
     },
-    "D10DAA86437ED33F76F1FBB215E85DEE": {
+    "86AA0DD13FD37E43B2FBF176EE5DE815": {
         "class": "Gunner",
         "weapon": "'Thunderhead' Heavy Autocannon",
         "name": "Big Bertha",
@@ -111,7 +111,7 @@
             "umanite": 80
         }
     },
-    "A642018C4E7A63877F8ACCA40A61B984": {
+    "8C0142A687637A4EA4CC8A7F84B9610A": {
         "class": "Gunner",
         "weapon": "'Thunderhead' Heavy Autocannon",
         "name": "Carpet Bomber",
@@ -125,7 +125,7 @@
             "umanite": 70
         }
     },
-    "6730E20142A6B9CB4C39E48ABBD2F199": {
+    "01E23067CBB9A6428AE4394C99F1D2BB": {
         "class": "Gunner",
         "weapon": "'Thunderhead' Heavy Autocannon",
         "name": "Composite Drums",
@@ -139,7 +139,7 @@
             "umanite": 0
         }
     },
-    "14E8D53D433E481C08073EAA63D675CE": {
+    "3DD5E8141C483E43AA3E0708CE75D663": {
         "class": "Gunner",
         "weapon": "'Thunderhead' Heavy Autocannon",
         "name": "Combat Mobility",
@@ -153,7 +153,7 @@
             "umanite": 0
         }
     },
-    "944E65324D5E1678D3DBF0A34103183B": {
+    "32654E9478165E4DA3F0DBD33B180341": {
         "class": "Gunner",
         "weapon": "'Thunderhead' Heavy Autocannon",
         "name": "Neurotoxin Payload",
@@ -167,7 +167,7 @@
             "umanite": 0
         }
     },
-    "6CFD83CB493FC613B987DC82C8116379": {
+    "CB83FD6C13C63F4982DC87B9796311C8": {
         "class": "Gunner",
         "weapon": "'Thunderhead' Heavy Autocannon",
         "name": "Splintering Shells",
@@ -181,7 +181,7 @@
             "umanite": 0
         }
     },
-    "EEE306D0420254E0A8BCB0A287B3CDAB": {
+    "D006E3EEE0540242A2B0BCA8ABCDB387": {
         "class": "Scout",
         "weapon": "M1000 Classic",
         "name": "Minimal Clips",
@@ -195,7 +195,7 @@
             "umanite": 0
         }
     },
-    "EBCE73104E01BCEC59E270831CB70E04": {
+    "1073CEEBECBC014E8370E259040EB71C": {
         "class": "Scout",
         "weapon": "M1000 Classic",
         "name": "Supercooling Chamber",
@@ -209,7 +209,7 @@
             "umanite": 0
         }
     },
-    "E4B6C9AA4758844587DB508EEB974032": {
+    "AAC9B6E4458458478E50DB87324097EB": {
         "class": "Scout",
         "weapon": "M1000 Classic",
         "name": "Electrocuting Focus Shots",
@@ -223,7 +223,7 @@
             "umanite": 75
         }
     },
-    "8F35122A49700B75467DC396361DCF7E": {
+    "2A12358F750B704996C37D467ECF1D36": {
         "class": "Scout",
         "weapon": "M1000 Classic",
         "name": "Hipster",
@@ -237,7 +237,7 @@
             "umanite": 80
         }
     },
-    "E422018A4B10424E456BADAA8FDEA934": {
+    "8A0122E44E42104BAAAD6B4534A9DE8F": {
         "class": "Scout",
         "weapon": "M1000 Classic",
         "name": "Hoverclock",
@@ -251,7 +251,7 @@
             "umanite": 0
         }
     },
-    "354B54D1488A93289A8D4E96DAD10963": {
+    "D1544B3528938A48964E8D9A6309D1DA": {
         "class": "Scout",
         "weapon": "M1000 Classic",
         "name": "Active Stability System",
