@@ -2099,10 +2099,10 @@
             "umanite": 0
         }
     },
-        "06DDFB954428276C3481    C190F869EED4": {
+        "06DDFB954428276C3481C190F869EED4": {
         "class": "Scout",
         "weapon": "M1000 Classic",
-        "name": "Electrocuting Focus Shots",
+        "name": "Marked For Death",
         "cost": {
             "credits": 7150,
             "bismor": 90,
