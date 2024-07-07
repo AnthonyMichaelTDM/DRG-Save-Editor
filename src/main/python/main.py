@@ -277,7 +277,7 @@ def update_season_data() -> None:
     season_selected = int(widget.season_box.currentText())
 
     # refresh display
-    reset_values()
+    reset_season_data()
 
 
 def get_season_data(save_bytes, season_guid) -> dict[str, int]:
@@ -936,8 +936,10 @@ def reset_values() -> None:
 
     filter_overclocks()
     update_rank()
+    reset_season_data()
 
-    # reset season data
+def reset_season_data():
+    global stats
     season_total_xp = stats["season"][season_selected]["xp"]
     widget.season_xp.setText(str(season_total_xp % XP_PER_SEASON_LEVEL))
     widget.season_lvl_text.setText(str(season_total_xp // XP_PER_SEASON_LEVEL))
