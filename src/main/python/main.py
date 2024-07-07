@@ -17,7 +17,7 @@ from PySide2.QtWidgets import (QAction, QApplication, QFileDialog, QLineEdit,
                                QTreeWidgetItem, QWidget)
 
 from definitions import (GUID_RE, MAX_BADGES, PROMO_RANKS, RANK_TITLES, RESOURCE_GUIDS,
-                                     SEASON_GUID, XP_PER_SEASON_LEVEL,
+                                     SEASON_GUIDS, LATEST_SEASON, XP_PER_SEASON_LEVEL,
                                      XP_TABLE)
 
 if platform == "win32":
@@ -263,12 +263,23 @@ def populate_unforged_list(list_widget, unforged) -> None:
 
 
 def update_season_data() -> None:
-    pass
+    global stats
+    global season_selected
+
+    # remember current values in textboxes when changing which season's data is being viewed
+    stats["season"][season_selected] = {
+        "xp": int(widget.season_xp.text()) + XP_PER_SEASON_LEVEL * int(widget.season_lvl_text.text()),
+        "scrip": int(widget.scrip_text.text()),
+    }
+    season_selected = int(widget.season_box.currentText())
+
+    # refresh display
+    reset_values()
 
 
-def get_season_data(save_bytes) -> dict[str, int]:
+def get_season_data(save_bytes, season_guid) -> dict[str, int]:
     # scrip_marker = bytes.fromhex("546F6B656E73")
-    season_xp_marker: bytes = bytes.fromhex(SEASON_GUID)
+    season_xp_marker: bytes = bytes.fromhex(season_guid)
     season_xp_offset = 169
     scrip_offset = 209
 
@@ -593,11 +604,10 @@ def save_changes() -> None:
         f.write(save_file)
 
 
-def make_save_file(file_path, change_data) -> bytes:
+def make_save_file(file_path, new_values) -> bytes:
     with open(file_path, "rb") as f:
         save_data: bytes = f.read()
 
-    new_values = change_data
     # write resources
     # resource_bytes = list()
     # res_guids = deepcopy(resource_guids)
@@ -812,23 +822,24 @@ def make_save_file(file_path, change_data) -> bytes:
         )
 
     # write season data
-    season_xp_marker: bytes = bytes.fromhex(SEASON_GUID)
-    season_xp_offset = 169
-    season_xp_pos: int = save_data.find(season_xp_marker) + season_xp_offset
-    # scrip_marker = b"Tokens"
-    scrip_offset = 209
-    scrip_pos: int = save_data.find(season_xp_marker) + scrip_offset
+    for season_num, season_guid in SEASON_GUIDS.items():
+        season_xp_marker: bytes = bytes.fromhex(season_guid)
+        season_xp_offset = 169
+        season_xp_pos: int = save_data.find(season_xp_marker) + season_xp_offset
+        # scrip_marker = b"Tokens"
+        scrip_offset = 209
+        scrip_pos: int = save_data.find(season_xp_marker) + scrip_offset
 
-    save_data = (
-        save_data[:season_xp_pos]
-        + struct.pack("i", new_values["season"]["xp"])
-        + save_data[season_xp_pos + 4 :]
-    )
-    save_data = (
-        save_data[:scrip_pos]
-        + struct.pack("i", new_values["season"]["scrip"])
-        + save_data[scrip_pos + 4 :]
-    )
+        save_data = (
+            save_data[:season_xp_pos]
+            + struct.pack("i", new_values["season"][season_num]["xp"])
+            + save_data[season_xp_pos + 4 :]
+        )
+        save_data = (
+            save_data[:scrip_pos]
+            + struct.pack("i", new_values["season"][season_num]["scrip"])
+            + save_data[scrip_pos + 4 :]
+        )
 
     return save_data
     # with open(f"{file_name}", "wb") as t:
@@ -924,10 +935,10 @@ def reset_values() -> None:
     update_rank()
 
     # reset season data
-    season_total_xp = stats["season"]["xp"]
+    season_total_xp = stats["season"][season_selected]["xp"]
     widget.season_xp.setText(str(season_total_xp % XP_PER_SEASON_LEVEL))
     widget.season_lvl_text.setText(str(season_total_xp // XP_PER_SEASON_LEVEL))
-    widget.scrip_text.setText(str(stats["season"]["scrip"]))
+    widget.scrip_text.setText(str(stats["season"][season_selected]["scrip"]))
 
 
 @Slot() # type: ignore
@@ -1052,7 +1063,9 @@ def init_values(save_data) -> dict[str, Any]:
     stats["brewing"]["starch"] = resources["starch"]
     stats["brewing"]["barley"] = resources["barley"]
     stats["brewing"]["malt"] = resources["malt"]
-    stats["season"] = get_season_data(save_data)
+    stats["season"] = dict()
+    for season_num, season_guid in SEASON_GUIDS.items():
+        stats["season"][season_num] = get_season_data(save_data, season_guid)
 
     # print('printing stats')
     # pp(stats)
@@ -1061,7 +1074,6 @@ def init_values(save_data) -> dict[str, Any]:
 
 def get_values() -> dict[str, Any]:
     global stats
-    xp_per_season_level = 5000
 
     ns: dict[str, Any] = dict()
     ns["minerals"] = dict()
@@ -1118,11 +1130,16 @@ def get_values() -> dict[str, Any]:
     ns["misc"]["data"] = int(widget.data_text.text())
     ns["misc"]["phazyonite"] = int(widget.phazy_text.text())
 
-    ns["season"] = {
-        "xp": int(widget.season_xp.text())
-        + (xp_per_season_level * int(widget.season_lvl_text.text())),
-        "scrip": int(widget.scrip_text.text()),
-    }
+    ns["season"] = dict()
+    for season_num in SEASON_GUIDS.keys():
+        if season_num == season_selected:
+            # not saved in stats dict yet so grab it now
+            ns["season"][season_selected] = {
+                "xp": int(widget.season_xp.text()) + XP_PER_SEASON_LEVEL * int(widget.season_lvl_text.text()),
+                "scrip": int(widget.scrip_text.text()),
+            }
+        else:
+            ns["season"][season_num] = stats["season"][season_num]
 
     return ns
 
@@ -1188,6 +1205,7 @@ unacquired_ocs = dict() # type: ignore
 stats: dict[str, Any] = dict() # type: ignore
 file_name: str = ""
 save_data: bytes = b""
+season_selected: int = LATEST_SEASON
 
 if __name__ == "__main__":
     if hasattr(Qt, 'AA_EnableHighDpiScaling'):
@@ -1245,8 +1263,10 @@ if __name__ == "__main__":
         for j in PROMO_RANKS:
             i.addItem(j)
 
-    # for k,v in season_guids.items():
-    #     widget.season_picker.addItem(f'Season {v}')
+    # populate the dropdown for season numbers
+    for i in SEASON_GUIDS.keys():
+        widget.season_box.addItem(str(i))
+    widget.season_box.setCurrentIndex(season_selected - 1)
 
     # populate the filter drop down for overclocks
     sort_labels: list[str] = ["All", "Unforged", "Forged", "Unacquired"]
@@ -1259,6 +1279,7 @@ if __name__ == "__main__":
     widget.actionAdd_overclock_crafting_materials.triggered.connect(add_crafting_mats)
     widget.actionReset_to_original_values.triggered.connect(reset_values)
     widget.combo_oc_filter.currentTextChanged.connect(filter_overclocks)
+    widget.season_box.currentTextChanged.connect(update_season_data)
     # widget.overclock_tree.customContextMenuRequested.connect(oc_ctx_menu)
     widget.add_cores_button.clicked.connect(add_cores)
     widget.remove_all_ocs.clicked.connect(remove_all_ocs)
