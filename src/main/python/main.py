@@ -261,16 +261,19 @@ def populate_unforged_list(list_widget, unforged) -> None:
             oc.setText(f"Cosmetic: {k}")
         list_widget.addItem(oc)
 
-
-def update_season_data() -> None:
+def store_season_changes(season_num):
     global stats
-    global season_selected
-
-    # remember current values in textboxes when changing which season's data is being viewed
-    stats["season"][season_selected] = {
+    stats["season"][season_num] = {
         "xp": int(widget.season_xp.text()) + XP_PER_SEASON_LEVEL * int(widget.season_lvl_text.text()),
         "scrip": int(widget.scrip_text.text()),
     }
+
+def update_season_data() -> None:
+    global season_selected
+
+    # store textbox values before changing which season's data is being viewed
+    # currently displayed values can be saved before saving the new file data
+    store_season_changes(season_selected)
     season_selected = int(widget.season_box.currentText())
 
     # refresh display
@@ -1130,16 +1133,8 @@ def get_values() -> dict[str, Any]:
     ns["misc"]["data"] = int(widget.data_text.text())
     ns["misc"]["phazyonite"] = int(widget.phazy_text.text())
 
-    ns["season"] = dict()
-    for season_num in SEASON_GUIDS.keys():
-        if season_num == season_selected:
-            # not saved in stats dict yet so grab it now
-            ns["season"][season_selected] = {
-                "xp": int(widget.season_xp.text()) + XP_PER_SEASON_LEVEL * int(widget.season_lvl_text.text()),
-                "scrip": int(widget.scrip_text.text()),
-            }
-        else:
-            ns["season"][season_num] = stats["season"][season_num]
+    store_season_changes(season_selected)
+    ns["season"] = stats["season"]
 
     return ns
 
