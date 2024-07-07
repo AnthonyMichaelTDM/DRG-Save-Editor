@@ -3,7 +3,6 @@ from re import Match
 import struct
 import sys
 from copy import deepcopy
-from pprint import pprint as pp
 from sys import platform
 from typing import Any
 
@@ -263,7 +262,7 @@ def populate_unforged_list(list_widget, unforged) -> None:
 
 def store_season_changes(season_num):
     global stats
-    stats["season"][season_num] = {
+    stats["season-changes"][season_num] = {
         "xp": int(widget.season_xp.text()) + XP_PER_SEASON_LEVEL * int(widget.season_lvl_text.text()),
         "scrip": int(widget.scrip_text.text()),
     }
@@ -1045,8 +1044,6 @@ def add_resources(res_dict) -> None:
 
 
 def init_values(save_data) -> dict[str, Any]:
-    # global stats
-    # print('init values')
     stats["xp"] = get_xp(save_data)
     stats["misc"] = dict()
     stats["misc"]["credits"] = get_credits(save_data)
@@ -1068,12 +1065,14 @@ def init_values(save_data) -> dict[str, Any]:
     stats["brewing"]["starch"] = resources["starch"]
     stats["brewing"]["barley"] = resources["barley"]
     stats["brewing"]["malt"] = resources["malt"]
+
+    # initial state, to refer to when using the reset values functionality
     stats["season"] = dict()
     for season_num, season_guid in SEASON_GUIDS.items():
         stats["season"][season_num] = get_season_data(save_data, season_guid)
 
-    # print('printing stats')
-    # pp(stats)
+    stats["season-changes"] = deepcopy(stats["season"])
+
     return stats
 
 
@@ -1136,7 +1135,7 @@ def get_values() -> dict[str, Any]:
     ns["misc"]["phazyonite"] = int(widget.phazy_text.text())
 
     store_season_changes(season_selected)
-    ns["season"] = stats["season"]
+    ns["season"] = stats["season-changes"]
 
     return ns
 
