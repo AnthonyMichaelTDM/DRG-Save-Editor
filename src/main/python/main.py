@@ -262,10 +262,13 @@ def populate_unforged_list(list_widget, unforged) -> None:
 
 def store_season_changes(season_num):
     global stats
-    stats["season-changes"][season_num] = {
-        "xp": int(widget.season_xp.text()) + XP_PER_SEASON_LEVEL * int(widget.season_lvl_text.text()),
-        "scrip": int(widget.scrip_text.text()),
-    }
+    new_xp = widget.season_xp.text()
+    new_scrip = widget.scrip_text.text()
+    if new_xp and new_scrip:
+        stats["season-changes"][season_num] = {
+            "xp": int(new_xp) + XP_PER_SEASON_LEVEL * int(widget.season_lvl_text.text()),
+            "scrip": int(new_scrip),
+        }
 
 def update_season_data() -> None:
     global season_selected
@@ -273,7 +276,8 @@ def update_season_data() -> None:
     # store textbox values before changing which season's data is being viewed
     # currently displayed values can be saved before saving the new file data
     store_season_changes(season_selected)
-    season_selected = int(widget.season_box.currentText())
+    if widget.season_box.currentText():
+        season_selected = int(widget.season_box.currentText())
 
     # refresh display
     reset_season_data(stats["season-changes"])
@@ -288,9 +292,9 @@ def get_season_data(save_bytes, season_guid) -> dict[str, int]:
     season_xp_pos = save_bytes.find(season_xp_marker) + season_xp_offset
     scrip_pos = save_bytes.find(season_xp_marker) + scrip_offset
 
+    # season data does not exist
     if season_xp_pos == season_xp_offset - 1 and scrip_pos == scrip_offset - 1:
-        widget.season_group.setEnabled(False)
-        return {"xp": 0, "scrip": 0}
+        return {"xp": None, "scrip": None}
 
     season_xp = struct.unpack("i", save_bytes[season_xp_pos : season_xp_pos + 4])[0]
     scrip = struct.unpack("i", save_bytes[scrip_pos : scrip_pos + 4])[0]
@@ -938,7 +942,6 @@ def reset_values() -> None:
     reset_season_data(stats["season-initial"])
 
 def reset_season_data(data: dict):
-    global stats
     season_total_xp = data[season_selected]["xp"]
     widget.season_xp.setText(str(season_total_xp % XP_PER_SEASON_LEVEL))
     widget.season_lvl_text.setText(str(season_total_xp // XP_PER_SEASON_LEVEL))
@@ -1068,11 +1071,24 @@ def init_values(save_data) -> dict[str, Any]:
 
     # to be modified as the user updates the fields
     stats["season-changes"] = dict()
+    widget.season_box.clear()
+    seasons_present = []
     for season_num, season_guid in SEASON_GUIDS.items():
-        stats["season-changes"][season_num] = get_season_data(save_data, season_guid)
+        stats["season-changes"][season_num] = get_season_data(save_data, season_guid)        
+        if stats["season-changes"][season_num]["xp"] is not None:
+            seasons_present.append(season_num)
 
     # initial state, to refer to when using the reset values functionality
     stats["season-initial"] = deepcopy(stats["season-changes"])
+
+    # populate the dropdown for season numbers
+    for season_num in seasons_present:
+        widget.season_box.addItem(str(season_num))
+    widget.season_box.setCurrentIndex(len(seasons_present) - 1)
+
+    if not seasons_present:
+        widget.season_group.setEnabled(False)
+
 
     return stats
 
@@ -1259,11 +1275,6 @@ if __name__ == "__main__":
     for i in promo_boxes:
         for j in PROMO_RANKS:
             i.addItem(j)
-
-    # populate the dropdown for season numbers
-    for i in SEASON_GUIDS.keys():
-        widget.season_box.addItem(str(i))
-    widget.season_box.setCurrentIndex(season_selected - 1)
 
     # populate the filter drop down for overclocks
     sort_labels: list[str] = ["All", "Unforged", "Forged", "Unacquired"]
