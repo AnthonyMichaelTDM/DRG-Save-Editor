@@ -276,7 +276,7 @@ def update_season_data() -> None:
     season_selected = int(widget.season_box.currentText())
 
     # refresh display
-    reset_season_data()
+    reset_season_data(stats["season-changes"])
 
 
 def get_season_data(save_bytes, season_guid) -> dict[str, int]:
@@ -935,14 +935,14 @@ def reset_values() -> None:
 
     filter_overclocks()
     update_rank()
-    reset_season_data()
+    reset_season_data(stats["season-initial"])
 
-def reset_season_data():
+def reset_season_data(data: dict):
     global stats
-    season_total_xp = stats["season"][season_selected]["xp"]
+    season_total_xp = data[season_selected]["xp"]
     widget.season_xp.setText(str(season_total_xp % XP_PER_SEASON_LEVEL))
     widget.season_lvl_text.setText(str(season_total_xp // XP_PER_SEASON_LEVEL))
-    widget.scrip_text.setText(str(stats["season"][season_selected]["scrip"]))
+    widget.scrip_text.setText(str(data[season_selected]["scrip"]))
 
 
 @Slot() # type: ignore
@@ -1066,12 +1066,13 @@ def init_values(save_data) -> dict[str, Any]:
     stats["brewing"]["barley"] = resources["barley"]
     stats["brewing"]["malt"] = resources["malt"]
 
-    # initial state, to refer to when using the reset values functionality
-    stats["season"] = dict()
+    # to be modified as the user updates the fields
+    stats["season-changes"] = dict()
     for season_num, season_guid in SEASON_GUIDS.items():
-        stats["season"][season_num] = get_season_data(save_data, season_guid)
+        stats["season-changes"][season_num] = get_season_data(save_data, season_guid)
 
-    stats["season-changes"] = deepcopy(stats["season"])
+    # initial state, to refer to when using the reset values functionality
+    stats["season-initial"] = deepcopy(stats["season-changes"])
 
     return stats
 
