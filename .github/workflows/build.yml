@@ -38,14 +38,15 @@ jobs:
 
       - name: Get the current date and time
         id: date
-        run: echo "RELEASE_TAG=$(date -u +%Y%m%d%H%M%S)" >> $env:GITHUB_ENV
+        run: echo "RELEASE_TAG=$(date -u +%Y.%m.%d.%H%M%S)" >> $env:GITHUB_ENV
 
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ env.RELEASE_TAG }}
-          name: ${{ env.RELEASE_TAG }}
+          tag_name: v${{ env.RELEASE_TAG }}
+          name: Release ${{ env.RELEASE_TAG }}
           draft: false
           prerelease: false
+          generate_release_notes: true
           files: dist/DRG-Save-Editor-windows.zip
