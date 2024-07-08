@@ -1081,6 +1081,14 @@ def init_values(save_data) -> dict[str, Any]:
     # initial state, to refer to when using the reset values functionality
     stats["season-initial"] = deepcopy(stats["season-changes"])
 
+    # addItem triggers currentTextChanged which triggers saving of data currently in textbox.
+    # if two saves are loaded consecutively, it will cause values in the textbox (from file1)
+    # to be saved into storage now (representing file2)
+    # remove any text already inside to prevent this
+    widget.season_xp.setText("")
+    widget.season_lvl_text.setText("")
+    widget.scrip_text.setText("")
+
     # populate the dropdown for season numbers
     for season_num in seasons_present:
         widget.season_box.addItem(str(season_num))
