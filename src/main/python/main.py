@@ -269,8 +269,8 @@ def update_season_data() -> None:
 def get_season_data(save_bytes) -> dict[str, int]:
     # scrip_marker = bytes.fromhex("546F6B656E73")
     season_xp_marker: bytes = bytes.fromhex(SEASON_GUID)
-    season_xp_offset = 48
-    scrip_offset = 88
+    season_xp_offset = 169
+    scrip_offset = 209
 
     season_xp_pos = save_bytes.find(season_xp_marker) + season_xp_offset
     scrip_pos = save_bytes.find(season_xp_marker) + scrip_offset
@@ -813,10 +813,10 @@ def make_save_file(file_path, change_data) -> bytes:
 
     # write season data
     season_xp_marker: bytes = bytes.fromhex(SEASON_GUID)
-    season_xp_offset = 48
+    season_xp_offset = 169
     season_xp_pos: int = save_data.find(season_xp_marker) + season_xp_offset
     # scrip_marker = b"Tokens"
-    scrip_offset = 88
+    scrip_offset = 209
     scrip_pos: int = save_data.find(season_xp_marker) + scrip_offset
 
     save_data = (
