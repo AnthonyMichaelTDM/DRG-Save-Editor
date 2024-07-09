@@ -1357,7 +1357,7 @@
             "umanite": 0
         }
     },
-    "B9CA689149DAA5F04391B991F9BD756F": {
+    "3C42DBEA3021EE44AF6D944A91314D75": {
         "class": "Engineer",
         "weapon": "'Stubby' Voltaic SMG",
         "name": "Micro-Conductor Add-On",
@@ -2071,7 +2071,7 @@
             "umanite": 0
         }
     },
-    "3D3BE03547F25513D022FBB7151ACC24": {
+    "34B2EB764839C94CB7F96B5567317255": {
         "class": "Scout",
         "weapon": "Deepcore GK2",
         "name": "Burst Fire",
@@ -2085,7 +2085,7 @@
             "umanite": 140
         }
     },
-        "FA8073F8414AC44EF67499A7A674C0BA": {
+        "F87380FA4EC44A41A79974F6BAC074A6": {
         "class": "Gunner",
         "weapon": "'Thunderhead' Heavy Autocannon",
         "name": "Mortar Rounds",
@@ -2099,7 +2099,7 @@
             "umanite": 0
         }
     },
-        "06DDFB954428276C3481C190F869EED4": {
+        "4D2ACAFC30FFB542A645C75948EFE75F": {
         "class": "Scout",
         "weapon": "M1000 Classic",
         "name": "Marked For Death",
@@ -2113,7 +2113,7 @@
             "umanite": 0
         }
     },
-        "1586D54A4F3768ACAD6396816D0B514C": {
+        "4AD58615AC68374F819663AD4C510B6D": {
         "class": "Engineer",
         "weapon": "'Warthog' Auto 210",
         "name": "Pump Action",
@@ -2127,7 +2127,7 @@
             "umanite": 135
         }
     },
-        "98E7062444CC5C0F9CF33F9B07089F9B": {
+        "2406E7980F5CCC449B3FF39C9B9F0807": {
         "class": "Driller",
         "weapon": "Cryo Cannon",
         "name": "Crystal Nucleation",
@@ -2141,7 +2141,7 @@
             "umanite": 0
         }
     },
-        "385ED0E540342B563F6054809190E941": {
+        "E5D05E38562B34408054603F41E99091": {
         "class": "Driller",
         "weapon": "CRSPR Flamethrower",
         "name": "Scorching Tide",
@@ -2155,7 +2155,7 @@
             "umanite": 140
         }
     },
-        "CB2B77B646A8B2DAC0B45890136487AC": {
+        "B6772BCBDAB2A8469058B4C0AC876413": {
         "class": "Gunner",
         "weapon": "'Lead Storm' Powered Minigun",
         "name": "Rotary Overdrive",
@@ -2169,7 +2169,7 @@
             "umanite": 0
         }
     },
-        "94DEB4484193354DBBFC0E92C535D2AD": {
+        "48B4DE944D359341920EFCBBADD235C5": {
         "class": "Driller",
         "weapon": "Corrosive Sludge Pump",
         "name": "Combustive Goo Mix",
@@ -2183,7 +2183,7 @@
             "umanite": 105
         }
     },
-        "F3A7D7A2483EAF4D82318E9FE7C3D31F": {
+        "4E71A830F4274647A5C763A1E9CBC41A": {
         "class": "Engineer",
         "weapon": "LOK-1 Smart Rifle",
         "name": "SmЯt Trigger OS™",
@@ -2197,7 +2197,7 @@
             "umanite": 0
         }
     },
-        "6EFAB4224558C44C3E53C38B2D203E78": {
+        "22B4FA6E4CC458458BC3533E783E202D": {
         "class": "Gunner",
         "weapon": "'Hurricane' Guided Rocket System",
         "name": "Cluster Charges",
@@ -2211,7 +2211,7 @@
             "umanite": 95
         }
     },
-        "78A83D9442F1A6EB7366188B9583E06E": {
+        "943DA878EBA6F1428B1866736EE08395": {
         "class": "Scout",
         "weapon": "DRAK-25 Plasma Carbine",
         "name": "Conductive Thermals",
@@ -2225,7 +2225,7 @@
             "umanite": 0
         }
     },
-        "1AE0C5424FFEEAB5D48BCF8982C1481D": {
+        "464B23599A0DDE489B152C4D730B6EF4": {
         "class": "Engineer",
         "weapon": "'Stubby' Voltaic SMG",
         "name": "Hyperalloy Assembly",
