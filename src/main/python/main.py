@@ -17,7 +17,7 @@ from PySide2.QtWidgets import (QAction, QApplication, QFileDialog, QLineEdit,
                                QTreeWidgetItem, QWidget)
 
 from definitions import (GUID_RE, MAX_BADGES, PROMO_RANKS, RANK_TITLES, RESOURCE_GUIDS,
-                                     SEASON_GUID, XP_PER_SEASON_LEVEL,
+                                     SEASON_GUID, XP_PER_SEASON_LEVEL, XP_PER_WEAPON_LEVEL,
                                      XP_TABLE)
 
 if platform == "win32":
@@ -521,6 +521,26 @@ def get_overclocks(save_bytes, guid_source):
     # forged OCs, unacquired OCs, unforged OCs
     return (forged, guids, unforged)
 
+def get_weapons(save_data) -> dict[int, list[int, int, bool]]:
+    weapon = save_data.find(b"WeaponMaintenanceEntry") + 0x2C
+
+    WEAPON_SIZE = 0xD9
+    OFFSET_WEAPON_XP = 0x6E
+    OFFSET_WEAPON_LEVEL = 0x95
+    OFFSET_WEAPON_LEVEL_UP = 0xCA
+
+    weapon_stats = dict()
+
+    while(save_data[weapon:weapon + 8].decode() == "WeaponID"):
+        xp = int.from_bytes(save_data[weapon + OFFSET_WEAPON_XP: weapon + OFFSET_WEAPON_XP + 4], "little")
+        level = int.from_bytes(save_data[weapon + OFFSET_WEAPON_LEVEL: weapon + OFFSET_WEAPON_LEVEL + 4], "little")
+        levelup = bool.from_bytes(save_data[weapon + OFFSET_WEAPON_LEVEL_UP: weapon + OFFSET_WEAPON_LEVEL_UP + 1], "little")
+
+        weapon_stats[weapon] = [xp, level, levelup]
+
+        weapon += WEAPON_SIZE
+
+    return weapon_stats
 
 @Slot() # type: ignore
 def filter_overclocks() -> None:
@@ -830,6 +850,25 @@ def make_save_file(file_path, change_data) -> bytes:
         + save_data[scrip_pos + 4 :]
     )
 
+    # write weapon maintenance data
+    global weapon_stats
+    OFFSET_WEAPON_XP = 0x6E
+    OFFSET_WEAPON_LEVEL_UP = 0xCA
+    if weapon_stats:
+        for weapon_pos, _ in weapon_stats.items():
+            xp = struct.pack("i", weapon_stats[weapon_pos][0])
+            level_up = struct.pack("b", weapon_stats[weapon_pos][2])
+            save_data = (
+                save_data[:weapon_pos + OFFSET_WEAPON_XP]
+                + xp
+                + save_data[weapon_pos + OFFSET_WEAPON_XP + 4:]
+            )
+            save_data = (
+                save_data[:weapon_pos + OFFSET_WEAPON_LEVEL_UP]
+                + level_up
+                + save_data[weapon_pos + OFFSET_WEAPON_LEVEL_UP + 1:]
+            )
+
     return save_data
     # with open(f"{file_name}", "wb") as t:
     #     t.write(save_data)
@@ -842,6 +881,17 @@ def set_all_25() -> None:
     update_xp("gunner", 315000)
     update_xp("scout", 315000)
 
+@Slot() # type: ignore
+def max_all_available_weapon_maintenance() -> None:
+    global stats
+    global weapon_stats
+    weapon_stats = dict()
+    for weapon, [_, level, _] in stats["weapons"].items():
+        xp_needed = 0
+        for xp_level, xp_for_levelup in XP_PER_WEAPON_LEVEL.items():
+            if level < xp_level: xp_needed += xp_for_levelup
+        if xp_needed:
+            weapon_stats[weapon] = [xp_needed, level, True]
 
 @Slot() # type: ignore
 def reset_values() -> None:
@@ -849,6 +899,7 @@ def reset_values() -> None:
     global unforged_ocs
     global unacquired_ocs
     global forged_ocs
+    global weapon_stats
     # print('reset values')
     widget.bismor_text.setText(str(stats["minerals"]["bismor"]))
     widget.enor_text.setText(str(stats["minerals"]["enor"]))
@@ -929,6 +980,7 @@ def reset_values() -> None:
     widget.season_lvl_text.setText(str(season_total_xp // XP_PER_SEASON_LEVEL))
     widget.scrip_text.setText(str(stats["season"]["scrip"]))
 
+    weapon_stats = None
 
 @Slot() # type: ignore
 def add_crafting_mats() -> None:
@@ -1053,6 +1105,7 @@ def init_values(save_data) -> dict[str, Any]:
     stats["brewing"]["barley"] = resources["barley"]
     stats["brewing"]["malt"] = resources["malt"]
     stats["season"] = get_season_data(save_data)
+    stats["weapons"] = get_weapons(save_data)
 
     # print('printing stats')
     # pp(stats)
@@ -1186,6 +1239,7 @@ forged_ocs = dict() # type: ignore
 unforged_ocs = dict() # type: ignore
 unacquired_ocs = dict() # type: ignore
 stats: dict[str, Any] = dict() # type: ignore
+weapon_stats: dict[int, list[int, int, bool]] = None # type: ignore
 file_name: str = ""
 save_data: bytes = b""
 
@@ -1256,6 +1310,7 @@ if __name__ == "__main__":
     # connect functions to buttons and menu items
     widget.actionSave_changes.triggered.connect(save_changes)
     widget.actionSet_All_Classes_to_25.triggered.connect(set_all_25)
+    widget.actionMax_all_available_weapons.triggered.connect(max_all_available_weapon_maintenance)
     widget.actionAdd_overclock_crafting_materials.triggered.connect(add_crafting_mats)
     widget.actionReset_to_original_values.triggered.connect(reset_values)
     widget.combo_oc_filter.currentTextChanged.connect(filter_overclocks)

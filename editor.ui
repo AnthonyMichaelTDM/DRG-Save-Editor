@@ -1978,8 +1978,15 @@
      </property>
      <addaction name="actionAdd_overclock_crafting_materials"/>
     </widget>
+    <widget class="QMenu" name="menuWeapon_operations">
+     <property name="title">
+      <string>Weapon maintenance operations</string>
+     </property>
+     <addaction name="actionMax_all_available_weapons"/>
+    </widget>
     <addaction name="menuXP_operations"/>
     <addaction name="menuMineral_operations"/>
+    <addaction name="menuWeapon_operations"/>
    </widget>
    <addaction name="menuOpen_Save_File"/>
    <addaction name="menuMass_Actions"/>
@@ -2082,6 +2089,11 @@
   <action name="actionSet_All_Classes_to_25">
    <property name="text">
     <string>Set All Classes to 25</string>
+   </property>
+  </action>
+  <action name="actionMax_all_available_weapons">
+   <property name="text">
+    <string>Set all available weapon maintenance to max level</string>
    </property>
   </action>
  </widget>

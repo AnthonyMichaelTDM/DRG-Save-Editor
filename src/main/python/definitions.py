@@ -33,6 +33,17 @@ XP_TABLE: list[int] = [
     294500,
     315000,
 ]
+
+XP_PER_WEAPON_LEVEL: dict[int, int] = {
+    1: 25000,
+    2: 30000,
+    3: 40000,
+    4: 50000,
+    5: 50000,
+    6: 60000,
+    7: 70000
+}
+
 # ordered list of the promotion ranks (low -> high)
 PROMO_RANKS: list[str] = [
     "None",
