@@ -2,7 +2,9 @@ name: Build Windows Executable
 
 on:
   push:
-    branches: 
+    tags:
+      - "v*"
+    branches:
       - master
       - executable
 
@@ -17,7 +19,7 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: "3.10"
 
       - name: Install requirements
         run: |
@@ -36,16 +38,16 @@ jobs:
         run: |
           powershell Compress-Archive -Path dist/DRG-Save-Editor/* -DestinationPath dist/DRG-Save-Editor-windows.zip
 
-      - name: Get the current date and time
-        id: date
-        run: echo "RELEASE_TAG=$(date -u +%Y.%m.%d.%H%M%S)" >> $env:GITHUB_ENV
+      - name: Get the release tag
+        id: get_release_tag
+        run: echo ::set-env name=RELEASE_TAG::${GITHUB_REF#refs/tags/}
 
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ env.RELEASE_TAG }}
-          name: Release ${{ env.RELEASE_TAG }}
+          tag_name: ${{ steps.get_release_tag.outputs.RELEASE_TAG }}
+          name: ${{ steps.get_release_tag.outputs.RELEASE_TAG }}
           draft: false
           prerelease: false
           generate_release_notes: true
