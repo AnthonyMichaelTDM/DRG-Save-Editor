@@ -8,7 +8,7 @@ from sys import platform
 from typing import Any
 
 import PySide2
-from fbs_runtime.application_context.PySide2 import ApplicationContext
+from fbs_runtime.application_context.PySide2 import ApplicationContext # type: ignore
 from PySide2.QtCore import QFile, QIODevice, Slot, Qt
 from PySide2.QtGui import QCursor
 from PySide2.QtUiTools import QUiLoader
@@ -518,7 +518,7 @@ def get_overclocks(save_bytes, guid_source):
     # forged OCs, unacquired OCs, unforged OCs
     return (forged, guids, unforged)
 
-def get_weapons(save_data) -> dict[int, list[int, int, bool]]:
+def get_weapons(save_data) -> dict[int, list[int | bool]]:
     weapon = save_data.find(b"WeaponMaintenanceEntry") + 0x2C
 
     WEAPON_SIZE = 0xD9
