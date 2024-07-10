@@ -1236,7 +1236,7 @@ forged_ocs = dict() # type: ignore
 unforged_ocs = dict() # type: ignore
 unacquired_ocs = dict() # type: ignore
 stats: dict[str, Any] = dict() # type: ignore
-weapon_stats: dict[int, list[int, int, bool]] = None # type: ignore
+weapon_stats: dict[int, list[int, int, bool]] | None = None # type: ignore
 file_name: str = ""
 save_data: bytes = b""
 
