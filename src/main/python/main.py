@@ -294,7 +294,7 @@ def get_season_data(save_bytes, season_guid) -> dict[str, int]:
 
     # season data does not exist
     if season_xp_pos == season_xp_offset - 1 and scrip_pos == scrip_offset - 1:
-        return {"xp": None, "scrip": None}
+        raise ValueError("Season missing")
 
     season_xp = struct.unpack("i", save_bytes[season_xp_pos : season_xp_pos + 4])[0]
     scrip = struct.unpack("i", save_bytes[scrip_pos : scrip_pos + 4])[0]
@@ -1074,8 +1074,11 @@ def init_values(save_data) -> dict[str, Any]:
     widget.season_box.clear()
     seasons_present = []
     for season_num, season_guid in SEASON_GUIDS.items():
-        stats["season-changes"][season_num] = get_season_data(save_data, season_guid)        
-        if stats["season-changes"][season_num]["xp"] is not None:
+        try:
+            stats["season-changes"][season_num] = get_season_data(save_data, season_guid)
+        except:
+            print(f"Missing data for season {season_num}, please start the season first.")
+        else:
             seasons_present.append(season_num)
 
     # initial state, to refer to when using the reset values functionality
