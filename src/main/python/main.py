@@ -209,6 +209,9 @@ def open_file() -> None:
     )[0]
     # print('about to open file')
 
+    if not file_name:
+        return
+
     widget.setWindowTitle(f"DRG Save Editor - {file_name}")  # window-dressing
     with open(file_name, "rb") as f:
         save_data = f.read()
