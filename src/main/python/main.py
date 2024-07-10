@@ -6,11 +6,10 @@ from copy import deepcopy
 from sys import platform
 from typing import Any
 
-from PySide2.QtCore import QFile, QIODevice, Slot, Qt
-from PySide2.QtGui import QCursor, QFocusEvent
-from PySide2.QtUiTools import QUiLoader
-from PySide2.QtWidgets import (
-    QAction,
+from PySide6.QtCore import QFile, QIODevice, Slot, Qt
+from PySide6.QtGui import QAction, QCursor, QFocusEvent
+from PySide6.QtUiTools import QUiLoader
+from PySide6.QtWidgets import (
     QApplication,
     QFileDialog,
     QLineEdit,
@@ -1410,5 +1409,5 @@ if __name__ == "__main__":
 
     # actually display the thing
     widget.show()
-    exit_code = app.exec_()
+    exit_code = app.exec()
     sys.exit(exit_code)
