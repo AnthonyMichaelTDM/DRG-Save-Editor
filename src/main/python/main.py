@@ -422,19 +422,16 @@ def build_oc_tree(tree, source_dict) -> None:
     # entry = QTreeWidgetItem(None)
     for char, weapons in oc_dict.items():
         # dwarves[dwarf] = QTreeWidgetItem(tree)
-        char_entry = QTreeWidgetItem(None)
+        char_entry = QTreeWidgetItem(tree)
         char_entry.setText(0, char)
         for weapon, oc_names in weapons.items():
-            weapon_entry = QTreeWidgetItem(None)
+            weapon_entry = QTreeWidgetItem(char_entry)
             weapon_entry.setText(0, weapon)
             for name, uuid in oc_names.items():
-                oc_entry = QTreeWidgetItem(None)
+                oc_entry = QTreeWidgetItem(weapon_entry)
                 oc_entry.setText(0, name)
                 oc_entry.setText(1, source_dict[uuid]["status"])
                 oc_entry.setText(2, uuid)
-                weapon_entry.addChild(oc_entry)
-            char_entry.addChild(weapon_entry)
-        tree.addChild(char_entry)
 
 
 def get_overclocks(save_bytes, guid_source):
