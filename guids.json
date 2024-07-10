@@ -1360,15 +1360,15 @@
     "3C42DBEA3021EE44AF6D944A91314D75": {
         "class": "Engineer",
         "weapon": "'Stubby' Voltaic SMG",
-        "name": "Turret Arc",
+        "name": "Micro-Conductor Add-On",
         "cost": {
-            "credits": 8350,
-            "bismor": 100,
-            "croppa": 135,
+            "credits": 7300,
+            "bismor": 60,
+            "croppa": 0,
             "enor": 0,
             "jadiz": 0,
-            "magnite": 0,
-            "umanite": 60
+            "magnite": 110,
+            "umanite": 120
         }
     },
     "1E41880C9E18FC439B82B69F19F0A191": {
@@ -2069,6 +2069,174 @@
             "jadiz": 100,
             "magnite": 65,
             "umanite": 0
+        }
+    },
+    "34B2EB764839C94CB7F96B5567317255": {
+        "class": "Scout",
+        "weapon": "Deepcore GK2",
+        "name": "Burst Fire",
+        "cost":{
+            "credits": 8300,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 110,
+            "jadiz": 75,
+            "magnite": 0,
+            "umanite": 140
+        }
+    },
+        "F87380FA4EC44A41A79974F6BAC074A6": {
+        "class": "Gunner",
+        "weapon": "'Thunderhead' Heavy Autocannon",
+        "name": "Mortar Rounds",
+        "cost": {
+            "credits": 7300,
+            "bismor": 0,
+            "croppa": 140,
+            "enor": 0,
+            "jadiz": 70,
+            "magnite": 110,
+            "umanite": 0
+        }
+    },
+        "4D2ACAFC30FFB542A645C75948EFE75F": {
+        "class": "Scout",
+        "weapon": "M1000 Classic",
+        "name": "Marked For Death",
+        "cost": {
+            "credits": 7150,
+            "bismor": 90,
+            "croppa": 0,
+            "enor": 140,
+            "jadiz": 75,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+        "4AD58615AC68374F819663AD4C510B6D": {
+        "class": "Engineer",
+        "weapon": "'Warthog' Auto 210",
+        "name": "Pump Action",
+        "cost": {
+            "credits": 8550,
+            "bismor": 100,
+            "croppa": 0,
+            "enor": 80,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 135
+        }
+    },
+        "2406E7980F5CCC449B3FF39C9B9F0807": {
+        "class": "Driller",
+        "weapon": "Cryo Cannon",
+        "name": "Crystal Nucleation",
+        "cost": {
+            "credits": 8300,
+            "bismor": 0,
+            "croppa": 65,
+            "enor": 135,
+            "jadiz": 100,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+        "E5D05E38562B34408054603F41E99091": {
+        "class": "Driller",
+        "weapon": "CRSPR Flamethrower",
+        "name": "Scorching Tide",
+        "cost": {
+            "credits": 7300,
+            "bismor": 70,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 0,
+            "magnite": 105,
+            "umanite": 140
+        }
+    },
+        "B6772BCBDAB2A8469058B4C0AC876413": {
+        "class": "Gunner",
+        "weapon": "'Lead Storm' Powered Minigun",
+        "name": "Rotary Overdrive",
+        "cost": {
+            "credits": 8550,
+            "bismor": 110,
+            "croppa": 0,
+            "enor": 80,
+            "jadiz": 0,
+            "magnite": 120,
+            "umanite": 0
+        }
+    },
+        "48B4DE944D359341920EFCBBADD235C5": {
+        "class": "Driller",
+        "weapon": "Corrosive Sludge Pump",
+        "name": "Combustive Goo Mix",
+        "cost": {
+            "credits": 8950,
+            "bismor": 135,
+            "croppa": 0,
+            "enor": 60,
+            "jadiz": 0,
+            "magnite": 0,
+            "umanite": 105
+        }
+    },
+        "4E71A830F4274647A5C763A1E9CBC41A": {
+        "class": "Engineer",
+        "weapon": "LOK-1 Smart Rifle",
+        "name": "SmЯt Trigger OS™",
+        "cost": {
+            "credits": 7050,
+            "bismor": 130,
+            "croppa": 60,
+            "enor": 0,
+            "jadiz": 105,
+            "magnite": 0,
+            "umanite": 0
+        }
+    },
+        "22B4FA6E4CC458458BC3533E783E202D": {
+        "class": "Gunner",
+        "weapon": "'Hurricane' Guided Rocket System",
+        "name": "Cluster Charges",
+        "cost": {
+            "credits": 8150,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 120,
+            "jadiz": 75,
+            "magnite": 0,
+            "umanite": 95
+        }
+    },
+        "943DA878EBA6F1428B1866736EE08395": {
+        "class": "Scout",
+        "weapon": "DRAK-25 Plasma Carbine",
+        "name": "Conductive Thermals",
+        "cost": {
+            "credits": 7600,
+            "bismor": 70,
+            "croppa": 0,
+            "enor": 110,
+            "jadiz": 0,
+            "magnite": 140,
+            "umanite": 0
+        }
+    },
+        "464B23599A0DDE489B152C4D730B6EF4": {
+        "class": "Engineer",
+        "weapon": "'Stubby' Voltaic SMG",
+        "name": "Hyperalloy Assembly",
+        "cost": {
+            "credits": 7100,
+            "bismor": 0,
+            "croppa": 0,
+            "enor": 0,
+            "jadiz": 105,
+            "magnite": 80,
+            "umanite": 130
         }
     }
 }
