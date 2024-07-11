@@ -9,13 +9,29 @@ from typing import Any
 from PySide2.QtCore import QFile, QIODevice, Slot, Qt
 from PySide2.QtGui import QCursor, QFocusEvent
 from PySide2.QtUiTools import QUiLoader
-from PySide2.QtWidgets import (QAction, QApplication, QFileDialog, QLineEdit,
-                               QListWidgetItem, QMenu,
-                               QTreeWidgetItem, QWidget)
+from PySide2.QtWidgets import (
+    QAction,
+    QApplication,
+    QFileDialog,
+    QLineEdit,
+    QListWidgetItem,
+    QMenu,
+    QTreeWidgetItem,
+    QWidget,
+)
 
-from definitions import (GUID_RE, MAX_BADGES, PROMO_RANKS, RANK_TITLES, RESOURCE_GUIDS,
-                                     SEASON_GUIDS, LATEST_SEASON, XP_PER_SEASON_LEVEL, XP_PER_WEAPON_LEVEL,
-                                     XP_TABLE)
+from definitions import (
+    GUID_RE,
+    MAX_BADGES,
+    PROMO_RANKS,
+    RANK_TITLES,
+    RESOURCE_GUIDS,
+    SEASON_GUIDS,
+    LATEST_SEASON,
+    XP_PER_SEASON_LEVEL,
+    XP_PER_WEAPON_LEVEL,
+    XP_TABLE,
+)
 
 if platform == "win32":
     import winreg
@@ -193,7 +209,7 @@ def update_rank() -> None:
     widget.classes_group.setTitle(f"Classes - Rank {rank+1} {rem}/3, {title}")
 
 
-@Slot() # type: ignore
+@Slot()  # type: ignore
 def open_file() -> None:
     global file_name
     global save_data
@@ -261,15 +277,18 @@ def populate_unforged_list(list_widget, unforged) -> None:
             oc.setText(f"Cosmetic: {k}")
         list_widget.addItem(oc)
 
+
 def store_season_changes(season_num):
     global stats
     new_xp = widget.season_xp.text()
     new_scrip = widget.scrip_text.text()
     if new_xp and new_scrip:
         stats["season-changes"][season_num] = {
-            "xp": int(new_xp) + XP_PER_SEASON_LEVEL * int(widget.season_lvl_text.text()),
+            "xp": int(new_xp)
+            + XP_PER_SEASON_LEVEL * int(widget.season_lvl_text.text()),
             "scrip": int(new_scrip),
         }
+
 
 def update_season_data() -> None:
     global season_selected
@@ -330,7 +349,7 @@ def get_resources(save_bytes) -> dict[str, int]:
     return resources
 
 
-def get_xp(save_bytes:bytes) -> dict[str, dict[str, Any]]:
+def get_xp(save_bytes: bytes) -> dict[str, dict[str, Any]]:
     # print('getting xp')
     en_marker = b"\x85\xEF\x62\x6C\x65\xF1\x02\x4A\x8D\xFE\xB5\xD0\xF3\x90\x9D\x2E\x03\x00\x00\x00\x58\x50"
     sc_marker = b"\x30\xD8\xEA\x17\xD8\xFB\xBA\x4C\x95\x30\x6D\xE9\x65\x5C\x2F\x8C\x03\x00\x00\x00\x58\x50"
@@ -440,7 +459,7 @@ def build_oc_tree(tree, source_dict) -> None:
     # entry = QTreeWidgetItem(None)
     for char, weapons in oc_dict.items():
         # dwarves[dwarf] = QTreeWidgetItem(tree)
-        char_entry = QTreeWidgetItem()
+        char_entry = QTreeWidgetItem(tree)
         char_entry.setText(0, char)
         for weapon, oc_names in weapons.items():
             weapon_entry = QTreeWidgetItem(char_entry)
@@ -505,7 +524,7 @@ def get_overclocks(save_bytes, guid_source):
                 forged.update({uuid: a})
 
                 # print('success')
-            except Exception as e:
+            except:
                 # print(f'Error: {e}')
                 pass
 
@@ -539,6 +558,7 @@ def get_overclocks(save_bytes, guid_source):
     # forged OCs, unacquired OCs, unforged OCs
     return (forged, guids, unforged)
 
+
 def get_weapons(save_data) -> dict[int, list[int | bool]]:
     weapon = save_data.find(b"WeaponMaintenanceEntry") + 0x2C
 
@@ -549,10 +569,21 @@ def get_weapons(save_data) -> dict[int, list[int | bool]]:
 
     weapon_stats = dict()
 
-    while(save_data[weapon:weapon + 8].decode() == "WeaponID"):
-        xp = int.from_bytes(save_data[weapon + OFFSET_WEAPON_XP: weapon + OFFSET_WEAPON_XP + 4], "little")
-        level = int.from_bytes(save_data[weapon + OFFSET_WEAPON_LEVEL: weapon + OFFSET_WEAPON_LEVEL + 4], "little")
-        levelup = bool.from_bytes(save_data[weapon + OFFSET_WEAPON_LEVEL_UP: weapon + OFFSET_WEAPON_LEVEL_UP + 1], "little")
+    while save_data[weapon : weapon + 8].decode() == "WeaponID":
+        xp = int.from_bytes(
+            save_data[weapon + OFFSET_WEAPON_XP : weapon + OFFSET_WEAPON_XP + 4],
+            "little",
+        )
+        level = int.from_bytes(
+            save_data[weapon + OFFSET_WEAPON_LEVEL : weapon + OFFSET_WEAPON_LEVEL + 4],
+            "little",
+        )
+        levelup = bool.from_bytes(
+            save_data[
+                weapon + OFFSET_WEAPON_LEVEL_UP : weapon + OFFSET_WEAPON_LEVEL_UP + 1
+            ],
+            "little",
+        )
 
         weapon_stats[weapon] = [xp, level, levelup]
 
@@ -560,7 +591,8 @@ def get_weapons(save_data) -> dict[int, list[int | bool]]:
 
     return weapon_stats
 
-@Slot() # type: ignore
+
+@Slot()  # type: ignore
 def filter_overclocks() -> None:
     item_filter = widget.combo_oc_filter.currentText()
     # forged_ocs, unacquired_ocs, unforged_ocs = get_overclocks(save_data, guid_dict)
@@ -583,7 +615,7 @@ def filter_overclocks() -> None:
                     oc.setHidden(True)
 
 
-@Slot() # type: ignore
+@Slot()  # type: ignore
 def oc_ctx_menu(pos) -> None:
     # oc_context_menu = make_oc_context_menu()
     # global oc_context_menu
@@ -597,7 +629,7 @@ def oc_ctx_menu(pos) -> None:
     # add_act.triggered.connect(add_cores())
 
 
-@Slot() # type: ignore
+@Slot()  # type: ignore
 def add_cores() -> None:
     # print("add cores")
     global unforged_ocs
@@ -621,7 +653,7 @@ def add_cores() -> None:
     filter_overclocks()
 
 
-@Slot() # type: ignore
+@Slot()  # type: ignore
 def save_changes() -> None:
     changes: dict[str, Any] = get_values()
     changes["unforged"] = unforged_ocs
@@ -810,7 +842,9 @@ def make_save_file(file_path, new_values) -> bytes:
 
         schematic_save_marker = b"SchematicSave"
         schematic_save_offset = 33
-        schematic_save_pos = save_data.find(schematic_save_marker) + schematic_save_offset
+        schematic_save_pos = (
+            save_data.find(schematic_save_marker) + schematic_save_offset
+        )
         schematic_save_end_pos = schematic_save_pos + 8
         schematic_save_size = b""
 
@@ -818,34 +852,38 @@ def make_save_file(file_path, new_values) -> bytes:
             ocs: bytes = (
                 b"\x10\x00\x00\x00\x4F\x77\x6E\x65\x64\x53\x63\x68\x65\x6D\x61\x74\x69\x63\x73\x00\x0E\x00\x00\x00\x41\x72\x72\x61\x79\x50\x72\x6F\x70\x65\x72\x74\x79\x00"
                 # number of bytes between position of first "OwnedSchematic" and end_pos, -62, as a 64bit unsigned integer
-                + struct.pack("Q", 139 + len(unforged_ocs)*16 - 62)
+                + struct.pack("Q", 139 + len(unforged_ocs) * 16 - 62)
                 + b"\x0F\x00\x00\x00\x53\x74\x72\x75\x63\x74\x50\x72\x6F\x70\x65\x72\x74\x79\x00\x00"
                 # number of unforged ocs, stored as a 32bit unsigned integer
                 + struct.pack("I", len(unforged_ocs))
-
                 + b"\x10\x00\x00\x00\x4F\x77\x6E\x65\x64\x53\x63\x68\x65\x6D\x61\x74\x69\x63\x73\x00\x0F\x00\x00\x00\x53\x74\x72\x75\x63\x74\x50\x72\x6F\x70\x65\x72\x74\x79\x00"
                 # number of bytes taken up by the GUID's of the unforged oc's, stored as a 64bit unsigned integer
-                + struct.pack("Q", len(unforged_ocs)*16)
+                + struct.pack("Q", len(unforged_ocs) * 16)
                 + b"\x05\x00\x00\x00\x47\x75\x69\x64\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
             )
-            #print(ocs)
+            # print(ocs)
             uuids: list[bytes] = [bytes.fromhex(i) for i in unforged_ocs.keys()]
             for i in uuids:
                 ocs += i
 
             # the number of bytes between position of first "SchematicSave" and end_pos, -17, as a 64bit unsigned integer
-            schematic_save_size = struct.pack("Q", 139 + (141 + num_forged*16) + 4 + (139 + len(unforged_ocs)*16) - 17 )
+            schematic_save_size = struct.pack(
+                "Q",
+                139 + (141 + num_forged * 16) + 4 + (139 + len(unforged_ocs) * 16) - 17,
+            )
 
         else:
             ocs = b""
             # the number of bytes between position of first "SchematicSave" and end_pos, -17, as a 64bit unsigned integer
-            schematic_save_size = struct.pack("Q", 139 + (141 + num_forged*16) - 17 )
+            schematic_save_size = struct.pack("Q", 139 + (141 + num_forged * 16) - 17)
 
         save_data = (
             save_data[: pos + (num_forged * 16) + 141] + ocs + save_data[end_pos:]
         )
         save_data = (
-            save_data[:schematic_save_pos] + schematic_save_size + save_data[schematic_save_end_pos:]
+            save_data[:schematic_save_pos]
+            + schematic_save_size
+            + save_data[schematic_save_end_pos:]
         )
 
     # write season data
@@ -877,14 +915,14 @@ def make_save_file(file_path, new_values) -> bytes:
             xp = struct.pack("i", weapon_stats[weapon_pos][0])
             level_up = struct.pack("b", weapon_stats[weapon_pos][2])
             save_data = (
-                save_data[:weapon_pos + OFFSET_WEAPON_XP]
+                save_data[: weapon_pos + OFFSET_WEAPON_XP]
                 + xp
-                + save_data[weapon_pos + OFFSET_WEAPON_XP + 4:]
+                + save_data[weapon_pos + OFFSET_WEAPON_XP + 4 :]
             )
             save_data = (
-                save_data[:weapon_pos + OFFSET_WEAPON_LEVEL_UP]
+                save_data[: weapon_pos + OFFSET_WEAPON_LEVEL_UP]
                 + level_up
-                + save_data[weapon_pos + OFFSET_WEAPON_LEVEL_UP + 1:]
+                + save_data[weapon_pos + OFFSET_WEAPON_LEVEL_UP + 1 :]
             )
 
     return save_data
@@ -892,14 +930,15 @@ def make_save_file(file_path, new_values) -> bytes:
     #     t.write(save_data)
 
 
-@Slot() # type: ignore
+@Slot()  # type: ignore
 def set_all_25() -> None:
     update_xp("driller", 315000)
     update_xp("engineer", 315000)
     update_xp("gunner", 315000)
     update_xp("scout", 315000)
 
-@Slot() # type: ignore
+
+@Slot()  # type: ignore
 def max_all_available_weapon_maintenance() -> None:
     global stats
     global weapon_stats
@@ -907,11 +946,13 @@ def max_all_available_weapon_maintenance() -> None:
     for weapon, [_, level, _] in stats["weapons"].items():
         xp_needed = 0
         for xp_level, xp_for_levelup in XP_PER_WEAPON_LEVEL.items():
-            if level < xp_level: xp_needed += xp_for_levelup
+            if level < xp_level:
+                xp_needed += xp_for_levelup
         if xp_needed:
             weapon_stats[weapon] = [xp_needed, level, True]
 
-@Slot() # type: ignore
+
+@Slot()  # type: ignore
 def reset_values() -> None:
     global stats
     global unforged_ocs
@@ -992,6 +1033,8 @@ def reset_values() -> None:
     filter_overclocks()
     update_rank()
     reset_season_data(stats["season-initial"])
+    weapon_stats = None
+
 
 def reset_season_data(data: dict):
     season_total_xp = data[season_selected]["xp"]
@@ -999,9 +1042,8 @@ def reset_season_data(data: dict):
     widget.season_lvl_text.setText(str(season_total_xp // XP_PER_SEASON_LEVEL))
     widget.scrip_text.setText(str(data[season_selected]["scrip"]))
 
-    weapon_stats = None
 
-@Slot() # type: ignore
+@Slot()  # type: ignore
 def add_crafting_mats() -> None:
     cost: dict[str, int] = {
         "bismor": 0,
@@ -1018,7 +1060,7 @@ def add_crafting_mats() -> None:
             for i in v["cost"].keys():
                 cost[i] += v["cost"][i]
         except:
-            print(f"Cosmetic")
+            print("Cosmetic")
     print(cost)
     add_resources(cost)
 
@@ -1129,9 +1171,13 @@ def init_values(save_data) -> dict[str, Any]:
     seasons_present = []
     for season_num, season_guid in SEASON_GUIDS.items():
         try:
-            stats["season-changes"][season_num] = get_season_data(save_data, season_guid)
+            stats["season-changes"][season_num] = get_season_data(
+                save_data, season_guid
+            )
         except:
-            print(f"Missing data for season {season_num}, please start the season first.")
+            print(
+                f"Missing data for season {season_num}, please start the season first."
+            )
         else:
             seasons_present.append(season_num)
 
@@ -1153,7 +1199,6 @@ def init_values(save_data) -> dict[str, Any]:
 
     if not seasons_present:
         widget.season_group.setEnabled(False)
-
 
     return stats
 
@@ -1222,7 +1267,7 @@ def get_values() -> dict[str, Any]:
     return ns
 
 
-@Slot() # type: ignore
+@Slot()  # type: ignore
 def remove_selected_ocs() -> None:
     global unforged_ocs
     global unacquired_ocs
@@ -1234,7 +1279,7 @@ def remove_selected_ocs() -> None:
         if maybe_item_to_remove is None:
             continue
         item_to_remove: Match[str] = maybe_item_to_remove
-        
+
         items_to_remove.append(item_to_remove.group(1))
         item = widget.unforged_list.row(i)
         widget.unforged_list.takeItem(item)
@@ -1257,7 +1302,7 @@ def remove_ocs(oc_list) -> None:
     filter_overclocks()
 
 
-@Slot() # type: ignore
+@Slot()  # type: ignore
 def remove_all_ocs() -> None:
     global unforged_ocs
     # unforged_ocs = dict()
@@ -1269,7 +1314,7 @@ def remove_all_ocs() -> None:
         if maybe_item_to_remove is None:
             continue
         item_to_remove: Match[str] = maybe_item_to_remove
-        
+
         items_to_remove.append(item_to_remove.group(1))
 
     remove_ocs(items_to_remove)
@@ -1277,22 +1322,22 @@ def remove_all_ocs() -> None:
 
 
 # global variable definitions
-forged_ocs = dict() # type: ignore
-unforged_ocs = dict() # type: ignore
-unacquired_ocs = dict() # type: ignore
-stats: dict[str, Any] = dict() # type: ignore
-weapon_stats: dict[int, list[int, int, bool]] | None = None # type: ignore
+forged_ocs = dict()  # type: ignore
+unforged_ocs = dict()  # type: ignore
+unacquired_ocs = dict()  # type: ignore
+stats: dict[str, Any] = dict()  # type: ignore
+weapon_stats: dict[int, list[int, int, bool]] | None = None  # type: ignore
 file_name: str = ""
 save_data: bytes = b""
 season_selected: int = LATEST_SEASON
 
 if __name__ == "__main__":
-    if hasattr(Qt, 'AA_EnableHighDpiScaling'):
+    if hasattr(Qt, "AA_EnableHighDpiScaling"):
         QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
 
-    if hasattr(Qt, 'AA_UseHighDpiPixmaps'):
+    if hasattr(Qt, "AA_UseHighDpiPixmaps"):
         QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
-    
+
     # print(os.getcwd())
     # specify and open the UI
     ui_file_name = "editor.ui"
@@ -1309,8 +1354,8 @@ if __name__ == "__main__":
     try:
         # find the install path for the steam version
         if platform == "win32":
-            steam_reg = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Valve\Steam") # type: ignore
-            steam_path = winreg.QueryValueEx(steam_reg, "SteamPath")[0] # type: ignore
+            steam_reg = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Valve\Steam")  # type: ignore
+            steam_path = winreg.QueryValueEx(steam_reg, "SteamPath")[0]  # type: ignore
             steam_path += "/steamapps/common/Deep Rock Galactic/FSD/Saved/SaveGames"
         else:
             steam_path = "."
@@ -1350,7 +1395,9 @@ if __name__ == "__main__":
     # connect functions to buttons and menu items
     widget.actionSave_changes.triggered.connect(save_changes)
     widget.actionSet_All_Classes_to_25.triggered.connect(set_all_25)
-    widget.actionMax_all_available_weapons.triggered.connect(max_all_available_weapon_maintenance)
+    widget.actionMax_all_available_weapons.triggered.connect(
+        max_all_available_weapon_maintenance
+    )
     widget.actionAdd_overclock_crafting_materials.triggered.connect(add_crafting_mats)
     widget.actionReset_to_original_values.triggered.connect(reset_values)
     widget.combo_oc_filter.currentTextChanged.connect(filter_overclocks)
