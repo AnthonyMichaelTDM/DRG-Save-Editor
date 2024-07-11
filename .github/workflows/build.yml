@@ -65,8 +65,9 @@ jobs:
           cp editor.ui dist/DRG-Save-Editor/
 
       - name: Compress files to tar.gz
+        working-directory: dist/DRG-Save-Editor
         run: |
-          tar -czvf dist/DRG-Save-Editor-linux.tar.gz dist/DRG-Save-Editor/*
+          tar -czvf ../DRG-Save-Editor-linux.tar.gz *
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
