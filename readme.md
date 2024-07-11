@@ -1,6 +1,6 @@
 # Deep Rock Galactic Save Editor
 
-This is a DRG save editor written in python (3.10.14) using PyQt5 (5.15.10) and PySide2 (5.15.2).
+This is a DRG save editor written in python (3.12) using PyQt6 (6.7.0) and PySide6 (6.7.2).
 
 ## There are likely to be bugs, see the Known Issues and Troubleshooting section
 
@@ -12,7 +12,7 @@ That said, I'm in college right now and likely won't have time to implement many
 
 if you are using the releases, you shouldn't need to worry about this section
 
-any computer with __git__ (and/or a browser) to download the code, __pip__ to download the required python packages, __Python3__ (version<3.11, PySide2 doesn't have a python 3.11 version working yet) to run the code, and a display should be able to make use of this project
+any computer with __git__ (and/or a browser) to download the code, __pip__ to download the required python packages, __Python3__ (version>=3.9) to run the code, and a display should be able to make use of this project
 
 ## Installation
 
@@ -29,11 +29,17 @@ any computer with __git__ (and/or a browser) to download the code, __pip__ to do
 
 - clone the repo: `git clone https://github.com/AnthonyMichaelTDM/DRG-Save-Editor.git` (or download the source code from github)
 - open your terminal in the base directory of the project
-- ensure you have python 3.10 installed (`python --version` should return a version number starting with 3.10)
+- run `python --version` to ensure you have python 3.10 or later installed
+- run `python -m venv venv` to create a virtual environment
+- activate the virtual environment with the following command:
+  - for windows: `.\venv\Scripts\activate`
+  - for linux: `source ./venv/bin/activate`
 - install the required packages with pip using the following command: `pip install -r ./requirements.txt`
 - start the program with the `python ./src/main/python/main.py` command
 
 if these instructions are unclear a member of the community, [NerdyJosh1](https://github.com/NerdyJosh1), has made a [video tutorial for windows users](https://www.youtube.com/watch?v=2h2-nZ2ptRo&ab_channel=NerdyJosh)
+
+- Note: this tutorial was made for version 1.7.0/1.8.0 of the editor, some things have changed since then
 
 ## Known Issues
 
