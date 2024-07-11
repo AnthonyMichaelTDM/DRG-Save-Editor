@@ -92,7 +92,7 @@ jobs:
 
       - name: Get the release tag
         id: get_release_tag
-        run: echo ::set-env name=RELEASE_TAG::${GITHUB_REF#refs/tags/}
+        run: echo "RELEASE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
       - name: Create Release
         id: create_release
