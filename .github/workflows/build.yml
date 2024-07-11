@@ -1,0 +1,53 @@
+name: Build Windows Executable
+
+on:
+  push:
+    tags:
+      - "v*"
+    branches:
+      - master
+
+jobs:
+  build-windows:
+    permissions: write-all
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install requirements
+        run: |
+          pip install -r requirements.txt pyinstaller
+
+      - name: Run PyInstaller
+        run: |
+          pyinstaller --name=DRG-Save-Editor --windowed --noconfirm src/main/python/main.py
+
+      - name: Copy required files
+        run: |
+          copy guids.json dist/DRG-Save-Editor/
+          copy editor.ui dist/DRG-Save-Editor/
+
+      - name: Compress files to ZIP
+        run: |
+          powershell Compress-Archive -Path dist/DRG-Save-Editor/* -DestinationPath dist/DRG-Save-Editor-windows.zip
+
+      - name: Get the release tag
+        id: get_release_tag
+        run: echo ::set-env name=RELEASE_TAG::${GITHUB_REF#refs/tags/}
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.get_release_tag.outputs.RELEASE_TAG }}
+          name: ${{ steps.get_release_tag.outputs.RELEASE_TAG }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          files: dist/DRG-Save-Editor-windows.zip

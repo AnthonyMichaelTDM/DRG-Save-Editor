@@ -59,7 +59,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -108,7 +108,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -157,7 +157,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -206,7 +206,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -265,7 +265,8 @@
      <property name="inputMethodHints">
       <set>Qt::ImhDigitsOnly</set>
      </property>
-    </widget>    <widget class="QLabel" name="magnite_label">
+    </widget>
+    <widget class="QLabel" name="magnite_label">
      <property name="geometry">
       <rect>
        <x>57</x>
@@ -290,7 +291,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -321,7 +322,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -373,7 +374,7 @@
          <enum>Qt::PlainText</enum>
         </property>
         <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
         <property name="margin">
          <number>0</number>
@@ -398,7 +399,7 @@
          <enum>Qt::PlainText</enum>
         </property>
         <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
         <property name="margin">
          <number>0</number>
@@ -423,7 +424,7 @@
          <enum>Qt::PlainText</enum>
         </property>
         <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
         <property name="margin">
          <number>0</number>
@@ -448,7 +449,7 @@
          <enum>Qt::PlainText</enum>
         </property>
         <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
         <property name="margin">
          <number>0</number>
@@ -575,7 +576,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -624,7 +625,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -673,7 +674,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -722,7 +723,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -771,7 +772,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -820,7 +821,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -887,7 +888,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -936,7 +937,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -985,7 +986,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -1034,7 +1035,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -1050,7 +1051,7 @@
       </rect>
      </property>
     </widget>
-	<widget class="QLabel" name="eng_class_label">
+    <widget class="QLabel" name="eng_class_label">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -1075,7 +1076,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -1124,7 +1125,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -1173,7 +1174,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -1222,7 +1223,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -1238,7 +1239,7 @@
       </rect>
      </property>
     </widget>
-	<widget class="QLabel" name="gun_class_label">
+    <widget class="QLabel" name="gun_class_label">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -1263,7 +1264,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -1312,7 +1313,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -1361,7 +1362,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -1410,7 +1411,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -1426,7 +1427,7 @@
       </rect>
      </property>
     </widget>
-	<widget class="QLabel" name="scout_class_label">
+    <widget class="QLabel" name="scout_class_label">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -1451,7 +1452,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -1500,7 +1501,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -1549,7 +1550,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -1598,7 +1599,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -1632,7 +1633,7 @@
     <property name="title">
      <string>Seasonal</string>
     </property>
-    <widget class="QLabel" name="season_label">
+    <widget class="QLabel" name="season_lvl_progress_label">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -1670,7 +1671,7 @@
       <set>Qt::ImhDigitsOnly</set>
      </property>
     </widget>
-	<widget class="QLabel" name="season_lvl_label">
+    <widget class="QLabel" name="season_lvl_label">
      <property name="geometry">
       <rect>
        <x>245</x>
@@ -1700,7 +1701,7 @@
      <property name="margin">
       <number>0</number>
      </property>
-	</widget>
+    </widget>
     <widget class="TextEditFocusChecking" name="season_lvl_text">
      <property name="geometry">
       <rect>
@@ -1722,7 +1723,7 @@
     <widget class="QLabel" name="scrip_label">
      <property name="geometry">
       <rect>
-       <x>370</x>
+       <x>322</x>
        <y>18</y>
        <width>51</width>
        <height>22</height>
@@ -1744,7 +1745,7 @@
       <enum>Qt::PlainText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignVCenter|Qt::AlignTrailing</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="margin">
       <number>0</number>
@@ -1753,7 +1754,7 @@
     <widget class="QLineEdit" name="scrip_text">
      <property name="geometry">
       <rect>
-       <x>428</x>
+       <x>380</x>
        <y>18</y>
        <width>103</width>
        <height>22</height>
@@ -1766,6 +1767,47 @@
      </property>
      <property name="inputMethodHints">
       <set>Qt::ImhDigitsOnly</set>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="season_box">
+     <property name="geometry">
+      <rect>
+       <x>582</x>
+       <y>18</y>
+       <width>120</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="season_label">
+     <property name="geometry">
+      <rect>
+       <x>516</x>
+       <y>18</y>
+       <width>51</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>MS Shell Dlg 2</family>
+       <pointsize>9</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+       <kerning>true</kerning>
+      </font>
+     </property>
+     <property name="text">
+      <string>Season</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::PlainText</enum>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="margin">
+      <number>0</number>
      </property>
     </widget>
    </widget>
@@ -1871,7 +1913,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Add to Inventory >>></string>
+      <string>Add to Inventory &gt;&gt;&gt;</string>
      </property>
     </widget>
    </widget>
@@ -1950,7 +1992,7 @@
      <x>0</x>
      <y>0</y>
      <width>1209</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOpen_Save_File">

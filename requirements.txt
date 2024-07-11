@@ -1,3 +1,2 @@
-fbs
 PyQt5
 PySide2
