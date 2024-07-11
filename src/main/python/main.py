@@ -469,9 +469,6 @@ def build_oc_tree(tree, source_dict) -> None:
                 oc_entry.setText(0, name)
                 oc_entry.setText(1, source_dict[uuid]["status"])
                 oc_entry.setText(2, uuid)
-                weapon_entry.addChild(oc_entry)
-            char_entry.addChild(weapon_entry)
-        tree.addChild(char_entry)
 
 
 def get_overclocks(save_bytes, guid_source):
