@@ -635,7 +635,7 @@ def add_cores() -> None:
     selected = tree.selectedItems()
     items_to_add = list()
     for i in selected:
-        if i.text(1) == "Unacquired":
+        if i.text(1) == "Unacquired" and i.text(2) in unacquired_ocs:
             items_to_add.append(f"{i.parent().text(0)}: {i.text(0)} ({i.text(2)})")
             guid_dict[i.text(2)]["status"] = "Unforged"
             unforged_ocs.update({i.text(2): guid_dict[i.text(2)]})
