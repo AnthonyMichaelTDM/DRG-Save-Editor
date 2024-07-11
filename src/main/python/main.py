@@ -1,40 +1,38 @@
 import json
-from re import Match
 import struct
 import sys
 from copy import deepcopy
+from re import Match
 from sys import platform
 from typing import Any
 
-from PySide6.QtCore import QFile, QIODevice, Slot, Qt
-from PySide6.QtGui import QAction, QFocusEvent
-from PySide6.QtUiTools import QUiLoader
-from PySide6.QtWidgets import (
-    QApplication,
-    QFileDialog,
-    QComboBox,
-    QGroupBox,
-    QPushButton,
-    QListWidget,
-    QLineEdit,
-    QListWidgetItem,
-    QTreeWidget,
-    QTreeWidgetItem,
-    QLabel,
-)
-
 from definitions import (
     GUID_RE,
+    LATEST_SEASON,
     MAX_BADGES,
     PROMO_RANKS,
     RANK_TITLES,
     RESOURCE_GUIDS,
     SEASON_GUIDS,
-    LATEST_SEASON,
-    SEASON_GUIDS,
     XP_PER_SEASON_LEVEL,
     XP_PER_WEAPON_LEVEL,
     XP_TABLE,
+)
+from PySide6.QtCore import QFile, QIODevice, Qt, Slot
+from PySide6.QtGui import QAction, QFocusEvent
+from PySide6.QtUiTools import QUiLoader
+from PySide6.QtWidgets import (
+    QApplication,
+    QComboBox,
+    QFileDialog,
+    QGroupBox,
+    QLabel,
+    QLineEdit,
+    QListWidget,
+    QListWidgetItem,
+    QPushButton,
+    QTreeWidget,
+    QTreeWidgetItem,
 )
 
 if platform == "win32":
@@ -210,7 +208,7 @@ def update_rank() -> None:
     except:
         title = "Lord of the Deep"
 
-    widget.classes_group.setTitle(f"Classes - Rank {rank+1} {rem}/3, {title}")
+    widget.classes_group.setTitle(f"Classes - Rank {rank + 1} {rem}/3, {title}")
 
 
 # we use dependency injection to pass the widget to the EditorUI class
