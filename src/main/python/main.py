@@ -610,18 +610,17 @@ def filter_overclocks() -> None:
                     oc.setHidden(True)
 
 
-@Slot()  # type: ignore
-def oc_ctx_menu(pos) -> None:
-    # oc_context_menu = make_oc_context_menu()
-    # global oc_context_menu
-    ctx_menu = QMenu(widget.overclock_tree)
-    add_act = ctx_menu.addAction("Add Core(s) to Inventory")
-    global_pos = QCursor().pos()
-    action: QAction = ctx_menu.exec_(global_pos)
-    if action == add_act:
-        add_cores()
-
-    # add_act.triggered.connect(add_cores())
+# @Slot()  # type: ignore
+# def oc_ctx_menu(pos) -> None:
+#     # oc_context_menu = make_oc_context_menu()
+#     # global oc_context_menu
+#     ctx_menu = QMenu(widget.overclock_tree)
+#     add_act = ctx_menu.addAction("Add Core(s) to Inventory")
+#     global_pos = QCursor().pos()
+#     action: QAction = ctx_menu.exec_(global_pos)
+#     if action == add_act:
+#         add_cores()
+#     # add_act.triggered.connect(add_cores())
 
 
 @Slot()  # type: ignore
