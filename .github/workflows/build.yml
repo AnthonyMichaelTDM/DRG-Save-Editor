@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:
 
 jobs:
   build-windows:
@@ -84,6 +85,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           path: dist
+
+      - name: List files
+        run: ls -R ${{ steps.download_artifacts.outputs.download-path }}
 
       - name: Get the release tag
         id: get_release_tag
