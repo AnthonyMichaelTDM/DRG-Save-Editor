@@ -6,9 +6,8 @@ from copy import deepcopy
 from sys import platform
 from typing import Any
 
-import PySide2
 from PySide2.QtCore import QFile, QIODevice, Slot, Qt
-from PySide2.QtGui import QCursor
+from PySide2.QtGui import QCursor, QFocusEvent
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtWidgets import (QAction, QApplication, QFileDialog, QLineEdit,
                                QListWidgetItem, QMenu,
@@ -30,7 +29,7 @@ class TextEditFocusChecking(QLineEdit):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-    def focusOutEvent(self, e: PySide2.QtGui.QFocusEvent) -> None:
+    def focusOutEvent(self, e: QFocusEvent) -> None:
         # check for blank text
         box: str = self.objectName()
         if self.text() == "":
@@ -207,6 +206,9 @@ def open_file() -> None:
     )[0]
     # print('about to open file')
 
+    if not file_name:
+        return
+
     widget.setWindowTitle(f"DRG Save Editor - {file_name}")  # window-dressing
     with open(file_name, "rb") as f:
         save_data = f.read()
@@ -241,7 +243,7 @@ def open_file() -> None:
     widget.overclock_tree.clear()
     overclock_tree = widget.overclock_tree.invisibleRootItem()
     build_oc_tree(overclock_tree, guid_dict)
-    widget.overclock_tree.sortItems(0, PySide2.QtCore.Qt.AscendingOrder)
+    widget.overclock_tree.sortItems(0, Qt.AscendingOrder)
 
     # populate list of unforged ocs
     unforged_list = widget.unforged_list
@@ -438,7 +440,6 @@ def build_oc_tree(tree, source_dict) -> None:
     # entry = QTreeWidgetItem(None)
     for char, weapons in oc_dict.items():
         # dwarves[dwarf] = QTreeWidgetItem(tree)
-        char_entry = QTreeWidgetItem(tree)
         char_entry.setText(0, char)
         for weapon, oc_names in weapons.items():
             weapon_entry = QTreeWidgetItem(char_entry)
