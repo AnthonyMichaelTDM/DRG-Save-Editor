@@ -41,7 +41,7 @@ Some notes:
 - v1.8
     - Updated for season 4
         - updated season guid
-            - special thanks to [Its-Casino](https://github.com/Its-Casino) for contributing the update
+            - special thanks to [simon-wg](https://github.com/simon-wg) for contributing the update
 - v1.7
     - Updated for season 3
         - updated season guid
