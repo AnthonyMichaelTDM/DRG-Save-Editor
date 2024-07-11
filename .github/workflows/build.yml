@@ -1,4 +1,4 @@
-name: Build Windows Executable
+name: Build Executables and Release
 
 on:
   push:
@@ -79,16 +79,14 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
-      - name: Download artifacts (windows)
+      - name: Download artifacts
+        id: download_artifacts
         uses: actions/download-artifact@v2
         with:
-          name: DRG-Save-Editor-windows
-          path: DRG-Save-Editor-windows.zip
-      - name: Download artifacts (linux)
-        uses: actions/download-artifact@v2
-        with:
-          name: DRG-Save-Editor-linux
-          path: DRG-Save-Editor-linux.tar.gz
+          path: dist
+
+      - name: List files
+        run: ls -R ${{ steps.download_artifacts.outputs.download-path }}
 
       - name: Get the release tag
         id: get_release_tag
@@ -103,5 +101,5 @@ jobs:
           prerelease: false
           generate_release_notes: true
           files: |
-            DRG-Save-Editor-linux.tar.gz
-            DRG-Save-Editor-windows.zip
+            ${{ steps.download_artifacts.outputs.download-path }}/DRG-Save-Editor-linux/DRG-Save-Editor-linux.tar.gz
+            ${{ steps.download_artifacts.outputs.download-path }}/DRG-Save-Editor-windows/DRG-Save-Editor-windows.zip
