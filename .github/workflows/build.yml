@@ -37,7 +37,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: DRG-Save-Editor-windows
+          name: DRG-Save-Editor-windows.zip
           path: dist/DRG-Save-Editor-windows.zip
 
   build-linux:
@@ -71,7 +71,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: DRG-Save-Editor-linux
+          name: DRG-Save-Editor-linux.tar.gz
           path: dist/DRG-Save-Editor-linux.tar.gz
 
   release:
@@ -82,13 +82,11 @@ jobs:
       - name: Download artifacts (windows)
         uses: actions/download-artifact@v2
         with:
-          name: DRG-Save-Editor-windows
-          path: DRG-Save-Editor-windows.zip
+          name: DRG-Save-Editor-windows.zip
       - name: Download artifacts (linux)
         uses: actions/download-artifact@v2
         with:
-          name: DRG-Save-Editor-linux
-          path: DRG-Save-Editor-linux.tar.gz
+          name: DRG-Save-Editor-linux.tar.gz
 
       - name: Get the release tag
         id: get_release_tag
