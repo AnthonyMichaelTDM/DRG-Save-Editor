@@ -1293,7 +1293,7 @@ def remove_ocs(oc_list) -> None:
         oc: dict[str, Any] = unforged_ocs[i]
         oc["status"] = "Unacquired"
         guid_dict[i]["status"] = "Unacquired"
-        unacquired_ocs.update(oc)
+        unacquired_ocs.update({i: oc})
         del unforged_ocs[i]
 
     filter_overclocks()
