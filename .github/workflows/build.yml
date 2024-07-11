@@ -101,4 +101,6 @@ jobs:
           draft: false
           prerelease: false
           generate_release_notes: true
-          files: ${{ steps.download_artifacts.outputs.download-path }}/*
+          files: |
+            ${{ steps.download_artifacts.outputs.download-path }}/DRG-Save-Editor-linux/DRG-Save-Editor-linux.tar.gz
+            ${{ steps.download_artifacts.outputs.download-path }}/DRG-Save-Editor-windows/DRG-Save-Editor-windows.zip
