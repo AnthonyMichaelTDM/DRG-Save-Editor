@@ -440,6 +440,7 @@ def build_oc_tree(tree, source_dict) -> None:
     # entry = QTreeWidgetItem(None)
     for char, weapons in oc_dict.items():
         # dwarves[dwarf] = QTreeWidgetItem(tree)
+        char_entry = QTreeWidgetItem()
         char_entry.setText(0, char)
         for weapon, oc_names in weapons.items():
             weapon_entry = QTreeWidgetItem(char_entry)
