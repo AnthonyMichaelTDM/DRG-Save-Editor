@@ -491,12 +491,9 @@ def get_overclocks(
 
         # print(f'pos: {pos}, end_pos: {end_pos}')
         # print(f'owned_pos: {owned}, diff: {owned-pos}')
-        # unforged = True if oc_data.find(b'Owned') else False
-        if oc_data.find(b"Owned") > 0:
-            unforged = True
-        else:
-            unforged = False
-        # print(unforged) # bool
+        # has_unforged = True if oc_data.find(b'Owned') else False
+        has_unforged = oc_data.find(b"Owned") > 0
+        # print(has_unforged) # bool
         num_forged = struct.unpack("i", save_bytes[pos + 63 : pos + 67])[0]
         forged = dict()
         # print(num_forged)
@@ -527,7 +524,7 @@ def get_overclocks(
                 pass
 
         # print('after forged extraction')
-        if unforged:
+        if has_unforged:
             unforged = dict()
             # print('in unforged loop')
             num_pos = save_bytes.find(b"Owned", pos) + 62
