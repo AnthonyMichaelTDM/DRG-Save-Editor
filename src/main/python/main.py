@@ -258,14 +258,14 @@ def open_file() -> None:
     widget.overclock_tree.clear()
     overclock_tree = widget.overclock_tree.invisibleRootItem()
     build_oc_tree(overclock_tree, guid_dict)
-    widget.overclock_tree.sortItems(0, Qt.AscendingOrder)
+    widget.overclock_tree.sortItems(0, Qt.SortOrder.AscendingOrder)
 
     # populate list of unforged ocs
     unforged_list = widget.unforged_list
     populate_unforged_list(unforged_list, unforged_ocs)
 
 
-def populate_unforged_list(list_widget, unforged) -> None:
+def populate_unforged_list(list_widget: QListWidget, unforged: dict) -> None:
     # populates the list on acquired but unforged overclocks (includes cosmetics)
     list_widget.clear()
     for k, v in unforged.items():
@@ -302,7 +302,7 @@ def update_season_data() -> None:
     reset_season_data(stats["season-changes"])
 
 
-def get_season_data(save_bytes, season_guid) -> dict[str, int]:
+def get_season_data(save_bytes: bytes, season_guid: str) -> dict[str, int]:
     # scrip_marker = bytes.fromhex("546F6B656E73")
     season_xp_marker: bytes = bytes.fromhex(season_guid)
     season_xp_offset = 169
@@ -321,7 +321,7 @@ def get_season_data(save_bytes, season_guid) -> dict[str, int]:
     return {"xp": season_xp, "scrip": scrip}
 
 
-def get_resources(save_bytes) -> dict[str, int]:
+def get_resources(save_bytes: bytes) -> dict[str, int]:
     # extracts the resource counts from the save file
     # print('getting resources')
     # resource GUIDs
@@ -408,7 +408,7 @@ def xp_total_to_level(xp: int) -> tuple[int, int]:
     return (25, 0)
 
 
-def get_credits(save_bytes):
+def get_credits(save_bytes: bytes):
     marker = b"Credits"
     offset = 33
     pos = save_bytes.find(marker) + offset
@@ -417,7 +417,7 @@ def get_credits(save_bytes):
     return money
 
 
-def get_perk_points(save_bytes):
+def get_perk_points(save_bytes: bytes):
     marker = b"PerkPoints"
     offset = 36
     if save_bytes.find(marker) == -1:
@@ -429,8 +429,8 @@ def get_perk_points(save_bytes):
     return perk_points
 
 
-def build_oc_dict(guid_dict):
-    overclocks = dict()
+def build_oc_dict(guid_dict: dict[str, Any]) -> dict[str, Any]:
+    overclocks: dict[str, Any] = dict()
 
     for v in guid_dict.values():
         try:
@@ -453,7 +453,7 @@ def build_oc_dict(guid_dict):
     return overclocks
 
 
-def build_oc_tree(tree, source_dict) -> None:
+def build_oc_tree(tree: QTreeWidgetItem, source_dict: dict[str, Any]) -> None:
     oc_dict = build_oc_dict(source_dict)
     # entry = QTreeWidgetItem(None)
     for char, weapons in oc_dict.items():
@@ -470,7 +470,9 @@ def build_oc_tree(tree, source_dict) -> None:
                 oc_entry.setText(2, uuid)
 
 
-def get_overclocks(save_bytes, guid_source):
+def get_overclocks(
+    save_bytes: bytes, guid_source: dict[str, Any]
+) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     search_term = b"ForgedSchematics"
     search_end = b"SkinFixupCounter"
     pos = save_bytes.find(search_term)
@@ -1283,7 +1285,7 @@ def remove_selected_ocs() -> None:
     remove_ocs(items_to_remove)
 
 
-def remove_ocs(oc_list) -> None:
+def remove_ocs(oc_list: list[str]) -> None:
     global unforged_ocs
     global unacquired_ocs
     global guid_dict
@@ -1318,10 +1320,10 @@ def remove_all_ocs() -> None:
 
 
 # global variable definitions
-forged_ocs = dict()  # type: ignore
-unforged_ocs = dict()  # type: ignore
-unacquired_ocs = dict()  # type: ignore
-stats: dict[str, Any] = dict()  # type: ignore
+forged_ocs: dict[str, Any] = dict()
+unforged_ocs: dict[str, Any] = dict()
+unacquired_ocs: dict[str, Any] = dict()
+stats: dict[str, Any] = dict()
 weapon_stats: dict[int, list[int, int, bool]] | None = None  # type: ignore
 file_name: str = ""
 save_data: bytes = b""
@@ -1345,7 +1347,7 @@ if __name__ == "__main__":
 
     # load reference data
     with open("guids.json", "r") as g:
-        guid_dict = json.loads(g.read())
+        guid_dict: dict[str, Any] = json.loads(g.read())
 
     try:
         # find the install path for the steam version
