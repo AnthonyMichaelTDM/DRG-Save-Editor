@@ -7,16 +7,20 @@ from sys import platform
 from typing import Any
 
 from PySide6.QtCore import QFile, QIODevice, Slot, Qt
-from PySide6.QtGui import QAction, QCursor, QFocusEvent
+from PySide6.QtGui import QAction, QFocusEvent
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import (
     QApplication,
     QFileDialog,
+    QComboBox,
+    QGroupBox,
+    QPushButton,
+    QListWidget,
     QLineEdit,
     QListWidgetItem,
-    QMenu,
+    QTreeWidget,
     QTreeWidgetItem,
-    QWidget,
+    QLabel,
 )
 
 from definitions import (
@@ -27,6 +31,7 @@ from definitions import (
     RESOURCE_GUIDS,
     SEASON_GUIDS,
     LATEST_SEASON,
+    SEASON_GUIDS,
     XP_PER_SEASON_LEVEL,
     XP_PER_WEAPON_LEVEL,
     XP_TABLE,
@@ -206,6 +211,137 @@ def update_rank() -> None:
         title = "Lord of the Deep"
 
     widget.classes_group.setTitle(f"Classes - Rank {rank+1} {rem}/3, {title}")
+
+
+# we use dependency injection to pass the widget to the EditorUI class
+class EditorUI:
+    def __init__(self):
+        # specify and open the UI
+        ui_file_name = "editor.ui"
+        ui_file = QFile(ui_file_name)
+        if not ui_file.open(QIODevice.ReadOnly):  # type: ignore
+            print("Cannot open {}: {}".format(ui_file_name, ui_file.errorString()))
+            sys.exit(-1)
+        ui_file.close()
+
+        # load the UI and do a basic check
+        loader = QUiLoader()
+        loader.registerCustomWidget(TextEditFocusChecking)
+        widget = loader.load(ui_file, None)
+        if not widget:
+            print(loader.errorString())
+            sys.exit(-1)
+
+        # set the inner widget to the loaded UI
+        self.inner = widget
+
+        # define the widget's custom attributes for type hinting
+
+        self.actionOpen_Save_File: QAction = self.inner.actionOpen_Save_File  # type: ignore[attr-defined]
+        self.actionReset_to_original_values: QAction = self.inner.actionReset_to_original_values  # type: ignore[attr-defined]
+        self.actionSave_changes: QAction = self.inner.actionSave_changes  # type: ignore[attr-defined]
+        self.actionAdd_overclock_crafting_materials: QAction = self.inner.actionAdd_overclock_crafting_materials  # type: ignore[attr-defined]
+        self.actionSet_All_Classes_to_25: QAction = self.inner.actionSet_All_Classes_to_25  # type: ignore[attr-defined]
+        self.actionMax_all_available_weapons: QAction = self.inner.actionMax_all_available_weapons  # type: ignore[attr-defined]
+
+        self.bismor_text: QLabel = self.inner.__getattribute__("bismor_text")
+        self.enor_text: QLabel = self.inner.__getattribute__("enor_text")
+        self.jadiz_text: QLabel = self.inner.__getattribute__("jadiz_text")
+        self.croppa_text: QLabel = self.inner.__getattribute__("croppa_text")
+        self.magnite_text: QLabel = self.inner.__getattribute__("magnite_text")
+        self.umanite_text: QLabel = self.inner.__getattribute__("umanite_text")
+
+        self.barley_text: QLineEdit = self.inner.__getattribute__("barley_text")
+        self.malt_text: QLineEdit = self.inner.__getattribute__("malt_text")
+        self.starch_text: QLineEdit = self.inner.__getattribute__("starch_text")
+        self.yeast_text: QLineEdit = self.inner.__getattribute__("yeast_text")
+
+        self.error_text: QLineEdit = self.inner.__getattribute__("error_text")
+        self.core_text: QLineEdit = self.inner.__getattribute__("core_text")
+        self.credits_text: QLineEdit = self.inner.__getattribute__("credits_text")
+        self.perk_text: QLineEdit = self.inner.__getattribute__("perk_text")
+        self.data_text: QLineEdit = self.inner.__getattribute__("data_text")
+        self.phazy_text: QLineEdit = self.inner.__getattribute__("phazy_text")
+
+        self.classes_group: QGroupBox = self.inner.__getattribute__("classes_group")
+        self.driller_xp: TextEditFocusChecking = self.inner.driller_xp  # type: ignore[attr-defined]
+        self.driller_lvl_text: TextEditFocusChecking = self.inner.driller_lvl_text  # type: ignore[attr-defined]
+        self.driller_xp_2: TextEditFocusChecking = self.inner.driller_xp_2  # type: ignore[attr-defined]
+        self.driller_promo_box: QComboBox = self.inner.driller_promo_box  # type: ignore[attr-defined]
+        self.engineer_xp: TextEditFocusChecking = self.inner.engineer_xp  # type: ignore[attr-defined]
+        self.engineer_lvl_text: TextEditFocusChecking = self.inner.engineer_lvl_text  # type: ignore[attr-defined]
+        self.engineer_xp_2: TextEditFocusChecking = self.inner.engineer_xp_2  # type: ignore[attr-defined]
+        self.engineer_promo_box: QComboBox = self.inner.engineer_promo_box  # type: ignore[attr-defined]
+        self.gunner_xp: TextEditFocusChecking = self.inner.__getattribute__("gunner_xp")
+        self.gunner_lvl_text: TextEditFocusChecking = self.inner.gunner_lvl_text  # type: ignore[attr-defined]
+        self.gunner_xp_2: TextEditFocusChecking = self.inner.gunner_xp_2  # type: ignore[attr-defined]
+        self.gunner_promo_box: QComboBox = self.inner.gunner_promo_box  # type: ignore[attr-defined]
+        self.scout_xp: TextEditFocusChecking = self.inner.__getattribute__("scout_xp")
+        self.scout_lvl_text: TextEditFocusChecking = self.inner.scout_lvl_text  # type: ignore[attr-defined]
+        self.scout_xp_2: TextEditFocusChecking = self.inner.scout_xp_2  # type: ignore[attr-defined]
+        self.scout_promo_box: QComboBox = self.inner.__getattribute__("scout_promo_box")
+
+        self.season_group: QGroupBox = self.inner.__getattribute__("season_group")
+        self.season_xp: TextEditFocusChecking = self.inner.__getattribute__("season_xp")
+        self.season_lvl_text: TextEditFocusChecking = self.inner.season_lvl_text  # type: ignore[attr-defined]
+        self.scrip_text: QLineEdit = self.inner.__getattribute__("scrip_text")
+        self.season_box: QComboBox = self.inner.__getattribute__("season_box")
+
+        self.overclock_tree: QTreeWidget = self.inner.__getattribute__("overclock_tree")
+        self.combo_oc_filter: QComboBox = self.inner.__getattribute__("combo_oc_filter")
+        self.add_cores_button: QPushButton = self.inner.add_cores_button  # type: ignore[attr-defined]
+        self.unforged_list: QListWidget = self.inner.__getattribute__("unforged_list")
+        self.remove_selected_ocs: QPushButton = self.inner.remove_selected_ocs  # type: ignore[attr-defined]
+        self.remove_all_ocs: QPushButton = self.inner.__getattribute__("remove_all_ocs")
+
+        # connect file opening function to menu item
+        self.actionOpen_Save_File.triggered.connect(open_file)
+        # set column names for overclock treeview
+        self.overclock_tree.setHeaderLabels(["Overclock", "Status", "GUID"])
+
+        # populate the promotion drop downs
+        promo_boxes = [
+            self.driller_promo_box,
+            self.gunner_promo_box,
+            self.engineer_promo_box,
+            self.scout_promo_box,
+        ]
+        for i in promo_boxes:
+            for j in PROMO_RANKS:
+                i.addItem(j)
+
+        # for k,v in season_guids.items():
+        #     widget.season_picker.addItem(f'Season {v}')
+
+        # populate the filter drop down for overclocks
+        sort_labels: list[str] = ["All", "Unforged", "Forged", "Unacquired"]
+        for i in sort_labels:
+            self.combo_oc_filter.addItem(i)
+
+        # connect functions to buttons and menu items
+        self.actionSave_changes.triggered.connect(save_changes)
+        self.actionSet_All_Classes_to_25.triggered.connect(set_all_25)
+        self.actionAdd_overclock_crafting_materials.triggered.connect(add_crafting_mats)
+        self.actionReset_to_original_values.triggered.connect(reset_values)
+        self.actionMax_all_available_weapons.triggered.connect(
+            max_all_available_weapon_maintenance
+        )
+        self.combo_oc_filter.currentTextChanged.connect(filter_overclocks)
+        self.season_box.currentTextChanged.connect(update_season_data)
+        # widget.overclock_tree.customContextMenuRequested.connect(oc_ctx_menu)
+        self.add_cores_button.clicked.connect(add_cores)
+        self.remove_all_ocs.clicked.connect(remove_all_ocs)
+        self.remove_selected_ocs.clicked.connect(remove_selected_ocs)
+        self.driller_promo_box.currentIndexChanged.connect(update_rank)
+        self.engineer_promo_box.currentIndexChanged.connect(update_rank)
+        self.gunner_promo_box.currentIndexChanged.connect(update_rank)
+        self.scout_promo_box.currentIndexChanged.connect(update_rank)
+
+    def show(self):
+        self.inner.show()
+
+    def setWindowTitle(self, title: str) -> None:
+        self.inner.setWindowTitle(title)
 
 
 @Slot()  # type: ignore
@@ -1326,20 +1462,8 @@ save_data: bytes = b""
 season_selected: int = LATEST_SEASON
 
 if __name__ == "__main__":
-    if hasattr(Qt, "AA_EnableHighDpiScaling"):
-        QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
-
-    if hasattr(Qt, "AA_UseHighDpiPixmaps"):
-        QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
-
     # print(os.getcwd())
-    # specify and open the UI
-    ui_file_name = "editor.ui"
     app = QApplication()
-    ui_file = QFile(ui_file_name)
-    if not ui_file.open(QIODevice.ReadOnly):
-        print("Cannot open {}: {}".format(ui_file_name, ui_file.errorString()))
-        sys.exit(-1)
 
     # load reference data
     with open("guids.json", "r") as g:
@@ -1356,54 +1480,8 @@ if __name__ == "__main__":
     except:
         steam_path = "."
 
-    # load the UI and do a basic check
-    loader = QUiLoader()
-    loader.registerCustomWidget(TextEditFocusChecking)
-    widget: QWidget = loader.load(ui_file, None)
-    ui_file.close()
-    if not widget:
-        print(loader.errorString())
-        sys.exit(-1)
-
-    # connect file opening function to menu item
-    widget.actionOpen_Save_File.triggered.connect(open_file)
-    # set column names for overclock treeview
-    widget.overclock_tree.setHeaderLabels(["Overclock", "Status", "GUID"])
-
-    # populate the promotion drop downs
-    promo_boxes = [
-        widget.driller_promo_box,
-        widget.gunner_promo_box,
-        widget.engineer_promo_box,
-        widget.scout_promo_box,
-    ]
-    for i in promo_boxes:
-        for j in PROMO_RANKS:
-            i.addItem(j)
-
-    # populate the filter drop down for overclocks
-    sort_labels: list[str] = ["All", "Unforged", "Forged", "Unacquired"]
-    for i in sort_labels:
-        widget.combo_oc_filter.addItem(i)
-
-    # connect functions to buttons and menu items
-    widget.actionSave_changes.triggered.connect(save_changes)
-    widget.actionSet_All_Classes_to_25.triggered.connect(set_all_25)
-    widget.actionMax_all_available_weapons.triggered.connect(
-        max_all_available_weapon_maintenance
-    )
-    widget.actionAdd_overclock_crafting_materials.triggered.connect(add_crafting_mats)
-    widget.actionReset_to_original_values.triggered.connect(reset_values)
-    widget.combo_oc_filter.currentTextChanged.connect(filter_overclocks)
-    widget.season_box.currentTextChanged.connect(update_season_data)
-    # widget.overclock_tree.customContextMenuRequested.connect(oc_ctx_menu)
-    widget.add_cores_button.clicked.connect(add_cores)
-    widget.remove_all_ocs.clicked.connect(remove_all_ocs)
-    widget.remove_selected_ocs.clicked.connect(remove_selected_ocs)
-    widget.driller_promo_box.currentIndexChanged.connect(update_rank)
-    widget.engineer_promo_box.currentIndexChanged.connect(update_rank)
-    widget.gunner_promo_box.currentIndexChanged.connect(update_rank)
-    widget.scout_promo_box.currentIndexChanged.connect(update_rank)
+    # load the UI
+    widget: EditorUI = EditorUI()
 
     # actually display the thing
     widget.show()
