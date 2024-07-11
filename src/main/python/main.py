@@ -7,7 +7,6 @@ from sys import platform
 from typing import Any
 
 import PySide2
-from fbs_runtime.application_context.PySide2 import ApplicationContext
 from PySide2.QtCore import QFile, QIODevice, Slot, Qt
 from PySide2.QtGui import QCursor
 from PySide2.QtUiTools import QUiLoader
@@ -1241,7 +1240,7 @@ if __name__ == "__main__":
     # print(os.getcwd())
     # specify and open the UI
     ui_file_name = "editor.ui"
-    appctext = ApplicationContext()
+    app = QApplication()
     ui_file = QFile(ui_file_name)
     if not ui_file.open(QIODevice.ReadOnly):
         print("Cannot open {}: {}".format(ui_file_name, ui_file.errorString()))
@@ -1310,5 +1309,5 @@ if __name__ == "__main__":
 
     # actually display the thing
     widget.show()
-    exit_code = appctext.app.exec_()
+    exit_code = app.exec_()
     sys.exit(exit_code)
