@@ -18,7 +18,7 @@ from definitions import (
     XP_PER_WEAPON_LEVEL,
     XP_TABLE,
 )
-from PySide6.QtCore import QFile, QIODevice, Qt, Slot
+from PySide6.QtCore import QCoreApplication, QFile, QIODevice, Qt, Slot
 from PySide6.QtGui import QAction, QFocusEvent
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import (
@@ -1460,6 +1460,7 @@ save_data: bytes = b""
 season_selected: int = LATEST_SEASON
 
 if __name__ == "__main__":
+    QCoreApplication.setAttribute(Qt.ApplicationAttribute.AA_ShareOpenGLContexts, True)
     # print(os.getcwd())
     app = QApplication()
 
