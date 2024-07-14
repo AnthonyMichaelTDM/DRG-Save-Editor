@@ -438,16 +438,17 @@ def update_season_data() -> None:
 
 def get_season_data(save_bytes: bytes, season_guid: str) -> dict[str, int]:
     # scrip_marker = bytes.fromhex("546F6B656E73")
-    season_xp_marker: bytes = bytes.fromhex(season_guid)
+    season_marker: bytes = bytes.fromhex(season_guid)
+    season_marker_pos: int = save_bytes.find(season_marker)
+    # season data does not exist
+    if season_marker_pos == -1:
+        raise ValueError("Season missing")
+
     season_xp_offset = 169
     scrip_offset = 209
 
-    season_xp_pos = save_bytes.find(season_xp_marker) + season_xp_offset
-    scrip_pos = save_bytes.find(season_xp_marker) + scrip_offset
-
-    # season data does not exist
-    if season_xp_pos == season_xp_offset - 1 and scrip_pos == scrip_offset - 1:
-        raise ValueError("Season missing")
+    season_xp_pos = save_bytes.find(season_marker) + season_xp_offset
+    scrip_pos = save_bytes.find(season_marker) + scrip_offset
 
     season_xp = struct.unpack("i", save_bytes[season_xp_pos : season_xp_pos + 4])[0]
     scrip = struct.unpack("i", save_bytes[scrip_pos : scrip_pos + 4])[0]
@@ -1016,12 +1017,18 @@ def make_save_file(file_path, new_values) -> bytes:
 
     # write season data
     for season_num, season_guid in SEASON_GUIDS.items():
-        season_xp_marker: bytes = bytes.fromhex(season_guid)
+        season_marker: bytes = bytes.fromhex(season_guid)
+        season_marker_pos: int = save_data.find(season_marker)
+        # season data does not exist
+        if season_marker_pos == -1:
+            print(f"Season {season_num} missing")
+            continue
+
         season_xp_offset = 169
-        season_xp_pos: int = save_data.find(season_xp_marker) + season_xp_offset
+        season_xp_pos: int = season_marker_pos + season_xp_offset
         # scrip_marker = b"Tokens"
         scrip_offset = 209
-        scrip_pos: int = save_data.find(season_xp_marker) + scrip_offset
+        scrip_pos: int = season_marker_pos + scrip_offset
 
         save_data = (
             save_data[:season_xp_pos]
