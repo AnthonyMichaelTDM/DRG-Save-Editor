@@ -1,8 +1,8 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: "[BUG]"
-labels: "Type: Bug", "Status: Pending"
+title: "[Bug] - ..."
+labels: 'Status: Pending, Type: Bug'
 assignees: AnthonyMichaelTDM
 
 ---
@@ -38,7 +38,6 @@ attach a copy of your save file from BEFORE any edits were attempted
 
 - OS: [e.g. Windows10]
 - Python Version: [e.g. 3.10.14] (if running from source)
-  - If you are unsure, you can run `python --version` in your terminal
 
 ### Additional context
 
