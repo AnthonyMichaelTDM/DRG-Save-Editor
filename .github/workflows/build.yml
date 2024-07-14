@@ -29,6 +29,7 @@ jobs:
         run: |
           copy guids.json dist/DRG-Save-Editor/
           copy editor.ui dist/DRG-Save-Editor/
+          copy readme.md dist/DRG-Save-Editor/
 
       - name: Compress files to ZIP
         run: |
@@ -63,6 +64,7 @@ jobs:
         run: |
           cp guids.json dist/DRG-Save-Editor/
           cp editor.ui dist/DRG-Save-Editor/
+          cp readme.md dist/DRG-Save-Editor/
 
       - name: Compress files to tar.gz
         working-directory: dist/DRG-Save-Editor
