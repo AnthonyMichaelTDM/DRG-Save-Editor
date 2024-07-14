@@ -23,7 +23,7 @@ jobs:
 
       - name: Run PyInstaller
         run: |
-          pyinstaller --name=DRG-Save-Editor --windowed --noconfirm src/main/python/main.py
+          pyinstaller --name=DRG-Save-Editor --console --noconfirm src/main/python/main.py
 
       - name: Copy required files
         run: |
@@ -58,7 +58,7 @@ jobs:
 
       - name: Run PyInstaller
         run: |
-          pyinstaller --name=DRG-Save-Editor --windowed --noconfirm src/main/python/main.py
+          pyinstaller --name=DRG-Save-Editor --console --noconfirm src/main/python/main.py
 
       - name: Copy required files
         run: |
