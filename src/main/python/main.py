@@ -1465,7 +1465,7 @@ if __name__ == "__main__":
     app = QApplication()
 
     # load reference data
-    with open("guids.json", "r") as g:
+    with open("guids.json", "r", encoding="utf-8") as g:
         guid_dict: dict[str, Any] = json.loads(g.read())
 
     try:
