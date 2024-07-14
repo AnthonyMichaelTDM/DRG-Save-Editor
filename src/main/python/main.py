@@ -1,4 +1,5 @@
 import json
+import os
 import struct
 import sys
 from copy import deepcopy
@@ -216,6 +217,11 @@ class EditorUI:
     def __init__(self):
         # specify and open the UI
         ui_file_name = "editor.ui"
+
+        # check if the UI file exists in the current working directory, if not, check the directory of the script (for PyInstaller)
+        if not os.path.exists(ui_file_name):
+            ui_file_name = os.path.join(os.path.dirname(__file__), ui_file_name)
+
         ui_file = QFile(ui_file_name)
         if not ui_file.open(QIODevice.ReadOnly):  # type: ignore
             print("Cannot open {}: {}".format(ui_file_name, ui_file.errorString()))
@@ -1469,10 +1475,17 @@ season_selected: int = LATEST_SEASON
 if __name__ == "__main__":
     QCoreApplication.setAttribute(Qt.ApplicationAttribute.AA_ShareOpenGLContexts, True)
     # print(os.getcwd())
+    # print(os.path.dirname(__file__))
     app = QApplication()
 
+    guids_file = "guids.json"
+
+    # check if the guid file exists in the current working directory, if not, use the one in the same directory as the script (for pyinstaller)
+    if not os.path.exists(guids_file):
+        guids_file = os.path.join(os.path.dirname(__file__), guids_file)
+
     # load reference data
-    with open("guids.json", "r", encoding="utf-8") as g:
+    with open(guids_file, "r", encoding="utf-8") as g:
         guid_dict: dict[str, Any] = json.loads(g.read())
 
     try:
