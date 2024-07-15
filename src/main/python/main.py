@@ -165,7 +165,6 @@ def update_xp(dwarf, total_xp=0) -> None:
 
 
 def update_rank() -> None:
-    global stats
     s_promo: int = (
         Stats.dwarf_promo[Dwarf.SCOUT]
         if widget.scout_promo_box.currentIndex() == MAX_BADGES
@@ -382,8 +381,7 @@ def open_file() -> None:
     widget.combo_oc_filter.setEnabled(True)
 
     # initialize and populate the text fields
-    global stats
-    stats = init_values(save_data)
+    init_values(save_data)
     reset_values()
     update_rank()
 
@@ -420,7 +418,6 @@ def populate_unforged_list(list_widget: QListWidget, unforged: dict) -> None:
 
 
 def store_season_changes(season_num):
-    global stats
     new_xp = widget.season_xp.text()
     new_scrip = widget.scrip_text.text()
     if new_xp and new_scrip:
@@ -674,39 +671,6 @@ def get_overclocks(
     # print(f'unforged: {unforged}')
     # forged OCs, unacquired OCs, unforged OCs
     return (forged, guids, unforged)
-
-
-def get_weapons(save_data) -> dict[int, list[int | bool]]:
-    weapon = save_data.find(b"WeaponMaintenanceEntry") + 0x2C
-
-    WEAPON_SIZE = 0xD9
-    OFFSET_WEAPON_XP = 0x6E
-    OFFSET_WEAPON_LEVEL = 0x95
-    OFFSET_WEAPON_LEVEL_UP = 0xCA
-
-    weapon_stats = dict()
-
-    while save_data[weapon : weapon + 8].decode() == "WeaponID":
-        xp = int.from_bytes(
-            save_data[weapon + OFFSET_WEAPON_XP : weapon + OFFSET_WEAPON_XP + 4],
-            "little",
-        )
-        level = int.from_bytes(
-            save_data[weapon + OFFSET_WEAPON_LEVEL : weapon + OFFSET_WEAPON_LEVEL + 4],
-            "little",
-        )
-        levelup = bool.from_bytes(
-            save_data[
-                weapon + OFFSET_WEAPON_LEVEL_UP : weapon + OFFSET_WEAPON_LEVEL_UP + 1
-            ],
-            "little",
-        )
-
-        weapon_stats[weapon] = [xp, level, levelup]
-
-        weapon += WEAPON_SIZE
-
-    return weapon_stats
 
 
 @Slot()  # type: ignore
@@ -1062,7 +1026,6 @@ def set_all_25() -> None:
 
 @Slot()  # type: ignore
 def max_all_available_weapon_maintenance() -> None:
-    global stats
     global weapon_stats
     weapon_stats = dict()
     for weapon, [_, level, _] in stats["weapons"].items():
@@ -1076,7 +1039,6 @@ def max_all_available_weapon_maintenance() -> None:
 
 @Slot()  # type: ignore
 def reset_values() -> None:
-    global stats
     global unforged_ocs
     global unacquired_ocs
     global forged_ocs
@@ -1263,7 +1225,7 @@ def init_values(save_data) -> dict[str, Any]:
     Stats.get_dwarf_xp(save_data)
     Stats.get_misc(save_data)
     Stats.get_resources(save_data)
-    stats["weapons"] = get_weapons(save_data)
+    Stats.get_weapons(save_data)
 
     # to be modified as the user updates the fields
     stats["season-changes"] = dict()
@@ -1304,8 +1266,6 @@ def init_values(save_data) -> dict[str, Any]:
 
 
 def get_values() -> dict[str, Any]:
-    global stats
-
     ns: dict[str, Any] = dict()
     ns["minerals"] = dict()
     ns["brewing"] = dict()
