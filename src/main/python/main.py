@@ -7,7 +7,7 @@ from re import Match
 from sys import platform
 from typing import Any
 
-from components import Stats, Dwarf
+from components import Stats, Dwarf, Resource
 
 from definitions import (
     GUID_RE,
@@ -167,24 +167,24 @@ def update_xp(dwarf, total_xp=0) -> None:
 def update_rank() -> None:
     global stats
     s_promo: int = (
-        stats["xp"]["scout"]["promo"]
-        if int(widget.scout_promo_box.currentIndex()) == MAX_BADGES
-        else int(widget.scout_promo_box.currentIndex())
+        Stats.dwarf_promo[Dwarf.SCOUT]
+        if widget.scout_promo_box.currentIndex() == MAX_BADGES
+        else widget.scout_promo_box.currentIndex()
     )
     e_promo: int = (
-        stats["xp"]["engineer"]["promo"]
-        if int(widget.engineer_promo_box.currentIndex()) == MAX_BADGES
-        else int(widget.engineer_promo_box.currentIndex())
+        Stats.dwarf_promo[Dwarf.ENGINEER]
+        if widget.engineer_promo_box.currentIndex() == MAX_BADGES
+        else widget.engineer_promo_box.currentIndex()
     )
     g_promo: int = (
-        stats["xp"]["gunner"]["promo"]
-        if int(widget.gunner_promo_box.currentIndex()) == MAX_BADGES
-        else int(widget.gunner_promo_box.currentIndex())
+        stats.dwarf_promo[Dwarf.GUNNER]
+        if widget.gunner_promo_box.currentIndex() == MAX_BADGES
+        else widget.gunner_promo_box.currentIndex()
     )
     d_promo: int = (
-        stats["xp"]["driller"]["promo"]
-        if int(widget.driller_promo_box.currentIndex()) == MAX_BADGES
-        else int(widget.driller_promo_box.currentIndex())
+        Stats.dwarf_promo[Dwarf.DRILLER]
+        if widget.driller_promo_box.currentIndex() == MAX_BADGES
+        else widget.driller_promo_box.currentIndex
     )
 
     try:
@@ -462,33 +462,6 @@ def get_season_data(save_bytes: bytes, season_guid: str) -> dict[str, int]:
     scrip = struct.unpack("i", save_bytes[scrip_pos : scrip_pos + 4])[0]
 
     return {"xp": season_xp, "scrip": scrip}
-
-
-def get_resources(save_bytes: bytes) -> dict[str, int]:
-    # extracts the resource counts from the save file
-    # print('getting resources')
-    # resource GUIDs
-    resources: dict[str, Any] = deepcopy(RESOURCE_GUIDS)
-    guid_length = 16  # length of GUIDs in bytes
-    res_marker = (
-        b"OwnedResources"  # marks the beginning of where resource values can be found
-    )
-    res_pos = save_bytes.find(res_marker)
-    # print("getting resources")
-    for k, v in resources.items():  # iterate through resource list
-        # print(f"key: {k}, value: {v}")
-        marker = bytes.fromhex(v)
-        pos = (
-            save_bytes.find(marker, res_pos) + guid_length
-        )  # search for the matching GUID
-        end_pos = pos + 4  # offset for the actual value
-        # extract and unpack the value
-        temp = save_bytes[pos:end_pos]
-        unp = struct.unpack("f", temp)
-        resources[k] = int(unp[0])  # save resource count
-
-    # pp(resources)  # pretty printing for some reason
-    return resources
 
 
 def get_dwarf_xp(save_bytes: bytes) -> dict[str, dict[str, Any]]:
@@ -1109,26 +1082,26 @@ def reset_values() -> None:
     global forged_ocs
     global weapon_stats
     # print('reset values')
-    widget.bismor_text.setText(str(stats["minerals"]["bismor"]))
-    widget.enor_text.setText(str(stats["minerals"]["enor"]))
-    widget.jadiz_text.setText(str(stats["minerals"]["jadiz"]))
-    widget.croppa_text.setText(str(stats["minerals"]["croppa"]))
-    widget.magnite_text.setText(str(stats["minerals"]["magnite"]))
-    widget.umanite_text.setText(str(stats["minerals"]["umanite"]))
+    widget.bismor_text.setText(str(Stats.resources[Resource.BISMOR]))
+    widget.enor_text.setText(str(Stats.resources[Resource.ENOR]))
+    widget.jadiz_text.setText(str(Stats.resources[Resource.JADIZ]))
+    widget.croppa_text.setText(str(Stats.resources[Resource.CROPPA]))
+    widget.magnite_text.setText(str(Stats.resources[Resource.MAGNITE]))
+    widget.umanite_text.setText(str(Stats.resources[Resource.UMANITE]))
     # print('after minerals')
 
-    widget.yeast_text.setText(str(stats["brewing"]["yeast"]))
-    widget.starch_text.setText(str(stats["brewing"]["starch"]))
-    widget.malt_text.setText(str(stats["brewing"]["malt"]))
-    widget.barley_text.setText(str(stats["brewing"]["barley"]))
+    widget.yeast_text.setText(str(Stats.resources[Resource.YEAST]))
+    widget.starch_text.setText(str(Stats.resources[Resource.STARCH]))
+    widget.malt_text.setText(str(Stats.resources[Resource.MALT]))
+    widget.barley_text.setText(str(Stats.resources[Resource.BARLEY]))
     # print('after brewing')
 
-    widget.error_text.setText(str(stats["misc"]["error"]))
-    widget.core_text.setText(str(stats["misc"]["cores"]))
-    widget.credits_text.setText(str(stats["misc"]["credits"]))
-    widget.perk_text.setText(str(stats["misc"]["perks"]))
-    widget.data_text.setText(str(stats["misc"]["data"]))
-    widget.phazy_text.setText(str(stats["misc"]["phazyonite"]))
+    widget.error_text.setText(str(Stats.resources[Resource.ERROR]))
+    widget.core_text.setText(str(Stats.resources[Resource.CORES]))
+    widget.credits_text.setText(str(Stats.credits))
+    widget.perk_text.setText(str(Stats.perk_points))
+    widget.data_text.setText(str(Stats.resources[Resource.DATA]))
+    widget.phazy_text.setText(str(Stats.resources[Resource.PHAZ]))
     # print('after misc')
 
     widget.driller_xp.setText(str(Stats.dwarf_xp[Dwarf.DRILLER]))
@@ -1288,27 +1261,8 @@ def add_resources(res_dict) -> None:
 
 def init_values(save_data) -> dict[str, Any]:
     Stats.get_dwarf_xp(save_data)
-    # stats["xp"] = get_xp(save_data)
-    stats["misc"] = dict()
-    stats["misc"]["credits"] = get_credits(save_data)
-    stats["misc"]["perks"] = get_perk_points(save_data)
-    resources: dict[str, int] = get_resources(save_data)
-    stats["misc"]["cores"] = resources["cores"]
-    stats["misc"]["error"] = resources["error"]
-    stats["misc"]["data"] = resources["data"]
-    stats["misc"]["phazyonite"] = resources["phazyonite"]
-    stats["minerals"] = dict()
-    stats["minerals"]["bismor"] = resources["bismor"]
-    stats["minerals"]["enor"] = resources["enor"]
-    stats["minerals"]["jadiz"] = resources["jadiz"]
-    stats["minerals"]["croppa"] = resources["croppa"]
-    stats["minerals"]["magnite"] = resources["magnite"]
-    stats["minerals"]["umanite"] = resources["umanite"]
-    stats["brewing"] = dict()
-    stats["brewing"]["yeast"] = resources["yeast"]
-    stats["brewing"]["starch"] = resources["starch"]
-    stats["brewing"]["barley"] = resources["barley"]
-    stats["brewing"]["malt"] = resources["malt"]
+    Stats.get_misc(save_data)
+    Stats.get_resources(save_data)
     stats["weapons"] = get_weapons(save_data)
 
     # to be modified as the user updates the fields

@@ -1,12 +1,16 @@
+from copy import deepcopy
 import struct
-from .Enums import Dwarf, Minerals, Brewing
+
+from definitions import RESOURCE_GUIDS
+from .Enums import Dwarf, Resource
 
 
 class Stats:
-    dwarf_xp: dict[Dwarf, int] = dict()
-    dwarf_promo: dict[Dwarf, int] = dict()
-    resources_minerals: dict[Minerals, int] = dict()
-    resources_brewing: dict[Brewing, int] = dict()
+    dwarf_xp: dict[Dwarf, int]
+    dwarf_promo: dict[Dwarf, int]
+    resources: dict[Resource, int] = dict()
+    credits: int
+    perk_points: int
 
     def get_dwarf_xp(save_bytes) -> None:
 
@@ -65,3 +69,42 @@ class Stats:
             Dwarf.SCOUT: scout_num_promo,
             Dwarf.ENGINEER: eng_num_promo,
         }
+
+    def get_credits(save_bytes) -> int:
+        marker = b"Credits"
+        offset = 33
+        pos = save_bytes.find(marker) + offset
+        return struct.unpack("i", save_bytes[pos : pos + 4])[0]
+
+    def get_perk_points(save_bytes) -> int:
+        marker = b"PerkPoints"
+        offset = 36
+        if save_bytes.find(marker) == -1:
+            return 0
+        else:
+            pos = save_bytes.find(marker) + offset
+            return struct.unpack("i", save_bytes[pos : pos + 4])[0]
+
+    def get_misc(save_bytes) -> None:
+        Stats.credits = Stats.get_credits(save_bytes)
+        Stats.perk_points = Stats.get_perk_points(save_bytes)
+
+    def get_resources(save_bytes: bytes) -> None:
+        # extracts the resource counts from the save file
+        # print('getting resources')
+        # resource GUIDs
+        resource_guids: dict[Resource, str] = deepcopy(RESOURCE_GUIDS)
+        guid_length = 16  # length of GUIDs in bytes
+        res_marker = b"OwnedResources"  # marks the beginning of where resource values can be found
+        res_pos = save_bytes.find(res_marker)
+        # print("getting resources")
+        for k, v in resource_guids.items():  # iterate through resource list
+            # print(f"key: {k}, value: {v}")
+            marker = bytes.fromhex(v)
+            pos = (
+                save_bytes.find(marker, res_pos) + guid_length
+            )  # search for the matching GUID
+            end_pos = pos + 4  # offset for the actual value
+            # extract and unpack the value
+            unp = struct.unpack("f", save_bytes[pos:end_pos])
+            Stats.resources[k] = int(unp[0])  # save resource count
