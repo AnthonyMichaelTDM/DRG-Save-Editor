@@ -1,24 +1,25 @@
-from enum import Enum
+from enum import Enum, auto
 
 
 class Dwarf(Enum):
-    DRILLER = 0
-    GUNNER = 1
-    SCOUT = 2
-    ENGINEER = 3
+    DRILLER = auto()
+    GUNNER = auto()
+    SCOUT = auto()
+    ENGINEER = auto()
 
 
-class Minerals(Enum):
-    BISMOR = 0
-    ENOR = 1
-    JADIZ = 2
-    CROPPA = 3
-    MAGNITE = 4
-    UMANITE = 5
-
-
-class Brewing(Enum):
-    YEAST = 0
-    MALT = 1
-    STARCH = 2
-    BARLEY = 3
+class Resource(Enum):
+    BISMOR = auto()
+    ENOR = auto()
+    JADIZ = auto()
+    CROPPA = auto()
+    MAGNITE = auto()
+    UMANITE = auto()
+    YEAST = auto()
+    MALT = auto()
+    STARCH = auto()
+    BARLEY = auto()
+    ERROR = auto()
+    CORES = auto()
+    DATA = auto()
+    PHAZ = auto()
