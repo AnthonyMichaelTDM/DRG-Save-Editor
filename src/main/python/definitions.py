@@ -4,7 +4,7 @@
 
 import re
 
-from components import Dwarf, Resource
+from components import Resource
 
 
 # xp_table[i] = XP needed for level i+1
