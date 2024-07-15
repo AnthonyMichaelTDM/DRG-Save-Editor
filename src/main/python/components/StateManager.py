@@ -15,6 +15,9 @@ class Stats:
     perk_points: int
     weapons: dict[int, list[int | bool]] = dict()
 
+    def __init__(self) -> None:
+        pass
+
     @staticmethod
     def get_season_data(
         save_bytes: bytes, season_guid: str
@@ -156,29 +159,35 @@ class Stats:
         OFFSET_WEAPON_LEVEL = 0x95
         OFFSET_WEAPON_LEVEL_UP = 0xCA
 
-        while save_data[weapon : weapon + 8].decode() == "WeaponID":
-            xp = int.from_bytes(
-                save_data[weapon + OFFSET_WEAPON_XP : weapon + OFFSET_WEAPON_XP + 4],
-                "little",
-            )
-            level = int.from_bytes(
-                save_data[
-                    weapon + OFFSET_WEAPON_LEVEL : weapon + OFFSET_WEAPON_LEVEL + 4
-                ],
-                "little",
-            )
-            levelup = bool.from_bytes(
-                save_data[
-                    weapon
-                    + OFFSET_WEAPON_LEVEL_UP : weapon
-                    + OFFSET_WEAPON_LEVEL_UP
-                    + 1
-                ],
-                "little",
-            )
+        try:
+            while save_data[weapon : weapon + 8].decode() == "WeaponID":
+                xp = int.from_bytes(
+                    save_data[
+                        weapon + OFFSET_WEAPON_XP : weapon + OFFSET_WEAPON_XP + 4
+                    ],
+                    "little",
+                )
+                level = int.from_bytes(
+                    save_data[
+                        weapon + OFFSET_WEAPON_LEVEL : weapon + OFFSET_WEAPON_LEVEL + 4
+                    ],
+                    "little",
+                )
+                levelup = bool.from_bytes(
+                    save_data[
+                        weapon
+                        + OFFSET_WEAPON_LEVEL_UP : weapon
+                        + OFFSET_WEAPON_LEVEL_UP
+                        + 1
+                    ],
+                    "little",
+                )
 
-            Stats.weapons[weapon] = [xp, level, levelup]
-            weapon += WEAPON_SIZE
+                Stats.weapons[weapon] = [xp, level, levelup]
+                weapon += WEAPON_SIZE
+        except UnicodeDecodeError:
+            print("Missing weapon data")
+            return
 
     @staticmethod
     def get_initial_stats(save_bytes: bytes) -> None:

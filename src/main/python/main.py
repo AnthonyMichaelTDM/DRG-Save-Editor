@@ -470,15 +470,6 @@ def xp_total_to_level(xp: int) -> tuple[int, int]:
     return (25, 0)
 
 
-def get_credits(save_bytes: bytes):
-    marker = b"Credits"
-    offset = 33
-    pos = save_bytes.find(marker) + offset
-    money = struct.unpack("i", save_bytes[pos : pos + 4])[0]
-
-    return money
-
-
 def get_perk_points(save_bytes: bytes):
     marker = b"PerkPoints"
     offset = 36
@@ -678,37 +669,23 @@ def add_cores() -> None:
 
 @Slot()  # type: ignore
 def save_changes() -> None:
-    changes: dict[str, Any] = get_values()
-    changes["unforged"] = unforged_ocs
+    changes: Stats = get_values()
+    # TODO
+    # changes["unforged"] = unforged_ocs
     # pp(changes)
     save_file: bytes = make_save_file(file_name, changes)
     with open(file_name, "wb") as f:
         f.write(save_file)
 
 
-def make_save_file(file_path, new_values) -> bytes:
+def make_save_file(file_path, new_values: Stats) -> bytes:
     with open(file_path, "rb") as f:
         save_data: bytes = f.read()
 
     # write resources
     # resource_bytes = list()
     # res_guids = deepcopy(resource_guids)
-    resources: dict[Resource, int] = {
-        Resource.YEAST: new_values["brewing"]["yeast"],
-        Resource.STARCH: new_values["brewing"]["starch"],
-        Resource.BARLEY: new_values["brewing"]["barley"],
-        Resource.BISMOR: new_values["minerals"]["bismor"],
-        Resource.ENOR: new_values["minerals"]["enor"],
-        Resource.MALT: new_values["brewing"]["malt"],
-        Resource.UMANITE: new_values["minerals"]["umanite"],
-        Resource.JADIZ: new_values["minerals"]["jadiz"],
-        Resource.CROPPA: new_values["minerals"]["croppa"],
-        Resource.MAGNITE: new_values["minerals"]["magnite"],
-        Resource.ERROR: new_values["misc"]["error"],
-        Resource.CORES: new_values["misc"]["cores"],
-        Resource.DATA: new_values["misc"]["data"],
-        Resource.PHAZ: new_values["misc"]["phazyonite"],
-    }
+    resources = new_values.resources
 
     res_marker = b"OwnedResources"
     res_pos: int = save_data.find(res_marker) + 85
@@ -732,13 +709,13 @@ def make_save_file(file_path, new_values) -> bytes:
     # write credits
     cred_marker = b"Credits"
     cred_pos: int = save_data.find(cred_marker) + 33
-    cred_bytes: bytes = struct.pack("i", new_values["misc"]["credits"])
+    cred_bytes: bytes = struct.pack("i", new_values.credits)
     save_data = save_data[:cred_pos] + cred_bytes + save_data[cred_pos + 4 :]
 
     # write perk points
-    if new_values["misc"]["perks"] > 0:
+    if new_values.perk_points > 0:
         perks_marker = b"PerkPoints"
-        perks_bytes: bytes = struct.pack("i", new_values["misc"]["perks"])
+        perks_bytes: bytes = struct.pack("i", new_values.perk_points)
         if save_data.find(perks_marker) != -1:
             perks_pos: int = save_data.find(perks_marker) + 36
             save_data = save_data[:perks_pos] + perks_bytes + save_data[perks_pos + 4 :]
@@ -765,10 +742,10 @@ def make_save_file(file_path, new_values) -> bytes:
     drill_xp_pos: int = save_data.find(dr_marker) + offset
     gun_xp_pos: int = save_data.find(gu_marker) + offset
 
-    eng_xp_bytes: bytes = struct.pack("i", new_values["xp"]["engineer"]["xp"])
-    scout_xp_bytes: bytes = struct.pack("i", new_values["xp"]["scout"]["xp"])
-    drill_xp_bytes: bytes = struct.pack("i", new_values["xp"]["driller"]["xp"])
-    gun_xp_bytes: bytes = struct.pack("i", new_values["xp"]["gunner"]["xp"])
+    eng_xp_bytes: bytes = struct.pack("i", new_values.dwarf_xp[Dwarf.ENGINEER])
+    scout_xp_bytes: bytes = struct.pack("i", new_values.dwarf_xp[Dwarf.SCOUT])
+    drill_xp_bytes: bytes = struct.pack("i", new_values.dwarf_xp[Dwarf.DRILLER])
+    gun_xp_bytes: bytes = struct.pack("i", new_values.dwarf_xp[Dwarf.GUNNER])
 
     promo_offset = 108
     levels_per_promo = 25
@@ -778,21 +755,21 @@ def make_save_file(file_path, new_values) -> bytes:
     drill_promo_pos: int = drill_xp_pos + promo_offset
     gun_promo_pos: int = gun_xp_pos + promo_offset
 
-    eng_promo_bytes: bytes = struct.pack("i", new_values["xp"]["engineer"]["promo"])
+    eng_promo_bytes: bytes = struct.pack("i", new_values.dwarf_promo[Dwarf.ENGINEER])
     eng_promo_level_bytes: bytes = struct.pack(
-        "i", new_values["xp"]["engineer"]["promo"] * levels_per_promo
+        "i", new_values.dwarf_promo[Dwarf.ENGINEER] * levels_per_promo
     )
-    scout_promo_bytes: bytes = struct.pack("i", new_values["xp"]["scout"]["promo"])
+    scout_promo_bytes: bytes = struct.pack("i", new_values.dwarf_promo[Dwarf.SCOUT])
     scout_promo_level_bytes: bytes = struct.pack(
-        "i", new_values["xp"]["scout"]["promo"] * levels_per_promo
+        "i", new_values.dwarf_promo[Dwarf.SCOUT] * levels_per_promo
     )
-    drill_promo_bytes: bytes = struct.pack("i", new_values["xp"]["driller"]["promo"])
+    drill_promo_bytes: bytes = struct.pack("i", new_values.dwarf_promo[Dwarf.DRILLER])
     drill_promo_level_bytes: bytes = struct.pack(
-        "i", new_values["xp"]["driller"]["promo"] * levels_per_promo
+        "i", new_values.dwarf_promo[Dwarf.DRILLER] * levels_per_promo
     )
-    gun_promo_bytes: bytes = struct.pack("i", new_values["xp"]["gunner"]["promo"])
+    gun_promo_bytes: bytes = struct.pack("i", new_values.dwarf_promo[Dwarf.GUNNER])
     gun_promo_level_bytes: bytes = struct.pack(
-        "i", new_values["xp"]["gunner"]["promo"] * levels_per_promo
+        "i", new_values.dwarf_promo[Dwarf.GUNNER] * levels_per_promo
     )
 
     save_data = save_data[:eng_xp_pos] + eng_xp_bytes + save_data[eng_xp_pos + 4 :]
@@ -861,7 +838,8 @@ def make_save_file(file_path, new_values) -> bytes:
     # that might help figure it out, but I'm currently stumped.
     if pos > 0:
         num_forged = struct.unpack("i", save_data[pos + 63 : pos + 67])[0]
-        unforged_ocs = new_values["unforged"]
+        # TODO - After implementing OCS into the State Manager
+        # unforged_ocs = new_values["unforged"]
 
         schematic_save_marker = b"SchematicSave"
         schematic_save_offset = 33
@@ -926,23 +904,22 @@ def make_save_file(file_path, new_values) -> bytes:
 
         save_data = (
             save_data[:season_xp_pos]
-            + struct.pack("i", new_values["season"][season_num]["xp"])
+            + struct.pack("i", new_values.season_data[season_num]["xp"])
             + save_data[season_xp_pos + 4 :]
         )
         save_data = (
             save_data[:scrip_pos]
-            + struct.pack("i", new_values["season"][season_num]["scrip"])
+            + struct.pack("i", new_values.season_data[season_num]["scrip"])
             + save_data[scrip_pos + 4 :]
         )
 
     # write weapon maintenance data
-    global weapon_stats
     OFFSET_WEAPON_XP = 0x6E
     OFFSET_WEAPON_LEVEL_UP = 0xCA
-    if weapon_stats:
-        for weapon_pos, _ in weapon_stats.items():
-            xp = struct.pack("i", weapon_stats[weapon_pos][0])
-            level_up = struct.pack("b", weapon_stats[weapon_pos][2])
+    if Stats.weapons:
+        for weapon_pos, _ in Stats.weapons.items():
+            xp = struct.pack("i", Stats.weapons[weapon_pos][0])
+            level_up = struct.pack("b", Stats.weapons[weapon_pos][2])
             save_data = (
                 save_data[: weapon_pos + OFFSET_WEAPON_XP]
                 + xp
@@ -1181,66 +1158,59 @@ def init_values(save_data):
         widget.season_group.setEnabled(False)
 
 
-def get_values() -> dict[str, Any]:
-    ns: dict[str, Any] = dict()
-    ns["minerals"] = dict()
-    ns["brewing"] = dict()
-    ns["misc"] = dict()
-    ns["xp"] = {
-        "driller": dict(),
-        "gunner": dict(),
-        "scout": dict(),
-        "engineer": dict(),
-    }
+def get_values() -> Stats:
+    new_stats = Stats()
 
-    ns["minerals"]["bismor"] = int(widget.bismor_text.text())
-    ns["minerals"]["croppa"] = int(widget.croppa_text.text())
-    ns["minerals"]["enor"] = int(widget.enor_text.text())
-    ns["minerals"]["jadiz"] = int(widget.jadiz_text.text())
-    ns["minerals"]["magnite"] = int(widget.magnite_text.text())
-    ns["minerals"]["umanite"] = int(widget.umanite_text.text())
+    new_stats.resources[Resource.BISMOR] = int(widget.bismor_text.text())
+    new_stats.resources[Resource.CROPPA] = int(widget.croppa_text.text())
+    new_stats.resources[Resource.ENOR] = int(widget.enor_text.text())
+    new_stats.resources[Resource.JADIZ] = int(widget.jadiz_text.text())
+    new_stats.resources[Resource.MAGNITE] = int(widget.magnite_text.text())
+    new_stats.resources[Resource.UMANITE] = int(widget.umanite_text.text())
 
-    ns["brewing"]["yeast"] = int(widget.yeast_text.text())
-    ns["brewing"]["starch"] = int(widget.starch_text.text())
-    ns["brewing"]["malt"] = int(widget.malt_text.text())
-    ns["brewing"]["barley"] = int(widget.barley_text.text())
+    new_stats.resources[Resource.YEAST] = int(widget.yeast_text.text())
+    new_stats.resources[Resource.STARCH] = int(widget.starch_text.text())
+    new_stats.resources[Resource.MALT] = int(widget.malt_text.text())
+    new_stats.resources[Resource.BARLEY] = int(widget.barley_text.text())
 
-    ns["xp"]["driller"]["xp"] = int(widget.driller_xp.text())
-    ns["xp"]["engineer"]["xp"] = int(widget.engineer_xp.text())
-    ns["xp"]["gunner"]["xp"] = int(widget.gunner_xp.text())
-    ns["xp"]["scout"]["xp"] = int(widget.scout_xp.text())
+    new_stats.dwarf_xp[Dwarf.DRILLER] = int(widget.driller_xp.text())
+    new_stats.dwarf_xp[Dwarf.ENGINEER] = int(widget.engineer_xp.text())
+    new_stats.dwarf_xp[Dwarf.GUNNER] = int(widget.gunner_xp.text())
+    new_stats.dwarf_xp[Dwarf.SCOUT] = int(widget.scout_xp.text())
 
     driller_promo = int(widget.driller_promo_box.currentIndex())
     gunner_promo = int(widget.gunner_promo_box.currentIndex())
     scout_promo = int(widget.scout_promo_box.currentIndex())
     engineer_promo = int(widget.engineer_promo_box.currentIndex())
 
-    ns["xp"]["driller"]["promo"] = (
-        driller_promo if driller_promo < MAX_BADGES else stats["xp"]["driller"]["promo"]
+    new_stats.dwarf_promo[Dwarf.DRILLER] = (
+        driller_promo
+        if driller_promo < MAX_BADGES
+        else Stats.dwarf_promo[Dwarf.DRILLER]
     )
-    ns["xp"]["engineer"]["promo"] = (
+    new_stats.dwarf_promo[Dwarf.ENGINEER] = (
         engineer_promo
         if engineer_promo < MAX_BADGES
-        else stats["xp"]["engineer"]["promo"]
+        else Stats.dwarf_promo[Dwarf.ENGINEER]
     )
-    ns["xp"]["gunner"]["promo"] = (
-        gunner_promo if gunner_promo < MAX_BADGES else stats["xp"]["gunner"]["promo"]
+    new_stats.dwarf_promo[Dwarf.GUNNER] = (
+        gunner_promo if gunner_promo < MAX_BADGES else Stats.dwarf_promo[Dwarf.GUNNER]
     )
-    ns["xp"]["scout"]["promo"] = (
-        scout_promo if scout_promo < MAX_BADGES else stats["xp"]["scout"]["promo"]
+    new_stats.dwarf_promo[Dwarf.SCOUT] = (
+        scout_promo if scout_promo < MAX_BADGES else Stats.dwarf_promo[Dwarf.SCOUT]
     )
 
-    ns["misc"]["error"] = int(widget.error_text.text())
-    ns["misc"]["cores"] = int(widget.core_text.text())
-    ns["misc"]["credits"] = int(widget.credits_text.text())
-    ns["misc"]["perks"] = int(widget.perk_text.text())
-    ns["misc"]["data"] = int(widget.data_text.text())
-    ns["misc"]["phazyonite"] = int(widget.phazy_text.text())
+    new_stats.resources[Resource.ERROR] = int(widget.error_text.text())
+    new_stats.resources[Resource.CORES] = int(widget.core_text.text())
+    new_stats.credits = int(widget.credits_text.text())
+    new_stats.perk_points = int(widget.perk_text.text())
+    new_stats.resources[Resource.DATA] = int(widget.data_text.text())
+    new_stats.resources[Resource.PHAZ] = int(widget.phazy_text.text())
 
     store_season_changes(season_selected)
-    ns["season"] = stats["season-changes"]
+    new_stats.season_data = Stats.season_data
 
-    return ns
+    return new_stats
 
 
 @Slot()  # type: ignore
