@@ -11,6 +11,7 @@ class Stats:
     resources: dict[Resource, int] = dict()
     credits: int
     perk_points: int
+    weapons: dict[int, list[int | bool]] = dict()
 
     def get_dwarf_xp(save_bytes) -> None:
 
@@ -108,3 +109,35 @@ class Stats:
             # extract and unpack the value
             unp = struct.unpack("f", save_bytes[pos:end_pos])
             Stats.resources[k] = int(unp[0])  # save resource count
+
+    def get_weapons(save_data) -> None:
+        weapon = save_data.find(b"WeaponMaintenanceEntry") + 0x2C
+
+        WEAPON_SIZE = 0xD9
+        OFFSET_WEAPON_XP = 0x6E
+        OFFSET_WEAPON_LEVEL = 0x95
+        OFFSET_WEAPON_LEVEL_UP = 0xCA
+
+        while save_data[weapon : weapon + 8].decode() == "WeaponID":
+            xp = int.from_bytes(
+                save_data[weapon + OFFSET_WEAPON_XP : weapon + OFFSET_WEAPON_XP + 4],
+                "little",
+            )
+            level = int.from_bytes(
+                save_data[
+                    weapon + OFFSET_WEAPON_LEVEL : weapon + OFFSET_WEAPON_LEVEL + 4
+                ],
+                "little",
+            )
+            levelup = bool.from_bytes(
+                save_data[
+                    weapon
+                    + OFFSET_WEAPON_LEVEL_UP : weapon
+                    + OFFSET_WEAPON_LEVEL_UP
+                    + 1
+                ],
+                "little",
+            )
+
+            Stats.weapons[weapon] = [xp, level, levelup]
+            weapon += WEAPON_SIZE
