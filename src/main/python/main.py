@@ -7,6 +7,8 @@ from re import Match
 from sys import platform
 from typing import Any
 
+from components import Stats, Dwarf
+
 from definitions import (
     GUID_RE,
     LATEST_SEASON,
@@ -489,7 +491,7 @@ def get_resources(save_bytes: bytes) -> dict[str, int]:
     return resources
 
 
-def get_xp(save_bytes: bytes) -> dict[str, dict[str, Any]]:
+def get_dwarf_xp(save_bytes: bytes) -> dict[str, dict[str, Any]]:
     # print('getting xp')
     en_marker = b"\x85\xEF\x62\x6C\x65\xF1\x02\x4A\x8D\xFE\xB5\xD0\xF3\x90\x9D\x2E\x03\x00\x00\x00\x58\x50"
     sc_marker = b"\x30\xD8\xEA\x17\xD8\xFB\xBA\x4C\x95\x30\x6D\xE9\x65\x5C\x2F\x8C\x03\x00\x00\x00\x58\x50"
@@ -530,14 +532,20 @@ def get_xp(save_bytes: bytes) -> dict[str, dict[str, Any]]:
         save_bytes[gun_xp_pos + num_promo_offset : gun_xp_pos + num_promo_offset + 4],
     )[0]
 
-    xp_dict: dict[str, dict[str, Any]] = {
-        "engineer": {"xp": eng_xp, "promo": eng_num_promo},
-        "scout": {"xp": scout_xp, "promo": scout_num_promo},
-        "driller": {"xp": drill_xp, "promo": drill_num_promo},
-        "gunner": {"xp": gun_xp, "promo": gun_num_promo},
+    xp = {
+        Dwarf.DRILLER: drill_xp,
+        Dwarf.GUNNER: gun_xp,
+        Dwarf.SCOUT: scout_xp,
+        Dwarf.ENGINEER: eng_xp,
     }
-    # pp(xp_dict)
-    return xp_dict
+    promo = {
+        Dwarf.DRILLER: drill_num_promo,
+        Dwarf.GUNNER: gun_num_promo,
+        Dwarf.SCOUT: scout_num_promo,
+        Dwarf.ENGINEER: eng_num_promo,
+    }
+
+    return [xp, promo]
 
 
 def xp_total_to_level(xp: int) -> tuple[int, int]:
@@ -1123,47 +1131,43 @@ def reset_values() -> None:
     widget.phazy_text.setText(str(stats["misc"]["phazyonite"]))
     # print('after misc')
 
-    widget.driller_xp.setText(str(stats["xp"]["driller"]["xp"]))
-    d_xp = xp_total_to_level(stats["xp"]["driller"]["xp"])
+    widget.driller_xp.setText(str(Stats.dwarf_xp[Dwarf.DRILLER]))
+    d_xp = xp_total_to_level(Stats.dwarf_xp[Dwarf.DRILLER])
+    d_promo = Stats.dwarf_promo[Dwarf.DRILLER]
     widget.driller_lvl_text.setText(str(d_xp[0]))
     widget.driller_xp_2.setText(str(d_xp[1]))
     widget.driller_promo_box.setCurrentIndex(
-        stats["xp"]["driller"]["promo"]
-        if stats["xp"]["driller"]["promo"] < MAX_BADGES
-        else MAX_BADGES
+        d_promo if d_promo < MAX_BADGES else MAX_BADGES
     )
     # print('after driller')
 
-    widget.engineer_xp.setText(str(stats["xp"]["engineer"]["xp"]))
-    e_xp = xp_total_to_level(stats["xp"]["engineer"]["xp"])
+    widget.engineer_xp.setText(str(Stats.dwarf_xp[Dwarf.ENGINEER]))
+    e_xp = xp_total_to_level(Stats.dwarf_xp[Dwarf.ENGINEER])
+    e_promo = Stats.dwarf_promo[Dwarf.ENGINEER]
     widget.engineer_lvl_text.setText(str(e_xp[0]))
     widget.engineer_xp_2.setText(str(e_xp[1]))
     widget.engineer_promo_box.setCurrentIndex(
-        stats["xp"]["engineer"]["promo"]
-        if stats["xp"]["engineer"]["promo"] < MAX_BADGES
-        else MAX_BADGES
+        e_promo if e_promo < MAX_BADGES else MAX_BADGES
     )
     # print('after engineer')
 
-    widget.gunner_xp.setText(str(stats["xp"]["gunner"]["xp"]))
-    g_xp = xp_total_to_level(stats["xp"]["gunner"]["xp"])
+    widget.gunner_xp.setText(str(Stats.dwarf_xp[Dwarf.GUNNER]))
+    g_xp = xp_total_to_level(Stats.dwarf_xp[Dwarf.GUNNER])
+    g_promo = Stats.dwarf_promo[Dwarf.GUNNER]
     widget.gunner_lvl_text.setText(str(g_xp[0]))
     widget.gunner_xp_2.setText(str(g_xp[1]))
     widget.gunner_promo_box.setCurrentIndex(
-        stats["xp"]["gunner"]["promo"]
-        if stats["xp"]["gunner"]["promo"] < MAX_BADGES
-        else MAX_BADGES
+        g_promo if g_promo < MAX_BADGES else MAX_BADGES
     )
     # print('after gunner')
 
-    widget.scout_xp.setText(str(stats["xp"]["scout"]["xp"]))
-    s_xp = xp_total_to_level(stats["xp"]["scout"]["xp"])
+    widget.scout_xp.setText(str(Stats.dwarf_xp[Dwarf.SCOUT]))
+    s_xp = xp_total_to_level(Stats.dwarf_xp[Dwarf.SCOUT])
+    s_promo = Stats.dwarf_promo[Dwarf.SCOUT]
     widget.scout_lvl_text.setText(str(s_xp[0]))
     widget.scout_xp_2.setText(str(s_xp[1]))
     widget.scout_promo_box.setCurrentIndex(
-        stats["xp"]["scout"]["promo"]
-        if stats["xp"]["scout"]["promo"] < MAX_BADGES
-        else MAX_BADGES
+        s_promo if s_promo < MAX_BADGES else MAX_BADGES
     )
     # print('after scout')
 
@@ -1283,7 +1287,8 @@ def add_resources(res_dict) -> None:
 
 
 def init_values(save_data) -> dict[str, Any]:
-    stats["xp"] = get_xp(save_data)
+    Stats.get_dwarf_xp(save_data)
+    # stats["xp"] = get_xp(save_data)
     stats["misc"] = dict()
     stats["misc"]["credits"] = get_credits(save_data)
     stats["misc"]["perks"] = get_perk_points(save_data)
