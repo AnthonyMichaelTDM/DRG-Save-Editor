@@ -2,17 +2,11 @@
 
 This is a DRG save editor written in python (3.12) using PyQt6 (6.7.0) and PySide6 (6.7.2).
 
-## There are likely to be bugs, see the Known Issues and Troubleshooting section
+There are likely to be bugs, see the Known Issues and Troubleshooting section
 
-## This Repo is aimed at providing continued support and updates for [robertnunn/DRG-Save-Editor](https://github.com/robertnunn/DRG-Save-Editor) as the original creator has "Largely moved on from this project"
+This repo is aimed at providing continued support and updates for [robertnunn/DRG-Save-Editor](https://github.com/robertnunn/DRG-Save-Editor) as the original creator has "Largely moved on from this project"
 
 That said, I'm in college right now and likely won't have time to implement many of the To-Do items at the end of this file, not without help anyway
-
-## Requirements
-
-if you are using the releases, you shouldn't need to worry about this section
-
-any computer with __git__ (and/or a browser) to download the code, __pip__ to download the required python packages, __Python3__ (version>=3.9) to run the code, and a display should be able to make use of this project
 
 ## Installation
 
@@ -22,20 +16,26 @@ any computer with __git__ (and/or a browser) to download the code, __pip__ to do
   - for windows download the `DRG-Save-Editor-windows.zip` file
   - for linux download the `DRG-Save-Editor-linux.tar.gz` file
 - extract the contents of the archive to a folder of your choice and run the executable:
-  - for windows run the `DRG Save Editor.exe` file
-  - for linux run the `DRG Save Editor` file
+  - for windows run the `DRG-Save-Editor.exe` file
+  - for linux run the `DRG-Save-Editor` file
 
 ### From Source
 
-- clone the repo: `git clone https://github.com/AnthonyMichaelTDM/DRG-Save-Editor.git` (or download the source code from github)
-- open your terminal in the base directory of the project
-- run `python --version` to ensure you have python 3.10 or later installed
-- run `python -m venv venv` to create a virtual environment
-- activate the virtual environment with the following command:
-  - for windows: `.\venv\Scripts\activate`
-  - for linux: `source ./venv/bin/activate`
-- install the required packages with pip using the following command: `pip install -r ./requirements.txt`
-- start the program with the `python ./src/main/python/main.py` command
+#### Requirements
+
+- python 3.12 or later
+- (optional) git to clone the repo
+
+#### Steps
+1. clone the repo: `git clone https://github.com/AnthonyMichaelTDM/DRG-Save-Editor.git` (or download the source code from github)
+2. open your terminal in the base directory of the project
+- (optional) run `python --version` to ensure the version is correct
+- (optional) run `python -m venv venv` to create a virtual environment
+  - activate the virtual environment with the following command:
+    - for windows: `.\venv\Scripts\activate`
+    - for linux: `source ./venv/bin/activate`
+3. install the required packages with pip using the following command: `pip install -r ./requirements.txt`
+4. start the program with the `python ./src/main/python/main.py` command
 
 if these instructions are unclear a member of the community, [NerdyJosh1](https://github.com/NerdyJosh1), has made a [video tutorial for windows users](https://www.youtube.com/watch?v=2h2-nZ2ptRo&ab_channel=NerdyJosh)
 
@@ -51,7 +51,7 @@ If the editor opens but doesn't edit your save properly (i.e., values not being 
 
 ## Usage
 
-### ALWAYS BACKUP YOUR SAVE FILE
+**ALWAYS BACKUP YOUR SAVE FILE**
 
 The editor will make a backup of the save file you open in the same folder as the save file with the extension of `.old`. The editor makes this backup at the moment you open the save file.
 
