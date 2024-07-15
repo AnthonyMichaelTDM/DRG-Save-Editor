@@ -1,7 +1,5 @@
 # Deep Rock Galactic Save Editor
 
-This is a DRG save editor written in python (3.12) using PyQt6 (6.7.0) and PySide6 (6.7.2).
-
 There are likely to be bugs, see the Known Issues and Troubleshooting section
 
 This repo is aimed at providing continued support and updates for [robertnunn/DRG-Save-Editor](https://github.com/robertnunn/DRG-Save-Editor) as the original creator has "Largely moved on from this project"
