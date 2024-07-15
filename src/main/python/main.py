@@ -176,14 +176,14 @@ def update_rank() -> None:
         else widget.engineer_promo_box.currentIndex()
     )
     g_promo: int = (
-        stats.dwarf_promo[Dwarf.GUNNER]
+        Stats.dwarf_promo[Dwarf.GUNNER]
         if widget.gunner_promo_box.currentIndex() == MAX_BADGES
         else widget.gunner_promo_box.currentIndex()
     )
     d_promo: int = (
         Stats.dwarf_promo[Dwarf.DRILLER]
         if widget.driller_promo_box.currentIndex() == MAX_BADGES
-        else widget.driller_promo_box.currentIndex
+        else widget.driller_promo_box.currentIndex()
     )
 
     try:
@@ -421,7 +421,7 @@ def store_season_changes(season_num):
     new_xp = widget.season_xp.text()
     new_scrip = widget.scrip_text.text()
     if new_xp and new_scrip:
-        stats["season-changes"][season_num] = {
+        Stats.season_data[season_num] = {
             "xp": int(new_xp)
             + XP_PER_SEASON_LEVEL * int(widget.season_lvl_text.text()),
             "scrip": int(new_scrip),
@@ -438,7 +438,7 @@ def update_season_data() -> None:
         season_selected = int(widget.season_box.currentText())
 
     # refresh display
-    reset_season_data(stats["season-changes"])
+    reset_season_data()
 
 
 def get_season_data(save_bytes: bytes, season_guid: str) -> dict[str, int]:
@@ -459,63 +459,6 @@ def get_season_data(save_bytes: bytes, season_guid: str) -> dict[str, int]:
     scrip = struct.unpack("i", save_bytes[scrip_pos : scrip_pos + 4])[0]
 
     return {"xp": season_xp, "scrip": scrip}
-
-
-def get_dwarf_xp(save_bytes: bytes) -> dict[str, dict[str, Any]]:
-    # print('getting xp')
-    en_marker = b"\x85\xEF\x62\x6C\x65\xF1\x02\x4A\x8D\xFE\xB5\xD0\xF3\x90\x9D\x2E\x03\x00\x00\x00\x58\x50"
-    sc_marker = b"\x30\xD8\xEA\x17\xD8\xFB\xBA\x4C\x95\x30\x6D\xE9\x65\x5C\x2F\x8C\x03\x00\x00\x00\x58\x50"
-    dr_marker = b"\x9E\xDD\x56\xF1\xEE\xBC\xC5\x48\x8D\x5B\x5E\x5B\x80\xB6\x2D\xB4\x03\x00\x00\x00\x58\x50"
-    gu_marker = b"\xAE\x56\xE1\x80\xFE\xC0\xC4\x4D\x96\xFA\x29\xC2\x83\x66\xB9\x7B\x03\x00\x00\x00\x58\x50"
-
-    # start_offset = 0
-    xp_offset = 48
-    eng_xp_pos: int = save_bytes.find(en_marker) + xp_offset
-    scout_xp_pos: int = save_bytes.find(sc_marker) + xp_offset
-    drill_xp_pos: int = save_bytes.find(dr_marker) + xp_offset
-    gun_xp_pos: int = save_bytes.find(gu_marker) + xp_offset
-
-    eng_xp = struct.unpack("i", save_bytes[eng_xp_pos : eng_xp_pos + 4])[0]
-    scout_xp = struct.unpack("i", save_bytes[scout_xp_pos : scout_xp_pos + 4])[0]
-    drill_xp = struct.unpack("i", save_bytes[drill_xp_pos : drill_xp_pos + 4])[0]
-    gun_xp = struct.unpack("i", save_bytes[gun_xp_pos : gun_xp_pos + 4])[0]
-
-    num_promo_offset = 108
-    eng_num_promo = struct.unpack(
-        "i",
-        save_bytes[eng_xp_pos + num_promo_offset : eng_xp_pos + num_promo_offset + 4],
-    )[0]
-    scout_num_promo = struct.unpack(
-        "i",
-        save_bytes[
-            scout_xp_pos + num_promo_offset : scout_xp_pos + num_promo_offset + 4
-        ],
-    )[0]
-    drill_num_promo = struct.unpack(
-        "i",
-        save_bytes[
-            drill_xp_pos + num_promo_offset : drill_xp_pos + num_promo_offset + 4
-        ],
-    )[0]
-    gun_num_promo = struct.unpack(
-        "i",
-        save_bytes[gun_xp_pos + num_promo_offset : gun_xp_pos + num_promo_offset + 4],
-    )[0]
-
-    xp = {
-        Dwarf.DRILLER: drill_xp,
-        Dwarf.GUNNER: gun_xp,
-        Dwarf.SCOUT: scout_xp,
-        Dwarf.ENGINEER: eng_xp,
-    }
-    promo = {
-        Dwarf.DRILLER: drill_num_promo,
-        Dwarf.GUNNER: gun_num_promo,
-        Dwarf.SCOUT: scout_num_promo,
-        Dwarf.ENGINEER: eng_num_promo,
-    }
-
-    return [xp, promo]
 
 
 def xp_total_to_level(xp: int) -> tuple[int, int]:
@@ -750,21 +693,21 @@ def make_save_file(file_path, new_values) -> bytes:
     # write resources
     # resource_bytes = list()
     # res_guids = deepcopy(resource_guids)
-    resources: dict[str, int] = {
-        "yeast": new_values["brewing"]["yeast"],
-        "starch": new_values["brewing"]["starch"],
-        "barley": new_values["brewing"]["barley"],
-        "bismor": new_values["minerals"]["bismor"],
-        "enor": new_values["minerals"]["enor"],
-        "malt": new_values["brewing"]["malt"],
-        "umanite": new_values["minerals"]["umanite"],
-        "jadiz": new_values["minerals"]["jadiz"],
-        "croppa": new_values["minerals"]["croppa"],
-        "magnite": new_values["minerals"]["magnite"],
-        "error": new_values["misc"]["error"],
-        "cores": new_values["misc"]["cores"],
-        "data": new_values["misc"]["data"],
-        "phazyonite": new_values["misc"]["phazyonite"],
+    resources: dict[Resource, int] = {
+        Resource.YEAST: new_values["brewing"]["yeast"],
+        Resource.STARCH: new_values["brewing"]["starch"],
+        Resource.BARLEY: new_values["brewing"]["barley"],
+        Resource.BISMOR: new_values["minerals"]["bismor"],
+        Resource.ENOR: new_values["minerals"]["enor"],
+        Resource.MALT: new_values["brewing"]["malt"],
+        Resource.UMANITE: new_values["minerals"]["umanite"],
+        Resource.JADIZ: new_values["minerals"]["jadiz"],
+        Resource.CROPPA: new_values["minerals"]["croppa"],
+        Resource.MAGNITE: new_values["minerals"]["magnite"],
+        Resource.ERROR: new_values["misc"]["error"],
+        Resource.CORES: new_values["misc"]["cores"],
+        Resource.DATA: new_values["misc"]["data"],
+        Resource.PHAZ: new_values["misc"]["phazyonite"],
     }
 
     res_marker = b"OwnedResources"
@@ -1039,33 +982,35 @@ def max_all_available_weapon_maintenance() -> None:
 
 @Slot()  # type: ignore
 def reset_values() -> None:
+    global save_data
     global unforged_ocs
     global unacquired_ocs
     global forged_ocs
-    global weapon_stats
-    # print('reset values')
+    Stats.get_initial_stats(save_data)
+
+    # Sets all minerals to the values in Stats
     widget.bismor_text.setText(str(Stats.resources[Resource.BISMOR]))
     widget.enor_text.setText(str(Stats.resources[Resource.ENOR]))
     widget.jadiz_text.setText(str(Stats.resources[Resource.JADIZ]))
     widget.croppa_text.setText(str(Stats.resources[Resource.CROPPA]))
     widget.magnite_text.setText(str(Stats.resources[Resource.MAGNITE]))
     widget.umanite_text.setText(str(Stats.resources[Resource.UMANITE]))
-    # print('after minerals')
 
+    # Sets all brewing materials to the values in Stats
     widget.yeast_text.setText(str(Stats.resources[Resource.YEAST]))
     widget.starch_text.setText(str(Stats.resources[Resource.STARCH]))
     widget.malt_text.setText(str(Stats.resources[Resource.MALT]))
     widget.barley_text.setText(str(Stats.resources[Resource.BARLEY]))
-    # print('after brewing')
 
+    # Sets all misc resources to the values in Stats
     widget.error_text.setText(str(Stats.resources[Resource.ERROR]))
     widget.core_text.setText(str(Stats.resources[Resource.CORES]))
     widget.credits_text.setText(str(Stats.credits))
     widget.perk_text.setText(str(Stats.perk_points))
     widget.data_text.setText(str(Stats.resources[Resource.DATA]))
     widget.phazy_text.setText(str(Stats.resources[Resource.PHAZ]))
-    # print('after misc')
 
+    # Sets all dwarf XP to the values in Stats
     widget.driller_xp.setText(str(Stats.dwarf_xp[Dwarf.DRILLER]))
     d_xp = xp_total_to_level(Stats.dwarf_xp[Dwarf.DRILLER])
     d_promo = Stats.dwarf_promo[Dwarf.DRILLER]
@@ -1074,7 +1019,6 @@ def reset_values() -> None:
     widget.driller_promo_box.setCurrentIndex(
         d_promo if d_promo < MAX_BADGES else MAX_BADGES
     )
-    # print('after driller')
 
     widget.engineer_xp.setText(str(Stats.dwarf_xp[Dwarf.ENGINEER]))
     e_xp = xp_total_to_level(Stats.dwarf_xp[Dwarf.ENGINEER])
@@ -1084,7 +1028,6 @@ def reset_values() -> None:
     widget.engineer_promo_box.setCurrentIndex(
         e_promo if e_promo < MAX_BADGES else MAX_BADGES
     )
-    # print('after engineer')
 
     widget.gunner_xp.setText(str(Stats.dwarf_xp[Dwarf.GUNNER]))
     g_xp = xp_total_to_level(Stats.dwarf_xp[Dwarf.GUNNER])
@@ -1094,7 +1037,6 @@ def reset_values() -> None:
     widget.gunner_promo_box.setCurrentIndex(
         g_promo if g_promo < MAX_BADGES else MAX_BADGES
     )
-    # print('after gunner')
 
     widget.scout_xp.setText(str(Stats.dwarf_xp[Dwarf.SCOUT]))
     s_xp = xp_total_to_level(Stats.dwarf_xp[Dwarf.SCOUT])
@@ -1104,7 +1046,6 @@ def reset_values() -> None:
     widget.scout_promo_box.setCurrentIndex(
         s_promo if s_promo < MAX_BADGES else MAX_BADGES
     )
-    # print('after scout')
 
     forged_ocs, unacquired_ocs, unforged_ocs = get_overclocks(save_data, guid_dict)
     unforged_list = widget.unforged_list
@@ -1112,15 +1053,14 @@ def reset_values() -> None:
 
     filter_overclocks()
     update_rank()
-    reset_season_data(stats["season-initial"])
-    weapon_stats = None
+    reset_season_data()
 
 
-def reset_season_data(data: dict):
-    season_total_xp = data[season_selected]["xp"]
+def reset_season_data():
+    season_total_xp = Stats.season_data[season_selected]["xp"]
     widget.season_xp.setText(str(season_total_xp % XP_PER_SEASON_LEVEL))
     widget.season_lvl_text.setText(str(season_total_xp // XP_PER_SEASON_LEVEL))
-    widget.scrip_text.setText(str(data[season_selected]["scrip"]))
+    widget.scrip_text.setText(str(Stats.season_data[season_selected]["scrip"]))
 
 
 @Slot()  # type: ignore
@@ -1221,30 +1161,8 @@ def add_resources(res_dict) -> None:
         pass
 
 
-def init_values(save_data) -> dict[str, Any]:
-    Stats.get_dwarf_xp(save_data)
-    Stats.get_misc(save_data)
-    Stats.get_resources(save_data)
-    Stats.get_weapons(save_data)
-
-    # to be modified as the user updates the fields
-    stats["season-changes"] = dict()
-    widget.season_box.clear()
-    seasons_present = []
-    for season_num, season_guid in SEASON_GUIDS.items():
-        try:
-            stats["season-changes"][season_num] = get_season_data(
-                save_data, season_guid
-            )
-        except:
-            print(
-                f"Missing data for season {season_num}, please start the season first."
-            )
-        else:
-            seasons_present.append(season_num)
-
-    # initial state, to refer to when using the reset values functionality
-    stats["season-initial"] = deepcopy(stats["season-changes"])
+def init_values(save_data):
+    Stats.get_initial_stats(save_data)
 
     # addItem triggers currentTextChanged which triggers saving of data currently in textbox.
     # if two saves are loaded consecutively, it will cause values in the textbox (from file1)
@@ -1255,14 +1173,12 @@ def init_values(save_data) -> dict[str, Any]:
     widget.scrip_text.setText("")
 
     # populate the dropdown for season numbers
-    for season_num in seasons_present:
+    for season_num in Stats.season_data.keys():
         widget.season_box.addItem(str(season_num))
-    widget.season_box.setCurrentIndex(len(seasons_present) - 1)
+    widget.season_box.setCurrentIndex(len(Stats.season_data) - 1)
 
-    if not seasons_present:
+    if len(Stats.season_data) == 0:
         widget.season_group.setEnabled(False)
-
-    return stats
 
 
 def get_values() -> dict[str, Any]:
