@@ -25,13 +25,14 @@ That said, I'm in college right now and likely won't have time to implement many
 - (optional) git to clone the repo
 
 #### Steps
+
 1. clone the repo: `git clone https://github.com/AnthonyMichaelTDM/DRG-Save-Editor.git` (or download the source code from github)
 2. open your terminal in the base directory of the project
-- (optional) run `python --version` to ensure the version is correct
-- (optional) run `python -m venv venv` to create a virtual environment
-  - activate the virtual environment with the following command:
-    - for windows: `.\venv\Scripts\activate`
-    - for linux: `source ./venv/bin/activate`
+   - (optional) run `python --version` to ensure the version is correct
+   - (optional) run `python -m venv venv` to create a virtual environment
+     - activate the virtual environment with the following command:
+       - for windows: `.\venv\Scripts\activate`
+       - for linux: `source ./venv/bin/activate`
 3. install the required packages with pip using the following command: `pip install -r ./requirements.txt`
 4. start the program with the `python ./src/main/python/main.py` command
 
@@ -49,7 +50,7 @@ If the editor opens but doesn't edit your save properly (i.e., values not being 
 
 ## Usage
 
-**ALWAYS BACKUP YOUR SAVE FILE**
+Note: **ALWAYS BACKUP YOUR SAVE FILE**
 
 The editor will make a backup of the save file you open in the same folder as the save file with the extension of `.old`. The editor makes this backup at the moment you open the save file.
 
@@ -66,6 +67,9 @@ Some notes:
 
 ## Changelog
 
+- v1.9.1
+  - assorted bug fixes (#83, #84)
+  - build release in console mode and as a single standalone binary (#88)
 - v1.9.0
   - build process updated to use pyinstaller (special thanks to [wahlp](https://github.com/wahlp) for contributing the initial workflow)
   - Updated for season 5
