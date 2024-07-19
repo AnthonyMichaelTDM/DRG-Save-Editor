@@ -27,13 +27,13 @@ jobs:
 
       - name: Copy required files
         run: |
-          copy guids.json dist/DRG-Save-Editor/
-          copy editor.ui dist/DRG-Save-Editor/
-          copy readme.md dist/DRG-Save-Editor/
+          copy guids.json dist/
+          copy editor.ui dist/
+          copy readme.md dist/
 
       - name: Compress files to ZIP
         run: |
-          powershell Compress-Archive -Path dist/DRG-Save-Editor/* -DestinationPath dist/DRG-Save-Editor-windows.zip
+          powershell Compress-Archive -Path dist/* -DestinationPath dist/DRG-Save-Editor-windows.zip
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
@@ -62,14 +62,14 @@ jobs:
 
       - name: Copy required files
         run: |
-          cp guids.json dist/DRG-Save-Editor/
-          cp editor.ui dist/DRG-Save-Editor/
-          cp readme.md dist/DRG-Save-Editor/
+          cp guids.json dist/
+          cp editor.ui dist/
+          cp readme.md dist/
 
       - name: Compress files to tar.gz
-        working-directory: dist/DRG-Save-Editor
+        working-directory: dist
         run: |
-          tar -czvf ../DRG-Save-Editor-linux.tar.gz *
+          tar -czvf DRG-Save-Editor-linux.tar.gz *
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
