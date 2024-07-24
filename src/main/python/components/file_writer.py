@@ -27,7 +27,7 @@ def make_save_file(file_path: str, new_values: Stats, unforged_ocs: dict) -> byt
 def write_weapon_maintenance_data(new_values: Stats, save_data: bytes):
     if not new_values.weapons:
         return save_data
-    
+
     OFFSET_WEAPON_XP = 0x6E
     OFFSET_WEAPON_LEVEL_UP = 0xCA
     for weapon_pos, _ in new_values.weapons.items():
@@ -37,14 +37,14 @@ def write_weapon_maintenance_data(new_values: Stats, save_data: bytes):
             + xp
             + save_data[weapon_pos + OFFSET_WEAPON_XP + 4 :]
         )
-        
+
         level_up = struct.pack("b", new_values.weapons[weapon_pos][2])
         save_data = (
             save_data[: weapon_pos + OFFSET_WEAPON_LEVEL_UP]
             + level_up
             + save_data[weapon_pos + OFFSET_WEAPON_LEVEL_UP + 1 :]
         )
-            
+
     return save_data
 
 
@@ -60,7 +60,7 @@ def write_season_data(new_values: Stats, save_data: bytes):
     SCRIP_OFFSET = 209
     for season_num, season_guid in SEASON_GUIDS.items():
         season_marker_pos = find_season_data_position(season_guid, save_data)
-        
+
         # season data does not exist
         if season_marker_pos == -1:
             print(f"Season {season_num} missing")
@@ -116,8 +116,9 @@ def write_overclocks(unforged_ocs: dict, save_data: bytes):
         + schematic_save_size
         + save_data[schematic_save_end_pos:]
     )
-        
+
     return save_data
+
 
 def calculate_overclocks_data(unforged_ocs: dict, num_forged: int):
     schematic_save_size = b""
@@ -148,7 +149,7 @@ def calculate_overclocks_data(unforged_ocs: dict, num_forged: int):
         ocs = b""
         # the number of bytes between position of first "SchematicSave" and end_pos, -17, as a 64bit unsigned integer
         schematic_save_size = struct.pack("Q", 139 + (141 + num_forged * 16) - 17)
-    return schematic_save_size,ocs
+    return schematic_save_size, ocs
 
 
 def find_schematic_data_position(save_data: bytes):
@@ -158,7 +159,7 @@ def find_schematic_data_position(save_data: bytes):
         save_data.find(schematic_save_marker) + schematic_save_offset
     )
     schematic_save_end_pos = schematic_save_pos + 8
-    return schematic_save_pos,schematic_save_end_pos
+    return schematic_save_pos, schematic_save_end_pos
 
 
 def write_one_dwarf_xp(save_data: bytes, marker: bytes, dwarf_xp: int, dwarf_promo: int):
@@ -199,22 +200,22 @@ def write_dwarf_xp(new_values: Stats, save_data: bytes):
     }
     for dwarf, marker in markers.items():
         save_data = write_one_dwarf_xp(
-            save_data, 
-            marker, 
-            dwarf_xp=new_values.dwarf_xp[dwarf], 
+            save_data,
+            marker,
+            dwarf_xp=new_values.dwarf_xp[dwarf],
             dwarf_promo=new_values.dwarf_promo[dwarf],
         )
-    
+
     return save_data
 
 
 def write_perk_points(new_values: Stats, save_data: bytes):
     if new_values.perk_points <= 0:
         return save_data
-    
+
     perks_marker = b"PerkPoints"
     perks_bytes: bytes = struct.pack("i", new_values.perk_points)
-    
+
     if save_data.find(perks_marker) != -1:
         perks_pos: int = save_data.find(perks_marker) + 36
         save_data = save_data[:perks_pos] + perks_bytes + save_data[perks_pos + 4 :]
@@ -229,7 +230,7 @@ def write_perk_points(new_values: Stats, save_data: bytes):
         save_data = (
             save_data[:perks_pos] + perks_entry + save_data[perks_pos:]
         )
-            
+
     return save_data
 
 

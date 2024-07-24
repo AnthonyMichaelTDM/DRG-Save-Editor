@@ -645,8 +645,6 @@ def save_changes() -> None:
         f.write(save_file)
 
 
-
-
 @Slot()  # type: ignore
 def set_all_25() -> None:
     update_xp("driller", 315000)
