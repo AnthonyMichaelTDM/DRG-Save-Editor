@@ -16,7 +16,7 @@ def make_save_file(file_path: str, new_values: Stats, unforged_ocs: dict) -> byt
     save_data = write_resources(new_values, save_data)
     save_data = write_credits(new_values, save_data)
     save_data = write_perk_points(new_values, save_data)
-    save_data = write_all_xp(new_values, save_data)
+    save_data = write_dwarf_xp(new_values, save_data)
     save_data = write_overclocks(unforged_ocs, save_data)
     save_data = write_season_data(new_values, save_data)
     save_data = write_weapon_maintenance_data(new_values, save_data)
@@ -161,7 +161,7 @@ def find_schematic_data_position(save_data: bytes):
     return schematic_save_pos,schematic_save_end_pos
 
 
-def write_dwarf_xp(save_data: bytes, marker: bytes, dwarf_xp: int, dwarf_promo: int):
+def write_one_dwarf_xp(save_data: bytes, marker: bytes, dwarf_xp: int, dwarf_promo: int):
     offset = 48
     xp_pos: int = save_data.find(marker) + offset
     xp_bytes: bytes = struct.pack("i", dwarf_xp)
@@ -190,20 +190,20 @@ def write_dwarf_xp(save_data: bytes, marker: bytes, dwarf_xp: int, dwarf_promo: 
     return save_data
 
 
-def write_all_xp(new_values: Stats, save_data: bytes):
-    en_marker = b"\x85\xEF\x62\x6C\x65\xF1\x02\x4A\x8D\xFE\xB5\xD0\xF3\x90\x9D\x2E\x03\x00\x00\x00\x58\x50"
-    sc_marker = b"\x30\xD8\xEA\x17\xD8\xFB\xBA\x4C\x95\x30\x6D\xE9\x65\x5C\x2F\x8C\x03\x00\x00\x00\x58\x50"
-    dr_marker = b"\x9E\xDD\x56\xF1\xEE\xBC\xC5\x48\x8D\x5B\x5E\x5B\x80\xB6\x2D\xB4\x03\x00\x00\x00\x58\x50"
-    gu_marker = b"\xAE\x56\xE1\x80\xFE\xC0\xC4\x4D\x96\xFA\x29\xC2\x83\x66\xB9\x7B\x03\x00\x00\x00\x58\x50"
-    
-    lst = [
-        (en_marker, new_values.dwarf_xp[Dwarf.ENGINEER], new_values.dwarf_promo[Dwarf.ENGINEER]), 
-        (sc_marker, new_values.dwarf_xp[Dwarf.SCOUT], new_values.dwarf_promo[Dwarf.SCOUT]), 
-        (dr_marker, new_values.dwarf_xp[Dwarf.DRILLER], new_values.dwarf_promo[Dwarf.DRILLER]), 
-        (gu_marker, new_values.dwarf_xp[Dwarf.GUNNER], new_values.dwarf_promo[Dwarf.GUNNER]),
-    ]
-    for marker, dwarf_promo, dwarf_xp in lst:
-        save_data = write_dwarf_xp(save_data, marker, dwarf_promo, dwarf_xp)
+def write_dwarf_xp(new_values: Stats, save_data: bytes):
+    markers = {
+        Dwarf.ENGINEER: b"\x85\xEF\x62\x6C\x65\xF1\x02\x4A\x8D\xFE\xB5\xD0\xF3\x90\x9D\x2E\x03\x00\x00\x00\x58\x50",
+        Dwarf.SCOUT: b"\x30\xD8\xEA\x17\xD8\xFB\xBA\x4C\x95\x30\x6D\xE9\x65\x5C\x2F\x8C\x03\x00\x00\x00\x58\x50",
+        Dwarf.DRILLER: b"\x9E\xDD\x56\xF1\xEE\xBC\xC5\x48\x8D\x5B\x5E\x5B\x80\xB6\x2D\xB4\x03\x00\x00\x00\x58\x50",
+        Dwarf.GUNNER: b"\xAE\x56\xE1\x80\xFE\xC0\xC4\x4D\x96\xFA\x29\xC2\x83\x66\xB9\x7B\x03\x00\x00\x00\x58\x50",
+    }
+    for dwarf, marker in markers.items():
+        save_data = write_one_dwarf_xp(
+            save_data, 
+            marker, 
+            dwarf_xp=new_values.dwarf_xp[dwarf], 
+            dwarf_promo=new_values.dwarf_promo[dwarf],
+        )
     
     return save_data
 
