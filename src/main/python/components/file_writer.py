@@ -25,23 +25,25 @@ def make_save_file(file_path: str, new_values: Stats, unforged_ocs: dict) -> byt
 
 
 def write_weapon_maintenance_data(new_values: Stats, save_data: bytes):
+    if not new_values.weapons:
+        return save_data
+    
     OFFSET_WEAPON_XP = 0x6E
     OFFSET_WEAPON_LEVEL_UP = 0xCA
-    if new_values.weapons:
-        for weapon_pos, _ in new_values.weapons.items():
-            xp = struct.pack("i", new_values.weapons[weapon_pos][0])
-            save_data = (
-                save_data[: weapon_pos + OFFSET_WEAPON_XP]
-                + xp
-                + save_data[weapon_pos + OFFSET_WEAPON_XP + 4 :]
-            )
-            
-            level_up = struct.pack("b", new_values.weapons[weapon_pos][2])
-            save_data = (
-                save_data[: weapon_pos + OFFSET_WEAPON_LEVEL_UP]
-                + level_up
-                + save_data[weapon_pos + OFFSET_WEAPON_LEVEL_UP + 1 :]
-            )
+    for weapon_pos, _ in new_values.weapons.items():
+        xp = struct.pack("i", new_values.weapons[weapon_pos][0])
+        save_data = (
+            save_data[: weapon_pos + OFFSET_WEAPON_XP]
+            + xp
+            + save_data[weapon_pos + OFFSET_WEAPON_XP + 4 :]
+        )
+        
+        level_up = struct.pack("b", new_values.weapons[weapon_pos][2])
+        save_data = (
+            save_data[: weapon_pos + OFFSET_WEAPON_LEVEL_UP]
+            + level_up
+            + save_data[weapon_pos + OFFSET_WEAPON_LEVEL_UP + 1 :]
+        )
             
     return save_data
 
