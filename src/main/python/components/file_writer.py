@@ -9,7 +9,7 @@ from .Enums import Dwarf
 from .StateManager import Stats
 
 
-def make_save_file(file_path, new_values: Stats) -> bytes:
+def make_save_file(file_path, new_values: Stats, unforged_ocs) -> bytes:
     with open(file_path, "rb") as f:
         save_data: bytes = f.read()
 
@@ -17,7 +17,7 @@ def make_save_file(file_path, new_values: Stats) -> bytes:
     save_data = write_credits(new_values, save_data)
     save_data = write_perk_points(new_values, save_data)
     save_data = write_xp(new_values, save_data)
-    save_data = write_overclocks(new_values, save_data)
+    save_data = write_overclocks(unforged_ocs, save_data)
     save_data = write_season_data(new_values, save_data)
     save_data = write_weapon_maintenance_data(new_values, save_data)
 
@@ -76,7 +76,7 @@ def write_season_data(new_values, save_data):
     return save_data
 
 
-def write_overclocks(new_values, save_data):
+def write_overclocks(unforged_ocs, save_data):
     search_term = b"ForgedSchematics"  # \x00\x0F\x00\x00\x00Struct'
     search_end = b"SkinFixupCounter"
     pos = save_data.find(search_term)
@@ -96,9 +96,6 @@ def write_overclocks(new_values, save_data):
         )
         schematic_save_end_pos = schematic_save_pos + 8
         schematic_save_size = b""
-
-        # assuming something like this will be implemented in the future
-        unforged_ocs = new_values.unforged_ocs
 
         if len(unforged_ocs) > 0:
             ocs: bytes = (

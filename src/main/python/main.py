@@ -672,7 +672,7 @@ def save_changes() -> None:
     # TODO
     # changes["unforged"] = unforged_ocs
     # pp(changes)
-    save_file: bytes = make_save_file(file_name, changes)
+    save_file: bytes = make_save_file(file_name, changes, unforged_ocs)
     with open(file_name, "wb") as f:
         f.write(save_file)
 
