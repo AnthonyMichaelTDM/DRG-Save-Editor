@@ -16,7 +16,7 @@ def make_save_file(file_path, new_values: Stats, unforged_ocs) -> bytes:
     save_data = write_resources(new_values, save_data)
     save_data = write_credits(new_values, save_data)
     save_data = write_perk_points(new_values, save_data)
-    save_data = write_xp(new_values, save_data)
+    save_data = write_all_xp(new_values, save_data)
     save_data = write_overclocks(unforged_ocs, save_data)
     save_data = write_season_data(new_values, save_data)
     save_data = write_weapon_maintenance_data(new_values, save_data)
@@ -159,94 +159,49 @@ def find_schematic_data_position(save_data):
     return schematic_save_pos,schematic_save_end_pos
 
 
-def write_xp(new_values: Stats, save_data: bytes):
+def write_dwarf_xp(save_data: bytes, marker: bytes, dwarf_xp: int, dwarf_promo: int):
+    offset = 48
+    xp_pos: int = save_data.find(marker) + offset
+    xp_bytes: bytes = struct.pack("i", dwarf_xp)
+
+    promo_offset = 108
+    promo_pos: int = xp_pos + promo_offset
+    promo_bytes: bytes = struct.pack("i", dwarf_promo)
+
+    levels_per_promo = 25
+    promo_level_bytes: bytes = struct.pack(
+        "i", dwarf_promo * levels_per_promo
+    )
+
+    save_data = save_data[:xp_pos] + xp_bytes + save_data[xp_pos + 4 :]
+    save_data = (
+        save_data[:promo_pos] + promo_bytes + save_data[promo_pos + 4 :]
+    )
+
+    promo_levels_offset = 56
+    save_data = (
+        save_data[: promo_pos + promo_levels_offset]
+        + promo_level_bytes
+        + save_data[promo_pos + promo_levels_offset + 4 :]
+    )
+
+    return save_data
+
+
+def write_all_xp(new_values: Stats, save_data: bytes):
     en_marker = b"\x85\xEF\x62\x6C\x65\xF1\x02\x4A\x8D\xFE\xB5\xD0\xF3\x90\x9D\x2E\x03\x00\x00\x00\x58\x50"
     sc_marker = b"\x30\xD8\xEA\x17\xD8\xFB\xBA\x4C\x95\x30\x6D\xE9\x65\x5C\x2F\x8C\x03\x00\x00\x00\x58\x50"
     dr_marker = b"\x9E\xDD\x56\xF1\xEE\xBC\xC5\x48\x8D\x5B\x5E\x5B\x80\xB6\x2D\xB4\x03\x00\x00\x00\x58\x50"
     gu_marker = b"\xAE\x56\xE1\x80\xFE\xC0\xC4\x4D\x96\xFA\x29\xC2\x83\x66\xB9\x7B\x03\x00\x00\x00\x58\x50"
-    offset = 48
-    eng_xp_pos: int = save_data.find(en_marker) + offset
-    scout_xp_pos: int = save_data.find(sc_marker) + offset
-    drill_xp_pos: int = save_data.find(dr_marker) + offset
-    gun_xp_pos: int = save_data.find(gu_marker) + offset
-
-    eng_xp_bytes: bytes = struct.pack("i", new_values.dwarf_xp[Dwarf.ENGINEER])
-    scout_xp_bytes: bytes = struct.pack("i", new_values.dwarf_xp[Dwarf.SCOUT])
-    drill_xp_bytes: bytes = struct.pack("i", new_values.dwarf_xp[Dwarf.DRILLER])
-    gun_xp_bytes: bytes = struct.pack("i", new_values.dwarf_xp[Dwarf.GUNNER])
-
-    promo_offset = 108
-    levels_per_promo = 25
-    promo_levels_offset = 56
-    eng_promo_pos: int = eng_xp_pos + promo_offset
-    scout_promo_pos: int = scout_xp_pos + promo_offset
-    drill_promo_pos: int = drill_xp_pos + promo_offset
-    gun_promo_pos: int = gun_xp_pos + promo_offset
-
-    eng_promo_bytes: bytes = struct.pack("i", new_values.dwarf_promo[Dwarf.ENGINEER])
-    eng_promo_level_bytes: bytes = struct.pack(
-        "i", new_values.dwarf_promo[Dwarf.ENGINEER] * levels_per_promo
-    )
-    scout_promo_bytes: bytes = struct.pack("i", new_values.dwarf_promo[Dwarf.SCOUT])
-    scout_promo_level_bytes: bytes = struct.pack(
-        "i", new_values.dwarf_promo[Dwarf.SCOUT] * levels_per_promo
-    )
-    drill_promo_bytes: bytes = struct.pack("i", new_values.dwarf_promo[Dwarf.DRILLER])
-    drill_promo_level_bytes: bytes = struct.pack(
-        "i", new_values.dwarf_promo[Dwarf.DRILLER] * levels_per_promo
-    )
-    gun_promo_bytes: bytes = struct.pack("i", new_values.dwarf_promo[Dwarf.GUNNER])
-    gun_promo_level_bytes: bytes = struct.pack(
-        "i", new_values.dwarf_promo[Dwarf.GUNNER] * levels_per_promo
-    )
-
-    save_data = save_data[:eng_xp_pos] + eng_xp_bytes + save_data[eng_xp_pos + 4 :]
-    save_data = (
-        save_data[:eng_promo_pos] + eng_promo_bytes + save_data[eng_promo_pos + 4 :]
-    )
-    save_data = (
-        save_data[: eng_promo_pos + promo_levels_offset]
-        + eng_promo_level_bytes
-        + save_data[eng_promo_pos + promo_levels_offset + 4 :]
-    )
-
-    save_data = (
-        save_data[:scout_xp_pos] + scout_xp_bytes + save_data[scout_xp_pos + 4 :]
-    )
-    save_data = (
-        save_data[:scout_promo_pos]
-        + scout_promo_bytes
-        + save_data[scout_promo_pos + 4 :]
-    )
-    save_data = (
-        save_data[: scout_promo_pos + promo_levels_offset]
-        + scout_promo_level_bytes
-        + save_data[scout_promo_pos + promo_levels_offset + 4 :]
-    )
-
-    save_data = (
-        save_data[:drill_xp_pos] + drill_xp_bytes + save_data[drill_xp_pos + 4 :]
-    )
-    save_data = (
-        save_data[:drill_promo_pos]
-        + drill_promo_bytes
-        + save_data[drill_promo_pos + 4 :]
-    )
-    save_data = (
-        save_data[: drill_promo_pos + promo_levels_offset]
-        + drill_promo_level_bytes
-        + save_data[drill_promo_pos + promo_levels_offset + 4 :]
-    )
-
-    save_data = save_data[:gun_xp_pos] + gun_xp_bytes + save_data[gun_xp_pos + 4 :]
-    save_data = (
-        save_data[:gun_promo_pos] + gun_promo_bytes + save_data[gun_promo_pos + 4 :]
-    )
-    save_data = (
-        save_data[: gun_promo_pos + promo_levels_offset]
-        + gun_promo_level_bytes
-        + save_data[gun_promo_pos + promo_levels_offset + 4 :]
-    )
+    
+    lst = [
+        (en_marker, new_values.dwarf_xp[Dwarf.ENGINEER], new_values.dwarf_promo[Dwarf.ENGINEER]), 
+        (sc_marker, new_values.dwarf_xp[Dwarf.SCOUT], new_values.dwarf_promo[Dwarf.SCOUT]), 
+        (dr_marker, new_values.dwarf_xp[Dwarf.DRILLER], new_values.dwarf_promo[Dwarf.DRILLER]), 
+        (gu_marker, new_values.dwarf_xp[Dwarf.GUNNER], new_values.dwarf_promo[Dwarf.GUNNER]),
+    ]
+    for marker, dwarf_promo, dwarf_xp in lst:
+        save_data = write_dwarf_xp(save_data, marker, dwarf_promo, dwarf_xp)
     
     return save_data
 
