@@ -14,8 +14,6 @@ def make_save_file(file_path, new_values: Stats) -> bytes:
         save_data: bytes = f.read()
 
     # write resources
-    # resource_bytes = list()
-    # res_guids = deepcopy(resource_guids)
     resources = new_values.resources
 
     res_marker = b"OwnedResources"
@@ -29,11 +27,6 @@ def make_save_file(file_path, new_values: Stats) -> bytes:
             res_bytes = (
                 res_bytes[: pos + 16] + struct.pack("f", v) + res_bytes[pos + 20 :]
             )
-            # print(
-            #     f'res: {k}, pos: {pos}, guid: {res_guids[k]}, val: {v}, v bytes: {struct.pack("f", v)}'
-            # )
-
-    # print(res_bytes.hex().upper())
 
     save_data = save_data[:res_pos] + res_bytes + save_data[res_pos + res_length :]
 
@@ -60,8 +53,8 @@ def make_save_file(file_path, new_values: Stats) -> bytes:
             )
             save_data = (
                 save_data[:perks_pos] + perks_entry + save_data[perks_pos:]
-            )  # inserting data, not overwriting
-    # print(f'2. {len(save_data)}')
+            )
+
     # write XP
     en_marker = b"\x85\xEF\x62\x6C\x65\xF1\x02\x4A\x8D\xFE\xB5\xD0\xF3\x90\x9D\x2E\x03\x00\x00\x00\x58\x50"
     sc_marker = b"\x30\xD8\xEA\x17\xD8\xFB\xBA\x4C\x95\x30\x6D\xE9\x65\x5C\x2F\x8C\x03\x00\x00\x00\x58\x50"
@@ -150,7 +143,7 @@ def make_save_file(file_path, new_values: Stats) -> bytes:
         + gun_promo_level_bytes
         + save_data[gun_promo_pos + promo_levels_offset + 4 :]
     )
-    # print(f'3. {len(save_data)}')
+
     # write overclocks
     search_term = b"ForgedSchematics"  # \x00\x0F\x00\x00\x00Struct'
     search_end = b"SkinFixupCounter"
@@ -158,15 +151,7 @@ def make_save_file(file_path, new_values: Stats) -> bytes:
     end_pos: int = (
         save_data.find(search_end) - 4
     )  # means I don't have to hardcode the boundary bytes
-    # print(f'pos: {pos}, end_pos: {end_pos}')
 
-    # this is currently broken, don't care enough to put more effort into fixing it.
-    # the problem seems to be related to the \x5D in the middle of the first hex string,
-    # this changes to \x6D when going from 1->2 overclocks. Similarly, the \x10 in the
-    # middle of the second hex string (\x74\x79\x00\x10 <- this one) changes to \x20
-    # when going from 1->2 overclocks. My testing involved one weapon OC and one cosmetic OC.
-    # If someone can provide a save file with more than 2 overclocks waiting to be forged,
-    # that might help figure it out, but I'm currently stumped.
     if pos > 0:
         num_forged = struct.unpack("i", save_data[pos + 63 : pos + 67])[0]
         # TODO - After implementing OCS into the State Manager
@@ -229,7 +214,6 @@ def make_save_file(file_path, new_values: Stats) -> bytes:
 
         season_xp_offset = 169
         season_xp_pos: int = season_marker_pos + season_xp_offset
-        # scrip_marker = b"Tokens"
         scrip_offset = 209
         scrip_pos: int = season_marker_pos + scrip_offset
 
@@ -263,5 +247,3 @@ def make_save_file(file_path, new_values: Stats) -> bytes:
             )
 
     return save_data
-    # with open(f"{file_name}", "wb") as t:
-    #     t.write(save_data)
