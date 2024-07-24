@@ -861,6 +861,7 @@ def init_values(save_data):
     widget.scrip_text.setText("")
 
     # populate the dropdown for season numbers
+    widget.season_box.clear()
     for season_num in Stats.season_data.keys():
         widget.season_box.addItem(str(season_num))
     widget.season_box.setCurrentIndex(len(Stats.season_data) - 1)
