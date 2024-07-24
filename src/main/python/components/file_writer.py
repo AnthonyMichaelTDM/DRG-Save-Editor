@@ -9,7 +9,7 @@ from .Enums import Dwarf
 from .StateManager import Stats
 
 
-def make_save_file(file_path, new_values: Stats, unforged_ocs) -> bytes:
+def make_save_file(file_path: str, new_values: Stats, unforged_ocs: dict) -> bytes:
     with open(file_path, "rb") as f:
         save_data: bytes = f.read()
 
@@ -46,7 +46,7 @@ def write_weapon_maintenance_data(new_values: Stats, save_data: bytes):
     return save_data
 
 
-def find_season_data_position(season_guid, save_data):
+def find_season_data_position(season_guid: str, save_data: bytes):
     season_marker: bytes = bytes.fromhex(season_guid)
     season_marker_pos: int = save_data.find(season_marker)
     return season_marker_pos
@@ -81,7 +81,7 @@ def write_season_data(new_values: Stats, save_data: bytes):
     return save_data
 
 
-def find_overclocks_data_position(save_data):
+def find_overclocks_data_position(save_data: bytes):
     search_term = b"ForgedSchematics"  # \x00\x0F\x00\x00\x00Struct'
     search_end = b"SkinFixupCounter"
     pos = save_data.find(search_term)
@@ -92,7 +92,7 @@ def find_overclocks_data_position(save_data):
     return pos, end_pos
 
 
-def write_overclocks(unforged_ocs, save_data):
+def write_overclocks(unforged_ocs: dict, save_data: bytes):
     pos, end_pos = find_overclocks_data_position(save_data)
 
     if pos <= 0:
@@ -117,7 +117,7 @@ def write_overclocks(unforged_ocs, save_data):
         
     return save_data
 
-def calculate_overclocks_data(unforged_ocs, num_forged):
+def calculate_overclocks_data(unforged_ocs: dict, num_forged: int):
     schematic_save_size = b""
     if len(unforged_ocs) > 0:
         ocs: bytes = (
@@ -149,7 +149,7 @@ def calculate_overclocks_data(unforged_ocs, num_forged):
     return schematic_save_size,ocs
 
 
-def find_schematic_data_position(save_data):
+def find_schematic_data_position(save_data: bytes):
     schematic_save_marker = b"SchematicSave"
     schematic_save_offset = 33
     schematic_save_pos = (
