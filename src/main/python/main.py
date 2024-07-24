@@ -440,26 +440,6 @@ def update_season_data() -> None:
     reset_season_data()
 
 
-def get_season_data(save_bytes: bytes, season_guid: str) -> dict[str, int]:
-    # scrip_marker = bytes.fromhex("546F6B656E73")
-    season_marker: bytes = bytes.fromhex(season_guid)
-    season_marker_pos: int = save_bytes.find(season_marker)
-    # season data does not exist
-    if season_marker_pos == -1:
-        raise ValueError("Season missing")
-
-    season_xp_offset = 169
-    scrip_offset = 209
-
-    season_xp_pos = save_bytes.find(season_marker) + season_xp_offset
-    scrip_pos = save_bytes.find(season_marker) + scrip_offset
-
-    season_xp = struct.unpack("i", save_bytes[season_xp_pos : season_xp_pos + 4])[0]
-    scrip = struct.unpack("i", save_bytes[scrip_pos : scrip_pos + 4])[0]
-
-    return {"xp": season_xp, "scrip": scrip}
-
-
 def xp_total_to_level(xp: int) -> tuple[int, int]:
     for i in XP_TABLE:
         if xp < i:
@@ -467,18 +447,6 @@ def xp_total_to_level(xp: int) -> tuple[int, int]:
             remainder: int = xp - XP_TABLE[level - 1]
             return (level, remainder)
     return (25, 0)
-
-
-def get_perk_points(save_bytes: bytes):
-    marker = b"PerkPoints"
-    offset = 36
-    if save_bytes.find(marker) == -1:
-        perk_points = 0
-    else:
-        pos = save_bytes.find(marker) + offset
-        perk_points = struct.unpack("i", save_bytes[pos : pos + 4])[0]
-
-    return perk_points
 
 
 def build_oc_dict(guid_dict: dict[str, Any]) -> dict[str, Any]:
