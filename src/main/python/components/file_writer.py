@@ -46,18 +46,21 @@ def write_weapon_maintenance_data(new_values, save_data):
 
 
 def write_season_data(new_values, save_data):
+    # todo: have this only declared once between here and initial file parsing
+    SEASON_XP_OFFSET = 169
+    SCRIP_OFFSET = 209
+
     for season_num, season_guid in SEASON_GUIDS.items():
         season_marker: bytes = bytes.fromhex(season_guid)
         season_marker_pos: int = save_data.find(season_marker)
+
         # season data does not exist
         if season_marker_pos == -1:
             print(f"Season {season_num} missing")
             continue
 
-        season_xp_offset = 169
-        season_xp_pos: int = season_marker_pos + season_xp_offset
-        scrip_offset = 209
-        scrip_pos: int = season_marker_pos + scrip_offset
+        season_xp_pos: int = season_marker_pos + SEASON_XP_OFFSET
+        scrip_pos: int = season_marker_pos + SCRIP_OFFSET
 
         save_data = (
             save_data[:season_xp_pos]
