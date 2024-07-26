@@ -1,8 +1,6 @@
 import json
 import os
-import struct
 import sys
-from copy import deepcopy
 from re import Match
 from sys import platform
 from typing import Any, List
@@ -206,13 +204,13 @@ def update_rank() -> None:
         )
         rank: int = total_levels // 3  # integer division
         rem: int = total_levels % 3
-    except:
+    except ValueError:
         rank = 1
         rem = 0
 
     try:
         title: str = RANK_TITLES[rank]
-    except:
+    except IndexError:
         title = "Lord of the Deep"
 
     widget.classes_group.setTitle(f"Classes - Rank {rank + 1} {rem}/3, {title}")
@@ -413,7 +411,7 @@ def populate_unforged_list(list_widget: QListWidget, unforged: List[Overclock]) 
         oc = QListWidgetItem(None)
         try:
             oc.setText(f"{oc_item.weapon}: {oc_item.name} ({oc_item.guid})")
-        except:
+        except Exception:
             oc.setText(f"Cosmetic: {oc_item.guid}")
         list_widget.addItem(oc)
 
@@ -658,7 +656,7 @@ def add_crafting_mats() -> None:
         try:
             for i in oc.cost.keys():
                 cost[i] += oc.cost[i]  # type: ignore
-        except:
+        except IndexError:
             print("Cosmetic")
     print(cost)
     add_resources(cost)
@@ -670,73 +668,73 @@ def add_resources(res_dict) -> None:
         widget.bismor_text.setText(
             str(int(widget.bismor_text.text()) + res_dict["bismor"])
         )
-    except:
+    except IndexError:
         pass
     try:
         widget.croppa_text.setText(
             str(int(widget.croppa_text.text()) + res_dict["croppa"])
         )
-    except:
+    except IndexError:
         pass
     try:
         widget.enor_text.setText(str(int(widget.enor_text.text()) + res_dict["enor"]))
-    except:
+    except IndexError:
         pass
     try:
         widget.jadiz_text.setText(
             str(int(widget.jadiz_text.text()) + res_dict["jadiz"])
         )
-    except:
+    except IndexError:
         pass
     try:
         widget.magnite_text.setText(
             str(int(widget.magnite_text.text()) + res_dict["magnite"])
         )
-    except:
+    except IndexError:
         pass
     try:
         widget.umanite_text.setText(
             str(int(widget.umanite_text.text()) + res_dict["umanite"])
         )
-    except:
+    except IndexError:
         pass
     try:
         widget.barley_text.setText(
             str(int(widget.barley_text.text()) + res_dict["barley"])
         )
-    except:
+    except IndexError:
         pass
     try:
         widget.yeast_text.setText(
             str(int(widget.yeast_text.text()) + res_dict["yeast"])
         )
-    except:
+    except IndexError:
         pass
     try:
         widget.malt_text.setText(str(int(widget.malt_text.text()) + res_dict["malt"]))
-    except:
+    except IndexError:
         pass
     try:
         widget.starch_text.setText(
             str(int(widget.starch_text.text()) + res_dict["starch"])
         )
-    except:
+    except IndexError:
         pass
     try:
         widget.error_text.setText(
             str(int(widget.error_text.text()) + res_dict["error"])
         )
-    except:
+    except IndexError:
         pass
     try:
         widget.core_text.setText(str(int(widget.core_text.text()) + res_dict["cores"]))
-    except:
+    except IndexError:
         pass
     try:
         widget.credits_text.setText(
             str(int(widget.credits_text.text()) + res_dict["credits"])
         )
-    except:
+    except IndexError:
         pass
 
 
@@ -906,7 +904,7 @@ if __name__ == "__main__":
             steam_path += "/steamapps/common/Deep Rock Galactic/FSD/Saved/SaveGames"
         else:
             steam_path = "."
-    except:
+    except FileNotFoundError:
         steam_path = "."
 
     # load the UI
