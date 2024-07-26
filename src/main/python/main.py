@@ -465,7 +465,7 @@ def build_oc_tree(tree: QTreeWidgetItem, source_dict: dict[str, Any]) -> None:
             for name, uuid in oc_names.items():
                 oc_entry = QTreeWidgetItem(weapon_entry)
                 oc_entry.setText(0, name)
-                oc_entry.setText(1, asdict(Stats.guid_dict)[uuid]["status"])
+                oc_entry.setText(1, asdict(Stats.guid_dict[uuid])["status"])
                 oc_entry.setText(2, uuid)
 
 
@@ -643,7 +643,7 @@ def reset_season_data():
 
 @Slot()  # type: ignore
 def add_crafting_mats() -> None:
-    cost: Cost = {
+    cost: dict[str, int] = {
         "bismor": 0,
         "croppa": 0,
         "jadiz": 0,
