@@ -652,8 +652,8 @@ def add_crafting_mats() -> None:
     unforged_ocs = [oc for oc in Stats.overclocks if oc.status == "UNFORGED"]
     for oc in unforged_ocs:
         try:
-            for i in oc["cost"].keys():
-                cost[i] += oc["cost"][i]
+            for i in oc.cost.keys():
+                cost[i] += oc.cost[i]
         except:
             print("Cosmetic")
     print(cost)
