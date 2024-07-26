@@ -4,7 +4,7 @@
 
 import re
 
-from components import Resource
+from helpers.enums import Resource
 
 
 # xp_table[i] = XP needed for level i+1

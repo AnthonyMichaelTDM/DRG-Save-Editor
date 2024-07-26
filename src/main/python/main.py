@@ -5,9 +5,14 @@ import sys
 from copy import deepcopy
 from re import Match
 from sys import platform
-from typing import Any
+from typing import Any, List
 
-from components import Stats, Dwarf, Resource
+from core.file_writer import make_save_file
+from core.state_manager import Stats
+
+from helpers.enums import Dwarf, Resource
+from helpers.overclock import Overclock
+
 from definitions import (
     GUID_RE,
     LATEST_SEASON,
@@ -18,7 +23,6 @@ from definitions import (
     XP_PER_WEAPON_LEVEL,
     XP_TABLE,
 )
-from components.file_writer import make_save_file
 
 from PySide6.QtCore import QCoreApplication, QFile, QIODevice, Qt, Slot
 from PySide6.QtGui import QAction, QFocusEvent
@@ -384,13 +388,8 @@ def open_file() -> None:
     reset_values()
     update_rank()
 
-    global forged_ocs
-    global unacquired_ocs
-    global unforged_ocs
-
     # print('before ocs')
     # parse save file and categorize weapon overclocks
-    forged_ocs, unacquired_ocs, unforged_ocs = get_overclocks(save_data, guid_dict)
     # print('after ocs')
 
     # clear and initialize overclock tree view
@@ -401,18 +400,19 @@ def open_file() -> None:
 
     # populate list of unforged ocs
     unforged_list = widget.unforged_list
+    unforged_ocs = [oc for oc in Stats.overclocks if oc.status == "UNFORGED"]
     populate_unforged_list(unforged_list, unforged_ocs)
 
 
-def populate_unforged_list(list_widget: QListWidget, unforged: dict) -> None:
+def populate_unforged_list(list_widget: QListWidget, unforged: List[Overclock]) -> None:
     # populates the list on acquired but unforged overclocks (includes cosmetics)
     list_widget.clear()
-    for k, v in unforged.items():
+    for oc_item in unforged:
         oc = QListWidgetItem(None)
-        try:  # cosmetic overclocks don't have these values
-            oc.setText(f'{v["weapon"]}: {v["name"]} ({k})')
+        try:
+            oc.setText(f"{oc_item.weapon}: {oc_item.name} ({oc_item.guid})")
         except:
-            oc.setText(f"Cosmetic: {k}")
+            oc.setText(f"Cosmetic: {oc_item.guid}")
         list_widget.addItem(oc)
 
 
@@ -449,32 +449,8 @@ def xp_total_to_level(xp: int) -> tuple[int, int]:
     return (25, 0)
 
 
-def build_oc_dict(guid_dict: dict[str, Any]) -> dict[str, Any]:
-    overclocks: dict[str, Any] = dict()
-
-    for v in guid_dict.values():
-        try:
-            overclocks.update({v["class"]: dict()})
-        except:
-            pass
-
-    for v in guid_dict.values():
-        try:
-            overclocks[v["class"]].update({v["weapon"]: dict()})
-        except:
-            pass
-
-    for k, v in guid_dict.items():
-        try:
-            overclocks[v["class"]][v["weapon"]].update({v["name"]: k})
-        except:
-            pass
-
-    return overclocks
-
-
 def build_oc_tree(tree: QTreeWidgetItem, source_dict: dict[str, Any]) -> None:
-    oc_dict = build_oc_dict(source_dict)
+    oc_dict = Stats.build_oc_dict()
     # entry = QTreeWidgetItem(None)
     for char, weapons in oc_dict.items():
         # dwarves[dwarf] = QTreeWidgetItem(tree)
@@ -486,92 +462,8 @@ def build_oc_tree(tree: QTreeWidgetItem, source_dict: dict[str, Any]) -> None:
             for name, uuid in oc_names.items():
                 oc_entry = QTreeWidgetItem(weapon_entry)
                 oc_entry.setText(0, name)
-                oc_entry.setText(1, source_dict[uuid]["status"])
+                oc_entry.setText(1, Stats.guid_dict[uuid]["status"])
                 oc_entry.setText(2, uuid)
-
-
-def get_overclocks(
-    save_bytes: bytes, guid_source: dict[str, Any]
-) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
-    search_term = b"ForgedSchematics"
-    search_end = b"SkinFixupCounter"
-    pos = save_bytes.find(search_term)
-    end_pos = save_bytes.find(search_end)
-    if end_pos == -1:
-        search_end = b"bFirstSchematicMessageShown"
-        end_pos = save_bytes.find(search_end)
-
-    for i in guid_source.values():
-        i["status"] = "Unacquired"
-
-    guids = deepcopy(guid_source)
-    if pos > 0:
-        oc_data = save_bytes[pos:end_pos]
-        oc_list_offset = 141
-
-        # print(f'pos: {pos}, end_pos: {end_pos}')
-        # print(f'owned_pos: {owned}, diff: {owned-pos}')
-        # has_unforged = True if oc_data.find(b'Owned') else False
-        has_unforged = oc_data.find(b"Owned") > 0
-        # print(has_unforged) # bool
-        num_forged = struct.unpack("i", save_bytes[pos + 63 : pos + 67])[0]
-        forged = dict()
-        # print(num_forged)
-
-        for i in range(num_forged):
-            uuid = (
-                save_bytes[
-                    pos
-                    + oc_list_offset
-                    + (i * 16) : pos
-                    + oc_list_offset
-                    + (i * 16)
-                    + 16
-                ]
-                .hex()
-                .upper()
-            )
-            try:
-                a = guids[uuid]
-                guid_source[uuid]["status"] = "Forged"
-                a["status"] = "Forged"
-                del guids[uuid]
-                forged.update({uuid: a})
-
-                # print('success')
-            except:
-                # print(f'Error: {e}')
-                pass
-
-        # print('after forged extraction')
-        if has_unforged:
-            unforged = dict()
-            # print('in unforged loop')
-            num_pos = save_bytes.find(b"Owned", pos) + 62
-            num_unforged = struct.unpack("i", save_bytes[num_pos : num_pos + 4])[0]
-            unforged_pos = num_pos + 77
-            for i in range(num_unforged):
-                uuid = (
-                    save_bytes[unforged_pos + (i * 16) : unforged_pos + (i * 16) + 16]
-                    .hex()
-                    .upper()
-                )
-                try:
-                    unforged.update({uuid: guids[uuid]})
-                    guid_source[uuid]["status"] = "Unforged"
-                    unforged[uuid]["status"] = "Unforged"
-                except KeyError:
-                    unforged.update({uuid: "Cosmetic"})
-        else:
-            unforged = dict()
-    else:
-        forged = dict()
-        unforged = dict()
-
-    # print('after unforged extraction')
-    # print(f'unforged: {unforged}')
-    # forged OCs, unacquired OCs, unforged OCs
-    return (forged, guids, unforged)
 
 
 @Slot()  # type: ignore
@@ -669,9 +561,6 @@ def max_all_available_weapon_maintenance() -> None:
 @Slot()  # type: ignore
 def reset_values() -> None:
     global save_data
-    global unforged_ocs
-    global unacquired_ocs
-    global forged_ocs
     Stats.get_initial_stats(save_data)
 
     # Sets all minerals to the values in Stats
@@ -733,8 +622,8 @@ def reset_values() -> None:
         s_promo if s_promo < MAX_BADGES else MAX_BADGES
     )
 
-    forged_ocs, unacquired_ocs, unforged_ocs = get_overclocks(save_data, guid_dict)
     unforged_list = widget.unforged_list
+    unforged_ocs = [oc for oc in Stats.overclocks if oc.status == "UNFORGED"]
     populate_unforged_list(unforged_list, unforged_ocs)
 
     filter_overclocks()
@@ -760,11 +649,11 @@ def add_crafting_mats() -> None:
         "umanite": 0,
         "credits": 0,
     }
-    for k, v in unforged_ocs.items():
-        print(k, v)
+    unforged_ocs = [oc for oc in Stats.overclocks if oc.status == "UNFORGED"]
+    for oc in unforged_ocs:
         try:
-            for i in v["cost"].keys():
-                cost[i] += v["cost"][i]
+            for i in oc["cost"].keys():
+                cost[i] += oc["cost"][i]
         except:
             print("Cosmetic")
     print(cost)
@@ -1001,7 +890,8 @@ if __name__ == "__main__":
 
     # load reference data
     with open(guids_file, "r", encoding="utf-8") as g:
-        guid_dict: dict[str, Any] = json.loads(g.read())
+        Stats.guid_dict = json.loads(g.read())
+        guid_dict: dict[str, Any] = Stats.guid_dict
 
     try:
         # find the install path for the steam version

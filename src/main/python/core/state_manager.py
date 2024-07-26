@@ -3,7 +3,9 @@ import struct
 from typing import Literal
 
 from definitions import RESOURCE_GUIDS, SEASON_GUIDS
-from .Enums import Dwarf, Resource
+from helpers.enums import Dwarf, Resource
+from helpers.overclock import Overclock
+from helpers.datatypes import Item
 
 
 class Stats:
@@ -14,6 +16,8 @@ class Stats:
     credits: int
     perk_points: int
     weapons: dict[int, list[int | bool]] = dict()
+    guid_dict: dict[str, Item] = dict()
+    overclocks: list[Overclock] = list()
 
     def __init__(self) -> None:
         pass
@@ -72,9 +76,7 @@ class Stats:
         num_promo_offset = 108
         num_promo: int = struct.unpack(
             "i",
-            save_bytes[
-                xp_pos + num_promo_offset : xp_pos + num_promo_offset + 4
-            ],
+            save_bytes[xp_pos + num_promo_offset : xp_pos + num_promo_offset + 4],
         )[0]
 
         return xp, num_promo
@@ -168,3 +170,129 @@ class Stats:
         Stats.get_misc(save_bytes)
         Stats.get_seasons(save_bytes)
         Stats.get_weapons(save_bytes)
+
+    @staticmethod
+    def get_overclocks(save_data: bytes) -> None:
+        search_term = b"ForgedSchematics"
+        search_end = b"SkinFixupCounter"
+        start = save_data.find(search_term)
+        end = save_data.find(search_end)
+        if end == -1:
+            search_end = b"bFirstSchematicMessageShown"
+            end = save_data.find(search_end)
+
+        for i in Stats.guid_dict.values():
+            i["status"] = "UNACQUIRED"
+
+            if start > 0:
+                oc_data = save_data[start:end]
+                oc_list_offset = 141
+
+                # print(f'pos: {pos}, end_pos: {end_pos}')
+                # print(f'owned_pos: {owned}, diff: {owned-pos}')
+                # has_unforged = True if oc_data.find(b'Owned') else False
+                has_unforged: bool = oc_data.find(b"Owned") > 0
+                # print(has_unforged) # bool
+                num_forged: int = struct.unpack(
+                    "i", save_data[start + 63 : start + 67]
+                )[0]
+                # print(num_forged)
+
+                for j in range(num_forged):
+                    uuid = (
+                        save_data[
+                            start
+                            + oc_list_offset
+                            + (j * 16) : start
+                            + oc_list_offset
+                            + (j * 16)
+                            + 16
+                        ]
+                        .hex()
+                        .upper()
+                    )
+                    try:
+                        Stats.guid_dict[uuid]["status"] = "FORGED"
+                        Stats.overclocks.append(
+                            Overclock(
+                                dwarf=Stats.guid_dict[uuid]["dwarf"],
+                                weapon=Stats.guid_dict[uuid]["weapon"],
+                                name=Stats.guid_dict[uuid]["name"],
+                                guid=uuid,
+                                status=Stats.guid_dict[uuid]["status"],
+                                cost=Stats.guid_dict[uuid]["cost"],
+                            )
+                        )
+                    except:
+                        pass
+
+                # print('after forged extraction')
+                if has_unforged:
+                    num_pos = save_data.find(b"Owned", start) + 62
+                    num_unforged = struct.unpack("i", save_data[num_pos : num_pos + 4])[
+                        0
+                    ]
+                    unforged_pos = num_pos + 77
+                    for j in range(num_unforged):
+                        uuid = (
+                            save_data[
+                                unforged_pos + (j * 16) : unforged_pos + (j * 16) + 16
+                            ]
+                            .hex()
+                            .upper()
+                        )
+                        try:
+                            Stats.guid_dict[uuid]["status"] = "UNFORGED"
+                            Stats.overclocks.append(
+                                Overclock(
+                                    dwarf=Stats.guid_dict[uuid]["class"],
+                                    weapon=Stats.guid_dict[uuid]["weapon"],
+                                    name=Stats.guid_dict[uuid]["name"],
+                                    guid=uuid,
+                                    status=Stats.guid_dict[uuid]["status"],
+                                    cost=Stats.guid_dict[uuid]["cost"],
+                                )
+                            )
+                        except KeyError:
+                            Stats.guid_dict[uuid]["class"] = "Cosmetic"
+
+    @staticmethod
+    def build_oc_dict():
+        oc_dict = dict()
+        try:
+            for oc in Stats.overclocks:
+                oc_dict.update({oc.dwarf: dict()})
+        except:
+            pass
+
+        try:
+            for oc in Stats.overclocks:
+                oc_dict[oc.dwarf].update({oc.weapon: dict()})
+        except:
+            pass
+
+        try:
+            for oc in Stats.overclocks:
+                oc_dict[oc.dwarf][oc.weapon].update({oc.name: oc.guid})
+        except:
+            pass
+
+        return oc_dict
+
+    #     for v in Stats.guid_dict.values():
+    #         try:
+    #             overclocks.update({v["class"]: dict()})
+    #         except:
+    #             pass
+
+    #     for v in guid_dict.values():
+    #         try:
+    #             overclocks[v["class"]].update({v["weapon"]: dict()})
+    #         except:
+    #             pass
+
+    #     for k, v in guid_dict.items():
+    #         try:
+    #             overclocks[v["class"]][v["weapon"]].update({v["name"]: k})
+    #         except:
+    #             pass

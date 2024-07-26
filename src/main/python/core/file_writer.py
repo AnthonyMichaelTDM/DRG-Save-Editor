@@ -5,8 +5,8 @@ from definitions import (
     RESOURCE_GUIDS,
     SEASON_GUIDS,
 )
-from .Enums import Dwarf
-from .StateManager import Stats
+from helpers.enums import Dwarf
+from core.state_manager import Stats
 
 
 def make_save_file(file_path: str, new_values: Stats, unforged_ocs: dict) -> bytes:
@@ -87,9 +87,7 @@ def find_overclocks_data_position(save_data: bytes):
     search_term = b"ForgedSchematics"  # \x00\x0F\x00\x00\x00Struct'
     search_end = b"SkinFixupCounter"
     pos = save_data.find(search_term)
-    end_pos: int = (
-        save_data.find(search_end) - 4
-    )
+    end_pos: int = save_data.find(search_end) - 4
 
     return pos, end_pos
 
@@ -106,9 +104,7 @@ def write_overclocks(unforged_ocs: dict, save_data: bytes):
 
     schematic_save_size, ocs = calculate_overclocks_data(unforged_ocs, num_forged)
 
-    save_data = (
-        save_data[: pos + (num_forged * 16) + 141] + ocs + save_data[end_pos:]
-    )
+    save_data = save_data[: pos + (num_forged * 16) + 141] + ocs + save_data[end_pos:]
 
     schematic_save_pos, schematic_save_end_pos = find_schematic_data_position(save_data)
     save_data = (
@@ -155,14 +151,14 @@ def calculate_overclocks_data(unforged_ocs: dict, num_forged: int):
 def find_schematic_data_position(save_data: bytes):
     schematic_save_marker = b"SchematicSave"
     schematic_save_offset = 33
-    schematic_save_pos = (
-        save_data.find(schematic_save_marker) + schematic_save_offset
-    )
+    schematic_save_pos = save_data.find(schematic_save_marker) + schematic_save_offset
     schematic_save_end_pos = schematic_save_pos + 8
     return schematic_save_pos, schematic_save_end_pos
 
 
-def write_one_dwarf_xp(save_data: bytes, marker: bytes, dwarf_xp: int, dwarf_promo: int):
+def write_one_dwarf_xp(
+    save_data: bytes, marker: bytes, dwarf_xp: int, dwarf_promo: int
+):
     offset = 48
     xp_pos: int = save_data.find(marker) + offset
     xp_bytes: bytes = struct.pack("i", dwarf_xp)
@@ -172,14 +168,10 @@ def write_one_dwarf_xp(save_data: bytes, marker: bytes, dwarf_xp: int, dwarf_pro
     promo_bytes: bytes = struct.pack("i", dwarf_promo)
 
     levels_per_promo = 25
-    promo_level_bytes: bytes = struct.pack(
-        "i", dwarf_promo * levels_per_promo
-    )
+    promo_level_bytes: bytes = struct.pack("i", dwarf_promo * levels_per_promo)
 
     save_data = save_data[:xp_pos] + xp_bytes + save_data[xp_pos + 4 :]
-    save_data = (
-        save_data[:promo_pos] + promo_bytes + save_data[promo_pos + 4 :]
-    )
+    save_data = save_data[:promo_pos] + promo_bytes + save_data[promo_pos + 4 :]
 
     promo_levels_offset = 56
     save_data = (
@@ -227,9 +219,7 @@ def write_perk_points(new_values: Stats, save_data: bytes):
         perks_pos = save_data.find(
             b"\x11\x00\x00\x00\x55\x6E\x4C\x6F\x63\x6B\x65\x64\x4D\x69\x73\x73\x69\x6F\x6E\x73\x00\x0E"
         )
-        save_data = (
-            save_data[:perks_pos] + perks_entry + save_data[perks_pos:]
-        )
+        save_data = save_data[:perks_pos] + perks_entry + save_data[perks_pos:]
 
     return save_data
 
