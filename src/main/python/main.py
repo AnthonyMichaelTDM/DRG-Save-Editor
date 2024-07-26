@@ -395,7 +395,7 @@ def open_file() -> None:
     # clear and initialize overclock tree view
     widget.overclock_tree.clear()
     overclock_tree = widget.overclock_tree.invisibleRootItem()
-    build_oc_tree(overclock_tree, guid_dict)
+    build_oc_tree(overclock_tree)
     widget.overclock_tree.sortItems(0, Qt.SortOrder.AscendingOrder)
 
 
@@ -444,11 +444,9 @@ def xp_total_to_level(xp: int) -> tuple[int, int]:
     return (25, 0)
 
 
-def build_oc_tree(tree: QTreeWidgetItem, source_dict: dict[str, Any]) -> None:
+def build_oc_tree(tree: QTreeWidgetItem) -> None:
     oc_dict = Stats.build_oc_dict()
-    # entry = QTreeWidgetItem(None)
     for char, weapons in oc_dict.items():
-        # dwarves[dwarf] = QTreeWidgetItem(tree)
         char_entry = QTreeWidgetItem(tree)
         char_entry.setText(0, char)
         for weapon, oc_names in weapons.items():
@@ -464,20 +462,15 @@ def build_oc_tree(tree: QTreeWidgetItem, source_dict: dict[str, Any]) -> None:
 @Slot()  # type: ignore
 def filter_overclocks() -> None:
     item_filter = widget.combo_oc_filter.currentText()
-    # forged_ocs, unacquired_ocs, unforged_ocs = get_overclocks(save_data, guid_dict)
-    # print(item_filter)
     tree = widget.overclock_tree
     tree_root = tree.invisibleRootItem()
 
     for i in range(tree_root.childCount()):
-        # print(tree_root.child(i).text(0))
         dwarf = tree_root.child(i)
         for j in range(dwarf.childCount()):
             weapon = dwarf.child(j)
-            # print(f'\t{weapon.text(0)}')
             for k in range(weapon.childCount()):
                 oc = weapon.child(k)
-                # print(f'\t\t{oc.text(0)}')
                 if oc.text(1) == item_filter or item_filter == "All":
                     oc.setHidden(False)
                 else:
@@ -499,19 +492,16 @@ def filter_overclocks() -> None:
 
 @Slot()  # type: ignore
 def add_cores() -> None:
-    # print("add cores")
-    global unforged_ocs
-    global unacquired_ocs
     tree = widget.overclock_tree
     selected = tree.selectedItems()
     items_to_add = list()
     for i in selected:
-        if i.text(1) == "Unacquired" and i.text(2) in unacquired_ocs:
+        if i.text(1) == "Unacquired" and i.text(2) in Stats.unacquired_ocs:
             items_to_add.append(f"{i.parent().text(0)}: {i.text(0)} ({i.text(2)})")
-            guid_dict[i.text(2)]["status"] = "Unforged"
-            unforged_ocs.update({i.text(2): guid_dict[i.text(2)]})
-            del unacquired_ocs[i.text(2)]
-            guid_dict[i.text(2)]["status"] = "Unforged"
+            Stats.uid_dict[i.text(2)]["status"] = "Unforged"
+            Stats.unforged_ocs.update({i.text(2): Stats.guid_dict[i.text(2)]})
+            del Stats.unacquired_ocs[i.text(2)]
+            Stats.guid_dict[i.text(2)]["status"] = "Unforged"
 
     core_list = widget.unforged_list
     for item in items_to_add:
@@ -527,7 +517,7 @@ def save_changes() -> None:
     # TODO
     # changes["unforged"] = unforged_ocs
     # pp(changes)
-    save_file: bytes = make_save_file(file_name, changes, unforged_ocs)
+    save_file: bytes = make_save_file(file_name, changes, Stats.unforged_ocs)
     with open(file_name, "wb") as f:
         f.write(save_file)
 
@@ -618,7 +608,7 @@ def reset_values() -> None:
     )
 
     unforged_list = widget.unforged_list
-    unforged_ocs = [oc for oc in Stats.overclocks if oc.status == "UNFORGED"]
+    unforged_ocs = [oc for oc in Stats.overclocks if oc.status == "Unforged"]
     populate_unforged_list(unforged_list, unforged_ocs)
 
     filter_overclocks()
@@ -645,7 +635,7 @@ def add_crafting_mats() -> None:
         "credits": 0,
     }
     unforged_ocs: List[Overclock] = [
-        oc for oc in Stats.overclocks if oc.status == "UNFORGED"
+        oc for oc in Stats.overclocks if oc.status == "Unforged"
     ]
     for oc in unforged_ocs:
         try:
@@ -812,9 +802,6 @@ def get_values() -> Stats:
 
 @Slot()  # type: ignore
 def remove_selected_ocs() -> None:
-    global unforged_ocs
-    global unacquired_ocs
-    global file_name
     list_items = widget.unforged_list.selectedItems()
     items_to_remove = list()
     for i in list_items:
@@ -831,24 +818,18 @@ def remove_selected_ocs() -> None:
 
 
 def remove_ocs(oc_list: list[str]) -> None:
-    global unforged_ocs
-    global unacquired_ocs
-    global guid_dict
-
     for i in oc_list:
-        oc: dict[str, Any] = unforged_ocs[i]
+        oc: dict[str, Any] = Stats.unforged_ocs[i]
         oc["status"] = "Unacquired"
-        guid_dict[i]["status"] = "Unacquired"
-        unacquired_ocs.update({i: oc})
-        del unforged_ocs[i]
+        Stats.guid_dict[i]["status"] = "Unacquired"
+        Stats.unacquired_ocs.update({i: oc})
+        del Stats.unforged_ocs[i]
 
     filter_overclocks()
 
 
 @Slot()  # type: ignore
 def remove_all_ocs() -> None:
-    global unforged_ocs
-    # unforged_ocs = dict()
     items_to_remove = list()
     unforged_list = widget.unforged_list
     for i in range(unforged_list.count()):
@@ -865,13 +846,13 @@ def remove_all_ocs() -> None:
 
 
 # global variable definitions
-forged_ocs: dict[str, Any] = dict()
-unforged_ocs: dict[str, Any] = dict()
-unacquired_ocs: dict[str, Any] = dict()
+# forged_ocs: dict[str, Any] = dict()
+# unforged_ocs: dict[str, Any] = dict()
+# unacquired_ocs: dict[str, Any] = dict()
 stats: dict[str, Any] = dict()
 weapon_stats: dict[int, list[int, int, bool]] | None = None  # type: ignore
 file_name: str = ""
-save_data: bytes = b""
+# save_data: bytes = b""
 season_selected: int = LATEST_SEASON
 
 if __name__ == "__main__":

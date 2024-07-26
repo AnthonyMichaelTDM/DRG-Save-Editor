@@ -2,5 +2,5 @@ from typing import Literal
 
 
 class Overclock:
-    state: Literal["UNFORGED", "FORGED", "AQUIRED"]
+    state: Literal["Unforged", "Forged", "Unacquired"]
     guid: str

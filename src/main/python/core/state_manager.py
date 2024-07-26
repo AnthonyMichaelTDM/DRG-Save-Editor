@@ -185,7 +185,7 @@ class Stats:
             end = save_data.find(search_end)
 
         for i in Stats.guid_dict.values():
-            i["status"] = "UNACQUIRED"
+            i["status"] = "Unacquired"
 
         oc_data = save_data[start:end]
         oc_list_offset = 141
@@ -208,7 +208,7 @@ class Stats:
                 .upper()
             )
             try:
-                Stats.guid_dict[uuid]["status"] = "FORGED"
+                Stats.guid_dict[uuid]["status"] = "Forged"
                 Stats.overclocks.append(
                     Overclock(
                         dwarf=Stats.guid_dict[uuid]["dwarf"],
@@ -240,7 +240,7 @@ class Stats:
                 .upper()
             )
             try:
-                Stats.guid_dict[uuid]["status"] = "UNFORGED"
+                Stats.guid_dict[uuid]["status"] = "Unforged"
                 Stats.overclocks.append(
                     Overclock(
                         dwarf=Stats.guid_dict[uuid]["dwarf"],
@@ -252,13 +252,15 @@ class Stats:
                     )
                 )
             except KeyError:
+                # does not exist in known guids
+                Stats.guid_dict[uuid] = {"status": "Unforged"}
                 Stats.overclocks.append(
                     Overclock(
                         dwarf=None,
                         weapon="Cosmetic",
                         name="",
                         guid=uuid,
-                        status="UNFORGED",
+                        status="Unforged",
                         cost=None,
                     )
                 )
@@ -266,40 +268,15 @@ class Stats:
     @staticmethod
     def build_oc_dict():
         oc_dict = dict()
-        try:
-            for oc in Stats.overclocks:
-                oc_dict.update({oc.dwarf: dict()})
-        except:
-            pass
+        ocs = [oc for oc in Stats.overclocks if oc.weapon != "Cosmetic"]
 
-        try:
-            for oc in Stats.overclocks:
-                oc_dict[oc.dwarf].update({oc.weapon: dict()})
-        except:
-            pass
+        for oc in ocs:
+            oc_dict.update({oc.dwarf: dict()})
 
-        try:
-            for oc in Stats.overclocks:
-                oc_dict[oc.dwarf][oc.weapon].update({oc.name: oc.guid})
-        except:
-            pass
+        for oc in ocs:
+            oc_dict[oc.dwarf].update({oc.weapon: dict()})
+
+        for oc in ocs:
+            oc_dict[oc.dwarf][oc.weapon].update({oc.name: oc.guid})
 
         return oc_dict
-
-    #     for v in Stats.guid_dict.values():
-    #         try:
-    #             overclocks.update({v["class"]: dict()})
-    #         except:
-    #             pass
-
-    #     for v in guid_dict.values():
-    #         try:
-    #             overclocks[v["class"]].update({v["weapon"]: dict()})
-    #         except:
-    #             pass
-
-    #     for k, v in guid_dict.items():
-    #         try:
-    #             overclocks[v["class"]][v["weapon"]].update({v["name"]: k})
-    #         except:
-    #             pass
