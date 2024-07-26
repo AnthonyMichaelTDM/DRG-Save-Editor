@@ -152,7 +152,7 @@ def update_xp(dwarf, total_xp=0) -> None:
         level_box = widget.scout_lvl_text
         remainder_box = widget.scout_xp_2
     else:
-        print("no valid dward specified")
+        print("no valid dwarf specified")
         bad_dwarf = True
 
     if not bad_dwarf:  # update xp totals
