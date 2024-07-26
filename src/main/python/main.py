@@ -398,11 +398,6 @@ def open_file() -> None:
     build_oc_tree(overclock_tree, guid_dict)
     widget.overclock_tree.sortItems(0, Qt.SortOrder.AscendingOrder)
 
-    # populate list of unforged ocs
-    unforged_list = widget.unforged_list
-    unforged_ocs = [oc for oc in Stats.overclocks if oc.status == "UNFORGED"]
-    populate_unforged_list(unforged_list, unforged_ocs)
-
 
 def populate_unforged_list(list_widget: QListWidget, unforged: List[Overclock]) -> None:
     # populates the list on acquired but unforged overclocks (includes cosmetics)

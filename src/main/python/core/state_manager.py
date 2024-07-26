@@ -174,8 +174,11 @@ class Stats:
     @staticmethod
     def get_overclocks(save_data: bytes) -> None:
         search_term = b"ForgedSchematics"
-        search_end = b"SkinFixupCounter"
         start = save_data.find(search_term)
+        if start == -1:
+            return
+            
+        search_end = b"SkinFixupCounter"
         end = save_data.find(search_end)
         if end == -1:
             search_end = b"bFirstSchematicMessageShown"
@@ -184,77 +187,81 @@ class Stats:
         for i in Stats.guid_dict.values():
             i["status"] = "UNACQUIRED"
 
-            if start > 0:
-                oc_data = save_data[start:end]
-                oc_list_offset = 141
+        oc_data = save_data[start:end]
+        oc_list_offset = 141
 
-                # print(f'pos: {pos}, end_pos: {end_pos}')
-                # print(f'owned_pos: {owned}, diff: {owned-pos}')
-                # has_unforged = True if oc_data.find(b'Owned') else False
-                has_unforged: bool = oc_data.find(b"Owned") > 0
-                # print(has_unforged) # bool
-                num_forged: int = struct.unpack(
-                    "i", save_data[start + 63 : start + 67]
-                )[0]
-                # print(num_forged)
+        num_forged: int = struct.unpack(
+            "i", save_data[start + 63 : start + 67]
+        )[0]
 
-                for j in range(num_forged):
-                    uuid = (
-                        save_data[
-                            start
-                            + oc_list_offset
-                            + (j * 16) : start
-                            + oc_list_offset
-                            + (j * 16)
-                            + 16
-                        ]
-                        .hex()
-                        .upper()
+        for j in range(num_forged):
+            uuid = (
+                save_data[
+                    start
+                    + oc_list_offset
+                    + (j * 16) : start
+                    + oc_list_offset
+                    + (j * 16)
+                    + 16
+                ]
+                .hex()
+                .upper()
+            )
+            try:
+                Stats.guid_dict[uuid]["status"] = "FORGED"
+                Stats.overclocks.append(
+                    Overclock(
+                        dwarf=Stats.guid_dict[uuid]["dwarf"],
+                        weapon=Stats.guid_dict[uuid]["weapon"],
+                        name=Stats.guid_dict[uuid]["name"],
+                        guid=uuid,
+                        status=Stats.guid_dict[uuid]["status"],
+                        cost=Stats.guid_dict[uuid]["cost"],
                     )
-                    try:
-                        Stats.guid_dict[uuid]["status"] = "FORGED"
-                        Stats.overclocks.append(
-                            Overclock(
-                                dwarf=Stats.guid_dict[uuid]["dwarf"],
-                                weapon=Stats.guid_dict[uuid]["weapon"],
-                                name=Stats.guid_dict[uuid]["name"],
-                                guid=uuid,
-                                status=Stats.guid_dict[uuid]["status"],
-                                cost=Stats.guid_dict[uuid]["cost"],
-                            )
-                        )
-                    except:
-                        pass
+                )
+            except KeyError:
+                pass
 
-                # print('after forged extraction')
-                if has_unforged:
-                    num_pos = save_data.find(b"Owned", start) + 62
-                    num_unforged = struct.unpack("i", save_data[num_pos : num_pos + 4])[
-                        0
-                    ]
-                    unforged_pos = num_pos + 77
-                    for j in range(num_unforged):
-                        uuid = (
-                            save_data[
-                                unforged_pos + (j * 16) : unforged_pos + (j * 16) + 16
-                            ]
-                            .hex()
-                            .upper()
-                        )
-                        try:
-                            Stats.guid_dict[uuid]["status"] = "UNFORGED"
-                            Stats.overclocks.append(
-                                Overclock(
-                                    dwarf=Stats.guid_dict[uuid]["dwarf"],
-                                    weapon=Stats.guid_dict[uuid]["weapon"],
-                                    name=Stats.guid_dict[uuid]["name"],
-                                    guid=uuid,
-                                    status=Stats.guid_dict[uuid]["status"],
-                                    cost=Stats.guid_dict[uuid]["cost"],
-                                )
-                            )
-                        except KeyError:
-                            Stats.guid_dict[uuid]["dwarf"] = "Cosmetic"
+        has_unforged: bool = oc_data.find(b"Owned") > 0
+        if not has_unforged:
+            return
+        
+        num_pos = save_data.find(b"Owned", start) + 62
+        num_unforged = struct.unpack("i", save_data[num_pos : num_pos + 4])[
+            0
+        ]
+        unforged_pos = num_pos + 77
+        for j in range(num_unforged):
+            uuid = (
+                save_data[
+                    unforged_pos + (j * 16) : unforged_pos + (j * 16) + 16
+                ]
+                .hex()
+                .upper()
+            )
+            try:
+                Stats.guid_dict[uuid]["status"] = "UNFORGED"
+                Stats.overclocks.append(
+                    Overclock(
+                        dwarf=Stats.guid_dict[uuid]["dwarf"],
+                        weapon=Stats.guid_dict[uuid]["weapon"],
+                        name=Stats.guid_dict[uuid]["name"],
+                        guid=uuid,
+                        status=Stats.guid_dict[uuid]["status"],
+                        cost=Stats.guid_dict[uuid]["cost"],
+                    )
+                )
+            except KeyError:
+                Stats.overclocks.append(
+                    Overclock(
+                        dwarf=None,
+                        weapon="Cosmetic",
+                        name="",
+                        guid=uuid,
+                        status="UNFORGED",
+                        cost=None,
+                    )
+                )
 
     @staticmethod
     def build_oc_dict():
