@@ -656,8 +656,8 @@ def add_crafting_mats() -> None:
     ]
     for oc in unforged_ocs:
         try:
-            for i in oc.cost.keys(): # type: ignore
-                cost[i] += oc.cost[i]
+            for i in oc.cost.keys():
+                cost[i] += oc.cost[i]  # type: ignore
         except:
             print("Cosmetic")
     print(cost)
