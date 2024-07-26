@@ -6,12 +6,14 @@ from copy import deepcopy
 from re import Match
 from sys import platform
 from typing import Any, List
+from dataclasses import asdict
 
 from core.file_writer import make_save_file
 from core.state_manager import Stats
 
 from helpers.enums import Dwarf, Resource
 from helpers.overclock import Overclock
+from helpers.datatypes import Cost
 
 from definitions import (
     GUID_RE,
@@ -40,6 +42,7 @@ from PySide6.QtWidgets import (
     QTreeWidget,
     QTreeWidgetItem,
 )
+
 
 if platform == "win32":
     import winreg
@@ -462,7 +465,7 @@ def build_oc_tree(tree: QTreeWidgetItem, source_dict: dict[str, Any]) -> None:
             for name, uuid in oc_names.items():
                 oc_entry = QTreeWidgetItem(weapon_entry)
                 oc_entry.setText(0, name)
-                oc_entry.setText(1, Stats.guid_dict[uuid]["status"])
+                oc_entry.setText(1, asdict(Stats.guid_dict)[uuid]["status"])
                 oc_entry.setText(2, uuid)
 
 
@@ -640,7 +643,7 @@ def reset_season_data():
 
 @Slot()  # type: ignore
 def add_crafting_mats() -> None:
-    cost: dict[str, int] = {
+    cost: Cost = {
         "bismor": 0,
         "croppa": 0,
         "jadiz": 0,
@@ -652,8 +655,8 @@ def add_crafting_mats() -> None:
     unforged_ocs = [oc for oc in Stats.overclocks if oc.status == "UNFORGED"]
     for oc in unforged_ocs:
         try:
-            for i in oc.cost.keys():
-                cost[i] += oc.cost[i]
+            for i in asdict(oc.cost).keys():
+                cost[i] += asdict(oc.cost)[i]
         except:
             print("Cosmetic")
     print(cost)
