@@ -5,7 +5,7 @@ import sys
 from copy import deepcopy
 from re import Match
 from sys import platform
-from typing import Any, List
+from typing import Any, List, get_type_hints
 
 from core.file_writer import make_save_file
 from core.state_manager import Stats
@@ -656,7 +656,7 @@ def add_crafting_mats() -> None:
     ]
     for oc in unforged_ocs:
         try:
-            for i in oc.cost.keys():
+            for i in get_type_hints(Cost).keys():
                 cost[i] += oc.cost[i]
         except:
             print("Cosmetic")
@@ -742,6 +742,7 @@ def add_resources(res_dict) -> None:
 
 def init_values(save_data):
     Stats.get_initial_stats(save_data)
+    Stats.get_overclocks(save_data)
 
     # addItem triggers currentTextChanged which triggers saving of data currently in textbox.
     # if two saves are loaded consecutively, it will cause values in the textbox (from file1)
