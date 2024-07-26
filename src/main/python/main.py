@@ -5,7 +5,7 @@ import sys
 from copy import deepcopy
 from re import Match
 from sys import platform
-from typing import Any, List, get_type_hints
+from typing import Any, List
 
 from core.file_writer import make_save_file
 from core.state_manager import Stats
@@ -656,7 +656,7 @@ def add_crafting_mats() -> None:
     ]
     for oc in unforged_ocs:
         try:
-            for i in get_type_hints(Cost).keys():
+            for i in oc.cost.keys(): # type: ignore
                 cost[i] += oc.cost[i]
         except:
             print("Cosmetic")
