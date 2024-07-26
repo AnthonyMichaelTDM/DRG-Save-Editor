@@ -245,7 +245,7 @@ class Stats:
                             Stats.guid_dict[uuid]["status"] = "UNFORGED"
                             Stats.overclocks.append(
                                 Overclock(
-                                    dwarf=Stats.guid_dict[uuid]["class"],
+                                    dwarf=Stats.guid_dict[uuid]["dwarf"],
                                     weapon=Stats.guid_dict[uuid]["weapon"],
                                     name=Stats.guid_dict[uuid]["name"],
                                     guid=uuid,
@@ -254,7 +254,7 @@ class Stats:
                                 )
                             )
                         except KeyError:
-                            Stats.guid_dict[uuid]["class"] = "Cosmetic"
+                            Stats.guid_dict[uuid]["dwarf"] = "Cosmetic"
 
     @staticmethod
     def build_oc_dict():

@@ -1,9 +1,7 @@
-from typing import Dict
-from dataclasses import dataclass
+from typing import TypedDict, Dict
 
 
-@dataclass
-class Cost:
+class Cost(TypedDict):
     credits: int
     bismor: int
     croppa: int
@@ -13,8 +11,7 @@ class Cost:
     umanite: int
 
 
-@dataclass
-class Item:
+class Item(TypedDict):
     dwarf: str
     weapon: str
     name: str
