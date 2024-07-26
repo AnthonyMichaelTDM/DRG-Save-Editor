@@ -1,4 +1,4 @@
-from typing import TypedDict, Dict
+from typing import TypedDict
 
 
 class Cost(TypedDict):
