@@ -31,6 +31,14 @@ def write_weapon_maintenance_data(new_values: Stats, save_data: bytes):
 
     OFFSET_WEAPON_XP = 0x6E
     OFFSET_WEAPON_LEVEL_UP = 0xCA
+
+    # kinda hacky, might be better to rewrite
+    # just follow the original process when reading
+    first_weapon_pos = save_data.find(b"WeaponMaintenanceEntry") + 0x2C
+    first_weapon_pos_before = list(new_values.weapons.keys())[0]
+    offset_change = first_weapon_pos - first_weapon_pos_before
+    new_values.weapons = {k + offset_change: v for k, v in new_values.weapons.items()}
+
     for weapon_pos, _ in new_values.weapons.items():
         xp = struct.pack("i", new_values.weapons[weapon_pos][0])
         save_data = (
