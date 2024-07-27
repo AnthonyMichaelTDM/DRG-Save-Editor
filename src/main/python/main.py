@@ -847,7 +847,7 @@ def remove_all_ocs() -> None:
 # stats: dict[str, Any] = dict()
 # weapon_stats: dict[int, list[int, int, bool]] | None = None  # type: ignore
 file_name: str = ""
-# save_data: bytes = b""
+save_data: bytes = b""
 season_selected: int = LATEST_SEASON
 
 if __name__ == "__main__":

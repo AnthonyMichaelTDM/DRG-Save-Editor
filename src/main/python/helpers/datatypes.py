@@ -1,14 +1,14 @@
-from typing import TypedDict
+from typing import TypedDict, NotRequired
 
 
 class Cost(TypedDict):
-    credits: int
-    bismor: int
-    croppa: int
-    enor: int
-    jadiz: int
-    magnite: int
-    umanite: int
+    credits: NotRequired[int]
+    bismor: NotRequired[int]
+    croppa: NotRequired[int]
+    enor: NotRequired[int]
+    jadiz: NotRequired[int]
+    magnite: NotRequired[int]
+    umanite: NotRequired[int]
 
 
 class Item(TypedDict):

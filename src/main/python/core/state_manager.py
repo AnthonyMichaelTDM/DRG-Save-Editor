@@ -4,7 +4,7 @@ from typing import Literal
 
 from definitions import RESOURCE_GUIDS, SEASON_GUIDS
 from helpers.enums import Dwarf, Resource
-from helpers.overclock import Overclock
+from helpers.overclock import Overclock, Cost
 from helpers.datatypes import Item
 
 
@@ -255,14 +255,15 @@ class Stats:
                 # does not exist in known guids
                 Stats.overclocks.append(
                     Overclock(
-                        dwarf=None,
+                        dwarf="",
                         weapon="Cosmetic",
                         name="",
                         guid=uuid,
                         status="Unforged",
-                        cost=None,
+                        cost=Cost(),
                     )
                 )
+                pass
 
         # fill out overclocks that are known, but do not appear in the save
         loaded_ocs = [x.guid for x in Stats.overclocks]
