@@ -177,7 +177,7 @@ class Stats:
         start = save_data.find(search_term)
         if start == -1:
             return
-            
+
         search_end = b"SkinFixupCounter"
         end = save_data.find(search_end)
         if end == -1:
@@ -225,7 +225,7 @@ class Stats:
         has_unforged: bool = oc_data.find(b"Owned") > 0
         if not has_unforged:
             return
-        
+
         num_pos = save_data.find(b"Owned", start) + 62
         num_unforged = struct.unpack("i", save_data[num_pos : num_pos + 4])[
             0
@@ -293,15 +293,15 @@ class Stats:
             oc_dict[oc["dwarf"]][oc["weapon"]].update({oc["name"]: guid})
 
         return oc_dict
-    
+
     @staticmethod
     def get_unforged_overclocks():
         return [x for x in Stats.overclocks if x.status == "Unforged"]
-    
+
     @staticmethod
     def get_unacquired_overclocks():
         return [x.guid for x in Stats.overclocks if x.status == "Unacquired"]
-    
+
     @staticmethod
     def set_overclocks_to_unacquired(guids: list[str]):
         for i, oc in enumerate(Stats.overclocks):

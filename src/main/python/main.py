@@ -3,7 +3,7 @@ import os
 import sys
 from re import Match
 from sys import platform
-from typing import Any, List
+from typing import List
 
 from core.file_writer import make_save_file
 from core.state_manager import Stats
@@ -537,15 +537,13 @@ def set_all_25() -> None:
 
 @Slot()  # type: ignore
 def max_all_available_weapon_maintenance() -> None:
-    global weapon_stats
-    weapon_stats = dict()
-    for weapon, [_, level, _] in stats["weapons"].items():
+    for weapon, [_, level, _] in Stats.weapons.items():
         xp_needed = 0
         for xp_level, xp_for_levelup in XP_PER_WEAPON_LEVEL.items():
             if level < xp_level:
                 xp_needed += xp_for_levelup
         if xp_needed:
-            weapon_stats[weapon] = [xp_needed, level, True]
+            Stats.weapons[weapon] = [xp_needed, level, True]
 
 
 @Slot()  # type: ignore
@@ -847,7 +845,7 @@ def remove_all_ocs() -> None:
 # unforged_ocs: dict[str, Any] = dict()
 # unacquired_ocs: dict[str, Any] = dict()
 # stats: dict[str, Any] = dict()
-weapon_stats: dict[int, list[int, int, bool]] | None = None  # type: ignore
+# weapon_stats: dict[int, list[int, int, bool]] | None = None  # type: ignore
 file_name: str = ""
 # save_data: bytes = b""
 season_selected: int = LATEST_SEASON
