@@ -264,6 +264,7 @@ class Stats:
                     )
                 )
 
+        # fill out overclocks that are known, but do not appear in the save
         loaded_ocs = [x.guid for x in Stats.overclocks]
         for uuid in Stats.guid_dict:
             if uuid not in loaded_ocs:
@@ -281,7 +282,6 @@ class Stats:
     @staticmethod
     def build_oc_dict():
         oc_dict = dict()
-        # ocs = [oc for oc in Stats.overclocks if oc.weapon != "Cosmetic"]
 
         for _, oc in Stats.guid_dict.items():
             oc_dict.update({oc["dwarf"]: dict()})
@@ -300,7 +300,7 @@ class Stats:
     
     @staticmethod
     def get_unacquired_overclocks():
-        return [guid for guid, x in Stats.guid_dict.items() if x["status"] == "Unacquired"]
+        return [x.guid for x in Stats.overclocks if x.status == "Unacquired"]
     
     @staticmethod
     def set_overclocks_to_unacquired(guids: list[str]):
