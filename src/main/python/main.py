@@ -494,14 +494,19 @@ def filter_overclocks() -> None:
 def add_cores() -> None:
     tree = widget.overclock_tree
     selected = tree.selectedItems()
+    unacquired_ocs = Stats.get_unacquired_overclocks()
     items_to_add = list()
+    newly_acquired_ocs = []
     for i in selected:
-        if i.text(1) == "Unacquired" and i.text(2) in Stats.unacquired_ocs:
+        if i.text(1) == "Unacquired" and i.text(2) in unacquired_ocs:
             items_to_add.append(f"{i.parent().text(0)}: {i.text(0)} ({i.text(2)})")
-            Stats.uid_dict[i.text(2)]["status"] = "Unforged"
-            Stats.unforged_ocs.update({i.text(2): Stats.guid_dict[i.text(2)]})
-            del Stats.unacquired_ocs[i.text(2)]
+            # Stats.guid_dict[i.text(2)]["status"] = "Unforged"
+            # Stats.unforged_ocs.update({i.text(2): Stats.guid_dict[i.text(2)]})
+            # del unacquired_ocs[i.text(2)]
             Stats.guid_dict[i.text(2)]["status"] = "Unforged"
+            newly_acquired_ocs.append(i.text(2))
+
+    Stats.set_overclocks_to_unforged(newly_acquired_ocs)
 
     core_list = widget.unforged_list
     for item in items_to_add:
@@ -517,7 +522,7 @@ def save_changes() -> None:
     # TODO
     # changes["unforged"] = unforged_ocs
     # pp(changes)
-    save_file: bytes = make_save_file(file_name, changes, Stats.unforged_ocs)
+    save_file: bytes = make_save_file(file_name, changes)
     with open(file_name, "wb") as f:
         f.write(save_file)
 
@@ -608,7 +613,7 @@ def reset_values() -> None:
     )
 
     unforged_list = widget.unforged_list
-    unforged_ocs = [oc for oc in Stats.overclocks if oc.status == "Unforged"]
+    unforged_ocs = Stats.get_unforged_overclocks()
     populate_unforged_list(unforged_list, unforged_ocs)
 
     filter_overclocks()
@@ -634,9 +639,7 @@ def add_crafting_mats() -> None:
         "umanite": 0,
         "credits": 0,
     }
-    unforged_ocs: List[Overclock] = [
-        oc for oc in Stats.overclocks if oc.status == "Unforged"
-    ]
+    unforged_ocs: List[Overclock] = Stats.get_unforged_overclocks()
     for oc in unforged_ocs:
         try:
             for i in oc.cost.keys():
@@ -818,13 +821,7 @@ def remove_selected_ocs() -> None:
 
 
 def remove_ocs(oc_list: list[str]) -> None:
-    for i in oc_list:
-        oc: dict[str, Any] = Stats.unforged_ocs[i]
-        oc["status"] = "Unacquired"
-        Stats.guid_dict[i]["status"] = "Unacquired"
-        Stats.unacquired_ocs.update({i: oc})
-        del Stats.unforged_ocs[i]
-
+    Stats.set_overclocks_to_unacquired(oc_list)
     filter_overclocks()
 
 
@@ -849,7 +846,7 @@ def remove_all_ocs() -> None:
 # forged_ocs: dict[str, Any] = dict()
 # unforged_ocs: dict[str, Any] = dict()
 # unacquired_ocs: dict[str, Any] = dict()
-stats: dict[str, Any] = dict()
+# stats: dict[str, Any] = dict()
 weapon_stats: dict[int, list[int, int, bool]] | None = None  # type: ignore
 file_name: str = ""
 # save_data: bytes = b""
@@ -870,7 +867,7 @@ if __name__ == "__main__":
     # load reference data
     with open(guids_file, "r", encoding="utf-8") as g:
         Stats.guid_dict = json.loads(g.read())
-        guid_dict: dict[str, Any] = Stats.guid_dict
+        # guid_dict: dict[str, Any] = Stats.guid_dict
 
     try:
         # find the install path for the steam version

@@ -6,10 +6,11 @@ from definitions import (
     SEASON_GUIDS,
 )
 from helpers.enums import Dwarf
+from helpers.overclock import Overclock
 from core.state_manager import Stats
 
 
-def make_save_file(file_path: str, new_values: Stats, unforged_ocs: dict) -> bytes:
+def make_save_file(file_path: str, new_values: Stats) -> bytes:
     with open(file_path, "rb") as f:
         save_data: bytes = f.read()
 
@@ -17,7 +18,7 @@ def make_save_file(file_path: str, new_values: Stats, unforged_ocs: dict) -> byt
     save_data = write_credits(new_values, save_data)
     save_data = write_perk_points(new_values, save_data)
     save_data = write_dwarf_xp(new_values, save_data)
-    save_data = write_overclocks(unforged_ocs, save_data)
+    save_data = write_overclocks(new_values, save_data)
     save_data = write_season_data(new_values, save_data)
     save_data = write_weapon_maintenance_data(new_values, save_data)
 
@@ -92,16 +93,15 @@ def find_overclocks_data_position(save_data: bytes):
     return pos, end_pos
 
 
-def write_overclocks(unforged_ocs: dict, save_data: bytes):
+def write_overclocks(new_values: Stats, save_data: bytes):
     pos, end_pos = find_overclocks_data_position(save_data)
 
     if pos <= 0:
         return save_data
 
     num_forged = struct.unpack("i", save_data[pos + 63 : pos + 67])[0]
-    # TODO - After implementing OCS into the State Manager
-    # unforged_ocs = new_values["unforged"]
 
+    unforged_ocs = new_values.get_unforged_overclocks()
     schematic_save_size, ocs = calculate_overclocks_data(unforged_ocs, num_forged)
 
     save_data = save_data[: pos + (num_forged * 16) + 141] + ocs + save_data[end_pos:]
@@ -116,7 +116,7 @@ def write_overclocks(unforged_ocs: dict, save_data: bytes):
     return save_data
 
 
-def calculate_overclocks_data(unforged_ocs: dict, num_forged: int):
+def calculate_overclocks_data(unforged_ocs: list[Overclock], num_forged: int):
     schematic_save_size = b""
     if len(unforged_ocs) > 0:
         ocs: bytes = (
@@ -131,7 +131,7 @@ def calculate_overclocks_data(unforged_ocs: dict, num_forged: int):
             + struct.pack("Q", len(unforged_ocs) * 16)
             + b"\x05\x00\x00\x00\x47\x75\x69\x64\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
         )
-        uuids: list[bytes] = [bytes.fromhex(i) for i in unforged_ocs.keys()]
+        uuids: list[bytes] = [bytes.fromhex(i.guid) for i in unforged_ocs]
         for i in uuids:
             ocs += i
 

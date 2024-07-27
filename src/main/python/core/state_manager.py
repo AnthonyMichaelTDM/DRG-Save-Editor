@@ -253,7 +253,6 @@ class Stats:
                 )
             except KeyError:
                 # does not exist in known guids
-                Stats.guid_dict[uuid] = {"status": "Unforged"}
                 Stats.overclocks.append(
                     Overclock(
                         dwarf=None,
@@ -265,18 +264,52 @@ class Stats:
                     )
                 )
 
+        loaded_ocs = [x.guid for x in Stats.overclocks]
+        for uuid in Stats.guid_dict:
+            if uuid not in loaded_ocs:
+                Stats.overclocks.append(
+                    Overclock(
+                        dwarf=Stats.guid_dict[uuid]["dwarf"],
+                        weapon=Stats.guid_dict[uuid]["weapon"],
+                        name=Stats.guid_dict[uuid]["name"],
+                        guid=uuid,
+                        status=Stats.guid_dict[uuid]["status"],
+                        cost=Stats.guid_dict[uuid]["cost"],
+                    )
+                )
+
     @staticmethod
     def build_oc_dict():
         oc_dict = dict()
-        ocs = [oc for oc in Stats.overclocks if oc.weapon != "Cosmetic"]
+        # ocs = [oc for oc in Stats.overclocks if oc.weapon != "Cosmetic"]
 
-        for oc in ocs:
-            oc_dict.update({oc.dwarf: dict()})
+        for _, oc in Stats.guid_dict.items():
+            oc_dict.update({oc["dwarf"]: dict()})
 
-        for oc in ocs:
-            oc_dict[oc.dwarf].update({oc.weapon: dict()})
+        for _, oc in Stats.guid_dict.items():
+            oc_dict[oc["dwarf"]].update({oc["weapon"]: dict()})
 
-        for oc in ocs:
-            oc_dict[oc.dwarf][oc.weapon].update({oc.name: oc.guid})
+        for guid, oc in Stats.guid_dict.items():
+            oc_dict[oc["dwarf"]][oc["weapon"]].update({oc["name"]: guid})
 
         return oc_dict
+    
+    @staticmethod
+    def get_unforged_overclocks():
+        return [x for x in Stats.overclocks if x.status == "Unforged"]
+    
+    @staticmethod
+    def get_unacquired_overclocks():
+        return [guid for guid, x in Stats.guid_dict.items() if x["status"] == "Unacquired"]
+    
+    @staticmethod
+    def set_overclocks_to_unacquired(guids: list[str]):
+        for i, oc in enumerate(Stats.overclocks):
+            if oc.guid in guids:
+                Stats.overclocks[i].status = "Unacquired"
+
+    @staticmethod
+    def set_overclocks_to_unforged(guids: list[str]):
+        for i, oc in enumerate(Stats.overclocks):
+            if oc.guid in guids:
+                Stats.overclocks[i].status = "Unforged"
