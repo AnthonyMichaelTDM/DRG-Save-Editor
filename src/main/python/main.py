@@ -1,7 +1,6 @@
 import sys
 
 from core.controller import Controller
-from core.file_parser import Parser
 from core.state_manager import Stats
 from core.view import EditorUI
 
@@ -13,8 +12,7 @@ if __name__ == "__main__":
     QCoreApplication.setAttribute(Qt.ApplicationAttribute.AA_ShareOpenGLContexts, True)
     app = QApplication()
 
-    parser = Parser()
-    state_manager = Stats(parser)
+    state_manager = Stats()
 
     # load the UI
     widget: EditorUI = EditorUI()

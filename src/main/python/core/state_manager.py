@@ -7,9 +7,7 @@ from helpers.datatypes import Item
 
 
 class Stats:
-    def __init__(self, parser: Parser) -> None:
-        self.parser = parser
-
+    def __init__(self) -> None:
         self.dwarf_xp: dict[Dwarf, int] = {}
         self.dwarf_promo: dict[Dwarf, int] = {}
         self.season_data: dict[int, dict[Literal["xp", "scrip"], int]] = {}
@@ -21,7 +19,8 @@ class Stats:
         self.overclocks: list[Overclock] = []
 
     def parse_data(self, save_data: bytes):
-        self.parser.load_into_state_manager(save_data, self)
+        parser = Parser()
+        parser.load_into_state_manager(save_data, self)
 
     def build_oc_dict(self):
         oc_dict = dict()
