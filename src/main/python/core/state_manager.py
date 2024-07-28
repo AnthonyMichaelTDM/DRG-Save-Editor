@@ -23,7 +23,6 @@ class Stats:
     def parse_data(self, save_data: bytes):
         self.parser.load_into_state_manager(save_data, self)
 
-    @staticmethod
     def build_oc_dict(self):
         oc_dict = dict()
 

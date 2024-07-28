@@ -70,8 +70,6 @@ class Controller:
         with open(f"{self.file_name}.old", "wb") as backup:
             backup.write(save_data)
 
-        self.state_manager.parse_data(save_data)
-
         # enable widgets that don't work without a save file present
         self.widget.actionSave_changes.setEnabled(True)
         self.widget.actionReset_to_original_values.setEnabled(True)
@@ -501,14 +499,14 @@ class Controller:
                 for name, uuid in oc_names.items():
                     oc_entry = QTreeWidgetItem(weapon_entry)
                     oc_entry.setText(0, name)
-                    oc_entry.setText(1, Stats.guid_dict[uuid]["status"])
+                    oc_entry.setText(1, self.state_manager.guid_dict[uuid]["status"])
                     oc_entry.setText(2, uuid)
 
     def init_overclock_tree(self):
         self.widget.overclock_tree.clear()
-        overclock_tree = self.overclock_tree.invisibleRootItem()
+        overclock_tree = self.widget.overclock_tree.invisibleRootItem()
         self.build_oc_tree(overclock_tree)
-        self.overclock_tree.sortItems(0, Qt.SortOrder.AscendingOrder)
+        self.widget.overclock_tree.sortItems(0, Qt.SortOrder.AscendingOrder)
 
 
 def get_steam_path():

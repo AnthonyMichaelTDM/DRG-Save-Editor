@@ -191,16 +191,7 @@ class Parser:
             )
             try:
                 state_manager.guid_dict[uuid]["status"] = "Forged"
-                state_manager.overclocks.append(
-                    Overclock(
-                        dwarf=state_manager.guid_dict[uuid]["dwarf"],
-                        weapon=state_manager.guid_dict[uuid]["weapon"],
-                        name=state_manager.guid_dict[uuid]["name"],
-                        guid=uuid,
-                        status=state_manager.guid_dict[uuid]["status"],
-                        cost=state_manager.guid_dict[uuid]["cost"],
-                    )
-                )
+                self._add_overclock(uuid, state_manager)
             except KeyError:
                 pass
 
@@ -223,16 +214,7 @@ class Parser:
             )
             try:
                 state_manager.guid_dict[uuid]["status"] = "Unforged"
-                state_manager.overclocks.append(
-                    Overclock(
-                        dwarf=state_manager.guid_dict[uuid]["dwarf"],
-                        weapon=state_manager.guid_dict[uuid]["weapon"],
-                        name=state_manager.guid_dict[uuid]["name"],
-                        guid=uuid,
-                        status=state_manager.guid_dict[uuid]["status"],
-                        cost=state_manager.guid_dict[uuid]["cost"],
-                    )
-                )
+                self._add_overclock(uuid, state_manager)
             except KeyError:
                 # does not exist in known guids
                 state_manager.overclocks.append(
@@ -250,13 +232,17 @@ class Parser:
         loaded_ocs = [x.guid for x in state_manager.overclocks]
         for uuid in state_manager.guid_dict:
             if uuid not in loaded_ocs:
-                state_manager.overclocks.append(
-                    Overclock(
-                        dwarf=state_manager.guid_dict[uuid]["dwarf"],
-                        weapon=state_manager.guid_dict[uuid]["weapon"],
-                        name=state_manager.guid_dict[uuid]["name"],
-                        guid=uuid,
-                        status=state_manager.guid_dict[uuid]["status"],
-                        cost=state_manager.guid_dict[uuid]["cost"],
-                    )
-                )
+                self._add_overclock(uuid, state_manager)
+        print()
+
+    def _add_overclock(self, uuid, state_manager):
+        state_manager.overclocks.append(
+            Overclock(
+                dwarf=state_manager.guid_dict[uuid]["dwarf"],
+                weapon=state_manager.guid_dict[uuid]["weapon"],
+                name=state_manager.guid_dict[uuid]["name"],
+                guid=uuid,
+                status=state_manager.guid_dict[uuid]["status"],
+                cost=state_manager.guid_dict[uuid]["cost"],
+            )
+        )
