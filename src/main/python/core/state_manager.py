@@ -40,19 +40,21 @@ class Stats:
 
         # load reference data
         with open(guids_file, "r", encoding="utf-8") as g:
-            self.guid_dict = json.loads(g.read())
+            self.guid_dict = {
+                key: Item(**value) for key, value in json.loads(g.read()).items()
+            }
 
     def build_oc_dict(self):
         oc_dict = dict()
 
         for _, oc in self.guid_dict.items():
-            oc_dict.update({oc["dwarf"]: dict()})
+            oc_dict.update({oc.dwarf: dict()})
 
         for _, oc in self.guid_dict.items():
-            oc_dict[oc["dwarf"]].update({oc["weapon"]: dict()})
+            oc_dict[oc.dwarf].update({oc.weapon: dict()})
 
         for guid, oc in self.guid_dict.items():
-            oc_dict[oc["dwarf"]][oc["weapon"]].update({oc["name"]: guid})
+            oc_dict[oc.dwarf][oc.weapon].update({oc.name: guid})
 
         return oc_dict
 

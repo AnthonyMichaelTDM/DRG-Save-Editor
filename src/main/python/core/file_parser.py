@@ -158,7 +158,7 @@ class Parser:
             end = save_data.find(search_end)
 
         for i in guid_dict.values():
-            i["status"] = "Unacquired"
+            i.status = "Unacquired"
 
         oc_data = save_data[start:end]
         oc_list_offset = 141
@@ -180,7 +180,7 @@ class Parser:
                 .upper()
             )
             try:
-                guid_dict[uuid]["status"] = "Forged"
+                guid_dict[uuid].status = "Forged"
                 Parser._add_overclock(uuid, overclocks, guid_dict[uuid])
             except KeyError:
                 pass
@@ -199,7 +199,7 @@ class Parser:
                 .upper()
             )
             try:
-                guid_dict[uuid]["status"] = "Unforged"
+                guid_dict[uuid].status = "Unforged"
                 Parser._add_overclock(uuid, overclocks, guid_dict[uuid])
             except KeyError:
                 # does not exist in known guids
@@ -226,11 +226,11 @@ class Parser:
     def _add_overclock(uuid, overclocks, overclock_data):
         overclocks.append(
             Overclock(
-                dwarf=overclock_data["dwarf"],
-                weapon=overclock_data["weapon"],
-                name=overclock_data["name"],
+                dwarf=overclock_data.dwarf,
+                weapon=overclock_data.weapon,
+                name=overclock_data.name,
                 guid=uuid,
-                status=overclock_data["status"],
-                cost=Cost(**overclock_data["cost"]),
+                status=overclock_data.status,
+                cost=Cost(**overclock_data.cost),
             )
         )

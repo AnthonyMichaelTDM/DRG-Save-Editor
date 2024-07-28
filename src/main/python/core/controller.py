@@ -283,25 +283,25 @@ class Controller:
 
     def add_resources(self, res_dict) -> None:
         self.widget.bismor_text.setText(
-            str(int(self.widget.bismor_text.text()) + res_dict["bismor"])
+            str(int(self.widget.bismor_text.text()) + res_dict.bismor)
         )
         self.widget.croppa_text.setText(
-            str(int(self.widget.croppa_text.text()) + res_dict["croppa"])
+            str(int(self.widget.croppa_text.text()) + res_dict.croppa)
         )
         self.widget.enor_text.setText(
-            str(int(self.widget.enor_text.text()) + res_dict["enor"])
+            str(int(self.widget.enor_text.text()) + res_dict.enor)
         )
         self.widget.jadiz_text.setText(
-            str(int(self.widget.jadiz_text.text()) + res_dict["jadiz"])
+            str(int(self.widget.jadiz_text.text()) + res_dict.jadiz)
         )
         self.widget.magnite_text.setText(
-            str(int(self.widget.magnite_text.text()) + res_dict["magnite"])
+            str(int(self.widget.magnite_text.text()) + res_dict.magnite)
         )
         self.widget.umanite_text.setText(
-            str(int(self.widget.umanite_text.text()) + res_dict["umanite"])
+            str(int(self.widget.umanite_text.text()) + res_dict.umanite)
         )
         self.widget.credits_text.setText(
-            str(int(self.widget.credits_text.text()) + res_dict["credits"])
+            str(int(self.widget.credits_text.text()) + res_dict.credits)
         )
 
         # not implemented? doesnt make sense coming in from parent function, could delete

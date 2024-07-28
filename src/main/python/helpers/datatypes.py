@@ -28,4 +28,4 @@ class Item:
     weapon: str
     name: str
     cost: Cost
-    status: str
+    status: str = "Unforged"
