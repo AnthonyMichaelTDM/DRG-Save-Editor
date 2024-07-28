@@ -349,7 +349,12 @@ class Controller:
     @Slot()  # type: ignore
     def save_changes(self) -> None:
         self.get_values()
-        save_file: bytes = make_save_file(self.file_name, self.state_manager)
+
+        with open(self.file_name, "rb") as f:
+            save_data: bytes = f.read()
+
+        save_file: bytes = make_save_file(save_data, self.state_manager)
+
         with open(self.file_name, "wb") as f:
             f.write(save_file)
 

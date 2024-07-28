@@ -10,10 +10,7 @@ from helpers.overclock import Overclock
 from core.state_manager import Stats
 
 
-def make_save_file(file_path: str, new_values: Stats) -> bytes:
-    with open(file_path, "rb") as f:
-        save_data: bytes = f.read()
-
+def make_save_file(save_data: bytes, new_values: Stats) -> bytes:
     save_data = write_resources(new_values, save_data)
     save_data = write_credits(new_values, save_data)
     save_data = write_perk_points(new_values, save_data)
