@@ -1,8 +1,7 @@
 import os
 import sys
 
-# from core.state_manager import Stats
-from definitions import PROMO_RANKS, XP_TABLE
+from definitions import PROMO_RANKS
 
 from PySide6.QtCore import QFile, QIODevice, Signal
 from PySide6.QtGui import QAction, QFocusEvent
@@ -12,7 +11,7 @@ from PySide6.QtWidgets import (QComboBox, QGroupBox, QLabel, QLineEdit,
 
 
 class TextEditFocusChecking(QLineEdit):
-    focus_out_signal = Signal(str, int)  # Signal to emit box name and value
+    focus_out_signal = Signal(str, int)
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -138,48 +137,3 @@ class EditorUI:
 
     def setWindowTitle(self, title: str) -> None:
         self.inner.setWindowTitle(title)
-
-    # new stuff
-    def handle_focus_out(self, box_name: str, value: int):
-        season = False
-
-        if box_name.startswith("driller"):
-            dwarf = "driller"
-        elif box_name.startswith("engineer"):
-            dwarf = "engineer"
-        elif box_name.startswith("gunner"):
-            dwarf = "gunner"
-        elif box_name.startswith("scout"):
-            dwarf = "scout"
-        elif box_name.startswith("season"):
-            season = True
-        else:
-            print("abandon all hope, ye who see this message")
-            return
-
-        if season:
-            if box_name.endswith("xp"):
-                if value >= 5000:
-                    self.season_xp.setText("4999")
-                elif value < 0:
-                    self.season_xp.setText("0")
-            elif box_name.endswith("lvl_text"):
-                if value < 0:
-                    self.season_lvl_text.setText("0")
-                elif value > 100:
-                    self.season_lvl_text.setText("100")
-                    self.season_xp.setText("0")
-        else:
-            if box_name.endswith("xp"):  # total xp box changed
-                total = value
-            elif box_name.endswith("text"):  # dwarf level box changed
-                xp, level, rem = EditorUI.get_dwarf_xp(dwarf)
-                if XP_TABLE[value - 1] + rem == xp:
-                    total = xp
-                else:
-                    total = XP_TABLE[value - 1]
-            elif box_name.endswith("2"):  # xp for current level changed
-                xp, level, rem = EditorUI.get_dwarf_xp(dwarf)
-                total = XP_TABLE[level - 1] + value
-
-            self.update_xp(dwarf, total)  # update relevant xp fields

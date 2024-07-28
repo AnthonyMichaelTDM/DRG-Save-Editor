@@ -7,7 +7,7 @@ from core.file_writer import make_save_file
 from core.state_manager import Stats
 from core.view import EditorUI
 from definitions import (GUID_RE, LATEST_SEASON, MAX_BADGES, RANK_TITLES, XP_PER_SEASON_LEVEL,
-                         XP_PER_WEAPON_LEVEL)
+                         XP_PER_WEAPON_LEVEL, XP_TABLE)
 from helpers import utils
 from helpers.datatypes import Cost
 from helpers.enums import Dwarf, Resource
@@ -47,6 +47,69 @@ class Controller:
         self.widget.engineer_promo_box.currentIndexChanged.connect(self.update_rank)
         self.widget.gunner_promo_box.currentIndexChanged.connect(self.update_rank)
         self.widget.scout_promo_box.currentIndexChanged.connect(self.update_rank)
+
+        for widget in [
+            self.widget.driller_xp,
+            self.widget.driller_lvl_text,
+            self.widget.driller_xp_2,
+            self.widget.engineer_xp,
+            self.widget.engineer_lvl_text,
+            self.widget.engineer_xp_2,
+            self.widget.gunner_xp,
+            self.widget.gunner_lvl_text,
+            self.widget.gunner_xp_2,
+            self.widget.scout_xp,
+            self.widget.scout_lvl_text,
+            self.widget.scout_xp_2,
+            self.widget.season_xp,
+            self.widget.season_lvl_text,
+        ]:
+            widget.focus_out_signal.connect(self.handle_focus_out)
+
+    @Slot(str, int)
+    def handle_focus_out(self, box_name: str, value: int):
+        season = False
+
+        if box_name.startswith("driller"):
+            dwarf = "driller"
+        elif box_name.startswith("engineer"):
+            dwarf = "engineer"
+        elif box_name.startswith("gunner"):
+            dwarf = "gunner"
+        elif box_name.startswith("scout"):
+            dwarf = "scout"
+        elif box_name.startswith("season"):
+            season = True
+        else:
+            print("abandon all hope, ye who see this message")
+            return
+
+        if season:
+            if box_name.endswith("xp"):
+                if value >= 5000:
+                    self.widget.season_xp.setText("4999")
+                elif value < 0:
+                    self.widget.season_xp.setText("0")
+            elif box_name.endswith("lvl_text"):
+                if value < 0:
+                    self.widget.season_lvl_text.setText("0")
+                elif value > 100:
+                    self.widget.season_lvl_text.setText("100")
+                    self.widget.season_xp.setText("0")
+        else:
+            if box_name.endswith("xp"):  # total xp box changed
+                total = value
+            elif box_name.endswith("text"):  # dwarf level box changed
+                xp, level, rem = self.get_dwarf_xp(dwarf)
+                if XP_TABLE[value - 1] + rem == xp:
+                    total = xp
+                else:
+                    total = XP_TABLE[value - 1]
+            elif box_name.endswith("2"):  # xp for current level changed
+                xp, level, rem = self.get_dwarf_xp(dwarf)
+                total = XP_TABLE[level - 1] + value
+
+            self.update_xp(dwarf, total)  # update relevant xp fields
 
     @Slot()  # type: ignore
     def open_file(self) -> None:
