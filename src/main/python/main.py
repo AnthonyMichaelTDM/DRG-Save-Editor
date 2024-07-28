@@ -1,11 +1,16 @@
 import json
 import os
-import struct
 import sys
-from copy import deepcopy
 from re import Match
 from sys import platform
-from typing import Any
+from typing import List
+
+from core.file_writer import make_save_file
+from core.state_manager import Stats
+
+from helpers.enums import Dwarf, Resource
+from helpers.overclock import Overclock
+from helpers.datatypes import Cost
 
 from definitions import (
     GUID_RE,
@@ -13,12 +18,11 @@ from definitions import (
     MAX_BADGES,
     PROMO_RANKS,
     RANK_TITLES,
-    RESOURCE_GUIDS,
-    SEASON_GUIDS,
     XP_PER_SEASON_LEVEL,
     XP_PER_WEAPON_LEVEL,
     XP_TABLE,
 )
+
 from PySide6.QtCore import QCoreApplication, QFile, QIODevice, Qt, Slot
 from PySide6.QtGui import QAction, QFocusEvent
 from PySide6.QtUiTools import QUiLoader
@@ -35,6 +39,7 @@ from PySide6.QtWidgets import (
     QTreeWidget,
     QTreeWidgetItem,
 )
+
 
 if platform == "win32":
     import winreg
@@ -151,7 +156,7 @@ def update_xp(dwarf, total_xp=0) -> None:
         level_box = widget.scout_lvl_text
         remainder_box = widget.scout_xp_2
     else:
-        print("no valid dward specified")
+        print("no valid dwarf specified")
         bad_dwarf = True
 
     if not bad_dwarf:  # update xp totals
@@ -163,26 +168,25 @@ def update_xp(dwarf, total_xp=0) -> None:
 
 
 def update_rank() -> None:
-    global stats
     s_promo: int = (
-        stats["xp"]["scout"]["promo"]
-        if int(widget.scout_promo_box.currentIndex()) == MAX_BADGES
-        else int(widget.scout_promo_box.currentIndex())
+        Stats.dwarf_promo[Dwarf.SCOUT]
+        if widget.scout_promo_box.currentIndex() == MAX_BADGES
+        else widget.scout_promo_box.currentIndex()
     )
     e_promo: int = (
-        stats["xp"]["engineer"]["promo"]
-        if int(widget.engineer_promo_box.currentIndex()) == MAX_BADGES
-        else int(widget.engineer_promo_box.currentIndex())
+        Stats.dwarf_promo[Dwarf.ENGINEER]
+        if widget.engineer_promo_box.currentIndex() == MAX_BADGES
+        else widget.engineer_promo_box.currentIndex()
     )
     g_promo: int = (
-        stats["xp"]["gunner"]["promo"]
-        if int(widget.gunner_promo_box.currentIndex()) == MAX_BADGES
-        else int(widget.gunner_promo_box.currentIndex())
+        Stats.dwarf_promo[Dwarf.GUNNER]
+        if widget.gunner_promo_box.currentIndex() == MAX_BADGES
+        else widget.gunner_promo_box.currentIndex()
     )
     d_promo: int = (
-        stats["xp"]["driller"]["promo"]
-        if int(widget.driller_promo_box.currentIndex()) == MAX_BADGES
-        else int(widget.driller_promo_box.currentIndex())
+        Stats.dwarf_promo[Dwarf.DRILLER]
+        if widget.driller_promo_box.currentIndex() == MAX_BADGES
+        else widget.driller_promo_box.currentIndex()
     )
 
     try:
@@ -200,13 +204,13 @@ def update_rank() -> None:
         )
         rank: int = total_levels // 3  # integer division
         rem: int = total_levels % 3
-    except:
+    except ValueError:
         rank = 1
         rem = 0
 
     try:
         title: str = RANK_TITLES[rank]
-    except:
+    except IndexError:
         title = "Lord of the Deep"
 
     widget.classes_group.setTitle(f"Classes - Rank {rank + 1} {rem}/3, {title}")
@@ -380,49 +384,38 @@ def open_file() -> None:
     widget.combo_oc_filter.setEnabled(True)
 
     # initialize and populate the text fields
-    global stats
-    stats = init_values(save_data)
+    init_values(save_data)
     reset_values()
     update_rank()
 
-    global forged_ocs
-    global unacquired_ocs
-    global unforged_ocs
-
     # print('before ocs')
     # parse save file and categorize weapon overclocks
-    forged_ocs, unacquired_ocs, unforged_ocs = get_overclocks(save_data, guid_dict)
     # print('after ocs')
 
     # clear and initialize overclock tree view
     widget.overclock_tree.clear()
     overclock_tree = widget.overclock_tree.invisibleRootItem()
-    build_oc_tree(overclock_tree, guid_dict)
+    build_oc_tree(overclock_tree)
     widget.overclock_tree.sortItems(0, Qt.SortOrder.AscendingOrder)
 
-    # populate list of unforged ocs
-    unforged_list = widget.unforged_list
-    populate_unforged_list(unforged_list, unforged_ocs)
 
-
-def populate_unforged_list(list_widget: QListWidget, unforged: dict) -> None:
+def populate_unforged_list(list_widget: QListWidget, unforged: List[Overclock]) -> None:
     # populates the list on acquired but unforged overclocks (includes cosmetics)
     list_widget.clear()
-    for k, v in unforged.items():
+    for oc_item in unforged:
         oc = QListWidgetItem(None)
-        try:  # cosmetic overclocks don't have these values
-            oc.setText(f'{v["weapon"]}: {v["name"]} ({k})')
-        except:
-            oc.setText(f"Cosmetic: {k}")
+        try:
+            oc.setText(f"{oc_item.weapon}: {oc_item.name} ({oc_item.guid})")
+        except Exception:
+            oc.setText(f"Cosmetic: {oc_item.guid}")
         list_widget.addItem(oc)
 
 
 def store_season_changes(season_num):
-    global stats
     new_xp = widget.season_xp.text()
     new_scrip = widget.scrip_text.text()
     if new_xp and new_scrip:
-        stats["season-changes"][season_num] = {
+        Stats.season_data[season_num] = {
             "xp": int(new_xp)
             + XP_PER_SEASON_LEVEL * int(widget.season_lvl_text.text()),
             "scrip": int(new_scrip),
@@ -439,105 +432,7 @@ def update_season_data() -> None:
         season_selected = int(widget.season_box.currentText())
 
     # refresh display
-    reset_season_data(stats["season-changes"])
-
-
-def get_season_data(save_bytes: bytes, season_guid: str) -> dict[str, int]:
-    # scrip_marker = bytes.fromhex("546F6B656E73")
-    season_marker: bytes = bytes.fromhex(season_guid)
-    season_marker_pos: int = save_bytes.find(season_marker)
-    # season data does not exist
-    if season_marker_pos == -1:
-        raise ValueError("Season missing")
-
-    season_xp_offset = 169
-    scrip_offset = 209
-
-    season_xp_pos = save_bytes.find(season_marker) + season_xp_offset
-    scrip_pos = save_bytes.find(season_marker) + scrip_offset
-
-    season_xp = struct.unpack("i", save_bytes[season_xp_pos : season_xp_pos + 4])[0]
-    scrip = struct.unpack("i", save_bytes[scrip_pos : scrip_pos + 4])[0]
-
-    return {"xp": season_xp, "scrip": scrip}
-
-
-def get_resources(save_bytes: bytes) -> dict[str, int]:
-    # extracts the resource counts from the save file
-    # print('getting resources')
-    # resource GUIDs
-    resources: dict[str, Any] = deepcopy(RESOURCE_GUIDS)
-    guid_length = 16  # length of GUIDs in bytes
-    res_marker = (
-        b"OwnedResources"  # marks the beginning of where resource values can be found
-    )
-    res_pos = save_bytes.find(res_marker)
-    # print("getting resources")
-    for k, v in resources.items():  # iterate through resource list
-        # print(f"key: {k}, value: {v}")
-        marker = bytes.fromhex(v)
-        pos = (
-            save_bytes.find(marker, res_pos) + guid_length
-        )  # search for the matching GUID
-        end_pos = pos + 4  # offset for the actual value
-        # extract and unpack the value
-        temp = save_bytes[pos:end_pos]
-        unp = struct.unpack("f", temp)
-        resources[k] = int(unp[0])  # save resource count
-
-    # pp(resources)  # pretty printing for some reason
-    return resources
-
-
-def get_xp(save_bytes: bytes) -> dict[str, dict[str, Any]]:
-    # print('getting xp')
-    en_marker = b"\x85\xEF\x62\x6C\x65\xF1\x02\x4A\x8D\xFE\xB5\xD0\xF3\x90\x9D\x2E\x03\x00\x00\x00\x58\x50"
-    sc_marker = b"\x30\xD8\xEA\x17\xD8\xFB\xBA\x4C\x95\x30\x6D\xE9\x65\x5C\x2F\x8C\x03\x00\x00\x00\x58\x50"
-    dr_marker = b"\x9E\xDD\x56\xF1\xEE\xBC\xC5\x48\x8D\x5B\x5E\x5B\x80\xB6\x2D\xB4\x03\x00\x00\x00\x58\x50"
-    gu_marker = b"\xAE\x56\xE1\x80\xFE\xC0\xC4\x4D\x96\xFA\x29\xC2\x83\x66\xB9\x7B\x03\x00\x00\x00\x58\x50"
-
-    # start_offset = 0
-    xp_offset = 48
-    eng_xp_pos: int = save_bytes.find(en_marker) + xp_offset
-    scout_xp_pos: int = save_bytes.find(sc_marker) + xp_offset
-    drill_xp_pos: int = save_bytes.find(dr_marker) + xp_offset
-    gun_xp_pos: int = save_bytes.find(gu_marker) + xp_offset
-
-    eng_xp = struct.unpack("i", save_bytes[eng_xp_pos : eng_xp_pos + 4])[0]
-    scout_xp = struct.unpack("i", save_bytes[scout_xp_pos : scout_xp_pos + 4])[0]
-    drill_xp = struct.unpack("i", save_bytes[drill_xp_pos : drill_xp_pos + 4])[0]
-    gun_xp = struct.unpack("i", save_bytes[gun_xp_pos : gun_xp_pos + 4])[0]
-
-    num_promo_offset = 108
-    eng_num_promo = struct.unpack(
-        "i",
-        save_bytes[eng_xp_pos + num_promo_offset : eng_xp_pos + num_promo_offset + 4],
-    )[0]
-    scout_num_promo = struct.unpack(
-        "i",
-        save_bytes[
-            scout_xp_pos + num_promo_offset : scout_xp_pos + num_promo_offset + 4
-        ],
-    )[0]
-    drill_num_promo = struct.unpack(
-        "i",
-        save_bytes[
-            drill_xp_pos + num_promo_offset : drill_xp_pos + num_promo_offset + 4
-        ],
-    )[0]
-    gun_num_promo = struct.unpack(
-        "i",
-        save_bytes[gun_xp_pos + num_promo_offset : gun_xp_pos + num_promo_offset + 4],
-    )[0]
-
-    xp_dict: dict[str, dict[str, Any]] = {
-        "engineer": {"xp": eng_xp, "promo": eng_num_promo},
-        "scout": {"xp": scout_xp, "promo": scout_num_promo},
-        "driller": {"xp": drill_xp, "promo": drill_num_promo},
-        "gunner": {"xp": gun_xp, "promo": gun_num_promo},
-    }
-    # pp(xp_dict)
-    return xp_dict
+    reset_season_data()
 
 
 def xp_total_to_level(xp: int) -> tuple[int, int]:
@@ -549,56 +444,9 @@ def xp_total_to_level(xp: int) -> tuple[int, int]:
     return (25, 0)
 
 
-def get_credits(save_bytes: bytes):
-    marker = b"Credits"
-    offset = 33
-    pos = save_bytes.find(marker) + offset
-    money = struct.unpack("i", save_bytes[pos : pos + 4])[0]
-
-    return money
-
-
-def get_perk_points(save_bytes: bytes):
-    marker = b"PerkPoints"
-    offset = 36
-    if save_bytes.find(marker) == -1:
-        perk_points = 0
-    else:
-        pos = save_bytes.find(marker) + offset
-        perk_points = struct.unpack("i", save_bytes[pos : pos + 4])[0]
-
-    return perk_points
-
-
-def build_oc_dict(guid_dict: dict[str, Any]) -> dict[str, Any]:
-    overclocks: dict[str, Any] = dict()
-
-    for v in guid_dict.values():
-        try:
-            overclocks.update({v["class"]: dict()})
-        except:
-            pass
-
-    for v in guid_dict.values():
-        try:
-            overclocks[v["class"]].update({v["weapon"]: dict()})
-        except:
-            pass
-
-    for k, v in guid_dict.items():
-        try:
-            overclocks[v["class"]][v["weapon"]].update({v["name"]: k})
-        except:
-            pass
-
-    return overclocks
-
-
-def build_oc_tree(tree: QTreeWidgetItem, source_dict: dict[str, Any]) -> None:
-    oc_dict = build_oc_dict(source_dict)
-    # entry = QTreeWidgetItem(None)
+def build_oc_tree(tree: QTreeWidgetItem) -> None:
+    oc_dict = Stats.build_oc_dict()
     for char, weapons in oc_dict.items():
-        # dwarves[dwarf] = QTreeWidgetItem(tree)
         char_entry = QTreeWidgetItem(tree)
         char_entry.setText(0, char)
         for weapon, oc_names in weapons.items():
@@ -607,144 +455,22 @@ def build_oc_tree(tree: QTreeWidgetItem, source_dict: dict[str, Any]) -> None:
             for name, uuid in oc_names.items():
                 oc_entry = QTreeWidgetItem(weapon_entry)
                 oc_entry.setText(0, name)
-                oc_entry.setText(1, source_dict[uuid]["status"])
+                oc_entry.setText(1, Stats.guid_dict[uuid]["status"])
                 oc_entry.setText(2, uuid)
-
-
-def get_overclocks(
-    save_bytes: bytes, guid_source: dict[str, Any]
-) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
-    search_term = b"ForgedSchematics"
-    search_end = b"SkinFixupCounter"
-    pos = save_bytes.find(search_term)
-    end_pos = save_bytes.find(search_end)
-    if end_pos == -1:
-        search_end = b"bFirstSchematicMessageShown"
-        end_pos = save_bytes.find(search_end)
-
-    for i in guid_source.values():
-        i["status"] = "Unacquired"
-
-    guids = deepcopy(guid_source)
-    if pos > 0:
-        oc_data = save_bytes[pos:end_pos]
-        oc_list_offset = 141
-
-        # print(f'pos: {pos}, end_pos: {end_pos}')
-        # print(f'owned_pos: {owned}, diff: {owned-pos}')
-        # has_unforged = True if oc_data.find(b'Owned') else False
-        has_unforged = oc_data.find(b"Owned") > 0
-        # print(has_unforged) # bool
-        num_forged = struct.unpack("i", save_bytes[pos + 63 : pos + 67])[0]
-        forged = dict()
-        # print(num_forged)
-
-        for i in range(num_forged):
-            uuid = (
-                save_bytes[
-                    pos
-                    + oc_list_offset
-                    + (i * 16) : pos
-                    + oc_list_offset
-                    + (i * 16)
-                    + 16
-                ]
-                .hex()
-                .upper()
-            )
-            try:
-                a = guids[uuid]
-                guid_source[uuid]["status"] = "Forged"
-                a["status"] = "Forged"
-                del guids[uuid]
-                forged.update({uuid: a})
-
-                # print('success')
-            except:
-                # print(f'Error: {e}')
-                pass
-
-        # print('after forged extraction')
-        if has_unforged:
-            unforged = dict()
-            # print('in unforged loop')
-            num_pos = save_bytes.find(b"Owned", pos) + 62
-            num_unforged = struct.unpack("i", save_bytes[num_pos : num_pos + 4])[0]
-            unforged_pos = num_pos + 77
-            for i in range(num_unforged):
-                uuid = (
-                    save_bytes[unforged_pos + (i * 16) : unforged_pos + (i * 16) + 16]
-                    .hex()
-                    .upper()
-                )
-                try:
-                    unforged.update({uuid: guids[uuid]})
-                    guid_source[uuid]["status"] = "Unforged"
-                    unforged[uuid]["status"] = "Unforged"
-                except KeyError:
-                    unforged.update({uuid: "Cosmetic"})
-        else:
-            unforged = dict()
-    else:
-        forged = dict()
-        unforged = dict()
-
-    # print('after unforged extraction')
-    # print(f'unforged: {unforged}')
-    # forged OCs, unacquired OCs, unforged OCs
-    return (forged, guids, unforged)
-
-
-def get_weapons(save_data) -> dict[int, list[int | bool]]:
-    weapon = save_data.find(b"WeaponMaintenanceEntry") + 0x2C
-
-    WEAPON_SIZE = 0xD9
-    OFFSET_WEAPON_XP = 0x6E
-    OFFSET_WEAPON_LEVEL = 0x95
-    OFFSET_WEAPON_LEVEL_UP = 0xCA
-
-    weapon_stats = dict()
-
-    while save_data[weapon : weapon + 8].decode() == "WeaponID":
-        xp = int.from_bytes(
-            save_data[weapon + OFFSET_WEAPON_XP : weapon + OFFSET_WEAPON_XP + 4],
-            "little",
-        )
-        level = int.from_bytes(
-            save_data[weapon + OFFSET_WEAPON_LEVEL : weapon + OFFSET_WEAPON_LEVEL + 4],
-            "little",
-        )
-        levelup = bool.from_bytes(
-            save_data[
-                weapon + OFFSET_WEAPON_LEVEL_UP : weapon + OFFSET_WEAPON_LEVEL_UP + 1
-            ],
-            "little",
-        )
-
-        weapon_stats[weapon] = [xp, level, levelup]
-
-        weapon += WEAPON_SIZE
-
-    return weapon_stats
 
 
 @Slot()  # type: ignore
 def filter_overclocks() -> None:
     item_filter = widget.combo_oc_filter.currentText()
-    # forged_ocs, unacquired_ocs, unforged_ocs = get_overclocks(save_data, guid_dict)
-    # print(item_filter)
     tree = widget.overclock_tree
     tree_root = tree.invisibleRootItem()
 
     for i in range(tree_root.childCount()):
-        # print(tree_root.child(i).text(0))
         dwarf = tree_root.child(i)
         for j in range(dwarf.childCount()):
             weapon = dwarf.child(j)
-            # print(f'\t{weapon.text(0)}')
             for k in range(weapon.childCount()):
                 oc = weapon.child(k)
-                # print(f'\t\t{oc.text(0)}')
                 if oc.text(1) == item_filter or item_filter == "All":
                     oc.setHidden(False)
                 else:
@@ -766,19 +492,21 @@ def filter_overclocks() -> None:
 
 @Slot()  # type: ignore
 def add_cores() -> None:
-    # print("add cores")
-    global unforged_ocs
-    global unacquired_ocs
     tree = widget.overclock_tree
     selected = tree.selectedItems()
+    unacquired_ocs = Stats.get_unacquired_overclocks()
     items_to_add = list()
+    newly_acquired_ocs = []
     for i in selected:
         if i.text(1) == "Unacquired" and i.text(2) in unacquired_ocs:
             items_to_add.append(f"{i.parent().text(0)}: {i.text(0)} ({i.text(2)})")
-            guid_dict[i.text(2)]["status"] = "Unforged"
-            unforged_ocs.update({i.text(2): guid_dict[i.text(2)]})
-            del unacquired_ocs[i.text(2)]
-            guid_dict[i.text(2)]["status"] = "Unforged"
+            # Stats.guid_dict[i.text(2)]["status"] = "Unforged"
+            # Stats.unforged_ocs.update({i.text(2): Stats.guid_dict[i.text(2)]})
+            # del unacquired_ocs[i.text(2)]
+            Stats.guid_dict[i.text(2)]["status"] = "Unforged"
+            newly_acquired_ocs.append(i.text(2))
+
+    Stats.set_overclocks_to_unforged(newly_acquired_ocs)
 
     core_list = widget.unforged_list
     for item in items_to_add:
@@ -790,285 +518,13 @@ def add_cores() -> None:
 
 @Slot()  # type: ignore
 def save_changes() -> None:
-    changes: dict[str, Any] = get_values()
-    changes["unforged"] = unforged_ocs
+    changes: Stats = get_values()
+    # TODO
+    # changes["unforged"] = unforged_ocs
     # pp(changes)
     save_file: bytes = make_save_file(file_name, changes)
     with open(file_name, "wb") as f:
         f.write(save_file)
-
-
-def make_save_file(file_path, new_values) -> bytes:
-    with open(file_path, "rb") as f:
-        save_data: bytes = f.read()
-
-    # write resources
-    # resource_bytes = list()
-    # res_guids = deepcopy(resource_guids)
-    resources: dict[str, int] = {
-        "yeast": new_values["brewing"]["yeast"],
-        "starch": new_values["brewing"]["starch"],
-        "barley": new_values["brewing"]["barley"],
-        "bismor": new_values["minerals"]["bismor"],
-        "enor": new_values["minerals"]["enor"],
-        "malt": new_values["brewing"]["malt"],
-        "umanite": new_values["minerals"]["umanite"],
-        "jadiz": new_values["minerals"]["jadiz"],
-        "croppa": new_values["minerals"]["croppa"],
-        "magnite": new_values["minerals"]["magnite"],
-        "error": new_values["misc"]["error"],
-        "cores": new_values["misc"]["cores"],
-        "data": new_values["misc"]["data"],
-        "phazyonite": new_values["misc"]["phazyonite"],
-    }
-
-    res_marker = b"OwnedResources"
-    res_pos: int = save_data.find(res_marker) + 85
-    res_length = struct.unpack("i", save_data[res_pos - 4 : res_pos])[0] * 20
-    res_bytes: bytes = save_data[res_pos : res_pos + res_length]
-
-    for k, v in resources.items():
-        if res_bytes.find(bytes.fromhex(RESOURCE_GUIDS[k])) > -1:
-            pos: int = res_bytes.find(bytes.fromhex(RESOURCE_GUIDS[k]))
-            res_bytes = (
-                res_bytes[: pos + 16] + struct.pack("f", v) + res_bytes[pos + 20 :]
-            )
-            # print(
-            #     f'res: {k}, pos: {pos}, guid: {res_guids[k]}, val: {v}, v bytes: {struct.pack("f", v)}'
-            # )
-
-    # print(res_bytes.hex().upper())
-
-    save_data = save_data[:res_pos] + res_bytes + save_data[res_pos + res_length :]
-
-    # write credits
-    cred_marker = b"Credits"
-    cred_pos: int = save_data.find(cred_marker) + 33
-    cred_bytes: bytes = struct.pack("i", new_values["misc"]["credits"])
-    save_data = save_data[:cred_pos] + cred_bytes + save_data[cred_pos + 4 :]
-
-    # write perk points
-    if new_values["misc"]["perks"] > 0:
-        perks_marker = b"PerkPoints"
-        perks_bytes: bytes = struct.pack("i", new_values["misc"]["perks"])
-        if save_data.find(perks_marker) != -1:
-            perks_pos: int = save_data.find(perks_marker) + 36
-            save_data = save_data[:perks_pos] + perks_bytes + save_data[perks_pos + 4 :]
-        else:
-            perks_entry: bytes = (
-                b"\x0B\x00\x00\x00\x50\x65\x72\x6B\x50\x6F\x69\x6E\x74\x73\x00\x0C\x00\x00\x00\x49\x6E\x74\x50\x72\x6F\x70\x65\x72\x74\x79\x00\x04\x00\x00\x00\x00\x00\x00\x00\x00"
-                + perks_bytes
-            )
-            perks_pos = save_data.find(
-                b"\x11\x00\x00\x00\x55\x6E\x4C\x6F\x63\x6B\x65\x64\x4D\x69\x73\x73\x69\x6F\x6E\x73\x00\x0E"
-            )
-            save_data = (
-                save_data[:perks_pos] + perks_entry + save_data[perks_pos:]
-            )  # inserting data, not overwriting
-    # print(f'2. {len(save_data)}')
-    # write XP
-    en_marker = b"\x85\xEF\x62\x6C\x65\xF1\x02\x4A\x8D\xFE\xB5\xD0\xF3\x90\x9D\x2E\x03\x00\x00\x00\x58\x50"
-    sc_marker = b"\x30\xD8\xEA\x17\xD8\xFB\xBA\x4C\x95\x30\x6D\xE9\x65\x5C\x2F\x8C\x03\x00\x00\x00\x58\x50"
-    dr_marker = b"\x9E\xDD\x56\xF1\xEE\xBC\xC5\x48\x8D\x5B\x5E\x5B\x80\xB6\x2D\xB4\x03\x00\x00\x00\x58\x50"
-    gu_marker = b"\xAE\x56\xE1\x80\xFE\xC0\xC4\x4D\x96\xFA\x29\xC2\x83\x66\xB9\x7B\x03\x00\x00\x00\x58\x50"
-    offset = 48
-    eng_xp_pos: int = save_data.find(en_marker) + offset
-    scout_xp_pos: int = save_data.find(sc_marker) + offset
-    drill_xp_pos: int = save_data.find(dr_marker) + offset
-    gun_xp_pos: int = save_data.find(gu_marker) + offset
-
-    eng_xp_bytes: bytes = struct.pack("i", new_values["xp"]["engineer"]["xp"])
-    scout_xp_bytes: bytes = struct.pack("i", new_values["xp"]["scout"]["xp"])
-    drill_xp_bytes: bytes = struct.pack("i", new_values["xp"]["driller"]["xp"])
-    gun_xp_bytes: bytes = struct.pack("i", new_values["xp"]["gunner"]["xp"])
-
-    promo_offset = 108
-    levels_per_promo = 25
-    promo_levels_offset = 56
-    eng_promo_pos: int = eng_xp_pos + promo_offset
-    scout_promo_pos: int = scout_xp_pos + promo_offset
-    drill_promo_pos: int = drill_xp_pos + promo_offset
-    gun_promo_pos: int = gun_xp_pos + promo_offset
-
-    eng_promo_bytes: bytes = struct.pack("i", new_values["xp"]["engineer"]["promo"])
-    eng_promo_level_bytes: bytes = struct.pack(
-        "i", new_values["xp"]["engineer"]["promo"] * levels_per_promo
-    )
-    scout_promo_bytes: bytes = struct.pack("i", new_values["xp"]["scout"]["promo"])
-    scout_promo_level_bytes: bytes = struct.pack(
-        "i", new_values["xp"]["scout"]["promo"] * levels_per_promo
-    )
-    drill_promo_bytes: bytes = struct.pack("i", new_values["xp"]["driller"]["promo"])
-    drill_promo_level_bytes: bytes = struct.pack(
-        "i", new_values["xp"]["driller"]["promo"] * levels_per_promo
-    )
-    gun_promo_bytes: bytes = struct.pack("i", new_values["xp"]["gunner"]["promo"])
-    gun_promo_level_bytes: bytes = struct.pack(
-        "i", new_values["xp"]["gunner"]["promo"] * levels_per_promo
-    )
-
-    save_data = save_data[:eng_xp_pos] + eng_xp_bytes + save_data[eng_xp_pos + 4 :]
-    save_data = (
-        save_data[:eng_promo_pos] + eng_promo_bytes + save_data[eng_promo_pos + 4 :]
-    )
-    save_data = (
-        save_data[: eng_promo_pos + promo_levels_offset]
-        + eng_promo_level_bytes
-        + save_data[eng_promo_pos + promo_levels_offset + 4 :]
-    )
-
-    save_data = (
-        save_data[:scout_xp_pos] + scout_xp_bytes + save_data[scout_xp_pos + 4 :]
-    )
-    save_data = (
-        save_data[:scout_promo_pos]
-        + scout_promo_bytes
-        + save_data[scout_promo_pos + 4 :]
-    )
-    save_data = (
-        save_data[: scout_promo_pos + promo_levels_offset]
-        + scout_promo_level_bytes
-        + save_data[scout_promo_pos + promo_levels_offset + 4 :]
-    )
-
-    save_data = (
-        save_data[:drill_xp_pos] + drill_xp_bytes + save_data[drill_xp_pos + 4 :]
-    )
-    save_data = (
-        save_data[:drill_promo_pos]
-        + drill_promo_bytes
-        + save_data[drill_promo_pos + 4 :]
-    )
-    save_data = (
-        save_data[: drill_promo_pos + promo_levels_offset]
-        + drill_promo_level_bytes
-        + save_data[drill_promo_pos + promo_levels_offset + 4 :]
-    )
-
-    save_data = save_data[:gun_xp_pos] + gun_xp_bytes + save_data[gun_xp_pos + 4 :]
-    save_data = (
-        save_data[:gun_promo_pos] + gun_promo_bytes + save_data[gun_promo_pos + 4 :]
-    )
-    save_data = (
-        save_data[: gun_promo_pos + promo_levels_offset]
-        + gun_promo_level_bytes
-        + save_data[gun_promo_pos + promo_levels_offset + 4 :]
-    )
-    # print(f'3. {len(save_data)}')
-    # write overclocks
-    search_term = b"ForgedSchematics"  # \x00\x0F\x00\x00\x00Struct'
-    search_end = b"SkinFixupCounter"
-    pos = save_data.find(search_term)
-    end_pos: int = (
-        save_data.find(search_end) - 4
-    )  # means I don't have to hardcode the boundary bytes
-    # print(f'pos: {pos}, end_pos: {end_pos}')
-
-    # this is currently broken, don't care enough to put more effort into fixing it.
-    # the problem seems to be related to the \x5D in the middle of the first hex string,
-    # this changes to \x6D when going from 1->2 overclocks. Similarly, the \x10 in the
-    # middle of the second hex string (\x74\x79\x00\x10 <- this one) changes to \x20
-    # when going from 1->2 overclocks. My testing involved one weapon OC and one cosmetic OC.
-    # If someone can provide a save file with more than 2 overclocks waiting to be forged,
-    # that might help figure it out, but I'm currently stumped.
-    if pos > 0:
-        num_forged = struct.unpack("i", save_data[pos + 63 : pos + 67])[0]
-        unforged_ocs = new_values["unforged"]
-
-        schematic_save_marker = b"SchematicSave"
-        schematic_save_offset = 33
-        schematic_save_pos = (
-            save_data.find(schematic_save_marker) + schematic_save_offset
-        )
-        schematic_save_end_pos = schematic_save_pos + 8
-        schematic_save_size = b""
-
-        if len(unforged_ocs) > 0:
-            ocs: bytes = (
-                b"\x10\x00\x00\x00\x4F\x77\x6E\x65\x64\x53\x63\x68\x65\x6D\x61\x74\x69\x63\x73\x00\x0E\x00\x00\x00\x41\x72\x72\x61\x79\x50\x72\x6F\x70\x65\x72\x74\x79\x00"
-                # number of bytes between position of first "OwnedSchematic" and end_pos, -62, as a 64bit unsigned integer
-                + struct.pack("Q", 139 + len(unforged_ocs) * 16 - 62)
-                + b"\x0F\x00\x00\x00\x53\x74\x72\x75\x63\x74\x50\x72\x6F\x70\x65\x72\x74\x79\x00\x00"
-                # number of unforged ocs, stored as a 32bit unsigned integer
-                + struct.pack("I", len(unforged_ocs))
-                + b"\x10\x00\x00\x00\x4F\x77\x6E\x65\x64\x53\x63\x68\x65\x6D\x61\x74\x69\x63\x73\x00\x0F\x00\x00\x00\x53\x74\x72\x75\x63\x74\x50\x72\x6F\x70\x65\x72\x74\x79\x00"
-                # number of bytes taken up by the GUID's of the unforged oc's, stored as a 64bit unsigned integer
-                + struct.pack("Q", len(unforged_ocs) * 16)
-                + b"\x05\x00\x00\x00\x47\x75\x69\x64\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-            )
-            # print(ocs)
-            uuids: list[bytes] = [bytes.fromhex(i) for i in unforged_ocs.keys()]
-            for i in uuids:
-                ocs += i
-
-            # the number of bytes between position of first "SchematicSave" and end_pos, -17, as a 64bit unsigned integer
-            schematic_save_size = struct.pack(
-                "Q",
-                139 + (141 + num_forged * 16) + 4 + (139 + len(unforged_ocs) * 16) - 17,
-            )
-
-        else:
-            ocs = b""
-            # the number of bytes between position of first "SchematicSave" and end_pos, -17, as a 64bit unsigned integer
-            schematic_save_size = struct.pack("Q", 139 + (141 + num_forged * 16) - 17)
-
-        save_data = (
-            save_data[: pos + (num_forged * 16) + 141] + ocs + save_data[end_pos:]
-        )
-        save_data = (
-            save_data[:schematic_save_pos]
-            + schematic_save_size
-            + save_data[schematic_save_end_pos:]
-        )
-
-    # write season data
-    for season_num, season_guid in SEASON_GUIDS.items():
-        season_marker: bytes = bytes.fromhex(season_guid)
-        season_marker_pos: int = save_data.find(season_marker)
-        # season data does not exist
-        if season_marker_pos == -1:
-            print(f"Season {season_num} missing")
-            continue
-
-        season_xp_offset = 169
-        season_xp_pos: int = season_marker_pos + season_xp_offset
-        # scrip_marker = b"Tokens"
-        scrip_offset = 209
-        scrip_pos: int = season_marker_pos + scrip_offset
-
-        save_data = (
-            save_data[:season_xp_pos]
-            + struct.pack("i", new_values["season"][season_num]["xp"])
-            + save_data[season_xp_pos + 4 :]
-        )
-        save_data = (
-            save_data[:scrip_pos]
-            + struct.pack("i", new_values["season"][season_num]["scrip"])
-            + save_data[scrip_pos + 4 :]
-        )
-
-    # write weapon maintenance data
-    global weapon_stats
-    OFFSET_WEAPON_XP = 0x6E
-    OFFSET_WEAPON_LEVEL_UP = 0xCA
-    if weapon_stats:
-        for weapon_pos, _ in weapon_stats.items():
-            xp = struct.pack("i", weapon_stats[weapon_pos][0])
-            level_up = struct.pack("b", weapon_stats[weapon_pos][2])
-            save_data = (
-                save_data[: weapon_pos + OFFSET_WEAPON_XP]
-                + xp
-                + save_data[weapon_pos + OFFSET_WEAPON_XP + 4 :]
-            )
-            save_data = (
-                save_data[: weapon_pos + OFFSET_WEAPON_LEVEL_UP]
-                + level_up
-                + save_data[weapon_pos + OFFSET_WEAPON_LEVEL_UP + 1 :]
-            )
-
-    return save_data
-    # with open(f"{file_name}", "wb") as t:
-    #     t.write(save_data)
 
 
 @Slot()  # type: ignore
@@ -1081,112 +537,98 @@ def set_all_25() -> None:
 
 @Slot()  # type: ignore
 def max_all_available_weapon_maintenance() -> None:
-    global stats
-    global weapon_stats
-    weapon_stats = dict()
-    for weapon, [_, level, _] in stats["weapons"].items():
+    for weapon, [_, level, _] in Stats.weapons.items():
         xp_needed = 0
         for xp_level, xp_for_levelup in XP_PER_WEAPON_LEVEL.items():
             if level < xp_level:
                 xp_needed += xp_for_levelup
         if xp_needed:
-            weapon_stats[weapon] = [xp_needed, level, True]
+            Stats.weapons[weapon] = [xp_needed, level, True]
 
 
 @Slot()  # type: ignore
 def reset_values() -> None:
-    global stats
-    global unforged_ocs
-    global unacquired_ocs
-    global forged_ocs
-    global weapon_stats
-    # print('reset values')
-    widget.bismor_text.setText(str(stats["minerals"]["bismor"]))
-    widget.enor_text.setText(str(stats["minerals"]["enor"]))
-    widget.jadiz_text.setText(str(stats["minerals"]["jadiz"]))
-    widget.croppa_text.setText(str(stats["minerals"]["croppa"]))
-    widget.magnite_text.setText(str(stats["minerals"]["magnite"]))
-    widget.umanite_text.setText(str(stats["minerals"]["umanite"]))
-    # print('after minerals')
+    global save_data
+    Stats.get_initial_stats(save_data)
 
-    widget.yeast_text.setText(str(stats["brewing"]["yeast"]))
-    widget.starch_text.setText(str(stats["brewing"]["starch"]))
-    widget.malt_text.setText(str(stats["brewing"]["malt"]))
-    widget.barley_text.setText(str(stats["brewing"]["barley"]))
-    # print('after brewing')
+    # Sets all minerals to the values in Stats
+    widget.bismor_text.setText(str(Stats.resources[Resource.BISMOR]))
+    widget.enor_text.setText(str(Stats.resources[Resource.ENOR]))
+    widget.jadiz_text.setText(str(Stats.resources[Resource.JADIZ]))
+    widget.croppa_text.setText(str(Stats.resources[Resource.CROPPA]))
+    widget.magnite_text.setText(str(Stats.resources[Resource.MAGNITE]))
+    widget.umanite_text.setText(str(Stats.resources[Resource.UMANITE]))
 
-    widget.error_text.setText(str(stats["misc"]["error"]))
-    widget.core_text.setText(str(stats["misc"]["cores"]))
-    widget.credits_text.setText(str(stats["misc"]["credits"]))
-    widget.perk_text.setText(str(stats["misc"]["perks"]))
-    widget.data_text.setText(str(stats["misc"]["data"]))
-    widget.phazy_text.setText(str(stats["misc"]["phazyonite"]))
-    # print('after misc')
+    # Sets all brewing materials to the values in Stats
+    widget.yeast_text.setText(str(Stats.resources[Resource.YEAST]))
+    widget.starch_text.setText(str(Stats.resources[Resource.STARCH]))
+    widget.malt_text.setText(str(Stats.resources[Resource.MALT]))
+    widget.barley_text.setText(str(Stats.resources[Resource.BARLEY]))
 
-    widget.driller_xp.setText(str(stats["xp"]["driller"]["xp"]))
-    d_xp = xp_total_to_level(stats["xp"]["driller"]["xp"])
+    # Sets all misc resources to the values in Stats
+    widget.error_text.setText(str(Stats.resources[Resource.ERROR]))
+    widget.core_text.setText(str(Stats.resources[Resource.CORES]))
+    widget.credits_text.setText(str(Stats.credits))
+    widget.perk_text.setText(str(Stats.perk_points))
+    widget.data_text.setText(str(Stats.resources[Resource.DATA]))
+    widget.phazy_text.setText(str(Stats.resources[Resource.PHAZ]))
+
+    # Sets all dwarf XP to the values in Stats
+    widget.driller_xp.setText(str(Stats.dwarf_xp[Dwarf.DRILLER]))
+    d_xp = xp_total_to_level(Stats.dwarf_xp[Dwarf.DRILLER])
+    d_promo = Stats.dwarf_promo[Dwarf.DRILLER]
     widget.driller_lvl_text.setText(str(d_xp[0]))
     widget.driller_xp_2.setText(str(d_xp[1]))
     widget.driller_promo_box.setCurrentIndex(
-        stats["xp"]["driller"]["promo"]
-        if stats["xp"]["driller"]["promo"] < MAX_BADGES
-        else MAX_BADGES
+        d_promo if d_promo < MAX_BADGES else MAX_BADGES
     )
-    # print('after driller')
 
-    widget.engineer_xp.setText(str(stats["xp"]["engineer"]["xp"]))
-    e_xp = xp_total_to_level(stats["xp"]["engineer"]["xp"])
+    widget.engineer_xp.setText(str(Stats.dwarf_xp[Dwarf.ENGINEER]))
+    e_xp = xp_total_to_level(Stats.dwarf_xp[Dwarf.ENGINEER])
+    e_promo = Stats.dwarf_promo[Dwarf.ENGINEER]
     widget.engineer_lvl_text.setText(str(e_xp[0]))
     widget.engineer_xp_2.setText(str(e_xp[1]))
     widget.engineer_promo_box.setCurrentIndex(
-        stats["xp"]["engineer"]["promo"]
-        if stats["xp"]["engineer"]["promo"] < MAX_BADGES
-        else MAX_BADGES
+        e_promo if e_promo < MAX_BADGES else MAX_BADGES
     )
-    # print('after engineer')
 
-    widget.gunner_xp.setText(str(stats["xp"]["gunner"]["xp"]))
-    g_xp = xp_total_to_level(stats["xp"]["gunner"]["xp"])
+    widget.gunner_xp.setText(str(Stats.dwarf_xp[Dwarf.GUNNER]))
+    g_xp = xp_total_to_level(Stats.dwarf_xp[Dwarf.GUNNER])
+    g_promo = Stats.dwarf_promo[Dwarf.GUNNER]
     widget.gunner_lvl_text.setText(str(g_xp[0]))
     widget.gunner_xp_2.setText(str(g_xp[1]))
     widget.gunner_promo_box.setCurrentIndex(
-        stats["xp"]["gunner"]["promo"]
-        if stats["xp"]["gunner"]["promo"] < MAX_BADGES
-        else MAX_BADGES
+        g_promo if g_promo < MAX_BADGES else MAX_BADGES
     )
-    # print('after gunner')
 
-    widget.scout_xp.setText(str(stats["xp"]["scout"]["xp"]))
-    s_xp = xp_total_to_level(stats["xp"]["scout"]["xp"])
+    widget.scout_xp.setText(str(Stats.dwarf_xp[Dwarf.SCOUT]))
+    s_xp = xp_total_to_level(Stats.dwarf_xp[Dwarf.SCOUT])
+    s_promo = Stats.dwarf_promo[Dwarf.SCOUT]
     widget.scout_lvl_text.setText(str(s_xp[0]))
     widget.scout_xp_2.setText(str(s_xp[1]))
     widget.scout_promo_box.setCurrentIndex(
-        stats["xp"]["scout"]["promo"]
-        if stats["xp"]["scout"]["promo"] < MAX_BADGES
-        else MAX_BADGES
+        s_promo if s_promo < MAX_BADGES else MAX_BADGES
     )
-    # print('after scout')
 
-    forged_ocs, unacquired_ocs, unforged_ocs = get_overclocks(save_data, guid_dict)
     unforged_list = widget.unforged_list
+    unforged_ocs = Stats.get_unforged_overclocks()
     populate_unforged_list(unforged_list, unforged_ocs)
 
     filter_overclocks()
     update_rank()
-    reset_season_data(stats["season-initial"])
-    weapon_stats = None
+    reset_season_data()
 
 
-def reset_season_data(data: dict):
-    season_total_xp = data[season_selected]["xp"]
+def reset_season_data():
+    season_total_xp = Stats.season_data[season_selected]["xp"]
     widget.season_xp.setText(str(season_total_xp % XP_PER_SEASON_LEVEL))
     widget.season_lvl_text.setText(str(season_total_xp // XP_PER_SEASON_LEVEL))
-    widget.scrip_text.setText(str(data[season_selected]["scrip"]))
+    widget.scrip_text.setText(str(Stats.season_data[season_selected]["scrip"]))
 
 
 @Slot()  # type: ignore
 def add_crafting_mats() -> None:
-    cost: dict[str, int] = {
+    cost: Cost = {
         "bismor": 0,
         "croppa": 0,
         "jadiz": 0,
@@ -1195,12 +637,12 @@ def add_crafting_mats() -> None:
         "umanite": 0,
         "credits": 0,
     }
-    for k, v in unforged_ocs.items():
-        print(k, v)
+    unforged_ocs: List[Overclock] = Stats.get_unforged_overclocks()
+    for oc in unforged_ocs:
         try:
-            for i in v["cost"].keys():
-                cost[i] += v["cost"][i]
-        except:
+            for i in oc.cost.keys():
+                cost[i] += oc.cost[i]  # type: ignore
+        except IndexError:
             print("Cosmetic")
     print(cost)
     add_resources(cost)
@@ -1212,118 +654,79 @@ def add_resources(res_dict) -> None:
         widget.bismor_text.setText(
             str(int(widget.bismor_text.text()) + res_dict["bismor"])
         )
-    except:
+    except IndexError:
         pass
     try:
         widget.croppa_text.setText(
             str(int(widget.croppa_text.text()) + res_dict["croppa"])
         )
-    except:
+    except IndexError:
         pass
     try:
         widget.enor_text.setText(str(int(widget.enor_text.text()) + res_dict["enor"]))
-    except:
+    except IndexError:
         pass
     try:
         widget.jadiz_text.setText(
             str(int(widget.jadiz_text.text()) + res_dict["jadiz"])
         )
-    except:
+    except IndexError:
         pass
     try:
         widget.magnite_text.setText(
             str(int(widget.magnite_text.text()) + res_dict["magnite"])
         )
-    except:
+    except IndexError:
         pass
     try:
         widget.umanite_text.setText(
             str(int(widget.umanite_text.text()) + res_dict["umanite"])
         )
-    except:
+    except IndexError:
         pass
     try:
         widget.barley_text.setText(
             str(int(widget.barley_text.text()) + res_dict["barley"])
         )
-    except:
+    except IndexError:
         pass
     try:
         widget.yeast_text.setText(
             str(int(widget.yeast_text.text()) + res_dict["yeast"])
         )
-    except:
+    except IndexError:
         pass
     try:
         widget.malt_text.setText(str(int(widget.malt_text.text()) + res_dict["malt"]))
-    except:
+    except IndexError:
         pass
     try:
         widget.starch_text.setText(
             str(int(widget.starch_text.text()) + res_dict["starch"])
         )
-    except:
+    except IndexError:
         pass
     try:
         widget.error_text.setText(
             str(int(widget.error_text.text()) + res_dict["error"])
         )
-    except:
+    except IndexError:
         pass
     try:
         widget.core_text.setText(str(int(widget.core_text.text()) + res_dict["cores"]))
-    except:
+    except IndexError:
         pass
     try:
         widget.credits_text.setText(
             str(int(widget.credits_text.text()) + res_dict["credits"])
         )
-    except:
+    except IndexError:
         pass
 
 
-def init_values(save_data) -> dict[str, Any]:
-    stats["xp"] = get_xp(save_data)
-    stats["misc"] = dict()
-    stats["misc"]["credits"] = get_credits(save_data)
-    stats["misc"]["perks"] = get_perk_points(save_data)
-    resources: dict[str, int] = get_resources(save_data)
-    stats["misc"]["cores"] = resources["cores"]
-    stats["misc"]["error"] = resources["error"]
-    stats["misc"]["data"] = resources["data"]
-    stats["misc"]["phazyonite"] = resources["phazyonite"]
-    stats["minerals"] = dict()
-    stats["minerals"]["bismor"] = resources["bismor"]
-    stats["minerals"]["enor"] = resources["enor"]
-    stats["minerals"]["jadiz"] = resources["jadiz"]
-    stats["minerals"]["croppa"] = resources["croppa"]
-    stats["minerals"]["magnite"] = resources["magnite"]
-    stats["minerals"]["umanite"] = resources["umanite"]
-    stats["brewing"] = dict()
-    stats["brewing"]["yeast"] = resources["yeast"]
-    stats["brewing"]["starch"] = resources["starch"]
-    stats["brewing"]["barley"] = resources["barley"]
-    stats["brewing"]["malt"] = resources["malt"]
-    stats["weapons"] = get_weapons(save_data)
-
-    # to be modified as the user updates the fields
-    stats["season-changes"] = dict()
-    widget.season_box.clear()
-    seasons_present = []
-    for season_num, season_guid in SEASON_GUIDS.items():
-        try:
-            stats["season-changes"][season_num] = get_season_data(
-                save_data, season_guid
-            )
-        except:
-            print(
-                f"Missing data for season {season_num}, please start the season first."
-            )
-        else:
-            seasons_present.append(season_num)
-
-    # initial state, to refer to when using the reset values functionality
-    stats["season-initial"] = deepcopy(stats["season-changes"])
+def init_values(save_data):
+    Stats.get_initial_stats(save_data)
+    Stats.get_overclocks(save_data)
 
     # addItem triggers currentTextChanged which triggers saving of data currently in textbox.
     # if two saves are loaded consecutively, it will cause values in the textbox (from file1)
@@ -1334,85 +737,72 @@ def init_values(save_data) -> dict[str, Any]:
     widget.scrip_text.setText("")
 
     # populate the dropdown for season numbers
-    for season_num in seasons_present:
+    widget.season_box.clear()
+    for season_num in Stats.season_data.keys():
         widget.season_box.addItem(str(season_num))
-    widget.season_box.setCurrentIndex(len(seasons_present) - 1)
+    widget.season_box.setCurrentIndex(len(Stats.season_data) - 1)
 
-    if not seasons_present:
+    if len(Stats.season_data) == 0:
         widget.season_group.setEnabled(False)
 
-    return stats
 
+def get_values() -> Stats:
+    new_stats = Stats()
 
-def get_values() -> dict[str, Any]:
-    global stats
+    new_stats.resources[Resource.BISMOR] = int(widget.bismor_text.text())
+    new_stats.resources[Resource.CROPPA] = int(widget.croppa_text.text())
+    new_stats.resources[Resource.ENOR] = int(widget.enor_text.text())
+    new_stats.resources[Resource.JADIZ] = int(widget.jadiz_text.text())
+    new_stats.resources[Resource.MAGNITE] = int(widget.magnite_text.text())
+    new_stats.resources[Resource.UMANITE] = int(widget.umanite_text.text())
 
-    ns: dict[str, Any] = dict()
-    ns["minerals"] = dict()
-    ns["brewing"] = dict()
-    ns["misc"] = dict()
-    ns["xp"] = {
-        "driller": dict(),
-        "gunner": dict(),
-        "scout": dict(),
-        "engineer": dict(),
-    }
+    new_stats.resources[Resource.YEAST] = int(widget.yeast_text.text())
+    new_stats.resources[Resource.STARCH] = int(widget.starch_text.text())
+    new_stats.resources[Resource.MALT] = int(widget.malt_text.text())
+    new_stats.resources[Resource.BARLEY] = int(widget.barley_text.text())
 
-    ns["minerals"]["bismor"] = int(widget.bismor_text.text())
-    ns["minerals"]["croppa"] = int(widget.croppa_text.text())
-    ns["minerals"]["enor"] = int(widget.enor_text.text())
-    ns["minerals"]["jadiz"] = int(widget.jadiz_text.text())
-    ns["minerals"]["magnite"] = int(widget.magnite_text.text())
-    ns["minerals"]["umanite"] = int(widget.umanite_text.text())
-
-    ns["brewing"]["yeast"] = int(widget.yeast_text.text())
-    ns["brewing"]["starch"] = int(widget.starch_text.text())
-    ns["brewing"]["malt"] = int(widget.malt_text.text())
-    ns["brewing"]["barley"] = int(widget.barley_text.text())
-
-    ns["xp"]["driller"]["xp"] = int(widget.driller_xp.text())
-    ns["xp"]["engineer"]["xp"] = int(widget.engineer_xp.text())
-    ns["xp"]["gunner"]["xp"] = int(widget.gunner_xp.text())
-    ns["xp"]["scout"]["xp"] = int(widget.scout_xp.text())
+    new_stats.dwarf_xp[Dwarf.DRILLER] = int(widget.driller_xp.text())
+    new_stats.dwarf_xp[Dwarf.ENGINEER] = int(widget.engineer_xp.text())
+    new_stats.dwarf_xp[Dwarf.GUNNER] = int(widget.gunner_xp.text())
+    new_stats.dwarf_xp[Dwarf.SCOUT] = int(widget.scout_xp.text())
 
     driller_promo = int(widget.driller_promo_box.currentIndex())
     gunner_promo = int(widget.gunner_promo_box.currentIndex())
     scout_promo = int(widget.scout_promo_box.currentIndex())
     engineer_promo = int(widget.engineer_promo_box.currentIndex())
 
-    ns["xp"]["driller"]["promo"] = (
-        driller_promo if driller_promo < MAX_BADGES else stats["xp"]["driller"]["promo"]
+    new_stats.dwarf_promo[Dwarf.DRILLER] = (
+        driller_promo
+        if driller_promo < MAX_BADGES
+        else Stats.dwarf_promo[Dwarf.DRILLER]
     )
-    ns["xp"]["engineer"]["promo"] = (
+    new_stats.dwarf_promo[Dwarf.ENGINEER] = (
         engineer_promo
         if engineer_promo < MAX_BADGES
-        else stats["xp"]["engineer"]["promo"]
+        else Stats.dwarf_promo[Dwarf.ENGINEER]
     )
-    ns["xp"]["gunner"]["promo"] = (
-        gunner_promo if gunner_promo < MAX_BADGES else stats["xp"]["gunner"]["promo"]
+    new_stats.dwarf_promo[Dwarf.GUNNER] = (
+        gunner_promo if gunner_promo < MAX_BADGES else Stats.dwarf_promo[Dwarf.GUNNER]
     )
-    ns["xp"]["scout"]["promo"] = (
-        scout_promo if scout_promo < MAX_BADGES else stats["xp"]["scout"]["promo"]
+    new_stats.dwarf_promo[Dwarf.SCOUT] = (
+        scout_promo if scout_promo < MAX_BADGES else Stats.dwarf_promo[Dwarf.SCOUT]
     )
 
-    ns["misc"]["error"] = int(widget.error_text.text())
-    ns["misc"]["cores"] = int(widget.core_text.text())
-    ns["misc"]["credits"] = int(widget.credits_text.text())
-    ns["misc"]["perks"] = int(widget.perk_text.text())
-    ns["misc"]["data"] = int(widget.data_text.text())
-    ns["misc"]["phazyonite"] = int(widget.phazy_text.text())
+    new_stats.resources[Resource.ERROR] = int(widget.error_text.text())
+    new_stats.resources[Resource.CORES] = int(widget.core_text.text())
+    new_stats.credits = int(widget.credits_text.text())
+    new_stats.perk_points = int(widget.perk_text.text())
+    new_stats.resources[Resource.DATA] = int(widget.data_text.text())
+    new_stats.resources[Resource.PHAZ] = int(widget.phazy_text.text())
 
     store_season_changes(season_selected)
-    ns["season"] = stats["season-changes"]
+    new_stats.season_data = Stats.season_data
 
-    return ns
+    return new_stats
 
 
 @Slot()  # type: ignore
 def remove_selected_ocs() -> None:
-    global unforged_ocs
-    global unacquired_ocs
-    global file_name
     list_items = widget.unforged_list.selectedItems()
     items_to_remove = list()
     for i in list_items:
@@ -1429,24 +819,12 @@ def remove_selected_ocs() -> None:
 
 
 def remove_ocs(oc_list: list[str]) -> None:
-    global unforged_ocs
-    global unacquired_ocs
-    global guid_dict
-
-    for i in oc_list:
-        oc: dict[str, Any] = unforged_ocs[i]
-        oc["status"] = "Unacquired"
-        guid_dict[i]["status"] = "Unacquired"
-        unacquired_ocs.update({i: oc})
-        del unforged_ocs[i]
-
+    Stats.set_overclocks_to_unacquired(oc_list)
     filter_overclocks()
 
 
 @Slot()  # type: ignore
 def remove_all_ocs() -> None:
-    global unforged_ocs
-    # unforged_ocs = dict()
     items_to_remove = list()
     unforged_list = widget.unforged_list
     for i in range(unforged_list.count()):
@@ -1463,11 +841,11 @@ def remove_all_ocs() -> None:
 
 
 # global variable definitions
-forged_ocs: dict[str, Any] = dict()
-unforged_ocs: dict[str, Any] = dict()
-unacquired_ocs: dict[str, Any] = dict()
-stats: dict[str, Any] = dict()
-weapon_stats: dict[int, list[int, int, bool]] | None = None  # type: ignore
+# forged_ocs: dict[str, Any] = dict()
+# unforged_ocs: dict[str, Any] = dict()
+# unacquired_ocs: dict[str, Any] = dict()
+# stats: dict[str, Any] = dict()
+# weapon_stats: dict[int, list[int, int, bool]] | None = None  # type: ignore
 file_name: str = ""
 save_data: bytes = b""
 season_selected: int = LATEST_SEASON
@@ -1486,7 +864,8 @@ if __name__ == "__main__":
 
     # load reference data
     with open(guids_file, "r", encoding="utf-8") as g:
-        guid_dict: dict[str, Any] = json.loads(g.read())
+        Stats.guid_dict = json.loads(g.read())
+        # guid_dict: dict[str, Any] = Stats.guid_dict
 
     try:
         # find the install path for the steam version
@@ -1496,7 +875,7 @@ if __name__ == "__main__":
             steam_path += "/steamapps/common/Deep Rock Galactic/FSD/Saved/SaveGames"
         else:
             steam_path = "."
-    except:
+    except FileNotFoundError:
         steam_path = "."
 
     # load the UI
