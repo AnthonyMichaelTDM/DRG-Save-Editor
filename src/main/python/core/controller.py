@@ -7,7 +7,7 @@ from core.file_writer import make_save_file
 from core.state_manager import Stats
 from core.view import EditorUI
 from definitions import (GUID_RE, LATEST_SEASON, MAX_BADGES, RANK_TITLES, XP_PER_SEASON_LEVEL,
-                         XP_PER_WEAPON_LEVEL, XP_TABLE)
+                         XP_PER_WEAPON_LEVEL, XP_TABLE, MAX_DWARF_XP)
 from helpers import utils
 from helpers.datatypes import Cost
 from helpers.enums import Dwarf, Resource
@@ -231,10 +231,10 @@ class Controller:
 
     @Slot()  # type: ignore
     def set_all_25(self) -> None:
-        self.update_xp("driller", 315000)
-        self.update_xp("engineer", 315000)
-        self.update_xp("gunner", 315000)
-        self.update_xp("scout", 315000)
+        self.update_xp("driller", MAX_DWARF_XP)
+        self.update_xp("engineer", MAX_DWARF_XP)
+        self.update_xp("gunner", MAX_DWARF_XP)
+        self.update_xp("scout", MAX_DWARF_XP)
 
     @Slot()  # type: ignore
     def add_crafting_mats(self) -> None:
@@ -479,8 +479,8 @@ class Controller:
 
     def update_xp(self, dwarf, total_xp=0) -> None:
         # updates the xp fields for the specified dwarf with the new xp total
-        if total_xp > 315000:  # max xp check
-            total_xp = 315000
+        if total_xp > MAX_DWARF_XP:  # max xp check
+            total_xp = MAX_DWARF_XP
         level, remainder = utils.xp_total_to_level(total_xp)  # transform XP total
         bad_dwarf = False  # check for possible weirdness
         if dwarf == "driller":

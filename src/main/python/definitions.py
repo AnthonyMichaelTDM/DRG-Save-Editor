@@ -36,6 +36,8 @@ XP_TABLE: list[int] = [
     315000,
 ]
 
+MAX_DWARF_XP = XP_TABLE[-1]
+
 XP_PER_WEAPON_LEVEL: dict[int, int] = {
     1: 25000,
     2: 30000,
