@@ -1,5 +1,3 @@
-import json
-import os
 import struct
 from copy import deepcopy
 from typing import Literal
@@ -10,29 +8,9 @@ from helpers.overclock import Overclock, Cost
 
 
 class Parser:
-    def load_into_state_manager(self, save_bytes: bytes, state_manager) -> None:
-        self.get_season_data(save_bytes, state_manager)
-        self.get_dwarf_xp(save_bytes, state_manager)
-        self.get_misc(save_bytes, state_manager)
-        self.get_resources(save_bytes, state_manager)
-        self.get_weapons(save_bytes, state_manager)
-
-        self.load_guid_dict(state_manager)
-        self.get_overclocks(save_bytes, state_manager)
-
-    def load_guid_dict(self, state_manager):
-        guids_file = "guids.json"
-
-        # check if the guid file exists in the current working directory, if not, use the one in the same directory as the script (for pyinstaller)
-        if not os.path.exists(guids_file):
-            guids_file = os.path.join(os.path.dirname(__file__), guids_file)
-
-        # load reference data
-        with open(guids_file, "r", encoding="utf-8") as g:
-            state_manager.guid_dict = json.loads(g.read())
-
+    @staticmethod
     def get_one_season_data(
-        self, save_bytes: bytes, season_guid: str
+        save_bytes: bytes, season_guid: str
     ) -> dict[Literal["xp", "scrip"], int]:
         # scrip_marker = bytes.fromhex("546F6B656E73")
         season_marker: bytes = bytes.fromhex(season_guid)
@@ -52,27 +30,34 @@ class Parser:
 
         return {"xp": season_xp, "scrip": scrip}
 
-    def get_season_data(self, save_bytes: bytes, state_manager):
-        state_manager.season_data = {}
+    @staticmethod
+    def get_season_data(save_bytes: bytes):
+        season_data = {}
         for season, guid in SEASON_GUIDS.items():
             try:
-                state_manager.season_data[season] = self.get_one_season_data(save_bytes, guid)
+                season_data[season] = Parser.get_one_season_data(save_bytes, guid)
             except ValueError:
                 print(f"Season {season} missing")
+        return season_data
 
-    def get_dwarf_xp(self, save_bytes: bytes, state_manager) -> None:
+    @staticmethod
+    def get_dwarf_xp(save_bytes: bytes):
         markers = {
             Dwarf.ENGINEER: b"\x85\xEF\x62\x6C\x65\xF1\x02\x4A\x8D\xFE\xB5\xD0\xF3\x90\x9D\x2E\x03\x00\x00\x00\x58\x50",
             Dwarf.SCOUT: b"\x30\xD8\xEA\x17\xD8\xFB\xBA\x4C\x95\x30\x6D\xE9\x65\x5C\x2F\x8C\x03\x00\x00\x00\x58\x50",
             Dwarf.DRILLER: b"\x9E\xDD\x56\xF1\xEE\xBC\xC5\x48\x8D\x5B\x5E\x5B\x80\xB6\x2D\xB4\x03\x00\x00\x00\x58\x50",
             Dwarf.GUNNER: b"\xAE\x56\xE1\x80\xFE\xC0\xC4\x4D\x96\xFA\x29\xC2\x83\x66\xB9\x7B\x03\x00\x00\x00\x58\x50",
         }
+        dwarf_xp = {}
+        dwarf_promo = {}
         for dwarf, marker in markers.items():
-            xp, num_promo = self.get_one_dwarf_xp(save_bytes, marker)
-            state_manager.dwarf_xp[dwarf] = xp
-            state_manager.dwarf_promo[dwarf] = num_promo
+            xp, num_promo = Parser.get_one_dwarf_xp(save_bytes, marker)
+            dwarf_xp[dwarf] = xp
+            dwarf_promo[dwarf] = num_promo
+        return dwarf_xp, dwarf_promo
 
-    def get_one_dwarf_xp(self, save_bytes: bytes, marker: bytes):
+    @staticmethod
+    def get_one_dwarf_xp(save_bytes: bytes, marker: bytes):
         xp_offset = 48
         xp_pos: int = save_bytes.find(marker) + xp_offset
         xp: int = struct.unpack("i", save_bytes[xp_pos : xp_pos + 4])[0]
@@ -85,13 +70,15 @@ class Parser:
 
         return xp, num_promo
 
-    def get_credits(self, save_bytes: bytes) -> int:
+    @staticmethod
+    def get_credits(save_bytes: bytes) -> int:
         marker = b"Credits"
         offset = 33
         pos = save_bytes.find(marker) + offset
         return struct.unpack("i", save_bytes[pos : pos + 4])[0]
 
-    def get_perk_points(self, save_bytes: bytes):
+    @staticmethod
+    def get_perk_points(save_bytes: bytes):
         marker = b"PerkPoints"
         if save_bytes.find(marker) == -1:
             return 0
@@ -101,24 +88,24 @@ class Parser:
         value: int = struct.unpack("i", save_bytes[pos : pos + 4])[0]
         return value
 
-    def get_misc(self, save_bytes: bytes, state_manager) -> None:
-        state_manager.credits = self.get_credits(save_bytes)
-        state_manager.perk_points = self.get_perk_points(save_bytes)
-
-    def get_resources(self, save_bytes: bytes, state_manager):
+    @staticmethod
+    def get_resources(save_bytes: bytes):
         resource_guids: dict[Resource, str] = deepcopy(RESOURCE_GUIDS)
         guid_length = 16
         res_marker = b"OwnedResources"
         res_pos = save_bytes.find(res_marker)
 
+        resources = {}
         for k, v in resource_guids.items():
             marker = bytes.fromhex(v)
             pos = save_bytes.find(marker, res_pos) + guid_length
             end_pos = pos + 4
             unp = struct.unpack("f", save_bytes[pos:end_pos])
-            state_manager.resources[k] = int(unp[0])
+            resources[k] = int(unp[0])
+        return resources
 
-    def get_weapons(self, save_data: bytes, state_manager):
+    @staticmethod
+    def get_weapons(save_data: bytes):
         weapon = save_data.find(b"WeaponMaintenanceEntry") + 0x2C
 
         WEAPON_SIZE = 0xD9
@@ -126,6 +113,7 @@ class Parser:
         OFFSET_WEAPON_LEVEL = 0x95
         OFFSET_WEAPON_LEVEL_UP = 0xCA
 
+        weapons = {}
         try:
             while save_data[weapon : weapon + 8].decode() == "WeaponID":
                 xp = int.from_bytes(
@@ -150,12 +138,14 @@ class Parser:
                     "little",
                 )
 
-                state_manager.weapons[weapon] = [xp, level, levelup]
+                weapons[weapon] = [xp, level, levelup]
                 weapon += WEAPON_SIZE
         except UnicodeDecodeError:
             print("Missing weapon data")
+        return weapons
 
-    def get_overclocks(self, save_data: bytes, state_manager) -> None:
+    @staticmethod
+    def get_overclocks(save_data: bytes, guid_dict: dict):
         search_term = b"ForgedSchematics"
         start = save_data.find(search_term)
         if start == -1:
@@ -167,7 +157,7 @@ class Parser:
             search_end = b"bFirstSchematicMessageShown"
             end = save_data.find(search_end)
 
-        for i in state_manager.guid_dict.values():
+        for i in guid_dict.values():
             i["status"] = "Unacquired"
 
         oc_data = save_data[start:end]
@@ -177,7 +167,7 @@ class Parser:
             "i", save_data[start + 63 : start + 67]
         )[0]
 
-        state_manager.overclocks = []
+        overclocks: list[Overclock] = []
         for j in range(num_forged):
             uuid = (
                 save_data[
@@ -192,8 +182,8 @@ class Parser:
                 .upper()
             )
             try:
-                state_manager.guid_dict[uuid]["status"] = "Forged"
-                self._add_overclock(uuid, state_manager)
+                guid_dict[uuid]["status"] = "Forged"
+                Parser._add_overclock(uuid, overclocks, guid_dict[uuid])
             except KeyError:
                 pass
 
@@ -215,11 +205,11 @@ class Parser:
                 .upper()
             )
             try:
-                state_manager.guid_dict[uuid]["status"] = "Unforged"
-                self._add_overclock(uuid, state_manager)
+                guid_dict[uuid]["status"] = "Unforged"
+                Parser._add_overclock(uuid, overclocks, guid_dict[uuid])
             except KeyError:
                 # does not exist in known guids
-                state_manager.overclocks.append(
+                overclocks.append(
                     Overclock(
                         dwarf="",
                         weapon="Cosmetic",
@@ -231,19 +221,22 @@ class Parser:
                 )
 
         # fill out overclocks that are known, but do not appear in the save
-        loaded_ocs = [x.guid for x in state_manager.overclocks]
-        for uuid in state_manager.guid_dict:
+        loaded_ocs = [x.guid for x in overclocks]
+        for uuid in guid_dict:
             if uuid not in loaded_ocs:
-                self._add_overclock(uuid, state_manager)
+                Parser._add_overclock(uuid, overclocks, guid_dict[uuid])
 
-    def _add_overclock(self, uuid, state_manager):
-        state_manager.overclocks.append(
+        return overclocks
+
+    @staticmethod
+    def _add_overclock(uuid, overclocks, overclock_data):
+        overclocks.append(
             Overclock(
-                dwarf=state_manager.guid_dict[uuid]["dwarf"],
-                weapon=state_manager.guid_dict[uuid]["weapon"],
-                name=state_manager.guid_dict[uuid]["name"],
+                dwarf=overclock_data["dwarf"],
+                weapon=overclock_data["weapon"],
+                name=overclock_data["name"],
                 guid=uuid,
-                status=state_manager.guid_dict[uuid]["status"],
-                cost=state_manager.guid_dict[uuid]["cost"],
+                status=overclock_data["status"],
+                cost=overclock_data["cost"],
             )
         )
