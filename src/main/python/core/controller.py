@@ -502,7 +502,7 @@ class Controller:
         for i in selected:
             if i.text(1) == "Unacquired" and i.text(2) in unacquired_ocs:
                 items_to_add.append(f"{i.parent().text(0)}: {i.text(0)} ({i.text(2)})")
-                self.state_manager.guid_dict[i.text(2)].__dict__["status"] = "Unforged"
+                self.state_manager.guid_dict[i.text(2)].status = "Unforged"
                 newly_acquired_ocs.append(i.text(2))
 
         self.state_manager.set_overclocks_to_unforged(newly_acquired_ocs)
@@ -631,9 +631,7 @@ class Controller:
                 for name, uuid in oc_names.items():
                     oc_entry = QTreeWidgetItem(weapon_entry)
                     oc_entry.setText(0, name)
-                    oc_entry.setText(
-                        1, self.state_manager.guid_dict[uuid].__dict__["status"]
-                    )
+                    oc_entry.setText(1, self.state_manager.guid_dict[uuid].status)
                     oc_entry.setText(2, uuid)
 
     def init_overclock_tree(self):
