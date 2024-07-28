@@ -1,17 +1,29 @@
-from typing import TypedDict, NotRequired
+from dataclasses import dataclass
+from typing import Optional
 
 
-class Cost(TypedDict):
-    credits: NotRequired[int]
-    bismor: NotRequired[int]
-    croppa: NotRequired[int]
-    enor: NotRequired[int]
-    jadiz: NotRequired[int]
-    magnite: NotRequired[int]
-    umanite: NotRequired[int]
+@dataclass
+class Cost:
+    credits: Optional[int] = 0
+    bismor: Optional[int] = 0
+    croppa: Optional[int] = 0
+    enor: Optional[int] = 0
+    jadiz: Optional[int] = 0
+    magnite: Optional[int] = 0
+    umanite: Optional[int] = 0
+
+    def __add__(self, other):
+        newcost = Cost()
+        for key in self.__dict__.keys():
+            try:
+                newcost.__dict__[key] = self.__dict__[key] + other.__dict__[key]
+            except KeyError:
+                pass
+        return newcost
 
 
-class Item(TypedDict):
+@dataclass()
+class Item:
     dwarf: str
     weapon: str
     name: str

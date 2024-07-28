@@ -1,4 +1,3 @@
-
 from re import Match
 from sys import platform
 from typing import List
@@ -6,16 +5,23 @@ from typing import List
 from core.file_writer import make_save_file
 from core.state_manager import Stats
 from core.view import EditorUI
-from definitions import (GUID_RE, LATEST_SEASON, MAX_BADGES, RANK_TITLES, XP_PER_SEASON_LEVEL,
-                         XP_PER_WEAPON_LEVEL, XP_TABLE, MAX_DWARF_XP)
+from definitions import (
+    GUID_RE,
+    LATEST_SEASON,
+    MAX_BADGES,
+    RANK_TITLES,
+    XP_PER_SEASON_LEVEL,
+    XP_PER_WEAPON_LEVEL,
+    XP_TABLE,
+    MAX_DWARF_XP,
+)
 from helpers import utils
 from helpers.datatypes import Cost
 from helpers.enums import Dwarf, Resource
 from helpers.overclock import Overclock
 
 from PySide6.QtCore import Slot, Qt
-from PySide6.QtWidgets import (QFileDialog, QListWidget, QListWidgetItem,
-                               QTreeWidgetItem)
+from PySide6.QtWidgets import QFileDialog, QListWidget, QListWidgetItem, QTreeWidgetItem
 
 if platform == "win32":
     import winreg
@@ -35,9 +41,13 @@ class Controller:
         self.widget.actionOpen_Save_File.triggered.connect(self.open_file)
         self.widget.actionSave_changes.triggered.connect(self.save_changes)
         self.widget.actionSet_All_Classes_to_25.triggered.connect(self.set_all_25)
-        self.widget.actionAdd_overclock_crafting_materials.triggered.connect(self.add_crafting_mats)
+        self.widget.actionAdd_overclock_crafting_materials.triggered.connect(
+            self.add_crafting_mats
+        )
         self.widget.actionReset_to_original_values.triggered.connect(self.reset_values)
-        self.widget.actionMax_all_available_weapons.triggered.connect(self.max_all_available_weapon_maintenance)
+        self.widget.actionMax_all_available_weapons.triggered.connect(
+            self.max_all_available_weapon_maintenance
+        )
         self.widget.combo_oc_filter.currentTextChanged.connect(self.filter_overclocks)
         self.widget.season_box.currentTextChanged.connect(self.update_season_data)
         self.widget.add_cores_button.clicked.connect(self.add_cores)
@@ -125,7 +135,9 @@ class Controller:
         if not self.file_name:
             return
 
-        self.widget.setWindowTitle(f"DRG Save Editor - {self.file_name}")  # window-dressing
+        self.widget.setWindowTitle(
+            f"DRG Save Editor - {self.file_name}"
+        )  # window-dressing
         with open(self.file_name, "rb") as f:
             save_data = f.read()
 
@@ -147,20 +159,38 @@ class Controller:
         self.init_overclock_tree()
 
     def get_values(self):
-        self.state_manager.resources[Resource.BISMOR] = int(self.widget.bismor_text.text())
-        self.state_manager.resources[Resource.CROPPA] = int(self.widget.croppa_text.text())
+        self.state_manager.resources[Resource.BISMOR] = int(
+            self.widget.bismor_text.text()
+        )
+        self.state_manager.resources[Resource.CROPPA] = int(
+            self.widget.croppa_text.text()
+        )
         self.state_manager.resources[Resource.ENOR] = int(self.widget.enor_text.text())
-        self.state_manager.resources[Resource.JADIZ] = int(self.widget.jadiz_text.text())
-        self.state_manager.resources[Resource.MAGNITE] = int(self.widget.magnite_text.text())
-        self.state_manager.resources[Resource.UMANITE] = int(self.widget.umanite_text.text())
+        self.state_manager.resources[Resource.JADIZ] = int(
+            self.widget.jadiz_text.text()
+        )
+        self.state_manager.resources[Resource.MAGNITE] = int(
+            self.widget.magnite_text.text()
+        )
+        self.state_manager.resources[Resource.UMANITE] = int(
+            self.widget.umanite_text.text()
+        )
 
-        self.state_manager.resources[Resource.YEAST] = int(self.widget.yeast_text.text())
-        self.state_manager.resources[Resource.STARCH] = int(self.widget.starch_text.text())
+        self.state_manager.resources[Resource.YEAST] = int(
+            self.widget.yeast_text.text()
+        )
+        self.state_manager.resources[Resource.STARCH] = int(
+            self.widget.starch_text.text()
+        )
         self.state_manager.resources[Resource.MALT] = int(self.widget.malt_text.text())
-        self.state_manager.resources[Resource.BARLEY] = int(self.widget.barley_text.text())
+        self.state_manager.resources[Resource.BARLEY] = int(
+            self.widget.barley_text.text()
+        )
 
         self.state_manager.dwarf_xp[Dwarf.DRILLER] = int(self.widget.driller_xp.text())
-        self.state_manager.dwarf_xp[Dwarf.ENGINEER] = int(self.widget.engineer_xp.text())
+        self.state_manager.dwarf_xp[Dwarf.ENGINEER] = int(
+            self.widget.engineer_xp.text()
+        )
         self.state_manager.dwarf_xp[Dwarf.GUNNER] = int(self.widget.gunner_xp.text())
         self.state_manager.dwarf_xp[Dwarf.SCOUT] = int(self.widget.scout_xp.text())
 
@@ -180,13 +210,19 @@ class Controller:
             else self.state_manager.dwarf_promo[Dwarf.ENGINEER]
         )
         self.state_manager.dwarf_promo[Dwarf.GUNNER] = (
-            gunner_promo if gunner_promo < MAX_BADGES else self.state_manager.dwarf_promo[Dwarf.GUNNER]
+            gunner_promo
+            if gunner_promo < MAX_BADGES
+            else self.state_manager.dwarf_promo[Dwarf.GUNNER]
         )
         self.state_manager.dwarf_promo[Dwarf.SCOUT] = (
-            scout_promo if scout_promo < MAX_BADGES else self.state_manager.dwarf_promo[Dwarf.SCOUT]
+            scout_promo
+            if scout_promo < MAX_BADGES
+            else self.state_manager.dwarf_promo[Dwarf.SCOUT]
         )
 
-        self.state_manager.resources[Resource.ERROR] = int(self.widget.error_text.text())
+        self.state_manager.resources[Resource.ERROR] = int(
+            self.widget.error_text.text()
+        )
         self.state_manager.resources[Resource.CORES] = int(self.widget.core_text.text())
         self.state_manager.credits = int(self.widget.credits_text.text())
         self.state_manager.perk_points = int(self.widget.perk_text.text())
@@ -238,33 +274,35 @@ class Controller:
 
     @Slot()  # type: ignore
     def add_crafting_mats(self) -> None:
-        cost: Cost = {
-            "bismor": 0,
-            "croppa": 0,
-            "jadiz": 0,
-            "enor": 0,
-            "magnite": 0,
-            "umanite": 0,
-            "credits": 0,
-        }
+        cost: Cost = Cost()
         unforged_ocs: List[Overclock] = self.state_manager.get_unforged_overclocks()
         for oc in unforged_ocs:
-            try:
-                for i in oc.cost.keys():
-                    cost[i] += oc.cost[i]  # type: ignore
-            except IndexError:
-                print("Cosmetic")
+            cost += oc.cost
         print(cost)
         self.add_resources(cost)
 
     def add_resources(self, res_dict) -> None:
-        self.widget.bismor_text.setText(str(int(self.widget.bismor_text.text()) + res_dict["bismor"]))
-        self.widget.croppa_text.setText(str(int(self.widget.croppa_text.text()) + res_dict["croppa"]))
-        self.widget.enor_text.setText(str(int(self.widget.enor_text.text()) + res_dict["enor"]))
-        self.widget.jadiz_text.setText(str(int(self.widget.jadiz_text.text()) + res_dict["jadiz"]))
-        self.widget.magnite_text.setText(str(int(self.widget.magnite_text.text()) + res_dict["magnite"]))
-        self.widget.umanite_text.setText(str(int(self.widget.umanite_text.text()) + res_dict["umanite"]))
-        self.widget.credits_text.setText(str(int(self.widget.credits_text.text()) + res_dict["credits"]))
+        self.widget.bismor_text.setText(
+            str(int(self.widget.bismor_text.text()) + res_dict["bismor"])
+        )
+        self.widget.croppa_text.setText(
+            str(int(self.widget.croppa_text.text()) + res_dict["croppa"])
+        )
+        self.widget.enor_text.setText(
+            str(int(self.widget.enor_text.text()) + res_dict["enor"])
+        )
+        self.widget.jadiz_text.setText(
+            str(int(self.widget.jadiz_text.text()) + res_dict["jadiz"])
+        )
+        self.widget.magnite_text.setText(
+            str(int(self.widget.magnite_text.text()) + res_dict["magnite"])
+        )
+        self.widget.umanite_text.setText(
+            str(int(self.widget.umanite_text.text()) + res_dict["umanite"])
+        )
+        self.widget.credits_text.setText(
+            str(int(self.widget.credits_text.text()) + res_dict["credits"])
+        )
 
         # not implemented? doesnt make sense coming in from parent function, could delete
 
@@ -277,19 +315,37 @@ class Controller:
 
     @Slot()  # type: ignore
     def reset_values(self) -> None:
-        self.widget.bismor_text.setText(str(self.state_manager.resources[Resource.BISMOR]))
+        self.widget.bismor_text.setText(
+            str(self.state_manager.resources[Resource.BISMOR])
+        )
         self.widget.enor_text.setText(str(self.state_manager.resources[Resource.ENOR]))
-        self.widget.jadiz_text.setText(str(self.state_manager.resources[Resource.JADIZ]))
-        self.widget.croppa_text.setText(str(self.state_manager.resources[Resource.CROPPA]))
-        self.widget.magnite_text.setText(str(self.state_manager.resources[Resource.MAGNITE]))
-        self.widget.umanite_text.setText(str(self.state_manager.resources[Resource.UMANITE]))
+        self.widget.jadiz_text.setText(
+            str(self.state_manager.resources[Resource.JADIZ])
+        )
+        self.widget.croppa_text.setText(
+            str(self.state_manager.resources[Resource.CROPPA])
+        )
+        self.widget.magnite_text.setText(
+            str(self.state_manager.resources[Resource.MAGNITE])
+        )
+        self.widget.umanite_text.setText(
+            str(self.state_manager.resources[Resource.UMANITE])
+        )
 
-        self.widget.yeast_text.setText(str(self.state_manager.resources[Resource.YEAST]))
-        self.widget.starch_text.setText(str(self.state_manager.resources[Resource.STARCH]))
+        self.widget.yeast_text.setText(
+            str(self.state_manager.resources[Resource.YEAST])
+        )
+        self.widget.starch_text.setText(
+            str(self.state_manager.resources[Resource.STARCH])
+        )
         self.widget.malt_text.setText(str(self.state_manager.resources[Resource.MALT]))
-        self.widget.barley_text.setText(str(self.state_manager.resources[Resource.BARLEY]))
+        self.widget.barley_text.setText(
+            str(self.state_manager.resources[Resource.BARLEY])
+        )
 
-        self.widget.error_text.setText(str(self.state_manager.resources[Resource.ERROR]))
+        self.widget.error_text.setText(
+            str(self.state_manager.resources[Resource.ERROR])
+        )
         self.widget.core_text.setText(str(self.state_manager.resources[Resource.CORES]))
         self.widget.credits_text.setText(str(self.state_manager.credits))
         self.widget.perk_text.setText(str(self.state_manager.perk_points))
@@ -305,7 +361,9 @@ class Controller:
             d_promo if d_promo < MAX_BADGES else MAX_BADGES
         )
 
-        self.widget.engineer_xp.setText(str(self.state_manager.dwarf_xp[Dwarf.ENGINEER]))
+        self.widget.engineer_xp.setText(
+            str(self.state_manager.dwarf_xp[Dwarf.ENGINEER])
+        )
         e_xp = utils.xp_total_to_level(self.state_manager.dwarf_xp[Dwarf.ENGINEER])
         e_promo = self.state_manager.dwarf_promo[Dwarf.ENGINEER]
         self.widget.engineer_lvl_text.setText(str(e_xp[0]))
@@ -344,7 +402,9 @@ class Controller:
         season_total_xp = self.state_manager.season_data[self.season_selected]["xp"]
         self.widget.season_xp.setText(str(season_total_xp % XP_PER_SEASON_LEVEL))
         self.widget.season_lvl_text.setText(str(season_total_xp // XP_PER_SEASON_LEVEL))
-        self.widget.scrip_text.setText(str(self.state_manager.season_data[self.season_selected]["scrip"]))
+        self.widget.scrip_text.setText(
+            str(self.state_manager.season_data[self.season_selected]["scrip"])
+        )
 
     @Slot()  # type: ignore
     def save_changes(self) -> None:
@@ -556,7 +616,9 @@ class Controller:
         except IndexError:
             title = "Lord of the Deep"
 
-        self.widget.classes_group.setTitle(f"Classes - Rank {rank + 1} {rem}/3, {title}")
+        self.widget.classes_group.setTitle(
+            f"Classes - Rank {rank + 1} {rem}/3, {title}"
+        )
 
     def build_oc_tree(self, tree: QTreeWidgetItem) -> None:
         oc_dict = self.state_manager.build_oc_dict()

@@ -163,9 +163,7 @@ class Parser:
         oc_data = save_data[start:end]
         oc_list_offset = 141
 
-        num_forged: int = struct.unpack(
-            "i", save_data[start + 63 : start + 67]
-        )[0]
+        num_forged: int = struct.unpack("i", save_data[start + 63 : start + 67])[0]
 
         overclocks: list[Overclock] = []
         for j in range(num_forged):
@@ -192,15 +190,11 @@ class Parser:
             return
 
         num_pos = save_data.find(b"Owned", start) + 62
-        num_unforged = struct.unpack("i", save_data[num_pos : num_pos + 4])[
-            0
-        ]
+        num_unforged = struct.unpack("i", save_data[num_pos : num_pos + 4])[0]
         unforged_pos = num_pos + 77
         for j in range(num_unforged):
             uuid = (
-                save_data[
-                    unforged_pos + (j * 16) : unforged_pos + (j * 16) + 16
-                ]
+                save_data[unforged_pos + (j * 16) : unforged_pos + (j * 16) + 16]
                 .hex()
                 .upper()
             )
@@ -237,6 +231,6 @@ class Parser:
                 name=overclock_data["name"],
                 guid=uuid,
                 status=overclock_data["status"],
-                cost=overclock_data["cost"],
+                cost=Cost(**overclock_data["cost"]),
             )
         )
