@@ -1,25 +1,18 @@
 import os
 import sys
 
-from core.state_manager import Stats
-from definitions import (MAX_BADGES, PROMO_RANKS,
-                         RANK_TITLES,
-                         XP_TABLE)
-from helpers.enums import Dwarf
-from helpers import utils
+# from core.state_manager import Stats
+from definitions import PROMO_RANKS, XP_TABLE
 
-from PySide6.QtCore import QFile, QIODevice, Qt
+from PySide6.QtCore import QFile, QIODevice, Signal
 from PySide6.QtGui import QAction, QFocusEvent
 from PySide6.QtUiTools import QUiLoader
-from PySide6.QtWidgets import (QComboBox, QGroupBox, QLabel,
-                               QLineEdit, QListWidget,
-                               QPushButton, QTreeWidget, QTreeWidgetItem)
+from PySide6.QtWidgets import (QComboBox, QGroupBox, QLabel, QLineEdit,
+                               QListWidget, QPushButton, QTreeWidget)
 
 
 class TextEditFocusChecking(QLineEdit):
-    """
-    Custom single-line text box to allow for event-driven updating of XP totals
-    """
+    focus_out_signal = Signal(str, int)  # Signal to emit box name and value
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -29,52 +22,10 @@ class TextEditFocusChecking(QLineEdit):
         box: str = self.objectName()
         if self.text() == "":
             return super().focusOutEvent(e)
-        season = False
+
         value = int(self.text())
-
-        if box.startswith("driller"):
-            dwarf = "driller"
-        elif box.startswith("engineer"):
-            dwarf = "engineer"
-        elif box.startswith("gunner"):
-            dwarf = "gunner"
-        elif box.startswith("scout"):
-            dwarf = "scout"
-        elif box.startswith("season"):
-            season = True
-        else:
-            print("abandon all hope, ye who see this message")
-            return super().focusOutEvent(e)
-
-        if season:
-            if box.endswith("xp"):
-                if value >= 5000:
-                    widget.season_xp.setText("4999")
-                elif value < 0:
-                    widget.season_xp.setText("0")
-            elif box.endswith("lvl_text"):
-                if value < 0:
-                    widget.season_lvl_text.setText("0")
-                elif value > 100:
-                    widget.season_lvl_text.setText("100")
-                    widget.season_xp.setText("0")
-        else:
-            # decide/calculate how to update based on which box was changed
-            if box.endswith("xp"):  # total xp box changed
-                total = value
-            elif box.endswith("text"):  # dwarf level box changed
-                xp, level, rem = EditorUI.get_dwarf_xp(dwarf)
-                if XP_TABLE[value - 1] + rem == xp:
-                    total = xp
-                else:
-                    total = XP_TABLE[value - 1]
-            elif box.endswith("2"):  # xp for current level changed
-                xp, level, rem = EditorUI.get_dwarf_xp(dwarf)
-                total = XP_TABLE[level - 1] + value
-
-            update_xp(dwarf, total)  # update relevant xp fields
-
-        return super().focusOutEvent(e)  # call any other stuff that might happen (?)
+        self.focus_out_signal.emit(box, value)
+        return super().focusOutEvent(e)
 
 
 # we use dependency injection to pass the widget to the EditorUI class
@@ -189,127 +140,46 @@ class EditorUI:
         self.inner.setWindowTitle(title)
 
     # new stuff
-    def init_overclock_tree(self):
-        self.overclock_tree.clear()
-        overclock_tree = self.overclock_tree.invisibleRootItem()
-        build_oc_tree(overclock_tree)
-        self.overclock_tree.sortItems(0, Qt.SortOrder.AscendingOrder)
+    def handle_focus_out(self, box_name: str, value: int):
+        season = False
 
-    def get_dwarf_xp(self, dwarf) -> tuple[int, int, int]:
-        # gets the total xp, level, and progress to the next level (rem)
-        if dwarf == "driller":
-            total = int(self.driller_xp.text())
-            level = int(self.driller_lvl_text.text())
-            rem = int(self.driller_xp_2.text())
-        elif dwarf == "engineer":
-            total = int(self.engineer_xp.text())
-            level = int(self.engineer_lvl_text.text())
-            rem = int(self.engineer_xp_2.text())
-        elif dwarf == "gunner":
-            total = int(self.gunner_xp.text())
-            level = int(self.gunner_lvl_text.text())
-            rem = int(self.gunner_xp_2.text())
-        elif dwarf == "scout":
-            total = int(self.scout_xp.text())
-            level = int(self.scout_lvl_text.text())
-            rem = int(self.scout_xp_2.text())
+        if box_name.startswith("driller"):
+            dwarf = "driller"
+        elif box_name.startswith("engineer"):
+            dwarf = "engineer"
+        elif box_name.startswith("gunner"):
+            dwarf = "gunner"
+        elif box_name.startswith("scout"):
+            dwarf = "scout"
+        elif box_name.startswith("season"):
+            season = True
         else:
-            total = rem = level = -1
+            print("abandon all hope, ye who see this message")
+            return
 
-        return total, level, rem
-
-    def update_xp(self, dwarf, total_xp=0) -> None:
-        # updates the xp fields for the specified dwarf with the new xp total
-        if total_xp > 315000:  # max xp check
-            total_xp = 315000
-        level, remainder = utils.xp_total_to_level(total_xp)  # transform XP total
-        bad_dwarf = False  # check for possible weirdness
-        if dwarf == "driller":
-            total_box = self.driller_xp
-            level_box = self.driller_lvl_text
-            remainder_box = self.driller_xp_2
-        elif dwarf == "engineer":
-            total_box = self.engineer_xp
-            level_box = self.engineer_lvl_text
-            remainder_box = self.engineer_xp_2
-        elif dwarf == "gunner":
-            total_box = self.gunner_xp
-            level_box = self.gunner_lvl_text
-            remainder_box = self.gunner_xp_2
-        elif dwarf == "scout":
-            total_box = self.scout_xp
-            level_box = self.scout_lvl_text
-            remainder_box = self.scout_xp_2
+        if season:
+            if box_name.endswith("xp"):
+                if value >= 5000:
+                    self.season_xp.setText("4999")
+                elif value < 0:
+                    self.season_xp.setText("0")
+            elif box_name.endswith("lvl_text"):
+                if value < 0:
+                    self.season_lvl_text.setText("0")
+                elif value > 100:
+                    self.season_lvl_text.setText("100")
+                    self.season_xp.setText("0")
         else:
-            print("no valid dwarf specified")
-            bad_dwarf = True
+            if box_name.endswith("xp"):  # total xp box changed
+                total = value
+            elif box_name.endswith("text"):  # dwarf level box changed
+                xp, level, rem = EditorUI.get_dwarf_xp(dwarf)
+                if XP_TABLE[value - 1] + rem == xp:
+                    total = xp
+                else:
+                    total = XP_TABLE[value - 1]
+            elif box_name.endswith("2"):  # xp for current level changed
+                xp, level, rem = EditorUI.get_dwarf_xp(dwarf)
+                total = XP_TABLE[level - 1] + value
 
-        if not bad_dwarf:  # update xp totals
-            total_box.setText(str(total_xp))
-            level_box.setText(str(level))
-            remainder_box.setText(str(remainder))
-
-        self.update_rank()
-
-    def update_rank(self) -> None:
-        s_promo: int = (
-            Stats.dwarf_promo[Dwarf.SCOUT]
-            if self.scout_promo_box.currentIndex() == MAX_BADGES
-            else self.scout_promo_box.currentIndex()
-        )
-        e_promo: int = (
-            Stats.dwarf_promo[Dwarf.ENGINEER]
-            if self.engineer_promo_box.currentIndex() == MAX_BADGES
-            else self.engineer_promo_box.currentIndex()
-        )
-        g_promo: int = (
-            Stats.dwarf_promo[Dwarf.GUNNER]
-            if self.gunner_promo_box.currentIndex() == MAX_BADGES
-            else self.gunner_promo_box.currentIndex()
-        )
-        d_promo: int = (
-            Stats.dwarf_promo[Dwarf.DRILLER]
-            if self.driller_promo_box.currentIndex() == MAX_BADGES
-            else self.driller_promo_box.currentIndex()
-        )
-
-        try:
-            s_level = int(self.scout_lvl_text.text())
-            e_level = int(self.engineer_lvl_text.text())
-            g_level = int(self.gunner_lvl_text.text())
-            d_level = int(self.driller_lvl_text.text())
-            total_levels: int = (
-                ((s_promo + e_promo + g_promo + d_promo) * 25)
-                + s_level
-                + e_level
-                + g_level
-                + d_level
-                - 4
-            )
-            rank: int = total_levels // 3  # integer division
-            rem: int = total_levels % 3
-        except ValueError:
-            rank = 1
-            rem = 0
-
-        try:
-            title: str = RANK_TITLES[rank]
-        except IndexError:
-            title = "Lord of the Deep"
-
-        self.classes_group.setTitle(f"Classes - Rank {rank + 1} {rem}/3, {title}")
-
-
-def build_oc_tree(tree: QTreeWidgetItem) -> None:
-    oc_dict = Stats.build_oc_dict()
-    for char, weapons in oc_dict.items():
-        char_entry = QTreeWidgetItem(tree)
-        char_entry.setText(0, char)
-        for weapon, oc_names in weapons.items():
-            weapon_entry = QTreeWidgetItem(char_entry)
-            weapon_entry.setText(0, weapon)
-            for name, uuid in oc_names.items():
-                oc_entry = QTreeWidgetItem(weapon_entry)
-                oc_entry.setText(0, name)
-                oc_entry.setText(1, Stats.guid_dict[uuid]["status"])
-                oc_entry.setText(2, uuid)
+            self.update_xp(dwarf, total)  # update relevant xp fields

@@ -6,15 +6,16 @@ from typing import List
 from core.file_writer import make_save_file
 from core.state_manager import Stats
 from core.view import EditorUI
-from definitions import GUID_RE, MAX_BADGES, XP_PER_SEASON_LEVEL, XP_PER_WEAPON_LEVEL
+from definitions import (GUID_RE, LATEST_SEASON, MAX_BADGES, RANK_TITLES, XP_PER_SEASON_LEVEL,
+                         XP_PER_WEAPON_LEVEL)
+from helpers import utils
 from helpers.datatypes import Cost
 from helpers.enums import Dwarf, Resource
 from helpers.overclock import Overclock
-from helpers import utils
 
-from PySide6.QtCore import Slot
-from PySide6.QtWidgets import (QFileDialog,
-                               QListWidget, QListWidgetItem)
+from PySide6.QtCore import Slot, Qt
+from PySide6.QtWidgets import (QFileDialog, QListWidget, QListWidgetItem,
+                               QTreeWidgetItem)
 
 if platform == "win32":
     import winreg
@@ -26,6 +27,7 @@ class Controller:
         self.state_manager = state_manager
 
         self.file_name: str = ""
+        self.season_selected = LATEST_SEASON
 
         self.setup_connections()
 
@@ -68,18 +70,20 @@ class Controller:
         with open(f"{self.file_name}.old", "wb") as backup:
             backup.write(save_data)
 
+        self.state_manager.parse_data(save_data)
+
         # enable widgets that don't work without a save file present
         self.widget.actionSave_changes.setEnabled(True)
         self.widget.actionReset_to_original_values.setEnabled(True)
         self.widget.combo_oc_filter.setEnabled(True)
 
-        # # initialize and populate the text fields
-        # init_values(save_data)
-        # reset_values()
-        # update_rank()
+        # initialize and populate the text fields
+        self.init_values(save_data)
+        self.reset_values()
+        self.update_rank()
 
         # clear and initialize overclock tree view
-        self.widget.init_overclock_tree()
+        self.init_overclock_tree()
 
     def get_values(self):
         self.state_manager.resources[Resource.BISMOR] = int(self.widget.bismor_text.text())
@@ -381,6 +385,130 @@ class Controller:
 
         core_list.sortItems()
         self.filter_overclocks()
+
+    def get_dwarf_xp(self, dwarf) -> tuple[int, int, int]:
+        # gets the total xp, level, and progress to the next level (rem)
+        if dwarf == "driller":
+            total = int(self.widget.driller_xp.text())
+            level = int(self.widget.driller_lvl_text.text())
+            rem = int(self.widget.driller_xp_2.text())
+        elif dwarf == "engineer":
+            total = int(self.widget.engineer_xp.text())
+            level = int(self.widget.engineer_lvl_text.text())
+            rem = int(self.widget.engineer_xp_2.text())
+        elif dwarf == "gunner":
+            total = int(self.widget.gunner_xp.text())
+            level = int(self.widget.gunner_lvl_text.text())
+            rem = int(self.widget.gunner_xp_2.text())
+        elif dwarf == "scout":
+            total = int(self.widget.scout_xp.text())
+            level = int(self.widget.scout_lvl_text.text())
+            rem = int(self.widget.scout_xp_2.text())
+        else:
+            total = rem = level = -1
+
+        return total, level, rem
+
+    def update_xp(self, dwarf, total_xp=0) -> None:
+        # updates the xp fields for the specified dwarf with the new xp total
+        if total_xp > 315000:  # max xp check
+            total_xp = 315000
+        level, remainder = utils.xp_total_to_level(total_xp)  # transform XP total
+        bad_dwarf = False  # check for possible weirdness
+        if dwarf == "driller":
+            total_box = self.widget.driller_xp
+            level_box = self.widget.driller_lvl_text
+            remainder_box = self.widget.driller_xp_2
+        elif dwarf == "engineer":
+            total_box = self.widget.engineer_xp
+            level_box = self.widget.engineer_lvl_text
+            remainder_box = self.widget.engineer_xp_2
+        elif dwarf == "gunner":
+            total_box = self.widget.gunner_xp
+            level_box = self.widget.gunner_lvl_text
+            remainder_box = self.widget.gunner_xp_2
+        elif dwarf == "scout":
+            total_box = self.widget.scout_xp
+            level_box = self.widget.scout_lvl_text
+            remainder_box = self.widget.scout_xp_2
+        else:
+            print("no valid dwarf specified")
+            bad_dwarf = True
+
+        if not bad_dwarf:  # update xp totals
+            total_box.setText(str(total_xp))
+            level_box.setText(str(level))
+            remainder_box.setText(str(remainder))
+
+        self.update_rank()
+
+    def update_rank(self) -> None:
+        s_promo: int = (
+            Stats.dwarf_promo[Dwarf.SCOUT]
+            if self.widget.scout_promo_box.currentIndex() == MAX_BADGES
+            else self.widget.scout_promo_box.currentIndex()
+        )
+        e_promo: int = (
+            Stats.dwarf_promo[Dwarf.ENGINEER]
+            if self.widget.engineer_promo_box.currentIndex() == MAX_BADGES
+            else self.widget.engineer_promo_box.currentIndex()
+        )
+        g_promo: int = (
+            Stats.dwarf_promo[Dwarf.GUNNER]
+            if self.widget.gunner_promo_box.currentIndex() == MAX_BADGES
+            else self.widget.gunner_promo_box.currentIndex()
+        )
+        d_promo: int = (
+            Stats.dwarf_promo[Dwarf.DRILLER]
+            if self.widget.driller_promo_box.currentIndex() == MAX_BADGES
+            else self.widget.driller_promo_box.currentIndex()
+        )
+
+        try:
+            s_level = int(self.widget.scout_lvl_text.text())
+            e_level = int(self.widget.engineer_lvl_text.text())
+            g_level = int(self.widget.gunner_lvl_text.text())
+            d_level = int(self.widget.driller_lvl_text.text())
+            total_levels: int = (
+                ((s_promo + e_promo + g_promo + d_promo) * 25)
+                + s_level
+                + e_level
+                + g_level
+                + d_level
+                - 4
+            )
+            rank: int = total_levels // 3  # integer division
+            rem: int = total_levels % 3
+        except ValueError:
+            rank = 1
+            rem = 0
+
+        try:
+            title: str = RANK_TITLES[rank]
+        except IndexError:
+            title = "Lord of the Deep"
+
+        self.widget.classes_group.setTitle(f"Classes - Rank {rank + 1} {rem}/3, {title}")
+
+    def build_oc_tree(self, tree: QTreeWidgetItem) -> None:
+        oc_dict = self.state_manager.build_oc_dict()
+        for char, weapons in oc_dict.items():
+            char_entry = QTreeWidgetItem(tree)
+            char_entry.setText(0, char)
+            for weapon, oc_names in weapons.items():
+                weapon_entry = QTreeWidgetItem(char_entry)
+                weapon_entry.setText(0, weapon)
+                for name, uuid in oc_names.items():
+                    oc_entry = QTreeWidgetItem(weapon_entry)
+                    oc_entry.setText(0, name)
+                    oc_entry.setText(1, Stats.guid_dict[uuid]["status"])
+                    oc_entry.setText(2, uuid)
+
+    def init_overclock_tree(self):
+        self.widget.overclock_tree.clear()
+        overclock_tree = self.overclock_tree.invisibleRootItem()
+        self.build_oc_tree(overclock_tree)
+        self.overclock_tree.sortItems(0, Qt.SortOrder.AscendingOrder)
 
 
 def get_steam_path():

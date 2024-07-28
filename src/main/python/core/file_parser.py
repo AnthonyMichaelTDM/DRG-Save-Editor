@@ -7,24 +7,20 @@ from typing import Literal
 from definitions import RESOURCE_GUIDS, SEASON_GUIDS
 from helpers.enums import Dwarf, Resource
 from helpers.overclock import Overclock, Cost
-from .state_manager import Stats
 
 
 class Parser:
-    def __init__(self, state_manager: Stats) -> None:
-        self.state_manager = state_manager
+    def load_into_state_manager(self, save_bytes: bytes, state_manager) -> None:
+        self.get_season_data(save_bytes, state_manager)
+        self.get_dwarf_xp(save_bytes, state_manager)
+        self.get_misc(save_bytes, state_manager)
+        self.get_resources(save_bytes, state_manager)
+        self.get_weapons(save_bytes, state_manager)
 
-    def load_into_state_manager(self, save_bytes: bytes) -> None:
-        self.get_season_data(save_bytes)
-        self.get_dwarf_xp(save_bytes)
-        self.get_misc(save_bytes)
-        self.get_resources(save_bytes)
-        self.get_weapons(save_bytes)
+        self.load_guid_dict(state_manager)
+        self.get_overclocks(save_bytes, state_manager)
 
-        self.load_guid_dict()
-        self.get_overclocks(save_bytes)
-
-    def load_guid_dict(self):
+    def load_guid_dict(self, state_manager):
         guids_file = "guids.json"
 
         # check if the guid file exists in the current working directory, if not, use the one in the same directory as the script (for pyinstaller)
@@ -33,7 +29,7 @@ class Parser:
 
         # load reference data
         with open(guids_file, "r", encoding="utf-8") as g:
-            self.state_manager.guid_dict = json.loads(g.read())
+            state_manager.guid_dict = json.loads(g.read())
 
     def get_one_season_data(
         self, save_bytes: bytes, season_guid: str
@@ -56,14 +52,14 @@ class Parser:
 
         return {"xp": season_xp, "scrip": scrip}
 
-    def get_season_data(self, save_bytes: bytes):
+    def get_season_data(self, save_bytes: bytes, state_manager):
         for season, guid in SEASON_GUIDS.items():
             try:
-                self.state_manager.season_data[season] = self.get_one_season_data(save_bytes, guid)
+                state_manager.season_data[season] = self.get_one_season_data(save_bytes, guid)
             except ValueError:
                 print(f"Season {season} missing")
 
-    def get_dwarf_xp(self, save_bytes: bytes) -> None:
+    def get_dwarf_xp(self, save_bytes: bytes, state_manager) -> None:
         markers = {
             Dwarf.ENGINEER: b"\x85\xEF\x62\x6C\x65\xF1\x02\x4A\x8D\xFE\xB5\xD0\xF3\x90\x9D\x2E\x03\x00\x00\x00\x58\x50",
             Dwarf.SCOUT: b"\x30\xD8\xEA\x17\xD8\xFB\xBA\x4C\x95\x30\x6D\xE9\x65\x5C\x2F\x8C\x03\x00\x00\x00\x58\x50",
@@ -72,8 +68,8 @@ class Parser:
         }
         for dwarf, marker in markers.items():
             xp, num_promo = self.get_one_dwarf_xp(save_bytes, marker)
-            self.state_manager.dwarf_xp[dwarf] = xp
-            self.state_manager.dwarf_promo[dwarf] = num_promo
+            state_manager.dwarf_xp[dwarf] = xp
+            state_manager.dwarf_promo[dwarf] = num_promo
 
     def get_one_dwarf_xp(self, save_bytes: bytes, marker: bytes):
         xp_offset = 48
@@ -104,11 +100,11 @@ class Parser:
         value: int = struct.unpack("i", save_bytes[pos : pos + 4])[0]
         return value
 
-    def get_misc(self, save_bytes: bytes) -> None:
-        self.state_manager.credits = self.get_credits(save_bytes)
-        self.state_manager.perk_points = self.get_perk_points(save_bytes)
+    def get_misc(self, save_bytes: bytes, state_manager) -> None:
+        state_manager.credits = self.get_credits(save_bytes)
+        state_manager.perk_points = self.get_perk_points(save_bytes)
 
-    def get_resources(self, save_bytes: bytes):
+    def get_resources(self, save_bytes: bytes, state_manager):
         resource_guids: dict[Resource, str] = deepcopy(RESOURCE_GUIDS)
         guid_length = 16
         res_marker = b"OwnedResources"
@@ -119,9 +115,9 @@ class Parser:
             pos = save_bytes.find(marker, res_pos) + guid_length
             end_pos = pos + 4
             unp = struct.unpack("f", save_bytes[pos:end_pos])
-            self.state_manager.resources[k] = int(unp[0])
+            state_manager.resources[k] = int(unp[0])
 
-    def get_weapons(self, save_data: bytes):
+    def get_weapons(self, save_data: bytes, state_manager):
         weapon = save_data.find(b"WeaponMaintenanceEntry") + 0x2C
 
         WEAPON_SIZE = 0xD9
@@ -153,12 +149,12 @@ class Parser:
                     "little",
                 )
 
-                self.state_manager.weapons[weapon] = [xp, level, levelup]
+                state_manager.weapons[weapon] = [xp, level, levelup]
                 weapon += WEAPON_SIZE
         except UnicodeDecodeError:
             print("Missing weapon data")
 
-    def get_overclocks(self, save_data: bytes) -> None:
+    def get_overclocks(self, save_data: bytes, state_manager) -> None:
         search_term = b"ForgedSchematics"
         start = save_data.find(search_term)
         if start == -1:
@@ -170,7 +166,7 @@ class Parser:
             search_end = b"bFirstSchematicMessageShown"
             end = save_data.find(search_end)
 
-        for i in self.state_manager.guid_dict.values():
+        for i in state_manager.guid_dict.values():
             i["status"] = "Unacquired"
 
         oc_data = save_data[start:end]
@@ -194,15 +190,15 @@ class Parser:
                 .upper()
             )
             try:
-                self.state_manager.guid_dict[uuid]["status"] = "Forged"
-                self.state_manager.overclocks.append(
+                state_manager.guid_dict[uuid]["status"] = "Forged"
+                state_manager.overclocks.append(
                     Overclock(
-                        dwarf=self.state_manager.guid_dict[uuid]["dwarf"],
-                        weapon=self.state_manager.guid_dict[uuid]["weapon"],
-                        name=self.state_manager.guid_dict[uuid]["name"],
+                        dwarf=state_manager.guid_dict[uuid]["dwarf"],
+                        weapon=state_manager.guid_dict[uuid]["weapon"],
+                        name=state_manager.guid_dict[uuid]["name"],
                         guid=uuid,
-                        status=self.state_manager.guid_dict[uuid]["status"],
-                        cost=self.state_manager.guid_dict[uuid]["cost"],
+                        status=state_manager.guid_dict[uuid]["status"],
+                        cost=state_manager.guid_dict[uuid]["cost"],
                     )
                 )
             except KeyError:
@@ -226,20 +222,20 @@ class Parser:
                 .upper()
             )
             try:
-                self.state_manager.guid_dict[uuid]["status"] = "Unforged"
-                self.state_manager.overclocks.append(
+                state_manager.guid_dict[uuid]["status"] = "Unforged"
+                state_manager.overclocks.append(
                     Overclock(
-                        dwarf=self.state_manager.guid_dict[uuid]["dwarf"],
-                        weapon=self.state_manager.guid_dict[uuid]["weapon"],
-                        name=self.state_manager.guid_dict[uuid]["name"],
+                        dwarf=state_manager.guid_dict[uuid]["dwarf"],
+                        weapon=state_manager.guid_dict[uuid]["weapon"],
+                        name=state_manager.guid_dict[uuid]["name"],
                         guid=uuid,
-                        status=self.state_manager.guid_dict[uuid]["status"],
-                        cost=self.state_manager.guid_dict[uuid]["cost"],
+                        status=state_manager.guid_dict[uuid]["status"],
+                        cost=state_manager.guid_dict[uuid]["cost"],
                     )
                 )
             except KeyError:
                 # does not exist in known guids
-                self.state_manager.overclocks.append(
+                state_manager.overclocks.append(
                     Overclock(
                         dwarf="",
                         weapon="Cosmetic",
@@ -251,16 +247,16 @@ class Parser:
                 )
 
         # fill out overclocks that are known, but do not appear in the save
-        loaded_ocs = [x.guid for x in self.state_manager.overclocks]
-        for uuid in self.state_manager.guid_dict:
+        loaded_ocs = [x.guid for x in state_manager.overclocks]
+        for uuid in state_manager.guid_dict:
             if uuid not in loaded_ocs:
-                self.state_manager.overclocks.append(
+                state_manager.overclocks.append(
                     Overclock(
-                        dwarf=self.state_manager.guid_dict[uuid]["dwarf"],
-                        weapon=self.state_manager.guid_dict[uuid]["weapon"],
-                        name=self.state_manager.guid_dict[uuid]["name"],
+                        dwarf=state_manager.guid_dict[uuid]["dwarf"],
+                        weapon=state_manager.guid_dict[uuid]["weapon"],
+                        name=state_manager.guid_dict[uuid]["name"],
                         guid=uuid,
-                        status=self.state_manager.guid_dict[uuid]["status"],
-                        cost=self.state_manager.guid_dict[uuid]["cost"],
+                        status=state_manager.guid_dict[uuid]["status"],
+                        cost=state_manager.guid_dict[uuid]["cost"],
                     )
                 )

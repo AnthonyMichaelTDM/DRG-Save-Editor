@@ -15,8 +15,6 @@ if __name__ == "__main__":
 
     parser = Parser()
     state_manager = Stats(parser)
-    parser.state_manager = state_manager
-    # parser = Parser(state_manager)
 
     # load the UI
     widget: EditorUI = EditorUI()
