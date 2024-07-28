@@ -53,6 +53,7 @@ class Parser:
         return {"xp": season_xp, "scrip": scrip}
 
     def get_season_data(self, save_bytes: bytes, state_manager):
+        state_manager.season_data = {}
         for season, guid in SEASON_GUIDS.items():
             try:
                 state_manager.season_data[season] = self.get_one_season_data(save_bytes, guid)
@@ -158,7 +159,7 @@ class Parser:
         search_term = b"ForgedSchematics"
         start = save_data.find(search_term)
         if start == -1:
-            return
+            raise Exception("Could not locate overclocks in the save file")
 
         search_end = b"SkinFixupCounter"
         end = save_data.find(search_end)
@@ -176,6 +177,7 @@ class Parser:
             "i", save_data[start + 63 : start + 67]
         )[0]
 
+        state_manager.overclocks = []
         for j in range(num_forged):
             uuid = (
                 save_data[
@@ -233,7 +235,6 @@ class Parser:
         for uuid in state_manager.guid_dict:
             if uuid not in loaded_ocs:
                 self._add_overclock(uuid, state_manager)
-        print()
 
     def _add_overclock(self, uuid, state_manager):
         state_manager.overclocks.append(

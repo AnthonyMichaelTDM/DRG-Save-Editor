@@ -194,7 +194,6 @@ class Controller:
         self.state_manager.resources[Resource.PHAZ] = int(self.widget.phazy_text.text())
 
         self.store_season_changes(self.season_selected)
-        # new_self.state_manager.season_data = self.state_manager.season_data
 
     def store_season_changes(self, season_num):
         new_xp = self.widget.season_xp.text()
@@ -232,10 +231,10 @@ class Controller:
 
     @Slot()  # type: ignore
     def set_all_25(self) -> None:
-        self.widget.update_xp("driller", 315000)
-        self.widget.update_xp("engineer", 315000)
-        self.widget.update_xp("gunner", 315000)
-        self.widget.update_xp("scout", 315000)
+        self.update_xp("driller", 315000)
+        self.update_xp("engineer", 315000)
+        self.update_xp("gunner", 315000)
+        self.update_xp("scout", 315000)
 
     @Slot()  # type: ignore
     def add_crafting_mats(self) -> None:
@@ -265,13 +264,16 @@ class Controller:
         self.widget.jadiz_text.setText(str(int(self.widget.jadiz_text.text()) + res_dict["jadiz"]))
         self.widget.magnite_text.setText(str(int(self.widget.magnite_text.text()) + res_dict["magnite"]))
         self.widget.umanite_text.setText(str(int(self.widget.umanite_text.text()) + res_dict["umanite"]))
-        self.widget.barley_text.setText(str(int(self.widget.barley_text.text()) + res_dict["barley"]))
-        self.widget.yeast_text.setText(str(int(self.widget.yeast_text.text()) + res_dict["yeast"]))
-        self.widget.malt_text.setText(str(int(self.widget.malt_text.text()) + res_dict["malt"]))
-        self.widget.starch_text.setText(str(int(self.widget.starch_text.text()) + res_dict["starch"]))
-        self.widget.error_text.setText(str(int(self.widget.error_text.text()) + res_dict["error"]))
-        self.widget.core_text.setText(str(int(self.widget.core_text.text()) + res_dict["cores"]))
         self.widget.credits_text.setText(str(int(self.widget.credits_text.text()) + res_dict["credits"]))
+
+        # not implemented? doesnt make sense coming in from parent function, could delete
+
+        # self.widget.barley_text.setText(str(int(self.widget.barley_text.text()) + res_dict["barley"]))
+        # self.widget.yeast_text.setText(str(int(self.widget.yeast_text.text()) + res_dict["yeast"]))
+        # self.widget.malt_text.setText(str(int(self.widget.malt_text.text()) + res_dict["malt"]))
+        # self.widget.starch_text.setText(str(int(self.widget.starch_text.text()) + res_dict["starch"]))
+        # self.widget.error_text.setText(str(int(self.widget.error_text.text()) + res_dict["error"]))
+        # self.widget.core_text.setText(str(int(self.widget.core_text.text()) + res_dict["cores"]))
 
     @Slot()  # type: ignore
     def reset_values(self) -> None:
@@ -505,22 +507,22 @@ class Controller:
 
     def update_rank(self) -> None:
         s_promo: int = (
-            Stats.dwarf_promo[Dwarf.SCOUT]
+            self.state_manager.dwarf_promo[Dwarf.SCOUT]
             if self.widget.scout_promo_box.currentIndex() == MAX_BADGES
             else self.widget.scout_promo_box.currentIndex()
         )
         e_promo: int = (
-            Stats.dwarf_promo[Dwarf.ENGINEER]
+            self.state_manager.dwarf_promo[Dwarf.ENGINEER]
             if self.widget.engineer_promo_box.currentIndex() == MAX_BADGES
             else self.widget.engineer_promo_box.currentIndex()
         )
         g_promo: int = (
-            Stats.dwarf_promo[Dwarf.GUNNER]
+            self.state_manager.dwarf_promo[Dwarf.GUNNER]
             if self.widget.gunner_promo_box.currentIndex() == MAX_BADGES
             else self.widget.gunner_promo_box.currentIndex()
         )
         d_promo: int = (
-            Stats.dwarf_promo[Dwarf.DRILLER]
+            self.state_manager.dwarf_promo[Dwarf.DRILLER]
             if self.widget.driller_promo_box.currentIndex() == MAX_BADGES
             else self.widget.driller_promo_box.currentIndex()
         )
