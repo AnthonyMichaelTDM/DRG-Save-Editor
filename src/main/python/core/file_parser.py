@@ -146,52 +146,57 @@ class Parser:
 
     @staticmethod
     def get_overclocks(save_data: bytes, guid_dict: dict):
-        start = Parser._find_overclocks_start(save_data)
-        end = Parser._find_overclocks_end(save_data)
+        oc_parser = OverclockParser(guid_dict)
+        oc_parser.parse(save_data)
+        return oc_parser.overclocks
 
-        for i in guid_dict.values():
+
+class OverclockParser:
+    def __init__(self, guid_dict: dict) -> None:
+        self.guid_dict = guid_dict
+        self.overclocks: list[Overclock] = []
+
+    def parse(self, save_data: bytes):
+        start = self._find_overclocks_start(save_data)
+        end = self._find_overclocks_end(save_data)
+
+        for i in self.guid_dict.values():
             i.status = "Unacquired"
 
-        overclocks: list[Overclock] = []
-
-        Parser._get_forged_overclocks(save_data, guid_dict, start, overclocks)
+        self._get_forged_overclocks(save_data, start)
 
         oc_data = save_data[start:end]
         has_unforged: bool = oc_data.find(b"Owned") > 0
         if not has_unforged:
             return
 
-        Parser._get_unforged_overclocks(save_data, guid_dict, start, overclocks)
+        self._get_unforged_overclocks(save_data, start)
 
         # fill out overclocks that are known, but do not appear in the save
-        Parser._fill_missing_overclocks(guid_dict, overclocks)
+        self._fill_missing_overclocks()
 
-        return overclocks
-
-    @staticmethod
-    def _fill_missing_overclocks(guid_dict, overclocks):
-        loaded_ocs = [x.guid for x in overclocks]
-        for uuid in guid_dict:
+    def _fill_missing_overclocks(self):
+        loaded_ocs = [x.guid for x in self.overclocks]
+        for uuid in self.guid_dict:
             if uuid not in loaded_ocs:
-                Parser._add_overclock(uuid, overclocks, guid_dict[uuid])
+                self._add_overclock(uuid)
 
-    @staticmethod
-    def _get_unforged_overclocks(save_data, guid_dict, start, overclocks):
+    def _get_unforged_overclocks(self, save_data, start):
         num_pos = save_data.find(b"Owned", start) + 62
         num_unforged = struct.unpack("i", save_data[num_pos : num_pos + 4])[0]
         unforged_pos = num_pos + 77
         for j in range(num_unforged):
-            uuid = Parser._get_uuid(
+            uuid = self._get_uuid(
                 save_data,
                 start=unforged_pos + (j * 16),
                 end=unforged_pos + (j * 16) + 16
             )
             try:
-                guid_dict[uuid].status = "Unforged"
-                Parser._add_overclock(uuid, overclocks, guid_dict[uuid])
+                self.guid_dict[uuid].status = "Unforged"
+                self._add_overclock(uuid)
             except KeyError:
                 # handle found overclocks with unidentifiable guids
-                overclocks.append(
+                self.overclocks.append(
                     Overclock(
                         dwarf="",
                         weapon="Cosmetic",
@@ -202,8 +207,7 @@ class Parser:
                     )
                 )
 
-    @staticmethod
-    def _get_forged_overclocks(save_data, guid_dict, start, overclocks):
+    def _get_forged_overclocks(self, save_data, start):
         oc_list_offset = 141
 
         num_forged: int = struct.unpack(
@@ -211,19 +215,18 @@ class Parser:
         )[0]
 
         for j in range(num_forged):
-            uuid = Parser._get_uuid(
+            uuid = self._get_uuid(
                 save_data,
                 start=start + oc_list_offset + (j * 16),
                 end=start + oc_list_offset + (j * 16) + 16
             )
             try:
-                guid_dict[uuid].status = "Forged"
-                Parser._add_overclock(uuid, overclocks, guid_dict[uuid])
+                self.guid_dict[uuid].status = "Forged"
+                self._add_overclock(uuid)
             except KeyError:
                 pass
 
-    @staticmethod
-    def _find_overclocks_end(save_data):
+    def _find_overclocks_end(self, save_data):
         search_end = b"SkinFixupCounter"
         end = save_data.find(search_end)
         if end == -1:
@@ -231,17 +234,16 @@ class Parser:
             end = save_data.find(search_end)
         return end
 
-    @staticmethod
-    def _find_overclocks_start(save_data):
+    def _find_overclocks_start(self, save_data):
         search_term = b"ForgedSchematics"
         start = save_data.find(search_term)
         if start == -1:
             raise Exception("Could not locate overclocks in the save file")
         return start
 
-    @staticmethod
-    def _add_overclock(uuid, overclocks, overclock_data):
-        overclocks.append(
+    def _add_overclock(self, uuid):
+        overclock_data = self.guid_dict[uuid]
+        self.overclocks.append(
             Overclock(
                 dwarf=overclock_data.dwarf,
                 weapon=overclock_data.weapon,
@@ -252,8 +254,7 @@ class Parser:
             )
         )
 
-    @staticmethod
-    def _get_uuid(save_data: bytes, start: int, end: int):
+    def _get_uuid(self, save_data: bytes, start: int, end: int):
         uuid = (
             save_data[start:end]
             .hex()
