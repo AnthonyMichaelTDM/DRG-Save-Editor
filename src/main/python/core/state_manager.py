@@ -32,7 +32,7 @@ class Stats:
         self.overclocks = Parser.get_overclocks(save_data, self.guid_dict)
 
     def get_max_promo(self):
-        max(self.dwarf_promo.values())
+        return max(self.dwarf_promo.values())
 
     def load_guid_dict(self):
         guids_file = "guids.json"
