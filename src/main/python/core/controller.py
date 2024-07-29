@@ -241,7 +241,7 @@ class Controller:
                 "scrip": int(new_scrip),
             }
 
-    def init_values(self, save_data):
+    def init_values(self, save_data: bytes):
         self.state_manager.parse_data(save_data)
 
         # addItem triggers currentTextChanged which triggers saving of data currently in textbox.
@@ -627,9 +627,11 @@ class Controller:
         if self.state_manager.get_max_promo() > 0:
             self.build_oc_tree(overclock_tree)
             self.widget.overclock_tree.sortItems(0, Qt.SortOrder.AscendingOrder)
+            self.widget.add_cores_button.setEnabled(True)
         else:
             error_text = QTreeWidgetItem(overclock_tree)
             error_text.setText(0, "No dwarf promoted yet")
+            self.widget.add_cores_button.setEnabled(False)
 
 
 def get_steam_path():
