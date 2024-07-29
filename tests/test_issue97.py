@@ -9,6 +9,10 @@ from src.main.python.core.state_manager import Stats
 import pytest
 
 
+from PySide6.QtCore import QCoreApplication, Qt
+QCoreApplication.setAttribute(Qt.ApplicationAttribute.AA_ShareOpenGLContexts, True)
+
+
 @pytest.fixture
 def save_data_missing_seasons():
     filepath = "tests/sample_missing_all_but_one_season.sav"
