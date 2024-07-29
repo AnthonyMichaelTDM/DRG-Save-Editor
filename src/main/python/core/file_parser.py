@@ -12,7 +12,6 @@ class Parser:
     def get_one_season_data(
         save_bytes: bytes, season_guid: str
     ) -> dict[Literal["xp", "scrip"], int]:
-        # scrip_marker = bytes.fromhex("546F6B656E73")
         season_marker: bytes = bytes.fromhex(season_guid)
         season_marker_pos: int = save_bytes.find(season_marker)
         # season data does not exist

@@ -242,10 +242,6 @@ class Controller:
             }
 
     def init_values(self, save_data):
-        # self.state_manager.get_initial_self.state_manager(save_data)
-        # self.state_manager.get_overclocks(save_data)
-
-        # parser.load_into_state_manager(save_data)
         self.state_manager.parse_data(save_data)
 
         # addItem triggers currentTextChanged which triggers saving of data currently in textbox.
@@ -303,15 +299,6 @@ class Controller:
         self.widget.credits_text.setText(
             str(int(self.widget.credits_text.text()) + res_dict.credits)
         )
-
-        # not implemented? doesnt make sense coming in from parent function, could delete
-
-        # self.widget.barley_text.setText(str(int(self.widget.barley_text.text()) + res_dict["barley"]))
-        # self.widget.yeast_text.setText(str(int(self.widget.yeast_text.text()) + res_dict["yeast"]))
-        # self.widget.malt_text.setText(str(int(self.widget.malt_text.text()) + res_dict["malt"]))
-        # self.widget.starch_text.setText(str(int(self.widget.starch_text.text()) + res_dict["starch"]))
-        # self.widget.error_text.setText(str(int(self.widget.error_text.text()) + res_dict["error"]))
-        # self.widget.core_text.setText(str(int(self.widget.core_text.text()) + res_dict["cores"]))
 
     @Slot()  # type: ignore
     def reset_values(self) -> None:

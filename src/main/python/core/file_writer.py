@@ -29,8 +29,9 @@ def write_weapon_maintenance_data(new_values: Stats, save_data: bytes):
     OFFSET_WEAPON_XP = 0x6E
     OFFSET_WEAPON_LEVEL_UP = 0xCA
 
-    # kinda hacky, might be better to rewrite
-    # just follow the original process when reading
+    # other sections of data (overclocks) might change the total size of the data
+    # and move the weapons to a new position. compare to initial read to see if they moved.
+    # kinda hacky, might be better to rewrite based on the original process when reading
     first_weapon_pos = save_data.find(b"WeaponMaintenanceEntry") + 0x2C
     first_weapon_pos_before = list(new_values.weapons.keys())[0]
     offset_change = first_weapon_pos - first_weapon_pos_before
