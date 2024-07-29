@@ -381,6 +381,10 @@ class Controller:
         unforged_ocs = self.state_manager.get_unforged_overclocks()
         populate_unforged_list(unforged_list, unforged_ocs)
 
+        self.widget.overclock_tree.setDisabled(
+            0 == sum([promo for promo in [d_promo, e_promo, g_promo, s_promo]])
+        )
+
         self.filter_overclocks()
         self.update_rank()
         self.reset_season_data()
