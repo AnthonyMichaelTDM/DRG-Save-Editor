@@ -168,7 +168,13 @@ class OverclockParser:
         self.overclocks: list[Overclock] = []
 
     def parse(self, save_data: bytes):
-        start = self._find_overclocks_start(save_data)
+        try:
+            start = self._find_overclocks_start(save_data)
+        except LookupError:
+            for i in self.guid_dict.values():
+                i.status = "Unacquired"
+            self._fill_missing_overclocks()
+            return
         end = self._find_overclocks_end(save_data)
 
         for i in self.guid_dict.values():
@@ -247,7 +253,7 @@ class OverclockParser:
         search_term = b"ForgedSchematics"
         start = save_data.find(search_term)
         if start == -1:
-            raise Exception("Could not locate overclocks in the save file")
+            raise LookupError("Could not locate overclocks in the save file")
         return start
 
     def _add_overclock(self, uuid):
