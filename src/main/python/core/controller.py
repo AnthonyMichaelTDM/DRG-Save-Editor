@@ -628,9 +628,8 @@ class Controller:
             self.build_oc_tree(overclock_tree)
             self.widget.overclock_tree.sortItems(0, Qt.SortOrder.AscendingOrder)
         else:
-            error_text = QTreeWidgetItem(None)
+            error_text = QTreeWidgetItem(overclock_tree)
             error_text.setText(0, "No dwarf promoted yet")
-            overclock_tree.addChild(error_text)
 
 
 def get_steam_path():

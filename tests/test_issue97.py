@@ -1,7 +1,7 @@
 # This module contains tests for issue #97: Can't change current season value
 # which was caused by the offsets used when reading save data in the edge case that the user has only one season in their save data.
 
-from src.main.python.core.state_manager import Stats, Dwarf, Resource
+from src.main.python.core.state_manager import Stats
 import pytest
 
 
