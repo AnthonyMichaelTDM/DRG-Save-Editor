@@ -156,7 +156,13 @@ class OverclockParser:
         self.overclocks: list[Overclock] = []
 
     def parse(self, save_data: bytes):
-        start = self._find_overclocks_start(save_data)
+        try:
+            start = self._find_overclocks_start(save_data)
+        except LookupError:
+            for i in self.guid_dict.values():
+                i.status = "Unacquired"
+            self._fill_missing_overclocks()
+            return
         end = self._find_overclocks_end(save_data)
 
         for i in self.guid_dict.values():
@@ -188,7 +194,7 @@ class OverclockParser:
             uuid = self._get_uuid(
                 save_data,
                 start=unforged_pos + (j * 16),
-                end=unforged_pos + (j * 16) + 16
+                end=unforged_pos + (j * 16) + 16,
             )
             try:
                 self.guid_dict[uuid].status = "Unforged"
@@ -209,15 +215,13 @@ class OverclockParser:
     def _get_forged_overclocks(self, save_data, start):
         oc_list_offset = 141
 
-        num_forged: int = struct.unpack(
-            "i", save_data[start + 63 : start + 67]
-        )[0]
+        num_forged: int = struct.unpack("i", save_data[start + 63 : start + 67])[0]
 
         for j in range(num_forged):
             uuid = self._get_uuid(
                 save_data,
                 start=start + oc_list_offset + (j * 16),
-                end=start + oc_list_offset + (j * 16) + 16
+                end=start + oc_list_offset + (j * 16) + 16,
             )
             try:
                 self.guid_dict[uuid].status = "Forged"
@@ -237,7 +241,7 @@ class OverclockParser:
         search_term = b"ForgedSchematics"
         start = save_data.find(search_term)
         if start == -1:
-            raise Exception("Could not locate overclocks in the save file")
+            raise LookupError("Could not locate overclocks in the save file")
         return start
 
     def _add_overclock(self, uuid):
@@ -254,9 +258,5 @@ class OverclockParser:
         )
 
     def _get_uuid(self, save_data: bytes, start: int, end: int):
-        uuid = (
-            save_data[start:end]
-            .hex()
-            .upper()
-        )
+        uuid = save_data[start:end].hex().upper()
         return uuid
