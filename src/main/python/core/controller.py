@@ -381,10 +381,6 @@ class Controller:
         unforged_ocs = self.state_manager.get_unforged_overclocks()
         populate_unforged_list(unforged_list, unforged_ocs)
 
-        self.widget.overclock_tree.setDisabled(
-            0 == sum([promo for promo in [d_promo, e_promo, g_promo, s_promo]])
-        )
-
         self.filter_overclocks()
         self.update_rank()
         self.reset_season_data()
@@ -628,7 +624,8 @@ class Controller:
     def init_overclock_tree(self):
         self.widget.overclock_tree.clear()
         overclock_tree = self.widget.overclock_tree.invisibleRootItem()
-        self.build_oc_tree(overclock_tree)
+        if self.state_manager.get_max_promo() > 0:
+            self.build_oc_tree(overclock_tree)
         self.widget.overclock_tree.sortItems(0, Qt.SortOrder.AscendingOrder)
 
 
