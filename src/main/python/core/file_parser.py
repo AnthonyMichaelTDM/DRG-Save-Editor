@@ -21,8 +21,20 @@ class Parser:
         season_xp_offset = 169
         scrip_offset = 209
 
-        season_xp_pos = save_bytes.find(season_marker) + season_xp_offset
-        scrip_pos = save_bytes.find(season_marker) + scrip_offset
+        season_xp_pos = (
+            season_marker_pos
+            + save_bytes[season_marker_pos : season_marker_pos + season_xp_offset].find(
+                b"XP"
+            )
+            + 28
+        )
+        scrip_pos = (
+            season_marker_pos
+            + save_bytes[season_marker_pos : season_marker_pos + scrip_offset].find(
+                b"Tokens"
+            )
+            + 32
+        )
 
         season_xp = struct.unpack("i", save_bytes[season_xp_pos : season_xp_pos + 4])[0]
         scrip = struct.unpack("i", save_bytes[scrip_pos : scrip_pos + 4])[0]
@@ -188,7 +200,7 @@ class OverclockParser:
             uuid = self._get_uuid(
                 save_data,
                 start=unforged_pos + (j * 16),
-                end=unforged_pos + (j * 16) + 16
+                end=unforged_pos + (j * 16) + 16,
             )
             try:
                 self.guid_dict[uuid].status = "Unforged"
@@ -209,15 +221,13 @@ class OverclockParser:
     def _get_forged_overclocks(self, save_data, start):
         oc_list_offset = 141
 
-        num_forged: int = struct.unpack(
-            "i", save_data[start + 63 : start + 67]
-        )[0]
+        num_forged: int = struct.unpack("i", save_data[start + 63 : start + 67])[0]
 
         for j in range(num_forged):
             uuid = self._get_uuid(
                 save_data,
                 start=start + oc_list_offset + (j * 16),
-                end=start + oc_list_offset + (j * 16) + 16
+                end=start + oc_list_offset + (j * 16) + 16,
             )
             try:
                 self.guid_dict[uuid].status = "Forged"
@@ -254,9 +264,5 @@ class OverclockParser:
         )
 
     def _get_uuid(self, save_data: bytes, start: int, end: int):
-        uuid = (
-            save_data[start:end]
-            .hex()
-            .upper()
-        )
+        uuid = save_data[start:end].hex().upper()
         return uuid
