@@ -63,7 +63,7 @@ def test_weapon_oc_panel_disables_when_no_ocs(save_data_issue97, qtbot, save_dat
     # Ensure that the "No dwarf promoted yet" message is present
     assert (
         len(
-            items := controller.widget.overclock_tree.findItems(
+            controller.widget.overclock_tree.findItems(
                 "No dwarf promoted yet", PySide6.QtCore.Qt.MatchFlag.MatchExactly
             )
         )
@@ -103,14 +103,14 @@ def test_ensure_oc_panel_gets_reenabled_on_new_save(
 
     assert (
         len(
-            items := controller.widget.overclock_tree.findItems(
+            controller.widget.overclock_tree.findItems(
                 "No dwarf promoted yet", PySide6.QtCore.Qt.MatchFlag.MatchExactly
             )
         )
         == 0
     )
     assert controller.widget.add_cores_button.isEnabled()
-    assert controller.widget.overclock_tree.topLevelItemCount() == 4
+    assert controller.widget.overclock_tree.topLevelItemCount() == 2
 
 
 def test_parse_new_save_without_errors(save_data):

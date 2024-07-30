@@ -70,7 +70,15 @@ def test_parse_without_errors(save_data: bytes):
     }
     assert stats.weapons == expected_weapons
 
-    expected_unacquired_overclocks = 143
+    expected_unacquired_weapon_overclocks = 143
+    expected_unacquired_overclocks = 479
     expected_unforged_overclocks = 18
+    assert (
+        len([
+            x.guid for x in stats.overclocks
+            if x.status == "Unacquired" and x.type_ == "weapon"
+        ])
+        == expected_unacquired_weapon_overclocks
+    )
     assert len(stats.get_unacquired_overclocks()) == expected_unacquired_overclocks
     assert len(stats.get_unforged_overclocks()) == expected_unforged_overclocks
