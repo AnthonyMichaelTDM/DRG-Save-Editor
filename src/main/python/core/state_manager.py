@@ -54,8 +54,10 @@ class Stats:
         new_data = {}
         for k, v in data["Weapon"].items():
             new_data[k] = {**v, "category": "Weapon"}
-        for k, v in data["Cosmetic"].items():
-            new_data[k] = {**v, "category": "Cosmetic"}
+        for category in data.keys():
+            if category != "Weapon":
+                for k, v in data[category].items():
+                    new_data[k] = {**v, "category": category}
         return new_data
 
     def build_oc_dict(self):
@@ -66,7 +68,6 @@ class Stats:
                 "Gunner": {},
                 "Scout": {},
             },
-            "Cosmetic": {}
         }
 
         for guid, oc in self.guid_dict.items():
@@ -74,7 +75,9 @@ class Stats:
                 if oc.weapon not in oc_dict[oc.category][oc.dwarf]:
                     oc_dict[oc.category][oc.dwarf][oc.weapon] = {}
                 oc_dict[oc.category][oc.dwarf][oc.weapon][oc.name] = guid
-            elif oc.category == "Cosmetic":
+            else:
+                if oc.category not in oc_dict:
+                    oc_dict[oc.category] = {}
                 if oc.name not in oc_dict[oc.category]:
                     oc_dict[oc.category][oc.name] = {}
                 oc_dict[oc.category][oc.name][oc.dwarf] = guid

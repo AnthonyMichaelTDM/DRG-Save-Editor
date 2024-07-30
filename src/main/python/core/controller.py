@@ -624,16 +624,19 @@ class Controller:
                     oc_entry.setText(1, self.state_manager.guid_dict[uuid].status)
                     oc_entry.setText(2, uuid)
 
-        cosmetic_category_entry = QTreeWidgetItem(tree)
-        cosmetic_category_entry.setText(0, "Cosmetic")
-        for cosmetic_name, dwarves in oc_dict["Cosmetic"].items():
-            char_entry = QTreeWidgetItem(cosmetic_category_entry)
-            char_entry.setText(0, cosmetic_name)
-            for dwarf, uuid in dwarves.items():
-                oc_entry = QTreeWidgetItem(char_entry)
-                oc_entry.setText(0, dwarf)
-                oc_entry.setText(1, self.state_manager.guid_dict[uuid].status)
-                oc_entry.setText(2, uuid)
+        for category in oc_dict.keys():
+            if category == "Weapon":
+                continue
+            non_weapon_category = QTreeWidgetItem(tree)
+            non_weapon_category.setText(0, category)
+            for oc_name, dwarves in oc_dict[category].items():
+                char_entry = QTreeWidgetItem(non_weapon_category)
+                char_entry.setText(0, oc_name)
+                for dwarf, uuid in dwarves.items():
+                    oc_entry = QTreeWidgetItem(char_entry)
+                    oc_entry.setText(0, dwarf)
+                    oc_entry.setText(1, self.state_manager.guid_dict[uuid].status)
+                    oc_entry.setText(2, uuid)
 
     def init_overclock_tree(self):
         self.widget.overclock_tree.clear()

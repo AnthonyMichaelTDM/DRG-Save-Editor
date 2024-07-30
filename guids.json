@@ -2241,7 +2241,7 @@
       }
     }
   },
-  "Cosmetic": {
+  "Cosmetic - Headwear": {
     "DA6D56BA7CFF804CB56C4D905570D9D3": {
       "name": "First Blood",
       "dwarf": "Driller"
@@ -2385,7 +2385,9 @@
     "A6C5053EDD564B4E9990F6A8E1A42816": {
       "name": "Techy Hard Hat",
       "dwarf": "Scout"
-    },
+    }
+  },
+  "Cosmetic - Moustache": {
     "206E82CB0C3916488970FAC71A03FC64": {
       "name": "Bangled Braids",
       "dwarf": "Driller"
@@ -2561,7 +2563,9 @@
     "A594B2DCAD9E0346A7EB06FDF9DD1812": {
       "name": "Spiky Neurotic",
       "dwarf": "Scout"
-    },
+    }
+  },
+  "Cosmetic - Beard": {
     "61663AF76E9AF24998F5AF8FB3DCED56": {
       "name": "Bound Goatee",
       "dwarf": "Driller"
@@ -3137,7 +3141,9 @@
     "6D3A35EECE87514E96AFADA3AE96324F": {
       "name": "Twinned Wintry - Gilded",
       "dwarf": "Scout"
-    },
+    }
+  },
+  "Cosmetic - Sideburns": {
     "D5AD7FC62BD72546A0BF55D9836C29FA": {
       "name": "Berserker",
       "dwarf": "Driller"
@@ -3249,7 +3255,9 @@
     "10E8A47EFCAE994CA3C0FEDA6E2AD770": {
       "name": "Valiant Berserker",
       "dwarf": "Scout"
-    },
+    }
+  },
+  "Victory Moves": {
     "A5482D68A2F8D64AB7372582E8DAA032": {
       "name": "Barrel Drop",
       "dwarf": "Driller"
@@ -3393,7 +3401,9 @@
     "B2F054F8C4409B4D9951708E25E1D848": {
       "name": "Theatrical Bow",
       "dwarf": "Scout"
-    },
+    }
+  },
+  "Weapon Skins": {
     "78FD630A6E171948AE7971FA6E2D8938": {
       "name": "Beyond the Circuit",
       "dwarf": "Driller"
