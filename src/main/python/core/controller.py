@@ -440,8 +440,6 @@ class Controller:
         unacquired_ocs = self.state_manager.get_unacquired_overclocks()
         newly_acquired_ocs: list[str] = []
         for i in selected:
-            print(i.text(1), i.text(2))
-            print(i.text(1) == "Unacquired", i.text(2) in unacquired_ocs)
             if i.text(1) == "Unacquired" and i.text(2) in unacquired_ocs:
                 self.state_manager.guid_dict[i.text(2)].status = Status.UNFORGED
                 newly_acquired_ocs.append(i.text(2))
