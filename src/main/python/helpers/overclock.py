@@ -7,9 +7,9 @@ from helpers.datatypes import Cost
 @dataclass
 class Overclock:
     category: Literal["Weapon", "Cosmetic", "Unknown"]
-    dwarf: str
+    dwarf: Literal["Driller", "Engineer", "Gunner", "Scout", ""]
     weapon: str
     name: str
     guid: str
-    status: str
+    status: Literal["Unacquired", "Unforged", "Forged"]
     cost: Cost

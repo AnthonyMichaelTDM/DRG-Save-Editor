@@ -5,6 +5,7 @@ from typing import Optional, Literal
 @dataclass
 class Cost:
     """Crafting cost associated with a forgeable item"""
+
     credits: Optional[int] = 0
     bismor: Optional[int] = 0
     croppa: Optional[int] = 0
@@ -28,8 +29,8 @@ class Item:
     """An item read from the known list of GUIDs"""
 
     category: Literal["Weapon", "Cosmetic"]
-    dwarf: str
+    dwarf: Literal["Driller", "Engineer", "Gunner", "Scout"]
     name: str
     cost: dict = field(default_factory=dict)
     weapon: str | None = None
-    status: str = "Unacquired"
+    status: Literal["Unacquired", "Unforged", "Forged"] = "Unacquired"
