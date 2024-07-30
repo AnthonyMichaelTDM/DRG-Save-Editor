@@ -2,12 +2,14 @@ import os
 import sys
 
 from definitions import PROMO_RANKS
+from helpers.overclock import Overclock
 
-from PySide6.QtCore import QFile, QIODevice, Signal
+from PySide6.QtCore import QFile, QIODevice, Signal, Qt
 from PySide6.QtGui import QAction, QFocusEvent
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import (QComboBox, QGroupBox, QLabel, QLineEdit,
-                               QListWidget, QPushButton, QTreeWidget)
+                               QListWidget, QPushButton, QTreeWidget, QTreeWidgetItem,
+                               QListWidgetItem, QFileDialog)
 
 
 class TextEditFocusChecking(QLineEdit):
@@ -137,3 +139,79 @@ class EditorUI:
 
     def setWindowTitle(self, title: str) -> None:
         self.inner.setWindowTitle(title)
+
+    def show_empty_oc_tree(self):
+        overclock_tree = self.overclock_tree.invisibleRootItem()
+        error_text = QTreeWidgetItem(overclock_tree)
+        error_text.setText(0, "No dwarf promoted yet")
+        self.add_cores_button.setEnabled(False)
+
+    def build_oc_tree(self, oc_dict: dict, guid_dict: dict) -> None:
+        overclock_tree = self.overclock_tree.invisibleRootItem()
+
+        self.make_weapon_oc_tree(overclock_tree, oc_dict, guid_dict)
+        self.make_non_weapon_oc_trees(overclock_tree, oc_dict, guid_dict)
+
+        self.overclock_tree.sortItems(0, Qt.SortOrder.AscendingOrder)
+        self.add_cores_button.setEnabled(True)
+
+    def make_non_weapon_oc_trees(
+        self,
+        tree: QTreeWidgetItem,
+        oc_dict: dict[str, dict[str, dict]],
+        guid_dict: dict
+    ):
+        for category in oc_dict.keys():
+            if category == "Weapon":
+                continue
+            non_weapon_category = QTreeWidgetItem(tree)
+            non_weapon_category.setText(0, category)
+            for oc_name, dwarves in oc_dict[category].items():
+                char_entry = QTreeWidgetItem(non_weapon_category)
+                char_entry.setText(0, oc_name)
+                for dwarf, uuid in dwarves.items():
+                    oc_entry = QTreeWidgetItem(char_entry)
+                    oc_entry.setText(0, dwarf)
+                    oc_entry.setText(1, guid_dict[uuid].status)
+                    oc_entry.setText(2, uuid)
+
+    def make_weapon_oc_tree(
+        self,
+        tree: QTreeWidgetItem,
+        oc_dict: dict[str, dict[str, dict]],
+        guid_dict: dict
+    ):
+        weapon_category_entry = QTreeWidgetItem(tree)
+        weapon_category_entry.setText(0, "Weapon")
+        for char, weapons in oc_dict["Weapon"].items():
+            char_entry = QTreeWidgetItem(weapon_category_entry)
+            char_entry.setText(0, char)
+            for weapon, oc_names in weapons.items():
+                weapon_entry = QTreeWidgetItem(char_entry)
+                weapon_entry.setText(0, weapon)
+                for name, uuid in oc_names.items():
+                    oc_entry = QTreeWidgetItem(weapon_entry)
+                    oc_entry.setText(0, name)
+                    oc_entry.setText(1, guid_dict[uuid].status)
+                    oc_entry.setText(2, uuid)
+
+    def populate_unforged_list(self, unforged: list[Overclock]) -> None:
+        # populates the list on acquired but unforged overclocks (includes cosmetics)
+        self.unforged_list.clear()
+        for oc_item in unforged:
+            oc = QListWidgetItem(None)
+            if oc_item.category == 'Weapon':
+                oc.setText(f"{oc_item.weapon}: {oc_item.name} ({oc_item.guid})")
+            elif oc_item.category == 'Cosmetic':
+                oc.setText(f"Cosmetic: {oc_item.name} - {oc_item.dwarf} ({oc_item.guid})")
+            else:
+                oc.setText(f"Unknown: ({oc_item.guid})")
+            self.unforged_list.addItem(oc)
+
+    def get_file_name(self, steam_path: str):
+        return QFileDialog.getOpenFileName(
+            None,
+            "Open Save File...",
+            steam_path,
+            "Player Save Files (*.sav);;All Files (*.*)",
+        )[0]

@@ -1,6 +1,5 @@
 from re import Match
 from sys import platform
-from typing import List
 
 from core.file_writer import make_save_file
 from core.state_manager import Stats
@@ -20,8 +19,7 @@ from helpers.datatypes import Cost
 from helpers.enums import Dwarf, Resource
 from helpers.overclock import Overclock
 
-from PySide6.QtCore import Slot, Qt
-from PySide6.QtWidgets import QFileDialog, QListWidget, QListWidgetItem, QTreeWidgetItem
+from PySide6.QtCore import Slot
 
 if platform == "win32":
     import winreg
@@ -125,19 +123,14 @@ class Controller:
     def open_file(self) -> None:
         # open file dialog box, start in steam install path if present
         steam_path = get_steam_path()
-        self.file_name = QFileDialog.getOpenFileName(
-            None,
-            "Open Save File...",
-            steam_path,
-            "Player Save Files (*.sav);;All Files (*.*)",
-        )[0]
+        self.file_name = self.widget.get_file_name(steam_path)
 
         if not self.file_name:
             return
 
         self.widget.setWindowTitle(
             f"DRG Save Editor - {self.file_name}"
-        )  # window-dressing
+        )
         with open(self.file_name, "rb") as f:
             save_data = f.read()
 
@@ -271,7 +264,7 @@ class Controller:
     @Slot()  # type: ignore
     def add_crafting_mats(self) -> None:
         cost: Cost = Cost()
-        unforged_ocs: List[Overclock] = self.state_manager.get_unforged_overclocks()
+        unforged_ocs: list[Overclock] = self.state_manager.get_unforged_overclocks()
         for oc in unforged_ocs:
             cost += oc.cost
         print(cost)
@@ -377,9 +370,8 @@ class Controller:
             s_promo if s_promo < MAX_BADGES else MAX_BADGES
         )
 
-        unforged_list = self.widget.unforged_list
         unforged_ocs = self.state_manager.get_unforged_overclocks()
-        populate_unforged_list(unforged_list, unforged_ocs)
+        self.widget.populate_unforged_list(unforged_ocs)
 
         self.filter_overclocks()
         self.update_rank()
@@ -607,48 +599,13 @@ class Controller:
             f"Classes - Rank {rank + 1} {rem}/3, {title}"
         )
 
-    def build_oc_tree(self, tree: QTreeWidgetItem) -> None:
-        oc_dict = self.state_manager.build_oc_dict()
-
-        weapon_category_entry = QTreeWidgetItem(tree)
-        weapon_category_entry.setText(0, "Weapon")
-        for char, weapons in oc_dict["Weapon"].items():
-            char_entry = QTreeWidgetItem(weapon_category_entry)
-            char_entry.setText(0, char)
-            for weapon, oc_names in weapons.items():
-                weapon_entry = QTreeWidgetItem(char_entry)
-                weapon_entry.setText(0, weapon)
-                for name, uuid in oc_names.items():
-                    oc_entry = QTreeWidgetItem(weapon_entry)
-                    oc_entry.setText(0, name)
-                    oc_entry.setText(1, self.state_manager.guid_dict[uuid].status)
-                    oc_entry.setText(2, uuid)
-
-        for category in oc_dict.keys():
-            if category == "Weapon":
-                continue
-            non_weapon_category = QTreeWidgetItem(tree)
-            non_weapon_category.setText(0, category)
-            for oc_name, dwarves in oc_dict[category].items():
-                char_entry = QTreeWidgetItem(non_weapon_category)
-                char_entry.setText(0, oc_name)
-                for dwarf, uuid in dwarves.items():
-                    oc_entry = QTreeWidgetItem(char_entry)
-                    oc_entry.setText(0, dwarf)
-                    oc_entry.setText(1, self.state_manager.guid_dict[uuid].status)
-                    oc_entry.setText(2, uuid)
-
     def init_overclock_tree(self):
         self.widget.overclock_tree.clear()
-        overclock_tree = self.widget.overclock_tree.invisibleRootItem()
         if self.state_manager.get_max_promo() > 0:
-            self.build_oc_tree(overclock_tree)
-            self.widget.overclock_tree.sortItems(0, Qt.SortOrder.AscendingOrder)
-            self.widget.add_cores_button.setEnabled(True)
+            oc_dict = self.state_manager.build_oc_dict()
+            self.widget.build_oc_tree(oc_dict, self.state_manager.guid_dict)
         else:
-            error_text = QTreeWidgetItem(overclock_tree)
-            error_text.setText(0, "No dwarf promoted yet")
-            self.widget.add_cores_button.setEnabled(False)
+            self.widget.show_empty_oc_tree()
 
 
 def get_steam_path():
@@ -656,7 +613,7 @@ def get_steam_path():
         # find the install path for the steam version
         if platform == "win32":
             steam_reg = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Valve\Steam")  # type: ignore
-            steam_path = winreg.QueryValueEx(steam_reg, "SteamPath")[0]  # type: ignore
+            steam_path: str = winreg.QueryValueEx(steam_reg, "SteamPath")[0]  # type: ignore
             steam_path += "/steamapps/common/Deep Rock Galactic/FSD/Saved/SaveGames"
         else:
             steam_path = "."
@@ -664,17 +621,3 @@ def get_steam_path():
         steam_path = "."
 
     return steam_path
-
-
-def populate_unforged_list(list_widget: QListWidget, unforged: List[Overclock]) -> None:
-    # populates the list on acquired but unforged overclocks (includes cosmetics)
-    list_widget.clear()
-    for oc_item in unforged:
-        oc = QListWidgetItem(None)
-        if oc_item.category == 'Weapon':
-            oc.setText(f"{oc_item.weapon}: {oc_item.name} ({oc_item.guid})")
-        elif oc_item.category == 'Cosmetic':
-            oc.setText(f"Cosmetic: {oc_item.name} - {oc_item.dwarf} ({oc_item.guid})")
-        else:
-            oc.setText(f"Unknown: ({oc_item.guid})")
-        list_widget.addItem(oc)
