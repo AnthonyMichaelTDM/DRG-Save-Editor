@@ -185,10 +185,9 @@ class OverclockParser:
 
         oc_data = save_data[start:end]
         has_unforged: bool = oc_data.find(b"Owned") > 0
-        if not has_unforged:
-            return
 
-        self._get_unforged_overclocks(save_data, start)
+        if has_unforged:
+            self._get_unforged_overclocks(save_data, start)
 
         # fill out overclocks that are known, but do not appear in the save
         self._fill_missing_overclocks()
@@ -197,6 +196,7 @@ class OverclockParser:
         loaded_ocs = [x.guid for x in self.overclocks]
         for uuid in self.guid_dict:
             if uuid not in loaded_ocs:
+                self.guid_dict[uuid].status = Status.UNACQUIRED
                 self._add_overclock(uuid)
 
     def _get_unforged_overclocks(self, save_data: bytes, start: int):

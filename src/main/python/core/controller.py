@@ -46,7 +46,9 @@ class Controller:
         self.widget.actionMax_all_available_weapons.triggered.connect(
             self.max_all_available_weapon_maintenance
         )
-        self.widget.combo_oc_filter.currentTextChanged.connect(self.widget.filter_overclocks)
+        self.widget.combo_oc_filter.currentTextChanged.connect(
+            self.widget.filter_overclocks
+        )
         self.widget.season_box.currentTextChanged.connect(self.update_season_data)
         self.widget.add_cores_button.clicked.connect(self.add_cores)
         self.widget.remove_all_ocs.clicked.connect(self.remove_all_ocs)
@@ -128,9 +130,7 @@ class Controller:
         if not self.file_name:
             return
 
-        self.widget.setWindowTitle(
-            f"DRG Save Editor - {self.file_name}"
-        )
+        self.widget.setWindowTitle(f"DRG Save Editor - {self.file_name}")
         with open(self.file_name, "rb") as f:
             save_data = f.read()
 
@@ -325,9 +325,7 @@ class Controller:
         d_promo = self.state_manager.dwarf_promo[Dwarf.DRILLER]
         self.widget.driller_lvl_text.setText(str(d_xp[0]))
         self.widget.driller_xp_2.setText(str(d_xp[1]))
-        self.widget.driller_promo_box.setCurrentIndex(
-            min(d_promo, MAX_BADGES)
-        )
+        self.widget.driller_promo_box.setCurrentIndex(min(d_promo, MAX_BADGES))
 
         self.widget.engineer_xp.setText(
             str(self.state_manager.dwarf_xp[Dwarf.ENGINEER])
@@ -336,27 +334,21 @@ class Controller:
         e_promo = self.state_manager.dwarf_promo[Dwarf.ENGINEER]
         self.widget.engineer_lvl_text.setText(str(e_xp[0]))
         self.widget.engineer_xp_2.setText(str(e_xp[1]))
-        self.widget.engineer_promo_box.setCurrentIndex(
-            min(e_promo, MAX_BADGES)
-        )
+        self.widget.engineer_promo_box.setCurrentIndex(min(e_promo, MAX_BADGES))
 
         self.widget.gunner_xp.setText(str(self.state_manager.dwarf_xp[Dwarf.GUNNER]))
         g_xp = utils.xp_total_to_level(self.state_manager.dwarf_xp[Dwarf.GUNNER])
         g_promo = self.state_manager.dwarf_promo[Dwarf.GUNNER]
         self.widget.gunner_lvl_text.setText(str(g_xp[0]))
         self.widget.gunner_xp_2.setText(str(g_xp[1]))
-        self.widget.gunner_promo_box.setCurrentIndex(
-            min(g_promo, MAX_BADGES)
-        )
+        self.widget.gunner_promo_box.setCurrentIndex(min(g_promo, MAX_BADGES))
 
         self.widget.scout_xp.setText(str(self.state_manager.dwarf_xp[Dwarf.SCOUT]))
         s_xp = utils.xp_total_to_level(self.state_manager.dwarf_xp[Dwarf.SCOUT])
         s_promo = self.state_manager.dwarf_promo[Dwarf.SCOUT]
         self.widget.scout_lvl_text.setText(str(s_xp[0]))
         self.widget.scout_xp_2.setText(str(s_xp[1]))
-        self.widget.scout_promo_box.setCurrentIndex(
-            min(s_promo, MAX_BADGES)
-        )
+        self.widget.scout_promo_box.setCurrentIndex(min(s_promo, MAX_BADGES))
 
         unforged_ocs = self.state_manager.get_unforged_overclocks()
         self.widget.populate_unforged_list(unforged_ocs)
@@ -448,6 +440,8 @@ class Controller:
         unacquired_ocs = self.state_manager.get_unacquired_overclocks()
         newly_acquired_ocs: list[str] = []
         for i in selected:
+            print(i.text(1), i.text(2))
+            print(i.text(1) == "Unacquired", i.text(2) in unacquired_ocs)
             if i.text(1) == "Unacquired" and i.text(2) in unacquired_ocs:
                 self.state_manager.guid_dict[i.text(2)].status = Status.UNFORGED
                 newly_acquired_ocs.append(i.text(2))
