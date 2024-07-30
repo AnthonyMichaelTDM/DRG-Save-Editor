@@ -46,7 +46,7 @@ class Controller:
         self.widget.actionMax_all_available_weapons.triggered.connect(
             self.max_all_available_weapon_maintenance
         )
-        self.widget.combo_oc_filter.currentTextChanged.connect(self.filter_overclocks)
+        self.widget.combo_oc_filter.currentTextChanged.connect(self.widget.filter_overclocks)
         self.widget.season_box.currentTextChanged.connect(self.update_season_data)
         self.widget.add_cores_button.clicked.connect(self.add_cores)
         self.widget.remove_all_ocs.clicked.connect(self.remove_all_ocs)
@@ -361,7 +361,7 @@ class Controller:
         unforged_ocs = self.state_manager.get_unforged_overclocks()
         self.widget.populate_unforged_list(unforged_ocs)
 
-        self.filter_overclocks()
+        self.widget.filter_overclocks()
         self.update_rank()
         self.reset_season_data()
 
@@ -429,7 +429,7 @@ class Controller:
 
     def remove_ocs(self, oc_list: list[str]) -> None:
         self.state_manager.set_overclocks_to_unacquired(oc_list)
-        self.filter_overclocks()
+        self.widget.filter_overclocks()
 
     def update_season_data(self) -> None:
 
@@ -441,21 +441,6 @@ class Controller:
 
         # refresh display
         self.reset_season_data()
-
-    @Slot()  # type: ignore
-    def filter_overclocks(self) -> None:
-        item_filter = self.widget.combo_oc_filter.currentText()
-        tree_root = self.widget.overclock_tree.invisibleRootItem()
-        self._traverse_overclock_tree(tree_root, item_filter)
-
-    def _traverse_overclock_tree(self, node, item_filter):
-        for i in range(node.childCount()):
-            child = node.child(i)
-            if not child.text(1):
-                self._traverse_overclock_tree(child, item_filter)
-            else:
-                hidden_state = (child.text(1) == item_filter or item_filter == "All")
-                child.setHidden(hidden_state)
 
     @Slot()  # type: ignore
     def add_cores(self) -> None:
@@ -477,7 +462,7 @@ class Controller:
             core_list.addItem(item)
 
         core_list.sortItems()
-        self.filter_overclocks()
+        self.widget.filter_overclocks()
 
     def get_dwarf_xp(self, dwarf) -> tuple[int, int, int]:
         # gets the total xp, level, and progress to the next level (rem)

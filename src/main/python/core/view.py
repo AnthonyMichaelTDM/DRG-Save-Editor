@@ -216,3 +216,17 @@ class EditorUI:
             steam_path,
             "Player Save Files (*.sav);;All Files (*.*)",
         )[0]
+
+    def filter_overclocks(self) -> None:
+        item_filter = self.combo_oc_filter.currentText()
+        tree_root = self.overclock_tree.invisibleRootItem()
+        self._traverse_overclock_tree(tree_root, item_filter)
+
+    def _traverse_overclock_tree(self, node, item_filter):
+        for i in range(node.childCount()):
+            child = node.child(i)
+            if not child.text(1):
+                self._traverse_overclock_tree(child, item_filter)
+            else:
+                hidden_state = (child.text(1) == item_filter or item_filter == "All")
+                child.setHidden(hidden_state)
