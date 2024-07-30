@@ -15,7 +15,7 @@ from definitions import (
     MAX_DWARF_XP,
 )
 from helpers import utils
-from helpers.datatypes import Cost
+from helpers.datatypes import Cost, Status
 from helpers.enums import Dwarf, Resource
 from helpers.overclock import Overclock
 
@@ -470,7 +470,7 @@ class Controller:
         for i in selected:
             if i.text(1) == "Unacquired" and i.text(2) in unacquired_ocs:
                 items_to_add.append(f"{i.parent().text(0)}: {i.text(0)} ({i.text(2)})")
-                self.state_manager.guid_dict[i.text(2)].status = "Unforged"
+                self.state_manager.guid_dict[i.text(2)].status = Status.UNFORGED
                 newly_acquired_ocs.append(i.text(2))
 
         self.state_manager.set_overclocks_to_unforged(newly_acquired_ocs)

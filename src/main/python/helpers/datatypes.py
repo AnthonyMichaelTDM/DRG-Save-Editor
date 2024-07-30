@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from typing import Optional
 
 from helpers.enums import Category, Dwarf, Status
 
@@ -8,13 +7,13 @@ from helpers.enums import Category, Dwarf, Status
 class Cost:
     """Crafting cost associated with a forgeable item"""
 
-    credits: Optional[int] = 0
-    bismor: Optional[int] = 0
-    croppa: Optional[int] = 0
-    enor: Optional[int] = 0
-    jadiz: Optional[int] = 0
-    magnite: Optional[int] = 0
-    umanite: Optional[int] = 0
+    credits: int = 0
+    bismor: int = 0
+    croppa: int = 0
+    enor: int = 0
+    jadiz: int = 0
+    magnite: int = 0
+    umanite: int = 0
 
     def __add__(self, other):
         newcost = Cost()

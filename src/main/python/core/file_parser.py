@@ -217,11 +217,11 @@ class OverclockParser:
                 self.overclocks.append(
                     Overclock(
                         category=Category.UNKNOWN,
-                        dwarf="",
+                        dwarf=Dwarf.SCOUT,
                         weapon="",
                         name="",
                         guid=uuid,
-                        status=Status.Unforged,
+                        status=Status.UNFORGED,
                         cost=Cost(),
                     )
                 )
@@ -260,7 +260,7 @@ class OverclockParser:
 
     def _add_overclock(self, uuid: str):
         overclock_data = self.guid_dict[uuid]
-        if overclock_data.cost:
+        if overclock_data.cost and overclock_data.weapon:
             self.overclocks.append(
                 Overclock(
                     category=overclock_data.category,
@@ -277,8 +277,8 @@ class OverclockParser:
                 Overclock(
                     category=overclock_data.category,
                     dwarf=overclock_data.dwarf,
-                    weapon=None,
-                    cost={},
+                    weapon="",
+                    cost=Cost(),
                     name=overclock_data.name,
                     guid=uuid,
                     status=overclock_data.status,
