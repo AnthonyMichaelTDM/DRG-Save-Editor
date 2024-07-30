@@ -226,5 +226,5 @@ class EditorUI:
             if not child.text(1):
                 self._traverse_overclock_tree(child, item_filter)
             else:
-                hidden_state = (child.text(1) == item_filter or item_filter == "All")
+                hidden_state = not (child.text(1) == item_filter or item_filter == "All")
                 child.setHidden(hidden_state)
