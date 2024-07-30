@@ -16,7 +16,7 @@ from definitions import (
 )
 from helpers import utils
 from helpers.datatypes import Cost, Status
-from helpers.enums import Dwarf, Resource
+from helpers.enums import Dwarf, Resource, Category
 from helpers.overclock import Overclock
 
 from PySide6.QtCore import Slot
@@ -449,16 +449,26 @@ class Controller:
         tree_root = tree.invisibleRootItem()
 
         for i in range(tree_root.childCount()):
-            dwarf = tree_root.child(i)
-            for j in range(dwarf.childCount()):
-                weapon = dwarf.child(j)
-                for k in range(weapon.childCount()):
-                    oc = weapon.child(k)
-                    print(oc.text(0), oc.text(1), oc.text(2))
-                    if oc.text(1) == item_filter or item_filter == "All":
-                        oc.setHidden(False)
-                    else:
-                        oc.setHidden(True)
+            category = tree_root.child(i)
+            for j in range(category.childCount()):
+                if category.text(0) != Category.WEAPONS:
+                    oc_name = category.child(j)
+                    for k in range(oc_name.childCount()):
+                        dwarf_name = oc_name.child(k)
+                        if dwarf_name.text(1) == item_filter or item_filter == "All":
+                            dwarf_name.setHidden(False)
+                        else:
+                            dwarf_name.setHidden(True)
+                else:
+                    dwarf_name = category.child(j)
+                    for k in range(dwarf_name.childCount()):
+                        weapon_name = dwarf_name.child(k)
+                        for ll in range(weapon_name.childCount()):
+                            oc_name = weapon_name.child(ll)
+                            if oc_name.text(1) == item_filter or item_filter == "All":
+                                oc_name.setHidden(False)
+                            else:
+                                oc_name.setHidden(True)
 
     @Slot()  # type: ignore
     def add_cores(self) -> None:
