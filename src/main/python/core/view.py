@@ -198,13 +198,9 @@ class EditorUI:
         # populates the list on acquired but unforged overclocks (includes cosmetics)
         self.unforged_list.clear()
         for oc_item in unforged:
+            text = get_unforged_list_item_string(oc_item)
             oc = QListWidgetItem(None)
-            if oc_item.category == Category.WEAPONS:
-                oc.setText(f"{oc_item.weapon}: {oc_item.name} ({oc_item.guid})")
-            elif oc_item.name:
-                oc.setText(f"Cosmetic: {oc_item.name} - {oc_item.dwarf} ({oc_item.guid})")
-            else:
-                oc.setText(f"Unknown: ({oc_item.guid})")
+            oc.setText(text)
             self.unforged_list.addItem(oc)
 
     def get_file_name(self, steam_path: str):
@@ -228,3 +224,13 @@ class EditorUI:
             else:
                 hidden_state = not (child.text(1) == item_filter or item_filter == "All")
                 child.setHidden(hidden_state)
+
+
+def get_unforged_list_item_string(oc_item: Overclock):
+    if oc_item.category == Category.WEAPONS:
+        text = f"{oc_item.weapon}: {oc_item.name} ({oc_item.guid})"
+    elif oc_item.name:
+        text = f"Cosmetic: {oc_item.name} - {oc_item.dwarf} ({oc_item.guid})"
+    else:
+        text = f"Unknown: ({oc_item.guid})"
+    return text

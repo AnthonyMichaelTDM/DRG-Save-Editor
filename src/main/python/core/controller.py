@@ -3,7 +3,7 @@ from sys import platform
 
 from core.file_writer import make_save_file
 from core.state_manager import Stats
-from core.view import EditorUI
+from core.view import EditorUI, get_unforged_list_item_string
 from definitions import (
     GUID_RE,
     LATEST_SEASON,
@@ -444,22 +444,21 @@ class Controller:
 
     @Slot()  # type: ignore
     def add_cores(self) -> None:
-        tree = self.widget.overclock_tree
-        selected = tree.selectedItems()
+        selected = self.widget.overclock_tree.selectedItems()
         unacquired_ocs = self.state_manager.get_unacquired_overclocks()
-        items_to_add = list()
-        newly_acquired_ocs = []
+        newly_acquired_ocs: list[str] = []
         for i in selected:
             if i.text(1) == "Unacquired" and i.text(2) in unacquired_ocs:
-                items_to_add.append(f"{i.parent().text(0)}: {i.text(0)} ({i.text(2)})")
                 self.state_manager.guid_dict[i.text(2)].status = Status.UNFORGED
                 newly_acquired_ocs.append(i.text(2))
 
         self.state_manager.set_overclocks_to_unforged(newly_acquired_ocs)
 
         core_list = self.widget.unforged_list
-        for item in items_to_add:
-            core_list.addItem(item)
+        for item in newly_acquired_ocs:
+            oc_item = next(x for x in self.state_manager.overclocks if x.guid == item)
+            text = get_unforged_list_item_string(oc_item)
+            core_list.addItem(text)
 
         core_list.sortItems()
         self.widget.filter_overclocks()
