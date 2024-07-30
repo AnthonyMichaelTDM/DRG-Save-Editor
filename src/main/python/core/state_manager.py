@@ -43,21 +43,45 @@ class Stats:
 
         # load reference data
         with open(guids_file, "r", encoding="utf-8") as g:
+            data = json.loads(g.read())
+            data_reshaped = self._reshape_guid_data(data)
             self.guid_dict = {
-                key: Item(**value) for key, value in json.loads(g.read()).items()
+                key: Item(**value) for key, value in data_reshaped.items()
             }
 
+    @staticmethod
+    def _reshape_guid_data(data: dict):
+        new_data = {}
+        for k, v in data["weapon"].items():
+            new_data[k] = {**v, "type_": "weapon"}
+        for k, v in data["cosmetic"].items():
+            new_data[k] = {**v, "type_": "cosmetic"}
+        return new_data
+
     def build_oc_dict(self):
-        oc_dict = dict()
-
-        for _, oc in self.guid_dict.items():
-            oc_dict.update({oc.dwarf: dict()})
-
-        for _, oc in self.guid_dict.items():
-            oc_dict[oc.dwarf].update({oc.weapon: dict()})
+        oc_dict = {
+            "Weapon": {
+                "Driller": {},
+                "Engineer": {},
+                "Gunner": {},
+                "Scout": {},
+            },
+            "Cosmetic": {}
+        }
 
         for guid, oc in self.guid_dict.items():
-            oc_dict[oc.dwarf][oc.weapon].update({oc.name: guid})
+            oc_type = oc.type_.title()
+            if oc_type == "Weapon":
+                if oc.weapon not in oc_dict[oc_type][oc.dwarf]:
+                    oc_dict[oc_type][oc.dwarf][oc.weapon] = {}
+                # if oc.name not in oc_dict[oc_type][oc.dwarf][oc.weapon]:
+                oc_dict[oc_type][oc.dwarf][oc.weapon][oc.name] = guid
+            else:
+                # Cosmetic
+                if oc.name not in oc_dict[oc_type]:
+                    oc_dict[oc_type][oc.name] = {}
+                # if oc.dwarf not in oc_dict[oc_type][oc.name]:
+                oc_dict[oc_type][oc.name][oc.dwarf] = guid
 
         return oc_dict
 

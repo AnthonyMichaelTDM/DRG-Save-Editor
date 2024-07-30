@@ -5,6 +5,7 @@ from typing import Literal
 from definitions import RESOURCE_GUIDS, SEASON_GUIDS
 from helpers.enums import Dwarf, Resource
 from helpers.overclock import Overclock, Cost
+from helpers.datatypes import Item
 
 
 class Parser:
@@ -163,7 +164,7 @@ class Parser:
 
 
 class OverclockParser:
-    def __init__(self, guid_dict: dict) -> None:
+    def __init__(self, guid_dict: dict[str, Item]) -> None:
         self.guid_dict = guid_dict
         self.overclocks: list[Overclock] = []
 
@@ -215,6 +216,7 @@ class OverclockParser:
                 # handle found overclocks with unidentifiable guids
                 self.overclocks.append(
                     Overclock(
+                        type_="invalid",
                         dwarf="",
                         weapon="Cosmetic",
                         name="",
@@ -260,6 +262,7 @@ class OverclockParser:
         overclock_data = self.guid_dict[uuid]
         self.overclocks.append(
             Overclock(
+                type_=overclock_data.type_,
                 dwarf=overclock_data.dwarf,
                 weapon=overclock_data.weapon,
                 name=overclock_data.name,

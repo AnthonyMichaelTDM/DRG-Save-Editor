@@ -609,8 +609,11 @@ class Controller:
 
     def build_oc_tree(self, tree: QTreeWidgetItem) -> None:
         oc_dict = self.state_manager.build_oc_dict()
-        for char, weapons in oc_dict.items():
-            char_entry = QTreeWidgetItem(tree)
+
+        weapon_type_entry = QTreeWidgetItem(tree)
+        weapon_type_entry.setText(0, "Weapon")
+        for char, weapons in oc_dict["Weapon"].items():
+            char_entry = QTreeWidgetItem(weapon_type_entry)
             char_entry.setText(0, char)
             for weapon, oc_names in weapons.items():
                 weapon_entry = QTreeWidgetItem(char_entry)
@@ -620,6 +623,17 @@ class Controller:
                     oc_entry.setText(0, name)
                     oc_entry.setText(1, self.state_manager.guid_dict[uuid].status)
                     oc_entry.setText(2, uuid)
+
+        cosmetic_entry = QTreeWidgetItem(tree)
+        cosmetic_entry.setText(0, "Cosmetic")
+        for cosmetic_name, dwarves in oc_dict["Cosmetic"].items():
+            char_entry = QTreeWidgetItem(cosmetic_entry)
+            char_entry.setText(0, cosmetic_name)
+            for dwarf, uuid in dwarves.items():
+                oc_entry = QTreeWidgetItem(char_entry)
+                oc_entry.setText(0, dwarf)
+                oc_entry.setText(1, self.state_manager.guid_dict[uuid].status)
+                oc_entry.setText(2, uuid)
 
     def init_overclock_tree(self):
         self.widget.overclock_tree.clear()
@@ -654,8 +668,10 @@ def populate_unforged_list(list_widget: QListWidget, unforged: List[Overclock]) 
     list_widget.clear()
     for oc_item in unforged:
         oc = QListWidgetItem(None)
-        try:
+        if oc_item.type_ == 'weapon':
             oc.setText(f"{oc_item.weapon}: {oc_item.name} ({oc_item.guid})")
-        except Exception:
-            oc.setText(f"Cosmetic: {oc_item.guid}")
+        elif oc_item.type_ == 'cosmetic':
+            oc.setText(f"Cosmetic: {oc_item.name} - {oc_item.dwarf} ({oc_item.guid})")
+        else:
+            oc.setText(f"Unknown: ({oc_item.guid})")
         list_widget.addItem(oc)

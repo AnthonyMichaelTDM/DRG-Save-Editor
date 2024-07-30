@@ -1,9 +1,10 @@
-from dataclasses import dataclass
-from typing import Optional
+from dataclasses import dataclass, field
+from typing import Optional, Literal
 
 
 @dataclass
 class Cost:
+    """Crafting cost associated with a forgeable item"""
     credits: Optional[int] = 0
     bismor: Optional[int] = 0
     croppa: Optional[int] = 0
@@ -24,8 +25,11 @@ class Cost:
 
 @dataclass()
 class Item:
+    """An item you would find in the forge ingame"""
+    # serves guid_dict reading, otherwise very similar to Overclock class and could remove
+    type_: Literal["weapon", "cosmetic"]
     dwarf: str
-    weapon: str
     name: str
-    cost: Cost
+    cost: dict = field(default_factory=dict)
+    weapon: str | None = None
     status: str = "Unforged"
