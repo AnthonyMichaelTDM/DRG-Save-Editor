@@ -25,11 +25,11 @@ class Cost:
 
 @dataclass()
 class Item:
-    """An item you would find in the forge ingame"""
-    # serves guid_dict reading, otherwise very similar to Overclock class and could remove
+    """An item read from the known list of GUIDs"""
+
     type_: Literal["weapon", "cosmetic"]
     dwarf: str
     name: str
     cost: dict = field(default_factory=dict)
     weapon: str | None = None
-    status: str = "Unforged"
+    status: str = "Unacquired"

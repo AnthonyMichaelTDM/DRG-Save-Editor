@@ -218,7 +218,7 @@ class OverclockParser:
                     Overclock(
                         type_="invalid",
                         dwarf="",
-                        weapon="Cosmetic",
+                        weapon="",
                         name="",
                         guid=uuid,
                         status="Unforged",
