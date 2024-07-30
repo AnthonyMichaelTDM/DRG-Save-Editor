@@ -192,26 +192,14 @@ class Controller:
         scout_promo = int(self.widget.scout_promo_box.currentIndex())
         engineer_promo = int(self.widget.engineer_promo_box.currentIndex())
 
-        self.state_manager.dwarf_promo[Dwarf.DRILLER] = (
-            driller_promo
-            if driller_promo < MAX_BADGES
-            else self.state_manager.dwarf_promo[Dwarf.DRILLER]
-        )
-        self.state_manager.dwarf_promo[Dwarf.ENGINEER] = (
-            engineer_promo
-            if engineer_promo < MAX_BADGES
-            else self.state_manager.dwarf_promo[Dwarf.ENGINEER]
-        )
-        self.state_manager.dwarf_promo[Dwarf.GUNNER] = (
-            gunner_promo
-            if gunner_promo < MAX_BADGES
-            else self.state_manager.dwarf_promo[Dwarf.GUNNER]
-        )
-        self.state_manager.dwarf_promo[Dwarf.SCOUT] = (
-            scout_promo
-            if scout_promo < MAX_BADGES
-            else self.state_manager.dwarf_promo[Dwarf.SCOUT]
-        )
+        if driller_promo < MAX_BADGES:
+            self.state_manager.dwarf_promo[Dwarf.DRILLER] = driller_promo
+        if engineer_promo < MAX_BADGES:
+            self.state_manager.dwarf_promo[Dwarf.ENGINEER] = engineer_promo
+        if gunner_promo < MAX_BADGES:
+            self.state_manager.dwarf_promo[Dwarf.GUNNER] = gunner_promo
+        if scout_promo < MAX_BADGES:
+            self.state_manager.dwarf_promo[Dwarf.SCOUT] = scout_promo
 
         self.state_manager.resources[Resource.ERROR] = int(
             self.widget.error_text.text()
@@ -338,7 +326,7 @@ class Controller:
         self.widget.driller_lvl_text.setText(str(d_xp[0]))
         self.widget.driller_xp_2.setText(str(d_xp[1]))
         self.widget.driller_promo_box.setCurrentIndex(
-            d_promo if d_promo < MAX_BADGES else MAX_BADGES
+            min(d_promo, MAX_BADGES)
         )
 
         self.widget.engineer_xp.setText(
@@ -349,7 +337,7 @@ class Controller:
         self.widget.engineer_lvl_text.setText(str(e_xp[0]))
         self.widget.engineer_xp_2.setText(str(e_xp[1]))
         self.widget.engineer_promo_box.setCurrentIndex(
-            e_promo if e_promo < MAX_BADGES else MAX_BADGES
+            min(e_promo, MAX_BADGES)
         )
 
         self.widget.gunner_xp.setText(str(self.state_manager.dwarf_xp[Dwarf.GUNNER]))
@@ -358,7 +346,7 @@ class Controller:
         self.widget.gunner_lvl_text.setText(str(g_xp[0]))
         self.widget.gunner_xp_2.setText(str(g_xp[1]))
         self.widget.gunner_promo_box.setCurrentIndex(
-            g_promo if g_promo < MAX_BADGES else MAX_BADGES
+            min(g_promo, MAX_BADGES)
         )
 
         self.widget.scout_xp.setText(str(self.state_manager.dwarf_xp[Dwarf.SCOUT]))
@@ -367,7 +355,7 @@ class Controller:
         self.widget.scout_lvl_text.setText(str(s_xp[0]))
         self.widget.scout_xp_2.setText(str(s_xp[1]))
         self.widget.scout_promo_box.setCurrentIndex(
-            s_promo if s_promo < MAX_BADGES else MAX_BADGES
+            min(s_promo, MAX_BADGES)
         )
 
         unforged_ocs = self.state_manager.get_unforged_overclocks()
