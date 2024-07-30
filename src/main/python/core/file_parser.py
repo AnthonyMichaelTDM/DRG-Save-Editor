@@ -216,7 +216,7 @@ class OverclockParser:
                 # handle found overclocks with unidentifiable guids
                 self.overclocks.append(
                     Overclock(
-                        type_="invalid",
+                        category="Unknown",
                         dwarf="",
                         weapon="",
                         name="",
@@ -262,7 +262,7 @@ class OverclockParser:
         overclock_data = self.guid_dict[uuid]
         self.overclocks.append(
             Overclock(
-                type_=overclock_data.type_,
+                category=overclock_data.category,
                 dwarf=overclock_data.dwarf,
                 weapon=overclock_data.weapon,
                 name=overclock_data.name,

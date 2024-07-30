@@ -610,10 +610,10 @@ class Controller:
     def build_oc_tree(self, tree: QTreeWidgetItem) -> None:
         oc_dict = self.state_manager.build_oc_dict()
 
-        weapon_type_entry = QTreeWidgetItem(tree)
-        weapon_type_entry.setText(0, "Weapon")
+        weapon_category_entry = QTreeWidgetItem(tree)
+        weapon_category_entry.setText(0, "Weapon")
         for char, weapons in oc_dict["Weapon"].items():
-            char_entry = QTreeWidgetItem(weapon_type_entry)
+            char_entry = QTreeWidgetItem(weapon_category_entry)
             char_entry.setText(0, char)
             for weapon, oc_names in weapons.items():
                 weapon_entry = QTreeWidgetItem(char_entry)
@@ -624,10 +624,10 @@ class Controller:
                     oc_entry.setText(1, self.state_manager.guid_dict[uuid].status)
                     oc_entry.setText(2, uuid)
 
-        cosmetic_entry = QTreeWidgetItem(tree)
-        cosmetic_entry.setText(0, "Cosmetic")
+        cosmetic_category_entry = QTreeWidgetItem(tree)
+        cosmetic_category_entry.setText(0, "Cosmetic")
         for cosmetic_name, dwarves in oc_dict["Cosmetic"].items():
-            char_entry = QTreeWidgetItem(cosmetic_entry)
+            char_entry = QTreeWidgetItem(cosmetic_category_entry)
             char_entry.setText(0, cosmetic_name)
             for dwarf, uuid in dwarves.items():
                 oc_entry = QTreeWidgetItem(char_entry)
@@ -668,9 +668,9 @@ def populate_unforged_list(list_widget: QListWidget, unforged: List[Overclock]) 
     list_widget.clear()
     for oc_item in unforged:
         oc = QListWidgetItem(None)
-        if oc_item.type_ == 'weapon':
+        if oc_item.category == 'Weapon':
             oc.setText(f"{oc_item.weapon}: {oc_item.name} ({oc_item.guid})")
-        elif oc_item.type_ == 'cosmetic':
+        elif oc_item.category == 'Cosmetic':
             oc.setText(f"Cosmetic: {oc_item.name} - {oc_item.dwarf} ({oc_item.guid})")
         else:
             oc.setText(f"Unknown: ({oc_item.guid})")

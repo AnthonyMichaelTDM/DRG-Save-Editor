@@ -1,5 +1,5 @@
 {
-  "weapon": {
+  "Weapon": {
     "AF945B93A7B9D64CA6DD00683627BC80": {
       "dwarf": "Scout",
       "weapon": "Deepcore GK2",
@@ -2241,7 +2241,7 @@
       }
     }
   },
-  "cosmetic": {
+  "Cosmetic": {
     "DA6D56BA7CFF804CB56C4D905570D9D3": {
       "name": "First Blood",
       "dwarf": "Driller"

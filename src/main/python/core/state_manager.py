@@ -52,10 +52,10 @@ class Stats:
     @staticmethod
     def _reshape_guid_data(data: dict):
         new_data = {}
-        for k, v in data["weapon"].items():
-            new_data[k] = {**v, "type_": "weapon"}
-        for k, v in data["cosmetic"].items():
-            new_data[k] = {**v, "type_": "cosmetic"}
+        for k, v in data["Weapon"].items():
+            new_data[k] = {**v, "category": "Weapon"}
+        for k, v in data["Cosmetic"].items():
+            new_data[k] = {**v, "category": "Cosmetic"}
         return new_data
 
     def build_oc_dict(self):
@@ -70,18 +70,14 @@ class Stats:
         }
 
         for guid, oc in self.guid_dict.items():
-            oc_type = oc.type_.title()
-            if oc_type == "Weapon":
-                if oc.weapon not in oc_dict[oc_type][oc.dwarf]:
-                    oc_dict[oc_type][oc.dwarf][oc.weapon] = {}
-                # if oc.name not in oc_dict[oc_type][oc.dwarf][oc.weapon]:
-                oc_dict[oc_type][oc.dwarf][oc.weapon][oc.name] = guid
-            else:
-                # Cosmetic
-                if oc.name not in oc_dict[oc_type]:
-                    oc_dict[oc_type][oc.name] = {}
-                # if oc.dwarf not in oc_dict[oc_type][oc.name]:
-                oc_dict[oc_type][oc.name][oc.dwarf] = guid
+            if oc.category == "Weapon":
+                if oc.weapon not in oc_dict[oc.category][oc.dwarf]:
+                    oc_dict[oc.category][oc.dwarf][oc.weapon] = {}
+                oc_dict[oc.category][oc.dwarf][oc.weapon][oc.name] = guid
+            elif oc.category == "Cosmetic":
+                if oc.name not in oc_dict[oc.category]:
+                    oc_dict[oc.category][oc.name] = {}
+                oc_dict[oc.category][oc.name][oc.dwarf] = guid
 
         return oc_dict
 

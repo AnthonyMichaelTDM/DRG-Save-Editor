@@ -76,7 +76,7 @@ def test_parse_without_errors(save_data: bytes):
     assert (
         len([
             x.guid for x in stats.overclocks
-            if x.status == "Unacquired" and x.type_ == "weapon"
+            if x.status == "Unacquired" and x.category == "Weapon"
         ])
         == expected_unacquired_weapon_overclocks
     )

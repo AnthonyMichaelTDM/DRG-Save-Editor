@@ -27,7 +27,7 @@ class Cost:
 class Item:
     """An item read from the known list of GUIDs"""
 
-    type_: Literal["weapon", "cosmetic"]
+    category: Literal["Weapon", "Cosmetic"]
     dwarf: str
     name: str
     cost: dict = field(default_factory=dict)
