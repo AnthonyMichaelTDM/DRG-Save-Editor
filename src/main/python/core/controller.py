@@ -16,7 +16,7 @@ from definitions import (
 )
 from helpers import utils
 from helpers.datatypes import Cost, Status
-from helpers.enums import Dwarf, Resource, Category
+from helpers.enums import Dwarf, Resource
 from helpers.overclock import Overclock
 
 from PySide6.QtCore import Slot
@@ -445,30 +445,17 @@ class Controller:
     @Slot()  # type: ignore
     def filter_overclocks(self) -> None:
         item_filter = self.widget.combo_oc_filter.currentText()
-        tree = self.widget.overclock_tree
-        tree_root = tree.invisibleRootItem()
+        tree_root = self.widget.overclock_tree.invisibleRootItem()
+        self._traverse_overclock_tree(tree_root, item_filter)
 
-        for i in range(tree_root.childCount()):
-            category = tree_root.child(i)
-            for j in range(category.childCount()):
-                if category.text(0) != Category.WEAPONS:
-                    oc_name = category.child(j)
-                    for k in range(oc_name.childCount()):
-                        dwarf_name = oc_name.child(k)
-                        if dwarf_name.text(1) == item_filter or item_filter == "All":
-                            dwarf_name.setHidden(False)
-                        else:
-                            dwarf_name.setHidden(True)
-                else:
-                    dwarf_name = category.child(j)
-                    for k in range(dwarf_name.childCount()):
-                        weapon_name = dwarf_name.child(k)
-                        for ll in range(weapon_name.childCount()):
-                            oc_name = weapon_name.child(ll)
-                            if oc_name.text(1) == item_filter or item_filter == "All":
-                                oc_name.setHidden(False)
-                            else:
-                                oc_name.setHidden(True)
+    def _traverse_overclock_tree(self, node, item_filter):
+        for i in range(node.childCount()):
+            child = node.child(i)
+            if not child.text(1):
+                self._traverse_overclock_tree(child, item_filter)
+            else:
+                hidden_state = (child.text(1) == item_filter or item_filter == "All")
+                child.setHidden(hidden_state)
 
     @Slot()  # type: ignore
     def add_cores(self) -> None:
