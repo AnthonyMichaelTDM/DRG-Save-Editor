@@ -184,7 +184,7 @@
     },
     "D006E3EEE0540242A2B0BCA8ABCDB387": {
       "dwarf": "Scout",
-      "weapon": "M1000 dwarfic",
+      "weapon": "M1000 Classic",
       "name": "Minimal Clips",
       "cost": {
         "credits": 8200,
@@ -198,7 +198,7 @@
     },
     "1073CEEBECBC014E8370E259040EB71C": {
       "dwarf": "Scout",
-      "weapon": "M1000 dwarfic",
+      "weapon": "M1000 Classic",
       "name": "Supercooling Chamber",
       "cost": {
         "credits": 8500,
@@ -212,7 +212,7 @@
     },
     "AAC9B6E4458458478E50DB87324097EB": {
       "dwarf": "Scout",
-      "weapon": "M1000 dwarfic",
+      "weapon": "M1000 Classic",
       "name": "Electrocuting Focus Shots",
       "cost": {
         "credits": 8850,
@@ -226,7 +226,7 @@
     },
     "2A12358F750B704996C37D467ECF1D36": {
       "dwarf": "Scout",
-      "weapon": "M1000 dwarfic",
+      "weapon": "M1000 Classic",
       "name": "Hipster",
       "cost": {
         "credits": 8900,
@@ -240,7 +240,7 @@
     },
     "8A0122E44E42104BAAAD6B4534A9DE8F": {
       "dwarf": "Scout",
-      "weapon": "M1000 dwarfic",
+      "weapon": "M1000 Classic",
       "name": "Hoverclock",
       "cost": {
         "credits": 7350,
@@ -254,7 +254,7 @@
     },
     "D1544B3528938A48964E8D9A6309D1DA": {
       "dwarf": "Scout",
-      "weapon": "M1000 dwarfic",
+      "weapon": "M1000 Classic",
       "name": "Active Stability System",
       "cost": {
         "credits": 8150,
@@ -535,7 +535,7 @@
     "6ADB23B3C8ED884086A88B8107C93CBE": {
       "dwarf": "Driller",
       "weapon": "Cryo Cannon",
-      "name": "Perfectly Tuned Cooler",
+      "name": "Tuned Cooler",
       "cost": {
         "credits": 8750,
         "bismor": 110,
@@ -1879,7 +1879,7 @@
     "D330723969BCE44CB1EBE9009A2F6E0D": {
       "dwarf": "Engineer",
       "weapon": "Shard Diffractor",
-      "name": "Plascrete Catalyst",
+      "name": "Plastcrete Catalyst",
       "cost": {
         "credits": 8300,
         "bismor": 65,
@@ -2102,7 +2102,7 @@
     },
     "4D2ACAFC30FFB542A645C75948EFE75F": {
       "dwarf": "Scout",
-      "weapon": "M1000 dwarfic",
+      "weapon": "M1000 Classic",
       "name": "Marked For Death",
       "cost": {
         "credits": 7150,
