@@ -1,5 +1,4 @@
 import os
-import sys
 
 from definitions import PROMO_RANKS
 from helpers.overclock import Overclock
@@ -36,14 +35,14 @@ class EditorUI:
         # specify and open the UI
         ui_file_name = "editor.ui"
 
-        # check if the UI file exists in the current working directory, if not, check the directory of the script (for PyInstaller)
+        # check if the UI file exists in the current working directory,
+        # if not, check the directory of the script (for PyInstaller)
         if not os.path.exists(ui_file_name):
             ui_file_name = os.path.join(os.path.dirname(__file__), ui_file_name)
 
         ui_file = QFile(ui_file_name)
         if not ui_file.open(QIODevice.ReadOnly):  # type: ignore
-            print("Cannot open {}: {}".format(ui_file_name, ui_file.errorString()))
-            sys.exit(-1)
+            raise Exception("Cannot open {}: {}".format(ui_file_name, ui_file.errorString()))
         ui_file.close()
 
         # load the UI and do a basic check
@@ -51,8 +50,7 @@ class EditorUI:
         loader.registerCustomWidget(TextEditFocusChecking)
         widget = loader.load(ui_file, None)
         if not widget:
-            print(loader.errorString())
-            sys.exit(-1)
+            raise Exception(loader.errorString())
 
         # set the inner widget to the loaded UI
         self.inner = widget
@@ -222,7 +220,7 @@ class EditorUI:
         tree_root = self.overclock_tree.invisibleRootItem()
         self._traverse_overclock_tree(tree_root, item_filter)
 
-    def _traverse_overclock_tree(self, node, item_filter):
+    def _traverse_overclock_tree(self, node: QTreeWidgetItem, item_filter: str):
         for i in range(node.childCount()):
             child = node.child(i)
             if not child.text(1):
