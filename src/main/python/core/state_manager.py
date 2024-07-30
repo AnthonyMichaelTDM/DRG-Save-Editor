@@ -3,7 +3,7 @@ import os
 from typing import Literal
 
 from core.file_parser import Parser
-from helpers.enums import Dwarf, Resource
+from helpers.enums import Dwarf, Resource, Category, Status
 from helpers.overclock import Overclock
 from helpers.datatypes import Item
 
@@ -52,26 +52,38 @@ class Stats:
     @staticmethod
     def _reshape_guid_data(data: dict):
         new_data = {}
-        for k, v in data["Weapon"].items():
-            new_data[k] = {**v, "category": "Weapon"}
-        for category in data.keys():
-            if category != "Weapon":
-                for k, v in data[category].items():
-                    new_data[k] = {**v, "category": category}
+        for k, v in data[Category.WEAPONS.value].items():
+            new_data[k] = {
+                "category": Category.WEAPONS,
+                "dwarf": Dwarf[v["dwarf"].upper()],
+                "name": v["name"],
+                "cost": v.get("cost"),
+                "weapon": v.get("weapon"),
+            }
+        for category_name in data.keys():
+            if category_name != Category.WEAPONS:
+                for k, v in data[category_name].items():
+                    new_data[k] = {
+                        "category": Category(category_name),
+                        "dwarf": Dwarf[v["dwarf"].upper()],
+                        "name": v["name"],
+                        "cost": v.get("cost"),
+                        "weapon": v.get("weapon"),
+                    }
         return new_data
 
     def build_oc_dict(self):
         oc_dict = {
-            "Weapon": {
-                "Driller": {},
-                "Engineer": {},
-                "Gunner": {},
-                "Scout": {},
+            Category.WEAPONS: {
+                Dwarf.DRILLER: {},
+                Dwarf.ENGINEER: {},
+                Dwarf.GUNNER: {},
+                Dwarf.SCOUT: {},
             },
         }
 
         for guid, oc in self.guid_dict.items():
-            if oc.category == "Weapon":
+            if oc.category == Category.WEAPONS:
                 if oc.weapon not in oc_dict[oc.category][oc.dwarf]:
                     oc_dict[oc.category][oc.dwarf][oc.weapon] = {}
                 oc_dict[oc.category][oc.dwarf][oc.weapon][oc.name] = guid
@@ -85,17 +97,17 @@ class Stats:
         return oc_dict
 
     def get_unforged_overclocks(self):
-        return [x for x in self.overclocks if x.status == "Unforged"]
+        return [x for x in self.overclocks if x.status is Status.UNFORGED]
 
     def get_unacquired_overclocks(self):
-        return [x.guid for x in self.overclocks if x.status == "Unacquired"]
+        return [x.guid for x in self.overclocks if x.status == Status.UNACQUIRED]
 
     def set_overclocks_to_unacquired(self, guids: list[str]):
         for i, oc in enumerate(self.overclocks):
             if oc.guid in guids:
-                self.overclocks[i].status = "Unacquired"
+                self.overclocks[i].status = Status.UNACQUIRED
 
     def set_overclocks_to_unforged(self, guids: list[str]):
         for i, oc in enumerate(self.overclocks):
             if oc.guid in guids:
-                self.overclocks[i].status = "Unforged"
+                self.overclocks[i].status = Status.UNFORGED

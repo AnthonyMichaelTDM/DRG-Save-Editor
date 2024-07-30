@@ -1,15 +1,14 @@
 from dataclasses import dataclass
-from typing import Literal
 
-from helpers.datatypes import Cost
+from helpers.datatypes import Cost, Dwarf, Category, Status
 
 
 @dataclass
 class Overclock:
-    category: str
-    dwarf: Literal["Driller", "Engineer", "Gunner", "Scout", ""]
+    category: Category
+    dwarf: Dwarf
     weapon: str
     name: str
     guid: str
-    status: Literal["Unacquired", "Unforged", "Forged"]
+    status: Status
     cost: Cost

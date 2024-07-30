@@ -1,6 +1,6 @@
-from typing import Literal
+# from typing import Literal
 
 
-class Overclock:
-    state: Literal["Unforged", "Forged", "Unacquired"]
-    guid: str
+# class Overclock:
+#     state: Literal["Unforged", "Forged", "Unacquired"]
+#     guid: str

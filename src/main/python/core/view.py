@@ -3,6 +3,7 @@ import sys
 
 from definitions import PROMO_RANKS
 from helpers.overclock import Overclock
+from helpers.enums import Category, Status
 
 from PySide6.QtCore import QFile, QIODevice, Signal, Qt
 from PySide6.QtGui import QAction, QFocusEvent
@@ -130,7 +131,7 @@ class EditorUI:
                 i.addItem(j)
 
         # populate the filter drop down for overclocks
-        sort_labels: list[str] = ["All", "Unforged", "Forged", "Unacquired"]
+        sort_labels: list[str] = ["All", Status.UNFORGED, Status.FORGED, Status.UNACQUIRED]
         for i in sort_labels:
             self.combo_oc_filter.addItem(i)
 
@@ -158,11 +159,11 @@ class EditorUI:
     def make_non_weapon_oc_trees(
         self,
         tree: QTreeWidgetItem,
-        oc_dict: dict[str, dict[str, dict]],
+        oc_dict: dict,
         guid_dict: dict
     ):
         for category in oc_dict.keys():
-            if category == "Weapon":
+            if category == Category.WEAPONS:
                 continue
             non_weapon_category = QTreeWidgetItem(tree)
             non_weapon_category.setText(0, category)
@@ -178,12 +179,12 @@ class EditorUI:
     def make_weapon_oc_tree(
         self,
         tree: QTreeWidgetItem,
-        oc_dict: dict[str, dict[str, dict]],
+        oc_dict: dict,
         guid_dict: dict
     ):
         weapon_category_entry = QTreeWidgetItem(tree)
-        weapon_category_entry.setText(0, "Weapon")
-        for char, weapons in oc_dict["Weapon"].items():
+        weapon_category_entry.setText(0, Category.WEAPONS)
+        for char, weapons in oc_dict[Category.WEAPONS].items():
             char_entry = QTreeWidgetItem(weapon_category_entry)
             char_entry.setText(0, char)
             for weapon, oc_names in weapons.items():
@@ -200,7 +201,7 @@ class EditorUI:
         self.unforged_list.clear()
         for oc_item in unforged:
             oc = QListWidgetItem(None)
-            if oc_item.category == 'Weapon':
+            if oc_item.category == Category.WEAPONS:
                 oc.setText(f"{oc_item.weapon}: {oc_item.name} ({oc_item.guid})")
             elif oc_item.name:
                 oc.setText(f"Cosmetic: {oc_item.name} - {oc_item.dwarf} ({oc_item.guid})")

@@ -1,11 +1,11 @@
-from enum import Enum, auto
+from enum import Enum, StrEnum, auto
 
 
-class Dwarf(Enum):
-    DRILLER = auto()
-    GUNNER = auto()
-    SCOUT = auto()
-    ENGINEER = auto()
+class Dwarf(StrEnum):
+    DRILLER = "Driller"
+    GUNNER = "Gunner"
+    SCOUT = "Scout"
+    ENGINEER = "Engineer"
 
 
 class Resource(Enum):
@@ -23,3 +23,22 @@ class Resource(Enum):
     CORES = auto()
     DATA = auto()
     PHAZ = auto()
+
+
+class Category(StrEnum):
+    """Type of overclock"""
+    COSMETIC_BEARD = "Cosmetic - Beard"
+    COSMETIC_HEADWEAR = "Cosmetic - Headwear"
+    COSMETIC_MUSTACHE = "Cosmetic - Moustache"
+    COSMETIC_SIDEBURNS = "Cosmetic - Sideburns"
+    VICTORY_MOVES = "Victory Moves"
+    WEAPONS = "Weapons"
+    WEAPON_SKINS = "Weapon Skins"
+    UNKNOWN = "Unknown"
+
+
+class Status(StrEnum):
+    """Status of an overclock"""
+    UNACQUIRED = "Unacquired"
+    UNFORGED = "Unforged"
+    FORGED = "Forged"

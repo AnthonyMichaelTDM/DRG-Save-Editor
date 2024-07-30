@@ -1,4 +1,4 @@
-from src.main.python.core.state_manager import Stats, Dwarf, Resource
+from src.main.python.core.state_manager import Stats, Dwarf, Resource, Category, Status
 
 
 def test_parse_without_errors(save_data: bytes):
@@ -76,7 +76,7 @@ def test_parse_without_errors(save_data: bytes):
     assert (
         len([
             x.guid for x in stats.overclocks
-            if x.status == "Unacquired" and x.category == "Weapon"
+            if x.status == Status.UNACQUIRED and x.category == Category.WEAPONS
         ])
         == expected_unacquired_weapon_overclocks
     )

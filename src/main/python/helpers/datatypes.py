@@ -1,5 +1,7 @@
 from dataclasses import dataclass, field
-from typing import Optional, Literal
+from typing import Optional
+
+from helpers.enums import Category, Dwarf, Status
 
 
 @dataclass
@@ -28,9 +30,9 @@ class Cost:
 class Item:
     """An item read from the known list of GUIDs"""
 
-    category: str
-    dwarf: Literal["Driller", "Engineer", "Gunner", "Scout"]
+    category: Category
+    dwarf: Dwarf
     name: str
     cost: dict = field(default_factory=dict)
     weapon: str | None = None
-    status: Literal["Unacquired", "Unforged", "Forged"] = "Unacquired"
+    status: Status = Status.UNACQUIRED

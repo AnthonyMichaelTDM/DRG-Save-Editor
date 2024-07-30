@@ -454,6 +454,7 @@ class Controller:
                 weapon = dwarf.child(j)
                 for k in range(weapon.childCount()):
                     oc = weapon.child(k)
+                    print(oc.text(0), oc.text(1), oc.text(2))
                     if oc.text(1) == item_filter or item_filter == "All":
                         oc.setHidden(False)
                     else:

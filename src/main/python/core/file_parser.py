@@ -3,7 +3,7 @@ from copy import deepcopy
 from typing import Literal
 
 from definitions import RESOURCE_GUIDS, SEASON_GUIDS
-from helpers.enums import Dwarf, Resource
+from helpers.enums import Dwarf, Resource, Category, Status
 from helpers.overclock import Overclock, Cost
 from helpers.datatypes import Item
 
@@ -173,13 +173,13 @@ class OverclockParser:
             start = self._find_overclocks_start(save_data)
         except LookupError:
             for i in self.guid_dict.values():
-                i.status = "Unacquired"
+                i.status = Status.UNACQUIRED
             self._fill_missing_overclocks()
             return
         end = self._find_overclocks_end(save_data)
 
         for i in self.guid_dict.values():
-            i.status = "Unacquired"
+            i.status = Status.UNACQUIRED
 
         self._get_forged_overclocks(save_data, start)
 
@@ -210,18 +210,18 @@ class OverclockParser:
                 end=unforged_pos + (j * 16) + 16,
             )
             try:
-                self.guid_dict[uuid].status = "Unforged"
+                self.guid_dict[uuid].status = Status.UNFORGED
                 self._add_overclock(uuid)
             except KeyError:
                 # handle found overclocks with unidentifiable guids
                 self.overclocks.append(
                     Overclock(
-                        category="Unknown",
+                        category=Category.UNKNOWN,
                         dwarf="",
                         weapon="",
                         name="",
                         guid=uuid,
-                        status="Unforged",
+                        status=Status.Unforged,
                         cost=Cost(),
                     )
                 )
@@ -238,7 +238,7 @@ class OverclockParser:
                 end=start + oc_list_offset + (j * 16) + 16,
             )
             try:
-                self.guid_dict[uuid].status = "Forged"
+                self.guid_dict[uuid].status = Status.FORGED
                 self._add_overclock(uuid)
             except KeyError:
                 pass
@@ -260,17 +260,30 @@ class OverclockParser:
 
     def _add_overclock(self, uuid: str):
         overclock_data = self.guid_dict[uuid]
-        self.overclocks.append(
-            Overclock(
-                category=overclock_data.category,
-                dwarf=overclock_data.dwarf,
-                weapon=overclock_data.weapon,
-                name=overclock_data.name,
-                guid=uuid,
-                status=overclock_data.status,
-                cost=Cost(**overclock_data.cost),
+        if overclock_data.cost:
+            self.overclocks.append(
+                Overclock(
+                    category=overclock_data.category,
+                    dwarf=overclock_data.dwarf,
+                    weapon=overclock_data.weapon,
+                    name=overclock_data.name,
+                    guid=uuid,
+                    status=overclock_data.status,
+                    cost=Cost(**overclock_data.cost),
+                )
             )
-        )
+        else:
+            self.overclocks.append(
+                Overclock(
+                    category=overclock_data.category,
+                    dwarf=overclock_data.dwarf,
+                    weapon=None,
+                    cost={},
+                    name=overclock_data.name,
+                    guid=uuid,
+                    status=overclock_data.status,
+                )
+            )
 
     def _get_uuid(self, save_data: bytes, start: int, end: int):
         uuid = save_data[start:end].hex().upper()
