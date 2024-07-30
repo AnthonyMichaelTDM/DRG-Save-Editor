@@ -212,7 +212,7 @@ class Controller:
 
         self.store_season_changes(self.season_selected)
 
-    def store_season_changes(self, season_num):
+    def store_season_changes(self, season_num: int):
         new_xp = self.widget.season_xp.text()
         new_scrip = self.widget.scrip_text.text()
         if new_xp and new_scrip:
@@ -258,7 +258,7 @@ class Controller:
         print(cost)
         self.add_resources(cost)
 
-    def add_resources(self, res_dict) -> None:
+    def add_resources(self, res_dict: Cost) -> None:
         self.widget.bismor_text.setText(
             str(int(self.widget.bismor_text.text()) + res_dict.bismor)
         )
