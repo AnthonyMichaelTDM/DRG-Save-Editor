@@ -202,7 +202,7 @@ class EditorUI:
             oc = QListWidgetItem(None)
             if oc_item.category == 'Weapon':
                 oc.setText(f"{oc_item.weapon}: {oc_item.name} ({oc_item.guid})")
-            elif oc_item.category == 'Cosmetic':
+            elif oc_item.name:
                 oc.setText(f"Cosmetic: {oc_item.name} - {oc_item.dwarf} ({oc_item.guid})")
             else:
                 oc.setText(f"Unknown: ({oc_item.guid})")
