@@ -13,11 +13,7 @@ def test_load_save(qtbot, save_data):
 
     widget = EditorUI()
     controller = Controller(widget, stats)  # type: ignore[arg-type]
-
-    controller.init_values(save_data)
-    controller.reset_values()
-    controller.update_rank()
-    controller.init_overclock_tree()
+    controller.setup(save_data)
 
     # can add overclocks
     assert controller.widget.overclock_tree.topLevelItemCount() == 7

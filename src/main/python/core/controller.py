@@ -138,6 +138,9 @@ class Controller:
         with open(f"{self.file_name}.old", "wb") as backup:
             backup.write(save_data)
 
+        self.setup(save_data)
+
+    def setup(self, save_data: bytes):
         # enable widgets that don't work without a save file present
         self.widget.actionSave_changes.setEnabled(True)
         self.widget.actionReset_to_original_values.setEnabled(True)

@@ -96,10 +96,7 @@ def test_ensure_oc_panel_gets_reenabled_on_new_save(
     assert not controller.widget.add_cores_button.isEnabled()
 
     # Ensure that if we open a new save file with OCs, the "No dwarf promoted yet" message is removed, and the "Add Cores" button is enabled
-    controller.init_values(save_data)
-    controller.reset_values()
-    controller.update_rank()
-    controller.init_overclock_tree()
+    controller.setup(save_data)
 
     assert (
         len(
