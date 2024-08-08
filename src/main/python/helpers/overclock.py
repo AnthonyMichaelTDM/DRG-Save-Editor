@@ -1,13 +1,14 @@
 from dataclasses import dataclass
 
-from helpers.datatypes import Cost
+from helpers.datatypes import Cost, Dwarf, Category, Status
 
 
 @dataclass
 class Overclock:
-    dwarf: str
+    category: Category
+    dwarf: Dwarf
     weapon: str
     name: str
     guid: str
-    status: str
+    status: Status
     cost: Cost

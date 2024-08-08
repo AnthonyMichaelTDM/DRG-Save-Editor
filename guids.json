@@ -1,2242 +1,3648 @@
 {
-  "AF945B93A7B9D64CA6DD00683627BC80": {
-    "dwarf": "Scout",
-    "weapon": "Deepcore GK2",
-    "name": "Compact Ammo",
-    "cost": {
-      "credits": 7250,
-      "bismor": 125,
-      "croppa": 0,
-      "enor": 80,
-      "jadiz": 105,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "FF94B9E7834D774292DACCCA3EA023B9": {
-    "dwarf": "Scout",
-    "weapon": "Deepcore GK2",
-    "name": "Electrifying Reload",
-    "cost": {
-      "credits": 7750,
-      "bismor": 105,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 65,
-      "umanite": 135
-    }
-  },
-  "11F123E174103140957957506BD576D7": {
-    "dwarf": "Scout",
-    "weapon": "Deepcore GK2",
-    "name": "AI Stability Engine",
-    "cost": {
-      "credits": 8250,
-      "bismor": 0,
-      "croppa": 60,
-      "enor": 125,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 100
-    }
-  },
-  "4CDF41F3A0F8E4499D1BAC6168347799": {
-    "dwarf": "Scout",
-    "weapon": "Deepcore GK2",
-    "name": "Homebrew Powder",
-    "cost": {
-      "credits": 8100,
-      "bismor": 95,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 140,
-      "magnite": 0,
-      "umanite": 65
-    }
-  },
-  "C3060324CE482C4AB6DC44ED498CBA39": {
-    "dwarf": "Scout",
-    "weapon": "Deepcore GK2",
-    "name": "Overclocked Firing Mechanism",
-    "cost": {
-      "credits": 7950,
-      "bismor": 95,
-      "croppa": 0,
-      "enor": 120,
-      "jadiz": 0,
-      "magnite": 65,
-      "umanite": 0
-    }
-  },
-  "F6E2E547F2EB674DBDA591F47DE6D017": {
-    "dwarf": "Scout",
-    "weapon": "Deepcore GK2",
-    "name": "Gas Rerouting",
-    "cost": {
-      "credits": 7800,
-      "bismor": 0,
-      "croppa": 60,
-      "enor": 0,
-      "jadiz": 125,
-      "magnite": 105,
-      "umanite": 0
-    }
-  },
-  "7306221F1264B04B8C025DB4DE9D1667": {
-    "dwarf": "Scout",
-    "weapon": "Deepcore GK2",
-    "name": "Bullets of Mercy",
-    "cost": {
-      "credits": 8100,
-      "bismor": 90,
-      "croppa": 80,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 125,
-      "umanite": 0
-    }
-  },
-  "86AA0DD13FD37E43B2FBF176EE5DE815": {
-    "dwarf": "Gunner",
-    "weapon": "'Thunderhead' Heavy Autocannon",
-    "name": "Big Bertha",
-    "cost": {
-      "credits": 8400,
-      "bismor": 125,
-      "croppa": 105,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 80
-    }
-  },
-  "8C0142A687637A4EA4CC8A7F84B9610A": {
-    "dwarf": "Gunner",
-    "weapon": "'Thunderhead' Heavy Autocannon",
-    "name": "Carpet Bomber",
-    "cost": {
-      "credits": 7350,
-      "bismor": 0,
-      "croppa": 120,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 105,
-      "umanite": 70
-    }
-  },
-  "01E23067CBB9A6428AE4394C99F1D2BB": {
-    "dwarf": "Gunner",
-    "weapon": "'Thunderhead' Heavy Autocannon",
-    "name": "Composite Drums",
-    "cost": {
-      "credits": 7850,
-      "bismor": 0,
-      "croppa": 135,
-      "enor": 70,
-      "jadiz": 0,
-      "magnite": 105,
-      "umanite": 0
-    }
-  },
-  "3DD5E8141C483E43AA3E0708CE75D663": {
-    "dwarf": "Gunner",
-    "weapon": "'Thunderhead' Heavy Autocannon",
-    "name": "Combat Mobility",
-    "cost": {
-      "credits": 7650,
-      "bismor": 0,
-      "croppa": 70,
-      "enor": 0,
-      "jadiz": 120,
-      "magnite": 95,
-      "umanite": 0
-    }
-  },
-  "32654E9478165E4DA3F0DBD33B180341": {
-    "dwarf": "Gunner",
-    "weapon": "'Thunderhead' Heavy Autocannon",
-    "name": "Neurotoxin Payload",
-    "cost": {
-      "credits": 8100,
-      "bismor": 0,
-      "croppa": 100,
-      "enor": 0,
-      "jadiz": 75,
-      "magnite": 135,
-      "umanite": 0
-    }
-  },
-  "CB83FD6C13C63F4982DC87B9796311C8": {
-    "dwarf": "Gunner",
-    "weapon": "'Thunderhead' Heavy Autocannon",
-    "name": "Splintering Shells",
-    "cost": {
-      "credits": 7300,
-      "bismor": 0,
-      "croppa": 95,
-      "enor": 0,
-      "jadiz": 125,
-      "magnite": 65,
-      "umanite": 0
-    }
-  },
-  "D006E3EEE0540242A2B0BCA8ABCDB387": {
-    "dwarf": "Scout",
-    "weapon": "M1000 dwarfic",
-    "name": "Minimal Clips",
-    "cost": {
-      "credits": 8200,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 95,
-      "jadiz": 130,
-      "magnite": 75,
-      "umanite": 0
-    }
-  },
-  "1073CEEBECBC014E8370E259040EB71C": {
-    "dwarf": "Scout",
-    "weapon": "M1000 dwarfic",
-    "name": "Supercooling Chamber",
-    "cost": {
-      "credits": 8500,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 90,
-      "jadiz": 130,
-      "magnite": 70,
-      "umanite": 0
-    }
-  },
-  "AAC9B6E4458458478E50DB87324097EB": {
-    "dwarf": "Scout",
-    "weapon": "M1000 dwarfic",
-    "name": "Electrocuting Focus Shots",
-    "cost": {
-      "credits": 8850,
-      "bismor": 120,
-      "croppa": 95,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 75
-    }
-  },
-  "2A12358F750B704996C37D467ECF1D36": {
-    "dwarf": "Scout",
-    "weapon": "M1000 dwarfic",
-    "name": "Hipster",
-    "cost": {
-      "credits": 8900,
-      "bismor": 0,
-      "croppa": 125,
-      "enor": 105,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 80
-    }
-  },
-  "8A0122E44E42104BAAAD6B4534A9DE8F": {
-    "dwarf": "Scout",
-    "weapon": "M1000 dwarfic",
-    "name": "Hoverclock",
-    "cost": {
-      "credits": 7350,
-      "bismor": 105,
-      "croppa": 135,
-      "enor": 0,
-      "jadiz": 65,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "D1544B3528938A48964E8D9A6309D1DA": {
-    "dwarf": "Scout",
-    "weapon": "M1000 dwarfic",
-    "name": "Active Stability System",
-    "cost": {
-      "credits": 8150,
-      "bismor": 90,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 70,
-      "umanite": 135
-    }
-  },
-  "6F26A8B49F967C4D999F734645EAE2C4": {
-    "dwarf": "Gunner",
-    "weapon": "BRT7 Burst Fire Gun",
-    "name": "Composite Casings",
-    "cost": {
-      "credits": 7950,
-      "bismor": 0,
-      "croppa": 140,
-      "enor": 75,
-      "jadiz": 0,
-      "magnite": 100,
-      "umanite": 0
-    }
-  },
-  "2FF3D4C92D59304592009FA2E39BFFC6": {
-    "dwarf": "Gunner",
-    "weapon": "BRT7 Burst Fire Gun",
-    "name": "Compact Mags",
-    "cost": {
-      "credits": 7350,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 75,
-      "magnite": 135,
-      "umanite": 105
-    }
-  },
-  "4A4F93FE1AC31E41B897C1F1B264A672": {
-    "dwarf": "Gunner",
-    "weapon": "BRT7 Burst Fire Gun",
-    "name": "Electro Minelets",
-    "cost": {
-      "credits": 7450,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 80,
-      "jadiz": 95,
-      "magnite": 0,
-      "umanite": 120
-    }
-  },
-  "414916957AD3D0409B5FE3692A46DD19": {
-    "dwarf": "Gunner",
-    "weapon": "BRT7 Burst Fire Gun",
-    "name": "Full Chamber Seal",
-    "cost": {
-      "credits": 7850,
-      "bismor": 120,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 75,
-      "magnite": 110,
-      "umanite": 0
-    }
-  },
-  "88ABD40A78329942884C00D7F22DAC90": {
-    "dwarf": "Gunner",
-    "weapon": "BRT7 Burst Fire Gun",
-    "name": "Experimental Rounds",
-    "cost": {
-      "credits": 8550,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 100,
-      "jadiz": 75,
-      "magnite": 130,
-      "umanite": 0
-    }
-  },
-  "8F1C6A1A23A6DF4CBCA5510C4A19F221": {
-    "dwarf": "Gunner",
-    "weapon": "BRT7 Burst Fire Gun",
-    "name": "Micro Flechettes",
-    "cost": {
-      "credits": 7650,
-      "bismor": 80,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 100,
-      "magnite": 130,
-      "umanite": 0
-    }
-  },
-  "F1AE55CF592E7746A0001D61584BDF2A": {
-    "dwarf": "Gunner",
-    "weapon": "BRT7 Burst Fire Gun",
-    "name": "Lead Spray",
-    "cost": {
-      "credits": 8050,
-      "bismor": 125,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 75,
-      "umanite": 105
-    }
-  },
-  "A0E018C45FE679418FD3730E6E9B631D": {
-    "dwarf": "Driller",
-    "weapon": "Experimental Plasma Charger",
-    "name": "Heat Pipe",
-    "cost": {
-      "credits": 7450,
-      "bismor": 60,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 95,
-      "magnite": 0,
-      "umanite": 125
-    }
-  },
-  "55BB52A0ECFA7C43B37BBBE640114196": {
-    "dwarf": "Driller",
-    "weapon": "Experimental Plasma Charger",
-    "name": "Overcharger",
-    "cost": {
-      "credits": 7050,
-      "bismor": 120,
-      "croppa": 95,
-      "enor": 60,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "97822071D586CE45ACD6489782B700FA": {
-    "dwarf": "Driller",
-    "weapon": "Experimental Plasma Charger",
-    "name": "Energy Rerouting",
-    "cost": {
-      "credits": 7300,
-      "bismor": 130,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 100,
-      "magnite": 0,
-      "umanite": 65
-    }
-  },
-  "F1E6CC307C11DE4586B88B419E530ABF": {
-    "dwarf": "Driller",
-    "weapon": "Experimental Plasma Charger",
-    "name": "Magnetic Cooling Unit",
-    "cost": {
-      "credits": 8900,
-      "bismor": 0,
-      "croppa": 95,
-      "enor": 0,
-      "jadiz": 80,
-      "magnite": 0,
-      "umanite": 125
-    }
-  },
-  "39E43E13CC0DAE4691DD51A11383E9E1": {
-    "dwarf": "Driller",
-    "weapon": "Experimental Plasma Charger",
-    "name": "Heavy Hitter",
-    "cost": {
-      "credits": 8100,
-      "bismor": 140,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 60,
-      "umanite": 105
-    }
-  },
-  "165CD93E660B8147BCA2F86CDE5CF8F7": {
-    "dwarf": "Driller",
-    "weapon": "Experimental Plasma Charger",
-    "name": "Persistent Plasma",
-    "cost": {
-      "credits": 8150,
-      "bismor": 0,
-      "croppa": 75,
-      "enor": 0,
-      "jadiz": 130,
-      "magnite": 95,
-      "umanite": 0
-    }
-  },
-  "CD4EEC38C029724E8317CCDC22D06057": {
-    "dwarf": "Engineer",
-    "weapon": "'Warthog' Auto 210",
-    "name": "Light-Weight Magazines",
-    "cost": {
-      "credits": 7250,
-      "bismor": 0,
-      "croppa": 125,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 105,
-      "umanite": 60
-    }
-  },
-  "338DD238332A2E4EA5490208AAD7F502": {
-    "dwarf": "Engineer",
-    "weapon": "'Warthog' Auto 210",
-    "name": "Stunner",
-    "cost": {
-      "credits": 7350,
-      "bismor": 100,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 135,
-      "magnite": 60,
-      "umanite": 0
-    }
-  },
-  "62D4C94C1367E8419691B677837DA4FB": {
-    "dwarf": "Engineer",
-    "weapon": "'Warthog' Auto 210",
-    "name": "Mini Shells",
-    "cost": {
-      "credits": 7700,
-      "bismor": 0,
-      "croppa": 125,
-      "enor": 65,
-      "jadiz": 0,
-      "magnite": 90,
-      "umanite": 0
-    }
-  },
-  "70122BA2FBDABF4895DC09C90294E685": {
-    "dwarf": "Engineer",
-    "weapon": "'Warthog' Auto 210",
-    "name": "Cycle Overload",
-    "cost": {
-      "credits": 8050,
-      "bismor": 125,
-      "croppa": 100,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 80
-    }
-  },
-  "07E9279956BF9C418EEA313E2DC59F8D": {
-    "dwarf": "Engineer",
-    "weapon": "'Warthog' Auto 210",
-    "name": "Magnetic Pellet Alignment",
-    "cost": {
-      "credits": 7900,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 120,
-      "jadiz": 105,
-      "magnite": 0,
-      "umanite": 75
-    }
-  },
-  "CE660C4DD9980043A802A17A4569C0AC": {
-    "dwarf": "Driller",
-    "weapon": "Cryo Cannon",
-    "name": "Improved Thermal Efficiency",
-    "cost": {
-      "credits": 8350,
-      "bismor": 0,
-      "croppa": 125,
-      "enor": 70,
-      "jadiz": 0,
-      "magnite": 110,
-      "umanite": 0
-    }
-  },
-  "6ADB23B3C8ED884086A88B8107C93CBE": {
-    "dwarf": "Driller",
-    "weapon": "Cryo Cannon",
-    "name": "Perfectly Tuned Cooler",
-    "cost": {
-      "credits": 8750,
-      "bismor": 110,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 65,
-      "umanite": 130
-    }
-  },
-  "88F8EAB206EC7B46A31C8F034B44931A": {
-    "dwarf": "Driller",
-    "weapon": "Cryo Cannon",
-    "name": "Flow Rate Expansion",
-    "cost": {
-      "credits": 8900,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 70,
-      "jadiz": 100,
-      "magnite": 125,
-      "umanite": 0
-    }
-  },
-  "7B11755997B6564E97B1032A828EB90F": {
-    "dwarf": "Driller",
-    "weapon": "Cryo Cannon",
-    "name": "Ice Storm",
-    "cost": {
-      "credits": 7200,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 130,
-      "jadiz": 0,
-      "magnite": 105,
-      "umanite": 75
-    }
-  },
-  "D518CB371A32A0449B345E4F58D34C91": {
-    "dwarf": "Driller",
-    "weapon": "Cryo Cannon",
-    "name": "Ice Spear",
-    "cost": {
-      "credits": 8950,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 60,
-      "jadiz": 130,
-      "magnite": 0,
-      "umanite": 110
-    }
-  },
-  "C1F16F970C9C1047AF836BF6CBFEBCAD": {
-    "dwarf": "Driller",
-    "weapon": "Cryo Cannon",
-    "name": "Snowball",
-    "cost": {
-      "credits": 8400,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 90,
-      "magnite": 70,
-      "umanite": 130
-    }
-  },
-  "43CD8D27EAEAAA4A8E6DC43E0438A10C": {
-    "dwarf": "Scout",
-    "weapon": "Zhukov NUK17",
-    "name": "Cryo Minelets",
-    "cost": {
-      "credits": 7300,
-      "bismor": 0,
-      "croppa": 65,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 135,
-      "umanite": 95
-    }
-  },
-  "24A286C31F45EA469A20102AF4D741D3": {
-    "dwarf": "Scout",
-    "weapon": "Zhukov NUK17",
-    "name": "Custom Casings",
-    "cost": {
-      "credits": 7700,
-      "bismor": 95,
-      "croppa": 75,
-      "enor": 140,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "828B2BBC50EC424385EFD00EA6854597": {
-    "dwarf": "Scout",
-    "weapon": "Zhukov NUK17",
-    "name": "Gas Recycling",
-    "cost": {
-      "credits": 7800,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 70,
-      "jadiz": 105,
-      "magnite": 125,
-      "umanite": 0
-    }
-  },
-  "FAF35071BA63B2429855FBC8A09BFFD0": {
-    "dwarf": "Scout",
-    "weapon": "Zhukov NUK17",
-    "name": "Embedded Detonators",
-    "cost": {
-      "credits": 7550,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 135,
-      "magnite": 65,
-      "umanite": 90
-    }
-  },
-  "98A0452B235402459CFF5CC3B34CCC69": {
-    "dwarf": "Scout",
-    "weapon": "Zhukov NUK17",
-    "name": "Minimal Magazines",
-    "cost": {
-      "credits": 8450,
-      "bismor": 130,
-      "croppa": 100,
-      "enor": 0,
-      "jadiz": 70,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "71588D43A7589A4ABE61A8DE2EB449BF": {
-    "dwarf": "Driller",
-    "weapon": "CRSPR Flamethrower",
-    "name": "Compact Feed Valves",
-    "cost": {
-      "credits": 7350,
-      "bismor": 70,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 90,
-      "magnite": 0,
-      "umanite": 130
-    }
-  },
-  "6431A8DDEAA6894B90C57BAC7552A5FF": {
-    "dwarf": "Driller",
-    "weapon": "CRSPR Flamethrower",
-    "name": "Face Melter",
-    "cost": {
-      "credits": 7000,
-      "bismor": 0,
-      "croppa": 130,
-      "enor": 70,
-      "jadiz": 0,
-      "magnite": 90,
-      "umanite": 0
-    }
-  },
-  "C5057A9608CF5E4BA4AAB32AD613BA3E": {
-    "dwarf": "Driller",
-    "weapon": "CRSPR Flamethrower",
-    "name": "Lighter Tanks",
-    "cost": {
-      "credits": 7500,
-      "bismor": 125,
-      "croppa": 75,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 90
-    }
-  },
-  "19E85D1C3585B349B151779CBD7303D9": {
-    "dwarf": "Driller",
-    "weapon": "CRSPR Flamethrower",
-    "name": "Fuel Stream Diffuser",
-    "cost": {
-      "credits": 7100,
-      "bismor": 100,
-      "croppa": 0,
-      "enor": 80,
-      "jadiz": 125,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "F28C3EE38A960D48965E9F69F56B3F19": {
-    "dwarf": "Driller",
-    "weapon": "CRSPR Flamethrower",
-    "name": "Sticky Fuel",
-    "cost": {
-      "credits": 8800,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 110,
-      "jadiz": 140,
-      "magnite": 75,
-      "umanite": 0
-    }
-  },
-  "415F1D83A77E7A448DBF60383103FD6C": {
-    "dwarf": "Driller",
-    "weapon": "CRSPR Flamethrower",
-    "name": "Sticky Additive",
-    "cost": {
-      "credits": 8250,
-      "bismor": 80,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 130,
-      "magnite": 100,
-      "umanite": 0
-    }
-  },
-  "2E9FBFB43B7B554FB3728780F1334824": {
-    "dwarf": "Gunner",
-    "weapon": "'Lead Storm' Powered Minigun",
-    "name": "Compact Feed Mechanism",
-    "cost": {
-      "credits": 7450,
-      "bismor": 70,
-      "croppa": 95,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 130,
-      "umanite": 0
-    }
-  },
-  "01D4653903832F498C50F7719D58E89B": {
-    "dwarf": "Gunner",
-    "weapon": "'Lead Storm' Powered Minigun",
-    "name": "Thinned Drum Walls",
-    "cost": {
-      "credits": 7650,
-      "bismor": 0,
-      "croppa": 75,
-      "enor": 125,
-      "jadiz": 95,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "7CD10E2C55583041B577141C854BEE62": {
-    "dwarf": "Gunner",
-    "weapon": "'Lead Storm' Powered Minigun",
-    "name": "Lead Storm",
-    "cost": {
-      "credits": 8800,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 130,
-      "jadiz": 100,
-      "magnite": 65,
-      "umanite": 0
-    }
-  },
-  "FBB1014758606A41888E378F69E3CD61": {
-    "dwarf": "Gunner",
-    "weapon": "'Lead Storm' Powered Minigun",
-    "name": "Exhaust Vectoring",
-    "cost": {
-      "credits": 7400,
-      "bismor": 140,
-      "croppa": 95,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 65,
-      "umanite": 0
-    }
-  },
-  "B55D6170EEA5D743AC4B28293C0C4673": {
-    "dwarf": "Gunner",
-    "weapon": "'Lead Storm' Powered Minigun",
-    "name": "A Little More Oomph!",
-    "cost": {
-      "credits": 8700,
-      "bismor": 120,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 95,
-      "umanite": 75
-    }
-  },
-  "63156673F2174F449F598F8729AC0C65": {
-    "dwarf": "Gunner",
-    "weapon": "'Lead Storm' Powered Minigun",
-    "name": "Burning Hell",
-    "cost": {
-      "credits": 8700,
-      "bismor": 0,
-      "croppa": 110,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 140,
-      "umanite": 65
-    }
-  },
-  "ED4036806A69E848BC72DDE3CDEAC456": {
-    "dwarf": "Gunner",
-    "weapon": "'Lead Storm' Powered Minigun",
-    "name": "Bullet Hell",
-    "cost": {
-      "credits": 7600,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 105,
-      "jadiz": 0,
-      "magnite": 140,
-      "umanite": 75
-    }
-  },
-  "A97694E1A9B7484EB66E14DBF830DB6B": {
-    "dwarf": "Engineer",
-    "weapon": "Deepcore 40mm PGL",
-    "name": "Pack Rat",
-    "cost": {
-      "credits": 7950,
-      "bismor": 80,
-      "croppa": 0,
-      "enor": 105,
-      "jadiz": 0,
-      "magnite": 120,
-      "umanite": 0
-    }
-  },
-  "EE5713FA91A0E245A1C0BFCE15212074": {
-    "dwarf": "Engineer",
-    "weapon": "Deepcore 40mm PGL",
-    "name": "Compact Rounds",
-    "cost": {
-      "credits": 7900,
-      "bismor": 120,
-      "croppa": 0,
-      "enor": 100,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 70
-    }
-  },
-  "87D2434388D3FC45884E351DCBE70F7C": {
-    "dwarf": "Engineer",
-    "weapon": "Deepcore 40mm PGL",
-    "name": "Fat Boy",
-    "cost": {
-      "credits": 8300,
-      "bismor": 120,
-      "croppa": 0,
-      "enor": 70,
-      "jadiz": 0,
-      "magnite": 105,
-      "umanite": 0
-    }
-  },
-  "B912059A3F86E44BA2985450D136CCB5": {
-    "dwarf": "Engineer",
-    "weapon": "Deepcore 40mm PGL",
-    "name": "Clean Sweep",
-    "cost": {
-      "credits": 8100,
-      "bismor": 105,
-      "croppa": 0,
-      "enor": 70,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 135
-    }
-  },
-  "DB7EC788B46FCE4C9800A25010A0E8EA": {
-    "dwarf": "Engineer",
-    "weapon": "Deepcore 40mm PGL",
-    "name": "RJ250 Compound",
-    "cost": {
-      "credits": 8800,
-      "bismor": 65,
-      "croppa": 0,
-      "enor": 110,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 120
-    }
-  },
-  "BC4CD684621BF6449607373A534A574F": {
-    "dwarf": "Engineer",
-    "weapon": "Deepcore 40mm PGL",
-    "name": "Hyper Propellant",
-    "cost": {
-      "credits": 8950,
-      "bismor": 0,
-      "croppa": 90,
-      "enor": 0,
-      "jadiz": 70,
-      "magnite": 130,
-      "umanite": 0
-    }
-  },
-  "96940C7CDCEFA84084DD4D60D2E81B2D": {
-    "dwarf": "Engineer",
-    "weapon": "Breach Cutter",
-    "name": "Light-Weight Cases",
-    "cost": {
-      "credits": 8700,
-      "bismor": 130,
-      "croppa": 100,
-      "enor": 0,
-      "jadiz": 80,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "3D7C9C85F6D3A549A2D6EDB09918314B": {
-    "dwarf": "Engineer",
-    "weapon": "Breach Cutter",
-    "name": "Stronger Plasma Current",
-    "cost": {
-      "credits": 8650,
-      "bismor": 0,
-      "croppa": 100,
-      "enor": 0,
-      "jadiz": 140,
-      "magnite": 75,
-      "umanite": 0
-    }
-  },
-  "7FA184CB9D21874D82BF9DDAFC7C91D7": {
-    "dwarf": "Engineer",
-    "weapon": "Breach Cutter",
-    "name": "High Voltage Crossover",
-    "cost": {
-      "credits": 8250,
-      "bismor": 120,
-      "croppa": 0,
-      "enor": 80,
-      "jadiz": 0,
-      "magnite": 100,
-      "umanite": 0
-    }
-  },
-  "8ED912F8267B844482EEDA86604451A5": {
-    "dwarf": "Engineer",
-    "weapon": "Breach Cutter",
-    "name": "Inferno",
-    "cost": {
-      "credits": 7550,
-      "bismor": 0,
-      "croppa": 70,
-      "enor": 0,
-      "jadiz": 90,
-      "magnite": 135,
-      "umanite": 0
-    }
-  },
-  "744251ED25D4484AA38DFBDBF43BC5B9": {
-    "dwarf": "Engineer",
-    "weapon": "Breach Cutter",
-    "name": "Return to Sender",
-    "cost": {
-      "credits": 7950,
-      "bismor": 140,
-      "croppa": 0,
-      "enor": 100,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 80
-    }
-  },
-  "05DB2FA3B969E04F8644F5BE6C204020": {
-    "dwarf": "Engineer",
-    "weapon": "Breach Cutter",
-    "name": "Roll Control",
-    "cost": {
-      "credits": 8150,
-      "bismor": 0,
-      "croppa": 95,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 80,
-      "umanite": 135
-    }
-  },
-  "340AFBC6C306044281013181E0026E1B": {
-    "dwarf": "Engineer",
-    "weapon": "Breach Cutter",
-    "name": "Spinning Death",
-    "cost": {
-      "credits": 7300,
-      "bismor": 75,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 95,
-      "umanite": 120
-    }
-  },
-  "A4AB7C627AF7FE4FA235E3AAC398ED1F": {
-    "dwarf": "Driller",
-    "weapon": "Subata 120",
-    "name": "Chain Hit",
-    "cost": {
-      "credits": 7300,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 80,
-      "jadiz": 110,
-      "magnite": 120,
-      "umanite": 0
-    }
-  },
-  "F13E20C4E74976438E85C237AE071830": {
-    "dwarf": "Driller",
-    "weapon": "Subata 120",
-    "name": "Oversized Magazine",
-    "cost": {
-      "credits": 9000,
-      "bismor": 0,
-      "croppa": 70,
-      "enor": 0,
-      "jadiz": 110,
-      "magnite": 0,
-      "umanite": 130
-    }
-  },
-  "2949A3BE68EA2A4197D532AF80549101": {
-    "dwarf": "Driller",
-    "weapon": "Subata 120",
-    "name": "Explosive Reload",
-    "cost": {
-      "credits": 8100,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 95,
-      "jadiz": 0,
-      "magnite": 65,
-      "umanite": 125
-    }
-  },
-  "28A8E817E50A7346963E418BA08DFE18": {
-    "dwarf": "Driller",
-    "weapon": "Subata 120",
-    "name": "Automatic Fire",
-    "cost": {
-      "credits": 7400,
-      "bismor": 95,
-      "croppa": 65,
-      "enor": 120,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "D57B542FBC793542B6BB5617C1A67229": {
-    "dwarf": "Driller",
-    "weapon": "Subata 120",
-    "name": "Homebrew Powder",
-    "cost": {
-      "credits": 8100,
-      "bismor": 95,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 140,
-      "magnite": 0,
-      "umanite": 65
-    }
-  },
-  "587488BA77B28D4DA177400D995737A7": {
-    "dwarf": "Driller",
-    "weapon": "Subata 120",
-    "name": "Tranquilizer Rounds",
-    "cost": {
-      "credits": 7150,
-      "bismor": 0,
-      "croppa": 95,
-      "enor": 0,
-      "jadiz": 135,
-      "magnite": 0,
-      "umanite": 75
-    }
-  },
-  "A937DC3938DEE8418CD0641CCE19B46A": {
-    "dwarf": "Gunner",
-    "weapon": "'Bulldog' Heavy Revolver",
-    "name": "Six Shooter",
-    "cost": {
-      "credits": 7750,
-      "bismor": 120,
-      "croppa": 60,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 100,
-      "umanite": 0
-    }
-  },
-  "D53F94FBC05E0448B57BC9DF6846267B": {
-    "dwarf": "Gunner",
-    "weapon": "'Bulldog' Heavy Revolver",
-    "name": "Elephant Rounds",
-    "cost": {
-      "credits": 7300,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 140,
-      "jadiz": 0,
-      "magnite": 90,
-      "umanite": 65
-    }
-  },
-  "5885A33B15AE844591A66B65A2E5494E": {
-    "dwarf": "Gunner",
-    "weapon": "'Bulldog' Heavy Revolver",
-    "name": "Chain Hit",
-    "cost": {
-      "credits": 7300,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 80,
-      "jadiz": 110,
-      "magnite": 120,
-      "umanite": 0
-    }
-  },
-  "DB02B4E77D43BF44A4749982C0879B77": {
-    "dwarf": "Gunner",
-    "weapon": "'Bulldog' Heavy Revolver",
-    "name": "Magic Bullets",
-    "cost": {
-      "credits": 8750,
-      "bismor": 0,
-      "croppa": 105,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 130,
-      "umanite": 75
-    }
-  },
-  "CD6993F938E27C49AC69293BF942A8F0": {
-    "dwarf": "Gunner",
-    "weapon": "'Bulldog' Heavy Revolver",
-    "name": "Homebrew Powder",
-    "cost": {
-      "credits": 8100,
-      "bismor": 95,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 140,
-      "magnite": 0,
-      "umanite": 65
-    }
-  },
-  "D1306CBC8421B248A4B95B332DF3E056": {
-    "dwarf": "Gunner",
-    "weapon": "'Bulldog' Heavy Revolver",
-    "name": "Volatile Bullets",
-    "cost": {
-      "credits": 7350,
-      "bismor": 0,
-      "croppa": 130,
-      "enor": 0,
-      "jadiz": 110,
-      "magnite": 60,
-      "umanite": 0
-    }
-  },
-  "EF0CAC2AEF57BD41A72155B4DA395D47": {
-    "dwarf": "Scout",
-    "weapon": "Jury-Rigged Boomstick",
-    "name": "Shaped Shells",
-    "cost": {
-      "credits": 7700,
-      "bismor": 95,
-      "croppa": 0,
-      "enor": 70,
-      "jadiz": 135,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "0B1A2EC60168C54E9E47CA764C3B70BD": {
-    "dwarf": "Scout",
-    "weapon": "Jury-Rigged Boomstick",
-    "name": "Jumbo Shells",
-    "cost": {
-      "credits": 8800,
-      "bismor": 65,
-      "croppa": 0,
-      "enor": 105,
-      "jadiz": 125,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "3F68CB7C2FAB2843B1446D133BD92C1D": {
-    "dwarf": "Scout",
-    "weapon": "Jury-Rigged Boomstick",
-    "name": "Stuffed Shells",
-    "cost": {
-      "credits": 7850,
-      "bismor": 100,
-      "croppa": 0,
-      "enor": 135,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 80
-    }
-  },
-  "5F090BB3EFC96F4297F1BFC3F152C663": {
-    "dwarf": "Scout",
-    "weapon": "Jury-Rigged Boomstick",
-    "name": "Double Barrel",
-    "cost": {
-      "credits": 7950,
-      "bismor": 0,
-      "croppa": 100,
-      "enor": 75,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 125
-    }
-  },
-  "FA40EE4A1F8CB04FBFAF916469E4B167": {
-    "dwarf": "Scout",
-    "weapon": "Jury-Rigged Boomstick",
-    "name": "Compact Shells",
-    "cost": {
-      "credits": 8550,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 100,
-      "magnite": 65,
-      "umanite": 120
-    }
-  },
-  "E6DAF7D6065004439EF966D6FDBD69A6": {
-    "dwarf": "Scout",
-    "weapon": "Jury-Rigged Boomstick",
-    "name": "Special Powder",
-    "cost": {
-      "credits": 7050,
-      "bismor": 95,
-      "croppa": 125,
-      "enor": 65,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "05B157A075E0734BB471EF8DAE692865": {
-    "dwarf": "Engineer",
-    "weapon": "'Stubby' Voltaic SMG",
-    "name": "Light-Weight Rounds",
-    "cost": {
-      "credits": 8700,
-      "bismor": 90,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 65,
-      "magnite": 0,
-      "umanite": 135
-    }
-  },
-  "CE9490445B036B49B89DB2BC8D18FD12": {
-    "dwarf": "Engineer",
-    "weapon": "'Stubby' Voltaic SMG",
-    "name": "Well Oiled Machine",
-    "cost": {
-      "credits": 8400,
-      "bismor": 0,
-      "croppa": 65,
-      "enor": 0,
-      "jadiz": 95,
-      "magnite": 140,
-      "umanite": 0
-    }
-  },
-  "81B842310E01B847BF99774DBC3DC0DD": {
-    "dwarf": "Engineer",
-    "weapon": "'Stubby' Voltaic SMG",
-    "name": "EM Refire Booster",
-    "cost": {
-      "credits": 8300,
-      "bismor": 60,
-      "croppa": 0,
-      "enor": 90,
-      "jadiz": 135,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "13CF1C4A6992924A9AFF5CEAF05B7106": {
-    "dwarf": "Engineer",
-    "weapon": "'Stubby' Voltaic SMG",
-    "name": "Super-Slim Rounds",
-    "cost": {
-      "credits": 8550,
-      "bismor": 90,
-      "croppa": 130,
-      "enor": 75,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "0C1BAA64B03CB94EBB77B7B55E7C6C87": {
-    "dwarf": "Engineer",
-    "weapon": "'Stubby' Voltaic SMG",
-    "name": "Turret EM Discharge",
-    "cost": {
-      "credits": 8450,
-      "bismor": 80,
-      "croppa": 0,
-      "enor": 105,
-      "jadiz": 125,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "3C42DBEA3021EE44AF6D944A91314D75": {
-    "dwarf": "Engineer",
-    "weapon": "'Stubby' Voltaic SMG",
-    "name": "Micro-Conductor Add-On",
-    "cost": {
-      "credits": 7300,
-      "bismor": 60,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 110,
-      "umanite": 120
-    }
-  },
-  "1E41880C9E18FC439B82B69F19F0A191": {
-    "dwarf": "Gunner",
-    "weapon": "'Hurricane' Guided Rocket System",
-    "name": "Fragmentation Missiles",
-    "cost": {
-      "credits": 7150,
-      "bismor": 100,
-      "croppa": 135,
-      "enor": 0,
-      "jadiz": 60,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "52DE47B5A2579E418564F19382240866": {
-    "dwarf": "Gunner",
-    "weapon": "'Hurricane' Guided Rocket System",
-    "name": "Salvo Module",
-    "cost": {
-      "credits": 8650,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 65,
-      "jadiz": 110,
-      "magnite": 0,
-      "umanite": 130
-    }
-  },
-  "8E6816C3DAEE2C49B93E8FA67CF13B1A": {
-    "dwarf": "Gunner",
-    "weapon": "'Hurricane' Guided Rocket System",
-    "name": "Rocket Barrage",
-    "cost": {
-      "credits": 7050,
-      "bismor": 75,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 105,
-      "magnite": 0,
-      "umanite": 130
-    }
-  },
-  "C24639FB04A00949BE8F00CD38462B84": {
-    "dwarf": "Gunner",
-    "weapon": "'Hurricane' Guided Rocket System",
-    "name": "Jet Fuel Homebrew",
-    "cost": {
-      "credits": 7250,
-      "bismor": 70,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 130,
-      "magnite": 0,
-      "umanite": 100
-    }
-  },
-  "C873E29A463E4F4DAD4821D92BC31FB4": {
-    "dwarf": "Gunner",
-    "weapon": "'Hurricane' Guided Rocket System",
-    "name": "Minelayer System",
-    "cost": {
-      "credits": 7500,
-      "bismor": 80,
-      "croppa": 125,
-      "enor": 90,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "01CD9AAD2398FB46818A3F6F6A96384A": {
-    "dwarf": "Gunner",
-    "weapon": "'Hurricane' Guided Rocket System",
-    "name": "Plasma Burster Missiles",
-    "cost": {
-      "credits": 8500,
-      "bismor": 0,
-      "croppa": 105,
-      "enor": 80,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 140
-    }
-  },
-  "2A257648DF688844BA3DB091A3756BA5": {
-    "dwarf": "Gunner",
-    "weapon": "'Hurricane' Guided Rocket System",
-    "name": "Overtuned Feed Mechanism",
-    "cost": {
-      "credits": 8950,
-      "bismor": 0,
-      "croppa": 65,
-      "enor": 0,
-      "jadiz": 105,
-      "magnite": 130,
-      "umanite": 0
-    }
-  },
-  "C1D77A8BAFD433408E4A8397F1A63AEC": {
-    "dwarf": "Driller",
-    "weapon": "Corrosive Sludge Pump",
-    "name": "Disperser Compound",
-    "cost": {
-      "credits": 8800,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 135,
-      "magnite": 100,
-      "umanite": 60
-    }
-  },
-  "4CCC7E994163A14AAAC97AB3777FF1F9": {
-    "dwarf": "Driller",
-    "weapon": "Corrosive Sludge Pump",
-    "name": "Goo Bomber Special",
-    "cost": {
-      "credits": 7450,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 90,
-      "jadiz": 140,
-      "magnite": 0,
-      "umanite": 65
-    }
-  },
-  "4956672BA68D3A439D4EC260F0B98CE4": {
-    "dwarf": "Driller",
-    "weapon": "Corrosive Sludge Pump",
-    "name": "AG Mixture",
-    "cost": {
-      "credits": 7800,
-      "bismor": 0,
-      "croppa": 60,
-      "enor": 0,
-      "jadiz": 105,
-      "magnite": 0,
-      "umanite": 140
-    }
-  },
-  "ECCAB2551405F044A93FFB6C51FF9B39": {
-    "dwarf": "Driller",
-    "weapon": "Corrosive Sludge Pump",
-    "name": "Hydrogen Ion Additive",
-    "cost": {
-      "credits": 8800,
-      "bismor": 135,
-      "croppa": 0,
-      "enor": 100,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 70
-    }
-  },
-  "539F16D0ECA50447B21BD3B1ADD439CB": {
-    "dwarf": "Driller",
-    "weapon": "Corrosive Sludge Pump",
-    "name": "Volatile Impact Mixture",
-    "cost": {
-      "credits": 8500,
-      "bismor": 120,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 75,
-      "magnite": 100,
-      "umanite": 0
-    }
-  },
-  "EA7D273B56099B4B9F44768A099A8C1C": {
-    "dwarf": "Driller",
-    "weapon": "Corrosive Sludge Pump",
-    "name": "Sludge Blast",
-    "cost": {
-      "credits": 8200,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 100,
-      "magnite": 120,
-      "umanite": 60
-    }
-  },
-  "5ABF1C487BF3BD4BAFDAF2A4428720EC": {
-    "dwarf": "Scout",
-    "weapon": "DRAK-25 Plasma Carbine",
-    "name": "Rewiring Mod",
-    "cost": {
-      "credits": 8200,
-      "bismor": 130,
-      "croppa": 65,
-      "enor": 0,
-      "jadiz": 110,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "1BD74059739E094BBE0A3B79F2E94B46": {
-    "dwarf": "Scout",
-    "weapon": "DRAK-25 Plasma Carbine",
-    "name": "Impact Deflection",
-    "cost": {
-      "credits": 7950,
-      "bismor": 0,
-      "croppa": 60,
-      "enor": 0,
-      "jadiz": 140,
-      "magnite": 0,
-      "umanite": 105
-    }
-  },
-  "00EA09DA14DA7646982DD5A1B2467A08": {
-    "dwarf": "Scout",
-    "weapon": "DRAK-25 Plasma Carbine",
-    "name": "Thermal Liquid Coolant",
-    "cost": {
-      "credits": 8100,
-      "bismor": 75,
-      "croppa": 0,
-      "enor": 105,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 130
-    }
-  },
-  "BFFE0C3436AC584D890B6EFE9124AAF1": {
-    "dwarf": "Scout",
-    "weapon": "DRAK-25 Plasma Carbine",
-    "name": "Thermal Exhaust Feedback",
-    "cost": {
-      "credits": 7500,
-      "bismor": 140,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 100,
-      "magnite": 0,
-      "umanite": 75
-    }
-  },
-  "9225769777355041BDEB70CACD946A27": {
-    "dwarf": "Scout",
-    "weapon": "DRAK-25 Plasma Carbine",
-    "name": "Overtuned Particle Accelerator",
-    "cost": {
-      "credits": 7200,
-      "bismor": 100,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 65,
-      "magnite": 120,
-      "umanite": 0
-    }
-  },
-  "D831B000F2A2C84C8749A5B182348574": {
-    "dwarf": "Scout",
-    "weapon": "DRAK-25 Plasma Carbine",
-    "name": "Aggressive Venting",
-    "cost": {
-      "credits": 8000,
-      "bismor": 130,
-      "croppa": 95,
-      "enor": 80,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "532714B803867C4F8AA6EA78FA4EAAEA": {
-    "dwarf": "Scout",
-    "weapon": "DRAK-25 Plasma Carbine",
-    "name": "Shield Battery Booster",
-    "cost": {
-      "credits": 8850,
-      "bismor": 65,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 120,
-      "magnite": 105,
-      "umanite": 0
-    }
-  },
-  "B63D1376D90DDD4C986851D791E737AB": {
-    "dwarf": "Engineer",
-    "weapon": "LOK-1 Smart Rifle",
-    "name": "Armor Break Module",
-    "cost": {
-      "credits": 7850,
-      "bismor": 0,
-      "croppa": 125,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 90,
-      "umanite": 80
-    }
-  },
-  "538A52E774FCB24C85E5F7F1CE63E3FA": {
-    "dwarf": "Engineer",
-    "weapon": "LOK-1 Smart Rifle",
-    "name": "Eraser",
-    "cost": {
-      "credits": 8000,
-      "bismor": 0,
-      "croppa": 135,
-      "enor": 90,
-      "jadiz": 0,
-      "magnite": 70,
-      "umanite": 0
-    }
-  },
-  "8884ED69B093E44681F36C74FD1E772F": {
-    "dwarf": "Engineer",
-    "weapon": "LOK-1 Smart Rifle",
-    "name": "Executioner",
-    "cost": {
-      "credits": 8750,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 130,
-      "jadiz": 105,
-      "magnite": 65,
-      "umanite": 0
-    }
-  },
-  "6FA83E783551F54A97BC04F09DF1A842": {
-    "dwarf": "Engineer",
-    "weapon": "LOK-1 Smart Rifle",
-    "name": "Explosive Chemical Rounds",
-    "cost": {
-      "credits": 8500,
-      "bismor": 0,
-      "croppa": 65,
-      "enor": 0,
-      "jadiz": 130,
-      "magnite": 95,
-      "umanite": 0
-    }
-  },
-  "798B9546AB16B34CAD766DAB554150D9": {
-    "dwarf": "Engineer",
-    "weapon": "LOK-1 Smart Rifle",
-    "name": "Seeker Rounds",
-    "cost": {
-      "credits": 8150,
-      "bismor": 60,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 135,
-      "umanite": 95
-    }
-  },
-  "956BB51F4D8F254291A0C0E740BD07CF": {
-    "dwarf": "Engineer",
-    "weapon": "LOK-1 Smart Rifle",
-    "name": "Neuro-Lasso",
-    "cost": {
-      "credits": 8950,
-      "bismor": 0,
-      "croppa": 125,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 80,
-      "umanite": 100
-    }
-  },
-  "5F614059B3ADA14E930831EF4B609802": {
-    "dwarf": "Driller",
-    "weapon": "Colette Wave Cooker",
-    "name": "Liquid Cooling System",
-    "cost": {
-      "credits": 7400,
-      "bismor": 125,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 65,
-      "magnite": 0,
-      "umanite": 95
-    }
-  },
-  "79A870ED00C9814A942BE4AD49A10B63": {
-    "dwarf": "Driller",
-    "weapon": "Colette Wave Cooker",
-    "name": "Super Focus Lens",
-    "cost": {
-      "credits": 7400,
-      "bismor": 125,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 65,
-      "magnite": 0,
-      "umanite": 95
-    }
-  },
-  "0CD9E18B85E271449901D38D50BA62B4": {
-    "dwarf": "Driller",
-    "weapon": "Colette Wave Cooker",
-    "name": "Diffusion Ray",
-    "cost": {
-      "credits": 8300,
-      "bismor": 0,
-      "croppa": 105,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 130,
-      "umanite": 65
-    }
-  },
-  "A3E85790ABCBC74ABCCB3CC636509A1B": {
-    "dwarf": "Driller",
-    "weapon": "Colette Wave Cooker",
-    "name": "Mega Power Supply",
-    "cost": {
-      "credits": 8100,
-      "bismor": 0,
-      "croppa": 95,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 95,
-      "umanite": 140
-    }
-  },
-  "48648832AA11E04DAE9F2E8ADF89AD8D": {
-    "dwarf": "Driller",
-    "weapon": "Colette Wave Cooker",
-    "name": "Blistering Necrosis",
-    "cost": {
-      "credits": 7850,
-      "bismor": 70,
-      "croppa": 130,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 100,
-      "umanite": 0
-    }
-  },
-  "5EDD2987DB047F498ADD72FCEB6C1EE3": {
-    "dwarf": "Driller",
-    "weapon": "Colette Wave Cooker",
-    "name": "Gamma Contamination",
-    "cost": {
-      "credits": 8350,
-      "bismor": 100,
-      "croppa": 0,
-      "enor": 130,
-      "jadiz": 0,
-      "magnite": 80,
-      "umanite": 0
-    }
-  },
-  "F1432F121F68E04DA0C5DD8E50CF717D": {
-    "dwarf": "Engineer",
-    "weapon": "Shard Diffractor",
-    "name": "Efficiency Tweaks",
-    "cost": {
-      "credits": 7650,
-      "bismor": 0,
-      "croppa": 120,
-      "enor": 0,
-      "jadiz": 90,
-      "magnite": 70,
-      "umanite": 0
-    }
-  },
-  "71D81BC3DBC28F4D905A6C9F4A8B55AE": {
-    "dwarf": "Engineer",
-    "weapon": "Shard Diffractor",
-    "name": "Automated Beam Controller",
-    "cost": {
-      "credits": 8050,
-      "bismor": 90,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 130,
-      "magnite": 65,
-      "umanite": 0
-    }
-  },
-  "F1880C6F7BEF10478E77EE4FC63481F6": {
-    "dwarf": "Engineer",
-    "weapon": "Shard Diffractor",
-    "name": "Feedback Loop",
-    "cost": {
-      "credits": 7200,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 125,
-      "jadiz": 0,
-      "magnite": 65,
-      "umanite": 100
-    }
-  },
-  "7BB7C21FA1D1E64A8C007CE6A023A412": {
-    "dwarf": "Engineer",
-    "weapon": "Shard Diffractor",
-    "name": "Volatile Impact Reactor",
-    "cost": {
-      "credits": 8300,
-      "bismor": 65,
-      "croppa": 0,
-      "enor": 105,
-      "jadiz": 0,
-      "magnite": 125,
-      "umanite": 0
-    }
-  },
-  "D330723969BCE44CB1EBE9009A2F6E0D": {
-    "dwarf": "Engineer",
-    "weapon": "Shard Diffractor",
-    "name": "Plascrete Catalyst",
-    "cost": {
-      "credits": 8300,
-      "bismor": 65,
-      "croppa": 0,
-      "enor": 105,
-      "jadiz": 0,
-      "magnite": 125,
-      "umanite": 0
-    }
-  },
-  "187A18BA5283D24C905A37F4FB123BA0": {
-    "dwarf": "Engineer",
-    "weapon": "Shard Diffractor",
-    "name": "Overdrive Booster",
-    "cost": {
-      "credits": 7900,
-      "bismor": 120,
-      "croppa": 110,
-      "enor": 0,
-      "jadiz": 75,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "8C5D24BD68D5F14A89A6B87A857CCD9B": {
-    "dwarf": "Gunner",
-    "weapon": "Armskore Coil Gun",
-    "name": "Re-atomizer",
-    "cost": {
-      "credits": 7750,
-      "bismor": 90,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 65,
-      "magnite": 135,
-      "umanite": 0
-    }
-  },
-  "26841EB5823A284B81BF7DA3792708D7": {
-    "dwarf": "Gunner",
-    "weapon": "Armskore Coil Gun",
-    "name": "Ultra-Magnetic Coils",
-    "cost": {
-      "credits": 7900,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 125,
-      "jadiz": 70,
-      "magnite": 110,
-      "umanite": 0
-    }
-  },
-  "F82F326576E8A74899753CB6316B7C20": {
-    "dwarf": "Gunner",
-    "weapon": "Armskore Coil Gun",
-    "name": "Backfeeding Module",
-    "cost": {
-      "credits": 8100,
-      "bismor": 125,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 105,
-      "magnite": 70,
-      "umanite": 0
-    }
-  },
-  "56471F219BE014448DFE5F087CABD447": {
-    "dwarf": "Gunner",
-    "weapon": "Armskore Coil Gun",
-    "name": "The Mole",
-    "cost": {
-      "credits": 8100,
-      "bismor": 70,
-      "croppa": 0,
-      "enor": 95,
-      "jadiz": 125,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "80DEA90AD5F3174695138FF47A32A96A": {
-    "dwarf": "Gunner",
-    "weapon": "Armskore Coil Gun",
-    "name": "Hellfire",
-    "cost": {
-      "credits": 8700,
-      "bismor": 0,
-      "croppa": 125,
-      "enor": 80,
-      "jadiz": 100,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "A6751DA1B87C134EBC5710C7431C1453": {
-    "dwarf": "Gunner",
-    "weapon": "Armskore Coil Gun",
-    "name": "Triple-tech Chambers",
-    "cost": {
-      "credits": 8500,
-      "bismor": 70,
-      "croppa": 125,
-      "enor": 0,
-      "jadiz": 100,
-      "magnite": 95,
-      "umanite": 0
-    }
-  },
-  "1CFA57FA35D0DB49A9AAF87CAA011EF4": {
-    "dwarf": "Scout",
-    "weapon": "Nishanka Boltshark X-80",
-    "name": "Quick Fire",
-    "cost": {
-      "credits": 8400,
-      "bismor": 0,
-      "croppa": 95,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 125
-    }
-  },
-  "6C464531820EA849BB3C80C0F190A74F": {
-    "dwarf": "Scout",
-    "weapon": "Nishanka Boltshark X-80",
-    "name": "The Specialist",
-    "cost": {
-      "credits": 7900,
-      "bismor": 0,
-      "croppa": 65,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 130,
-      "umanite": 90
-    }
-  },
-  "75CFD0A90F31C94A9D6A8D02147DE1FC": {
-    "dwarf": "Scout",
-    "weapon": "Nishanka Boltshark X-80",
-    "name": "Cryo Bolt",
-    "cost": {
-      "credits": 7350,
-      "bismor": 0,
-      "croppa": 75,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 135,
-      "umanite": 105
-    }
-  },
-  "DDCA81E29C6BE8488C2DF4F0B0C72A72": {
-    "dwarf": "Scout",
-    "weapon": "Nishanka Boltshark X-80",
-    "name": "Fire Bolt",
-    "cost": {
-      "credits": 7100,
-      "bismor": 0,
-      "croppa": 90,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 70,
-      "umanite": 130
-    }
-  },
-  "AECB0F241DFA194AB04BBB86563FA840": {
-    "dwarf": "Scout",
-    "weapon": "Nishanka Boltshark X-80",
-    "name": "Bodkin Points",
-    "cost": {
-      "credits": 8400,
-      "bismor": 0,
-      "croppa": 110,
-      "enor": 0,
-      "jadiz": 80,
-      "magnite": 140,
-      "umanite": 0
-    }
-  },
-  "62FE96DE32A5454EB0F1952BD68DBAF4": {
-    "dwarf": "Scout",
-    "weapon": "Nishanka Boltshark X-80",
-    "name": "Trifork Volley",
-    "cost": {
-      "credits": 7650,
-      "bismor": 130,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 100,
-      "magnite": 65,
-      "umanite": 0
-    }
-  },
-  "34B2EB764839C94CB7F96B5567317255": {
-    "dwarf": "Scout",
-    "weapon": "Deepcore GK2",
-    "name": "Burst Fire",
-    "cost": {
-      "credits": 8300,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 110,
-      "jadiz": 75,
-      "magnite": 0,
-      "umanite": 140
-    }
-  },
-  "F87380FA4EC44A41A79974F6BAC074A6": {
-    "dwarf": "Gunner",
-    "weapon": "'Thunderhead' Heavy Autocannon",
-    "name": "Mortar Rounds",
-    "cost": {
-      "credits": 7300,
-      "bismor": 0,
-      "croppa": 140,
-      "enor": 0,
-      "jadiz": 70,
-      "magnite": 110,
-      "umanite": 0
-    }
-  },
-  "4D2ACAFC30FFB542A645C75948EFE75F": {
-    "dwarf": "Scout",
-    "weapon": "M1000 dwarfic",
-    "name": "Marked For Death",
-    "cost": {
-      "credits": 7150,
-      "bismor": 90,
-      "croppa": 0,
-      "enor": 140,
-      "jadiz": 75,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "4AD58615AC68374F819663AD4C510B6D": {
-    "dwarf": "Engineer",
-    "weapon": "'Warthog' Auto 210",
-    "name": "Pump Action",
-    "cost": {
-      "credits": 8550,
-      "bismor": 100,
-      "croppa": 0,
-      "enor": 80,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 135
-    }
-  },
-  "2406E7980F5CCC449B3FF39C9B9F0807": {
-    "dwarf": "Driller",
-    "weapon": "Cryo Cannon",
-    "name": "Crystal Nucleation",
-    "cost": {
-      "credits": 8300,
-      "bismor": 0,
-      "croppa": 65,
-      "enor": 135,
-      "jadiz": 100,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "E5D05E38562B34408054603F41E99091": {
-    "dwarf": "Driller",
-    "weapon": "CRSPR Flamethrower",
-    "name": "Scorching Tide",
-    "cost": {
-      "credits": 7300,
-      "bismor": 70,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 0,
-      "magnite": 105,
-      "umanite": 140
-    }
-  },
-  "B6772BCBDAB2A8469058B4C0AC876413": {
-    "dwarf": "Gunner",
-    "weapon": "'Lead Storm' Powered Minigun",
-    "name": "Rotary Overdrive",
-    "cost": {
-      "credits": 8550,
-      "bismor": 110,
-      "croppa": 0,
-      "enor": 80,
-      "jadiz": 0,
-      "magnite": 120,
-      "umanite": 0
-    }
-  },
-  "48B4DE944D359341920EFCBBADD235C5": {
-    "dwarf": "Driller",
-    "weapon": "Corrosive Sludge Pump",
-    "name": "Combustive Goo Mix",
-    "cost": {
-      "credits": 8950,
-      "bismor": 135,
-      "croppa": 0,
-      "enor": 60,
-      "jadiz": 0,
-      "magnite": 0,
-      "umanite": 105
-    }
-  },
-  "4E71A830F4274647A5C763A1E9CBC41A": {
-    "dwarf": "Engineer",
-    "weapon": "LOK-1 Smart Rifle",
-    "name": "SmЯt Trigger OS™",
-    "cost": {
-      "credits": 7050,
-      "bismor": 130,
-      "croppa": 60,
-      "enor": 0,
-      "jadiz": 105,
-      "magnite": 0,
-      "umanite": 0
-    }
-  },
-  "22B4FA6E4CC458458BC3533E783E202D": {
-    "dwarf": "Gunner",
-    "weapon": "'Hurricane' Guided Rocket System",
-    "name": "Cluster Charges",
-    "cost": {
-      "credits": 8150,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 120,
-      "jadiz": 75,
-      "magnite": 0,
-      "umanite": 95
-    }
-  },
-  "943DA878EBA6F1428B1866736EE08395": {
-    "dwarf": "Scout",
-    "weapon": "DRAK-25 Plasma Carbine",
-    "name": "Conductive Thermals",
-    "cost": {
-      "credits": 7600,
-      "bismor": 70,
-      "croppa": 0,
-      "enor": 110,
-      "jadiz": 0,
-      "magnite": 140,
-      "umanite": 0
-    }
-  },
-  "464B23599A0DDE489B152C4D730B6EF4": {
-    "dwarf": "Engineer",
-    "weapon": "'Stubby' Voltaic SMG",
-    "name": "Hyperalloy Assembly",
-    "cost": {
-      "credits": 7100,
-      "bismor": 0,
-      "croppa": 0,
-      "enor": 0,
-      "jadiz": 105,
-      "magnite": 80,
-      "umanite": 130
+  "Weapons": {
+    "AF945B93A7B9D64CA6DD00683627BC80": {
+      "dwarf": "Scout",
+      "weapon": "Deepcore GK2",
+      "name": "Compact Ammo",
+      "cost": {
+        "credits": 7250,
+        "bismor": 125,
+        "croppa": 0,
+        "enor": 80,
+        "jadiz": 105,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "FF94B9E7834D774292DACCCA3EA023B9": {
+      "dwarf": "Scout",
+      "weapon": "Deepcore GK2",
+      "name": "Electrifying Reload",
+      "cost": {
+        "credits": 7750,
+        "bismor": 105,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 65,
+        "umanite": 135
+      }
+    },
+    "11F123E174103140957957506BD576D7": {
+      "dwarf": "Scout",
+      "weapon": "Deepcore GK2",
+      "name": "AI Stability Engine",
+      "cost": {
+        "credits": 8250,
+        "bismor": 0,
+        "croppa": 60,
+        "enor": 125,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 100
+      }
+    },
+    "4CDF41F3A0F8E4499D1BAC6168347799": {
+      "dwarf": "Scout",
+      "weapon": "Deepcore GK2",
+      "name": "Homebrew Powder",
+      "cost": {
+        "credits": 8100,
+        "bismor": 95,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 140,
+        "magnite": 0,
+        "umanite": 65
+      }
+    },
+    "C3060324CE482C4AB6DC44ED498CBA39": {
+      "dwarf": "Scout",
+      "weapon": "Deepcore GK2",
+      "name": "Overclocked Firing Mechanism",
+      "cost": {
+        "credits": 7950,
+        "bismor": 95,
+        "croppa": 0,
+        "enor": 120,
+        "jadiz": 0,
+        "magnite": 65,
+        "umanite": 0
+      }
+    },
+    "F6E2E547F2EB674DBDA591F47DE6D017": {
+      "dwarf": "Scout",
+      "weapon": "Deepcore GK2",
+      "name": "Gas Rerouting",
+      "cost": {
+        "credits": 7800,
+        "bismor": 0,
+        "croppa": 60,
+        "enor": 0,
+        "jadiz": 125,
+        "magnite": 105,
+        "umanite": 0
+      }
+    },
+    "7306221F1264B04B8C025DB4DE9D1667": {
+      "dwarf": "Scout",
+      "weapon": "Deepcore GK2",
+      "name": "Bullets of Mercy",
+      "cost": {
+        "credits": 8100,
+        "bismor": 90,
+        "croppa": 80,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 125,
+        "umanite": 0
+      }
+    },
+    "86AA0DD13FD37E43B2FBF176EE5DE815": {
+      "dwarf": "Gunner",
+      "weapon": "'Thunderhead' Heavy Autocannon",
+      "name": "Big Bertha",
+      "cost": {
+        "credits": 8400,
+        "bismor": 125,
+        "croppa": 105,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 80
+      }
+    },
+    "8C0142A687637A4EA4CC8A7F84B9610A": {
+      "dwarf": "Gunner",
+      "weapon": "'Thunderhead' Heavy Autocannon",
+      "name": "Carpet Bomber",
+      "cost": {
+        "credits": 7350,
+        "bismor": 0,
+        "croppa": 120,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 105,
+        "umanite": 70
+      }
+    },
+    "01E23067CBB9A6428AE4394C99F1D2BB": {
+      "dwarf": "Gunner",
+      "weapon": "'Thunderhead' Heavy Autocannon",
+      "name": "Composite Drums",
+      "cost": {
+        "credits": 7850,
+        "bismor": 0,
+        "croppa": 135,
+        "enor": 70,
+        "jadiz": 0,
+        "magnite": 105,
+        "umanite": 0
+      }
+    },
+    "3DD5E8141C483E43AA3E0708CE75D663": {
+      "dwarf": "Gunner",
+      "weapon": "'Thunderhead' Heavy Autocannon",
+      "name": "Combat Mobility",
+      "cost": {
+        "credits": 7650,
+        "bismor": 0,
+        "croppa": 70,
+        "enor": 0,
+        "jadiz": 120,
+        "magnite": 95,
+        "umanite": 0
+      }
+    },
+    "32654E9478165E4DA3F0DBD33B180341": {
+      "dwarf": "Gunner",
+      "weapon": "'Thunderhead' Heavy Autocannon",
+      "name": "Neurotoxin Payload",
+      "cost": {
+        "credits": 8100,
+        "bismor": 0,
+        "croppa": 100,
+        "enor": 0,
+        "jadiz": 75,
+        "magnite": 135,
+        "umanite": 0
+      }
+    },
+    "CB83FD6C13C63F4982DC87B9796311C8": {
+      "dwarf": "Gunner",
+      "weapon": "'Thunderhead' Heavy Autocannon",
+      "name": "Splintering Shells",
+      "cost": {
+        "credits": 7300,
+        "bismor": 0,
+        "croppa": 95,
+        "enor": 0,
+        "jadiz": 125,
+        "magnite": 65,
+        "umanite": 0
+      }
+    },
+    "D006E3EEE0540242A2B0BCA8ABCDB387": {
+      "dwarf": "Scout",
+      "weapon": "M1000 Classic",
+      "name": "Minimal Clips",
+      "cost": {
+        "credits": 8200,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 95,
+        "jadiz": 130,
+        "magnite": 75,
+        "umanite": 0
+      }
+    },
+    "1073CEEBECBC014E8370E259040EB71C": {
+      "dwarf": "Scout",
+      "weapon": "M1000 Classic",
+      "name": "Supercooling Chamber",
+      "cost": {
+        "credits": 8500,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 90,
+        "jadiz": 130,
+        "magnite": 70,
+        "umanite": 0
+      }
+    },
+    "AAC9B6E4458458478E50DB87324097EB": {
+      "dwarf": "Scout",
+      "weapon": "M1000 Classic",
+      "name": "Electrocuting Focus Shots",
+      "cost": {
+        "credits": 8850,
+        "bismor": 120,
+        "croppa": 95,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 75
+      }
+    },
+    "2A12358F750B704996C37D467ECF1D36": {
+      "dwarf": "Scout",
+      "weapon": "M1000 Classic",
+      "name": "Hipster",
+      "cost": {
+        "credits": 8900,
+        "bismor": 0,
+        "croppa": 125,
+        "enor": 105,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 80
+      }
+    },
+    "8A0122E44E42104BAAAD6B4534A9DE8F": {
+      "dwarf": "Scout",
+      "weapon": "M1000 Classic",
+      "name": "Hoverclock",
+      "cost": {
+        "credits": 7350,
+        "bismor": 105,
+        "croppa": 135,
+        "enor": 0,
+        "jadiz": 65,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "D1544B3528938A48964E8D9A6309D1DA": {
+      "dwarf": "Scout",
+      "weapon": "M1000 Classic",
+      "name": "Active Stability System",
+      "cost": {
+        "credits": 8150,
+        "bismor": 90,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 70,
+        "umanite": 135
+      }
+    },
+    "6F26A8B49F967C4D999F734645EAE2C4": {
+      "dwarf": "Gunner",
+      "weapon": "BRT7 Burst Fire Gun",
+      "name": "Composite Casings",
+      "cost": {
+        "credits": 7950,
+        "bismor": 0,
+        "croppa": 140,
+        "enor": 75,
+        "jadiz": 0,
+        "magnite": 100,
+        "umanite": 0
+      }
+    },
+    "2FF3D4C92D59304592009FA2E39BFFC6": {
+      "dwarf": "Gunner",
+      "weapon": "BRT7 Burst Fire Gun",
+      "name": "Compact Mags",
+      "cost": {
+        "credits": 7350,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 75,
+        "magnite": 135,
+        "umanite": 105
+      }
+    },
+    "4A4F93FE1AC31E41B897C1F1B264A672": {
+      "dwarf": "Gunner",
+      "weapon": "BRT7 Burst Fire Gun",
+      "name": "Electro Minelets",
+      "cost": {
+        "credits": 7450,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 80,
+        "jadiz": 95,
+        "magnite": 0,
+        "umanite": 120
+      }
+    },
+    "414916957AD3D0409B5FE3692A46DD19": {
+      "dwarf": "Gunner",
+      "weapon": "BRT7 Burst Fire Gun",
+      "name": "Full Chamber Seal",
+      "cost": {
+        "credits": 7850,
+        "bismor": 120,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 75,
+        "magnite": 110,
+        "umanite": 0
+      }
+    },
+    "88ABD40A78329942884C00D7F22DAC90": {
+      "dwarf": "Gunner",
+      "weapon": "BRT7 Burst Fire Gun",
+      "name": "Experimental Rounds",
+      "cost": {
+        "credits": 8550,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 100,
+        "jadiz": 75,
+        "magnite": 130,
+        "umanite": 0
+      }
+    },
+    "8F1C6A1A23A6DF4CBCA5510C4A19F221": {
+      "dwarf": "Gunner",
+      "weapon": "BRT7 Burst Fire Gun",
+      "name": "Micro Flechettes",
+      "cost": {
+        "credits": 7650,
+        "bismor": 80,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 100,
+        "magnite": 130,
+        "umanite": 0
+      }
+    },
+    "F1AE55CF592E7746A0001D61584BDF2A": {
+      "dwarf": "Gunner",
+      "weapon": "BRT7 Burst Fire Gun",
+      "name": "Lead Spray",
+      "cost": {
+        "credits": 8050,
+        "bismor": 125,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 75,
+        "umanite": 105
+      }
+    },
+    "A0E018C45FE679418FD3730E6E9B631D": {
+      "dwarf": "Driller",
+      "weapon": "Experimental Plasma Charger",
+      "name": "Heat Pipe",
+      "cost": {
+        "credits": 7450,
+        "bismor": 60,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 95,
+        "magnite": 0,
+        "umanite": 125
+      }
+    },
+    "55BB52A0ECFA7C43B37BBBE640114196": {
+      "dwarf": "Driller",
+      "weapon": "Experimental Plasma Charger",
+      "name": "Overcharger",
+      "cost": {
+        "credits": 7050,
+        "bismor": 120,
+        "croppa": 95,
+        "enor": 60,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "97822071D586CE45ACD6489782B700FA": {
+      "dwarf": "Driller",
+      "weapon": "Experimental Plasma Charger",
+      "name": "Energy Rerouting",
+      "cost": {
+        "credits": 7300,
+        "bismor": 130,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 100,
+        "magnite": 0,
+        "umanite": 65
+      }
+    },
+    "F1E6CC307C11DE4586B88B419E530ABF": {
+      "dwarf": "Driller",
+      "weapon": "Experimental Plasma Charger",
+      "name": "Magnetic Cooling Unit",
+      "cost": {
+        "credits": 8900,
+        "bismor": 0,
+        "croppa": 95,
+        "enor": 0,
+        "jadiz": 80,
+        "magnite": 0,
+        "umanite": 125
+      }
+    },
+    "39E43E13CC0DAE4691DD51A11383E9E1": {
+      "dwarf": "Driller",
+      "weapon": "Experimental Plasma Charger",
+      "name": "Heavy Hitter",
+      "cost": {
+        "credits": 8100,
+        "bismor": 140,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 60,
+        "umanite": 105
+      }
+    },
+    "165CD93E660B8147BCA2F86CDE5CF8F7": {
+      "dwarf": "Driller",
+      "weapon": "Experimental Plasma Charger",
+      "name": "Persistent Plasma",
+      "cost": {
+        "credits": 8150,
+        "bismor": 0,
+        "croppa": 75,
+        "enor": 0,
+        "jadiz": 130,
+        "magnite": 95,
+        "umanite": 0
+      }
+    },
+    "CD4EEC38C029724E8317CCDC22D06057": {
+      "dwarf": "Engineer",
+      "weapon": "'Warthog' Auto 210",
+      "name": "Light-Weight Magazines",
+      "cost": {
+        "credits": 7250,
+        "bismor": 0,
+        "croppa": 125,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 105,
+        "umanite": 60
+      }
+    },
+    "338DD238332A2E4EA5490208AAD7F502": {
+      "dwarf": "Engineer",
+      "weapon": "'Warthog' Auto 210",
+      "name": "Stunner",
+      "cost": {
+        "credits": 7350,
+        "bismor": 100,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 135,
+        "magnite": 60,
+        "umanite": 0
+      }
+    },
+    "62D4C94C1367E8419691B677837DA4FB": {
+      "dwarf": "Engineer",
+      "weapon": "'Warthog' Auto 210",
+      "name": "Mini Shells",
+      "cost": {
+        "credits": 7700,
+        "bismor": 0,
+        "croppa": 125,
+        "enor": 65,
+        "jadiz": 0,
+        "magnite": 90,
+        "umanite": 0
+      }
+    },
+    "70122BA2FBDABF4895DC09C90294E685": {
+      "dwarf": "Engineer",
+      "weapon": "'Warthog' Auto 210",
+      "name": "Cycle Overload",
+      "cost": {
+        "credits": 8050,
+        "bismor": 125,
+        "croppa": 100,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 80
+      }
+    },
+    "07E9279956BF9C418EEA313E2DC59F8D": {
+      "dwarf": "Engineer",
+      "weapon": "'Warthog' Auto 210",
+      "name": "Magnetic Pellet Alignment",
+      "cost": {
+        "credits": 7900,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 120,
+        "jadiz": 105,
+        "magnite": 0,
+        "umanite": 75
+      }
+    },
+    "CE660C4DD9980043A802A17A4569C0AC": {
+      "dwarf": "Driller",
+      "weapon": "Cryo Cannon",
+      "name": "Improved Thermal Efficiency",
+      "cost": {
+        "credits": 8350,
+        "bismor": 0,
+        "croppa": 125,
+        "enor": 70,
+        "jadiz": 0,
+        "magnite": 110,
+        "umanite": 0
+      }
+    },
+    "6ADB23B3C8ED884086A88B8107C93CBE": {
+      "dwarf": "Driller",
+      "weapon": "Cryo Cannon",
+      "name": "Tuned Cooler",
+      "cost": {
+        "credits": 8750,
+        "bismor": 110,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 65,
+        "umanite": 130
+      }
+    },
+    "88F8EAB206EC7B46A31C8F034B44931A": {
+      "dwarf": "Driller",
+      "weapon": "Cryo Cannon",
+      "name": "Flow Rate Expansion",
+      "cost": {
+        "credits": 8900,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 70,
+        "jadiz": 100,
+        "magnite": 125,
+        "umanite": 0
+      }
+    },
+    "7B11755997B6564E97B1032A828EB90F": {
+      "dwarf": "Driller",
+      "weapon": "Cryo Cannon",
+      "name": "Ice Storm",
+      "cost": {
+        "credits": 7200,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 130,
+        "jadiz": 0,
+        "magnite": 105,
+        "umanite": 75
+      }
+    },
+    "D518CB371A32A0449B345E4F58D34C91": {
+      "dwarf": "Driller",
+      "weapon": "Cryo Cannon",
+      "name": "Ice Spear",
+      "cost": {
+        "credits": 8950,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 60,
+        "jadiz": 130,
+        "magnite": 0,
+        "umanite": 110
+      }
+    },
+    "C1F16F970C9C1047AF836BF6CBFEBCAD": {
+      "dwarf": "Driller",
+      "weapon": "Cryo Cannon",
+      "name": "Snowball",
+      "cost": {
+        "credits": 8400,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 90,
+        "magnite": 70,
+        "umanite": 130
+      }
+    },
+    "43CD8D27EAEAAA4A8E6DC43E0438A10C": {
+      "dwarf": "Scout",
+      "weapon": "Zhukov NUK17",
+      "name": "Cryo Minelets",
+      "cost": {
+        "credits": 7300,
+        "bismor": 0,
+        "croppa": 65,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 135,
+        "umanite": 95
+      }
+    },
+    "24A286C31F45EA469A20102AF4D741D3": {
+      "dwarf": "Scout",
+      "weapon": "Zhukov NUK17",
+      "name": "Custom Casings",
+      "cost": {
+        "credits": 7700,
+        "bismor": 95,
+        "croppa": 75,
+        "enor": 140,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "828B2BBC50EC424385EFD00EA6854597": {
+      "dwarf": "Scout",
+      "weapon": "Zhukov NUK17",
+      "name": "Gas Recycling",
+      "cost": {
+        "credits": 7800,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 70,
+        "jadiz": 105,
+        "magnite": 125,
+        "umanite": 0
+      }
+    },
+    "FAF35071BA63B2429855FBC8A09BFFD0": {
+      "dwarf": "Scout",
+      "weapon": "Zhukov NUK17",
+      "name": "Embedded Detonators",
+      "cost": {
+        "credits": 7550,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 135,
+        "magnite": 65,
+        "umanite": 90
+      }
+    },
+    "98A0452B235402459CFF5CC3B34CCC69": {
+      "dwarf": "Scout",
+      "weapon": "Zhukov NUK17",
+      "name": "Minimal Magazines",
+      "cost": {
+        "credits": 8450,
+        "bismor": 130,
+        "croppa": 100,
+        "enor": 0,
+        "jadiz": 70,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "71588D43A7589A4ABE61A8DE2EB449BF": {
+      "dwarf": "Driller",
+      "weapon": "CRSPR Flamethrower",
+      "name": "Compact Feed Valves",
+      "cost": {
+        "credits": 7350,
+        "bismor": 70,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 90,
+        "magnite": 0,
+        "umanite": 130
+      }
+    },
+    "6431A8DDEAA6894B90C57BAC7552A5FF": {
+      "dwarf": "Driller",
+      "weapon": "CRSPR Flamethrower",
+      "name": "Face Melter",
+      "cost": {
+        "credits": 7000,
+        "bismor": 0,
+        "croppa": 130,
+        "enor": 70,
+        "jadiz": 0,
+        "magnite": 90,
+        "umanite": 0
+      }
+    },
+    "C5057A9608CF5E4BA4AAB32AD613BA3E": {
+      "dwarf": "Driller",
+      "weapon": "CRSPR Flamethrower",
+      "name": "Lighter Tanks",
+      "cost": {
+        "credits": 7500,
+        "bismor": 125,
+        "croppa": 75,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 90
+      }
+    },
+    "19E85D1C3585B349B151779CBD7303D9": {
+      "dwarf": "Driller",
+      "weapon": "CRSPR Flamethrower",
+      "name": "Fuel Stream Diffuser",
+      "cost": {
+        "credits": 7100,
+        "bismor": 100,
+        "croppa": 0,
+        "enor": 80,
+        "jadiz": 125,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "F28C3EE38A960D48965E9F69F56B3F19": {
+      "dwarf": "Driller",
+      "weapon": "CRSPR Flamethrower",
+      "name": "Sticky Fuel",
+      "cost": {
+        "credits": 8800,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 110,
+        "jadiz": 140,
+        "magnite": 75,
+        "umanite": 0
+      }
+    },
+    "415F1D83A77E7A448DBF60383103FD6C": {
+      "dwarf": "Driller",
+      "weapon": "CRSPR Flamethrower",
+      "name": "Sticky Additive",
+      "cost": {
+        "credits": 8250,
+        "bismor": 80,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 130,
+        "magnite": 100,
+        "umanite": 0
+      }
+    },
+    "2E9FBFB43B7B554FB3728780F1334824": {
+      "dwarf": "Gunner",
+      "weapon": "'Lead Storm' Powered Minigun",
+      "name": "Compact Feed Mechanism",
+      "cost": {
+        "credits": 7450,
+        "bismor": 70,
+        "croppa": 95,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 130,
+        "umanite": 0
+      }
+    },
+    "01D4653903832F498C50F7719D58E89B": {
+      "dwarf": "Gunner",
+      "weapon": "'Lead Storm' Powered Minigun",
+      "name": "Thinned Drum Walls",
+      "cost": {
+        "credits": 7650,
+        "bismor": 0,
+        "croppa": 75,
+        "enor": 125,
+        "jadiz": 95,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "7CD10E2C55583041B577141C854BEE62": {
+      "dwarf": "Gunner",
+      "weapon": "'Lead Storm' Powered Minigun",
+      "name": "Lead Storm",
+      "cost": {
+        "credits": 8800,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 130,
+        "jadiz": 100,
+        "magnite": 65,
+        "umanite": 0
+      }
+    },
+    "FBB1014758606A41888E378F69E3CD61": {
+      "dwarf": "Gunner",
+      "weapon": "'Lead Storm' Powered Minigun",
+      "name": "Exhaust Vectoring",
+      "cost": {
+        "credits": 7400,
+        "bismor": 140,
+        "croppa": 95,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 65,
+        "umanite": 0
+      }
+    },
+    "B55D6170EEA5D743AC4B28293C0C4673": {
+      "dwarf": "Gunner",
+      "weapon": "'Lead Storm' Powered Minigun",
+      "name": "A Little More Oomph!",
+      "cost": {
+        "credits": 8700,
+        "bismor": 120,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 95,
+        "umanite": 75
+      }
+    },
+    "63156673F2174F449F598F8729AC0C65": {
+      "dwarf": "Gunner",
+      "weapon": "'Lead Storm' Powered Minigun",
+      "name": "Burning Hell",
+      "cost": {
+        "credits": 8700,
+        "bismor": 0,
+        "croppa": 110,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 140,
+        "umanite": 65
+      }
+    },
+    "ED4036806A69E848BC72DDE3CDEAC456": {
+      "dwarf": "Gunner",
+      "weapon": "'Lead Storm' Powered Minigun",
+      "name": "Bullet Hell",
+      "cost": {
+        "credits": 7600,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 105,
+        "jadiz": 0,
+        "magnite": 140,
+        "umanite": 75
+      }
+    },
+    "A97694E1A9B7484EB66E14DBF830DB6B": {
+      "dwarf": "Engineer",
+      "weapon": "Deepcore 40mm PGL",
+      "name": "Pack Rat",
+      "cost": {
+        "credits": 7950,
+        "bismor": 80,
+        "croppa": 0,
+        "enor": 105,
+        "jadiz": 0,
+        "magnite": 120,
+        "umanite": 0
+      }
+    },
+    "EE5713FA91A0E245A1C0BFCE15212074": {
+      "dwarf": "Engineer",
+      "weapon": "Deepcore 40mm PGL",
+      "name": "Compact Rounds",
+      "cost": {
+        "credits": 7900,
+        "bismor": 120,
+        "croppa": 0,
+        "enor": 100,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 70
+      }
+    },
+    "87D2434388D3FC45884E351DCBE70F7C": {
+      "dwarf": "Engineer",
+      "weapon": "Deepcore 40mm PGL",
+      "name": "Fat Boy",
+      "cost": {
+        "credits": 8300,
+        "bismor": 120,
+        "croppa": 0,
+        "enor": 70,
+        "jadiz": 0,
+        "magnite": 105,
+        "umanite": 0
+      }
+    },
+    "B912059A3F86E44BA2985450D136CCB5": {
+      "dwarf": "Engineer",
+      "weapon": "Deepcore 40mm PGL",
+      "name": "Clean Sweep",
+      "cost": {
+        "credits": 8100,
+        "bismor": 105,
+        "croppa": 0,
+        "enor": 70,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 135
+      }
+    },
+    "DB7EC788B46FCE4C9800A25010A0E8EA": {
+      "dwarf": "Engineer",
+      "weapon": "Deepcore 40mm PGL",
+      "name": "RJ250 Compound",
+      "cost": {
+        "credits": 8800,
+        "bismor": 65,
+        "croppa": 0,
+        "enor": 110,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 120
+      }
+    },
+    "BC4CD684621BF6449607373A534A574F": {
+      "dwarf": "Engineer",
+      "weapon": "Deepcore 40mm PGL",
+      "name": "Hyper Propellant",
+      "cost": {
+        "credits": 8950,
+        "bismor": 0,
+        "croppa": 90,
+        "enor": 0,
+        "jadiz": 70,
+        "magnite": 130,
+        "umanite": 0
+      }
+    },
+    "96940C7CDCEFA84084DD4D60D2E81B2D": {
+      "dwarf": "Engineer",
+      "weapon": "Breach Cutter",
+      "name": "Light-Weight Cases",
+      "cost": {
+        "credits": 8700,
+        "bismor": 130,
+        "croppa": 100,
+        "enor": 0,
+        "jadiz": 80,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "3D7C9C85F6D3A549A2D6EDB09918314B": {
+      "dwarf": "Engineer",
+      "weapon": "Breach Cutter",
+      "name": "Stronger Plasma Current",
+      "cost": {
+        "credits": 8650,
+        "bismor": 0,
+        "croppa": 100,
+        "enor": 0,
+        "jadiz": 140,
+        "magnite": 75,
+        "umanite": 0
+      }
+    },
+    "7FA184CB9D21874D82BF9DDAFC7C91D7": {
+      "dwarf": "Engineer",
+      "weapon": "Breach Cutter",
+      "name": "High Voltage Crossover",
+      "cost": {
+        "credits": 8250,
+        "bismor": 120,
+        "croppa": 0,
+        "enor": 80,
+        "jadiz": 0,
+        "magnite": 100,
+        "umanite": 0
+      }
+    },
+    "8ED912F8267B844482EEDA86604451A5": {
+      "dwarf": "Engineer",
+      "weapon": "Breach Cutter",
+      "name": "Inferno",
+      "cost": {
+        "credits": 7550,
+        "bismor": 0,
+        "croppa": 70,
+        "enor": 0,
+        "jadiz": 90,
+        "magnite": 135,
+        "umanite": 0
+      }
+    },
+    "744251ED25D4484AA38DFBDBF43BC5B9": {
+      "dwarf": "Engineer",
+      "weapon": "Breach Cutter",
+      "name": "Return to Sender",
+      "cost": {
+        "credits": 7950,
+        "bismor": 140,
+        "croppa": 0,
+        "enor": 100,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 80
+      }
+    },
+    "05DB2FA3B969E04F8644F5BE6C204020": {
+      "dwarf": "Engineer",
+      "weapon": "Breach Cutter",
+      "name": "Roll Control",
+      "cost": {
+        "credits": 8150,
+        "bismor": 0,
+        "croppa": 95,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 80,
+        "umanite": 135
+      }
+    },
+    "340AFBC6C306044281013181E0026E1B": {
+      "dwarf": "Engineer",
+      "weapon": "Breach Cutter",
+      "name": "Spinning Death",
+      "cost": {
+        "credits": 7300,
+        "bismor": 75,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 95,
+        "umanite": 120
+      }
+    },
+    "A4AB7C627AF7FE4FA235E3AAC398ED1F": {
+      "dwarf": "Driller",
+      "weapon": "Subata 120",
+      "name": "Chain Hit",
+      "cost": {
+        "credits": 7300,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 80,
+        "jadiz": 110,
+        "magnite": 120,
+        "umanite": 0
+      }
+    },
+    "F13E20C4E74976438E85C237AE071830": {
+      "dwarf": "Driller",
+      "weapon": "Subata 120",
+      "name": "Oversized Magazine",
+      "cost": {
+        "credits": 9000,
+        "bismor": 0,
+        "croppa": 70,
+        "enor": 0,
+        "jadiz": 110,
+        "magnite": 0,
+        "umanite": 130
+      }
+    },
+    "2949A3BE68EA2A4197D532AF80549101": {
+      "dwarf": "Driller",
+      "weapon": "Subata 120",
+      "name": "Explosive Reload",
+      "cost": {
+        "credits": 8100,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 95,
+        "jadiz": 0,
+        "magnite": 65,
+        "umanite": 125
+      }
+    },
+    "28A8E817E50A7346963E418BA08DFE18": {
+      "dwarf": "Driller",
+      "weapon": "Subata 120",
+      "name": "Automatic Fire",
+      "cost": {
+        "credits": 7400,
+        "bismor": 95,
+        "croppa": 65,
+        "enor": 120,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "D57B542FBC793542B6BB5617C1A67229": {
+      "dwarf": "Driller",
+      "weapon": "Subata 120",
+      "name": "Homebrew Powder",
+      "cost": {
+        "credits": 8100,
+        "bismor": 95,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 140,
+        "magnite": 0,
+        "umanite": 65
+      }
+    },
+    "587488BA77B28D4DA177400D995737A7": {
+      "dwarf": "Driller",
+      "weapon": "Subata 120",
+      "name": "Tranquilizer Rounds",
+      "cost": {
+        "credits": 7150,
+        "bismor": 0,
+        "croppa": 95,
+        "enor": 0,
+        "jadiz": 135,
+        "magnite": 0,
+        "umanite": 75
+      }
+    },
+    "A937DC3938DEE8418CD0641CCE19B46A": {
+      "dwarf": "Gunner",
+      "weapon": "'Bulldog' Heavy Revolver",
+      "name": "Six Shooter",
+      "cost": {
+        "credits": 7750,
+        "bismor": 120,
+        "croppa": 60,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 100,
+        "umanite": 0
+      }
+    },
+    "D53F94FBC05E0448B57BC9DF6846267B": {
+      "dwarf": "Gunner",
+      "weapon": "'Bulldog' Heavy Revolver",
+      "name": "Elephant Rounds",
+      "cost": {
+        "credits": 7300,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 140,
+        "jadiz": 0,
+        "magnite": 90,
+        "umanite": 65
+      }
+    },
+    "5885A33B15AE844591A66B65A2E5494E": {
+      "dwarf": "Gunner",
+      "weapon": "'Bulldog' Heavy Revolver",
+      "name": "Chain Hit",
+      "cost": {
+        "credits": 7300,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 80,
+        "jadiz": 110,
+        "magnite": 120,
+        "umanite": 0
+      }
+    },
+    "DB02B4E77D43BF44A4749982C0879B77": {
+      "dwarf": "Gunner",
+      "weapon": "'Bulldog' Heavy Revolver",
+      "name": "Magic Bullets",
+      "cost": {
+        "credits": 8750,
+        "bismor": 0,
+        "croppa": 105,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 130,
+        "umanite": 75
+      }
+    },
+    "CD6993F938E27C49AC69293BF942A8F0": {
+      "dwarf": "Gunner",
+      "weapon": "'Bulldog' Heavy Revolver",
+      "name": "Homebrew Powder",
+      "cost": {
+        "credits": 8100,
+        "bismor": 95,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 140,
+        "magnite": 0,
+        "umanite": 65
+      }
+    },
+    "D1306CBC8421B248A4B95B332DF3E056": {
+      "dwarf": "Gunner",
+      "weapon": "'Bulldog' Heavy Revolver",
+      "name": "Volatile Bullets",
+      "cost": {
+        "credits": 7350,
+        "bismor": 0,
+        "croppa": 130,
+        "enor": 0,
+        "jadiz": 110,
+        "magnite": 60,
+        "umanite": 0
+      }
+    },
+    "EF0CAC2AEF57BD41A72155B4DA395D47": {
+      "dwarf": "Scout",
+      "weapon": "Jury-Rigged Boomstick",
+      "name": "Shaped Shells",
+      "cost": {
+        "credits": 7700,
+        "bismor": 95,
+        "croppa": 0,
+        "enor": 70,
+        "jadiz": 135,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "0B1A2EC60168C54E9E47CA764C3B70BD": {
+      "dwarf": "Scout",
+      "weapon": "Jury-Rigged Boomstick",
+      "name": "Jumbo Shells",
+      "cost": {
+        "credits": 8800,
+        "bismor": 65,
+        "croppa": 0,
+        "enor": 105,
+        "jadiz": 125,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "3F68CB7C2FAB2843B1446D133BD92C1D": {
+      "dwarf": "Scout",
+      "weapon": "Jury-Rigged Boomstick",
+      "name": "Stuffed Shells",
+      "cost": {
+        "credits": 7850,
+        "bismor": 100,
+        "croppa": 0,
+        "enor": 135,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 80
+      }
+    },
+    "5F090BB3EFC96F4297F1BFC3F152C663": {
+      "dwarf": "Scout",
+      "weapon": "Jury-Rigged Boomstick",
+      "name": "Double Barrel",
+      "cost": {
+        "credits": 7950,
+        "bismor": 0,
+        "croppa": 100,
+        "enor": 75,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 125
+      }
+    },
+    "FA40EE4A1F8CB04FBFAF916469E4B167": {
+      "dwarf": "Scout",
+      "weapon": "Jury-Rigged Boomstick",
+      "name": "Compact Shells",
+      "cost": {
+        "credits": 8550,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 100,
+        "magnite": 65,
+        "umanite": 120
+      }
+    },
+    "E6DAF7D6065004439EF966D6FDBD69A6": {
+      "dwarf": "Scout",
+      "weapon": "Jury-Rigged Boomstick",
+      "name": "Special Powder",
+      "cost": {
+        "credits": 7050,
+        "bismor": 95,
+        "croppa": 125,
+        "enor": 65,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "05B157A075E0734BB471EF8DAE692865": {
+      "dwarf": "Engineer",
+      "weapon": "'Stubby' Voltaic SMG",
+      "name": "Light-Weight Rounds",
+      "cost": {
+        "credits": 8700,
+        "bismor": 90,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 65,
+        "magnite": 0,
+        "umanite": 135
+      }
+    },
+    "CE9490445B036B49B89DB2BC8D18FD12": {
+      "dwarf": "Engineer",
+      "weapon": "'Stubby' Voltaic SMG",
+      "name": "Well Oiled Machine",
+      "cost": {
+        "credits": 8400,
+        "bismor": 0,
+        "croppa": 65,
+        "enor": 0,
+        "jadiz": 95,
+        "magnite": 140,
+        "umanite": 0
+      }
+    },
+    "81B842310E01B847BF99774DBC3DC0DD": {
+      "dwarf": "Engineer",
+      "weapon": "'Stubby' Voltaic SMG",
+      "name": "EM Refire Booster",
+      "cost": {
+        "credits": 8300,
+        "bismor": 60,
+        "croppa": 0,
+        "enor": 90,
+        "jadiz": 135,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "13CF1C4A6992924A9AFF5CEAF05B7106": {
+      "dwarf": "Engineer",
+      "weapon": "'Stubby' Voltaic SMG",
+      "name": "Super-Slim Rounds",
+      "cost": {
+        "credits": 8550,
+        "bismor": 90,
+        "croppa": 130,
+        "enor": 75,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "0C1BAA64B03CB94EBB77B7B55E7C6C87": {
+      "dwarf": "Engineer",
+      "weapon": "'Stubby' Voltaic SMG",
+      "name": "Turret EM Discharge",
+      "cost": {
+        "credits": 8450,
+        "bismor": 80,
+        "croppa": 0,
+        "enor": 105,
+        "jadiz": 125,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "3C42DBEA3021EE44AF6D944A91314D75": {
+      "dwarf": "Engineer",
+      "weapon": "'Stubby' Voltaic SMG",
+      "name": "Micro-Conductor Add-On",
+      "cost": {
+        "credits": 7300,
+        "bismor": 60,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 110,
+        "umanite": 120
+      }
+    },
+    "1E41880C9E18FC439B82B69F19F0A191": {
+      "dwarf": "Gunner",
+      "weapon": "'Hurricane' Guided Rocket System",
+      "name": "Fragmentation Missiles",
+      "cost": {
+        "credits": 7150,
+        "bismor": 100,
+        "croppa": 135,
+        "enor": 0,
+        "jadiz": 60,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "52DE47B5A2579E418564F19382240866": {
+      "dwarf": "Gunner",
+      "weapon": "'Hurricane' Guided Rocket System",
+      "name": "Salvo Module",
+      "cost": {
+        "credits": 8650,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 65,
+        "jadiz": 110,
+        "magnite": 0,
+        "umanite": 130
+      }
+    },
+    "8E6816C3DAEE2C49B93E8FA67CF13B1A": {
+      "dwarf": "Gunner",
+      "weapon": "'Hurricane' Guided Rocket System",
+      "name": "Rocket Barrage",
+      "cost": {
+        "credits": 7050,
+        "bismor": 75,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 105,
+        "magnite": 0,
+        "umanite": 130
+      }
+    },
+    "C24639FB04A00949BE8F00CD38462B84": {
+      "dwarf": "Gunner",
+      "weapon": "'Hurricane' Guided Rocket System",
+      "name": "Jet Fuel Homebrew",
+      "cost": {
+        "credits": 7250,
+        "bismor": 70,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 130,
+        "magnite": 0,
+        "umanite": 100
+      }
+    },
+    "C873E29A463E4F4DAD4821D92BC31FB4": {
+      "dwarf": "Gunner",
+      "weapon": "'Hurricane' Guided Rocket System",
+      "name": "Minelayer System",
+      "cost": {
+        "credits": 7500,
+        "bismor": 80,
+        "croppa": 125,
+        "enor": 90,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "01CD9AAD2398FB46818A3F6F6A96384A": {
+      "dwarf": "Gunner",
+      "weapon": "'Hurricane' Guided Rocket System",
+      "name": "Plasma Burster Missiles",
+      "cost": {
+        "credits": 8500,
+        "bismor": 0,
+        "croppa": 105,
+        "enor": 80,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 140
+      }
+    },
+    "2A257648DF688844BA3DB091A3756BA5": {
+      "dwarf": "Gunner",
+      "weapon": "'Hurricane' Guided Rocket System",
+      "name": "Overtuned Feed Mechanism",
+      "cost": {
+        "credits": 8950,
+        "bismor": 0,
+        "croppa": 65,
+        "enor": 0,
+        "jadiz": 105,
+        "magnite": 130,
+        "umanite": 0
+      }
+    },
+    "C1D77A8BAFD433408E4A8397F1A63AEC": {
+      "dwarf": "Driller",
+      "weapon": "Corrosive Sludge Pump",
+      "name": "Disperser Compound",
+      "cost": {
+        "credits": 8800,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 135,
+        "magnite": 100,
+        "umanite": 60
+      }
+    },
+    "4CCC7E994163A14AAAC97AB3777FF1F9": {
+      "dwarf": "Driller",
+      "weapon": "Corrosive Sludge Pump",
+      "name": "Goo Bomber Special",
+      "cost": {
+        "credits": 7450,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 90,
+        "jadiz": 140,
+        "magnite": 0,
+        "umanite": 65
+      }
+    },
+    "4956672BA68D3A439D4EC260F0B98CE4": {
+      "dwarf": "Driller",
+      "weapon": "Corrosive Sludge Pump",
+      "name": "AG Mixture",
+      "cost": {
+        "credits": 7800,
+        "bismor": 0,
+        "croppa": 60,
+        "enor": 0,
+        "jadiz": 105,
+        "magnite": 0,
+        "umanite": 140
+      }
+    },
+    "ECCAB2551405F044A93FFB6C51FF9B39": {
+      "dwarf": "Driller",
+      "weapon": "Corrosive Sludge Pump",
+      "name": "Hydrogen Ion Additive",
+      "cost": {
+        "credits": 8800,
+        "bismor": 135,
+        "croppa": 0,
+        "enor": 100,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 70
+      }
+    },
+    "539F16D0ECA50447B21BD3B1ADD439CB": {
+      "dwarf": "Driller",
+      "weapon": "Corrosive Sludge Pump",
+      "name": "Volatile Impact Mixture",
+      "cost": {
+        "credits": 8500,
+        "bismor": 120,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 75,
+        "magnite": 100,
+        "umanite": 0
+      }
+    },
+    "EA7D273B56099B4B9F44768A099A8C1C": {
+      "dwarf": "Driller",
+      "weapon": "Corrosive Sludge Pump",
+      "name": "Sludge Blast",
+      "cost": {
+        "credits": 8200,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 100,
+        "magnite": 120,
+        "umanite": 60
+      }
+    },
+    "5ABF1C487BF3BD4BAFDAF2A4428720EC": {
+      "dwarf": "Scout",
+      "weapon": "DRAK-25 Plasma Carbine",
+      "name": "Rewiring Mod",
+      "cost": {
+        "credits": 8200,
+        "bismor": 130,
+        "croppa": 65,
+        "enor": 0,
+        "jadiz": 110,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "1BD74059739E094BBE0A3B79F2E94B46": {
+      "dwarf": "Scout",
+      "weapon": "DRAK-25 Plasma Carbine",
+      "name": "Impact Deflection",
+      "cost": {
+        "credits": 7950,
+        "bismor": 0,
+        "croppa": 60,
+        "enor": 0,
+        "jadiz": 140,
+        "magnite": 0,
+        "umanite": 105
+      }
+    },
+    "00EA09DA14DA7646982DD5A1B2467A08": {
+      "dwarf": "Scout",
+      "weapon": "DRAK-25 Plasma Carbine",
+      "name": "Thermal Liquid Coolant",
+      "cost": {
+        "credits": 8100,
+        "bismor": 75,
+        "croppa": 0,
+        "enor": 105,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 130
+      }
+    },
+    "BFFE0C3436AC584D890B6EFE9124AAF1": {
+      "dwarf": "Scout",
+      "weapon": "DRAK-25 Plasma Carbine",
+      "name": "Thermal Exhaust Feedback",
+      "cost": {
+        "credits": 7500,
+        "bismor": 140,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 100,
+        "magnite": 0,
+        "umanite": 75
+      }
+    },
+    "9225769777355041BDEB70CACD946A27": {
+      "dwarf": "Scout",
+      "weapon": "DRAK-25 Plasma Carbine",
+      "name": "Overtuned Particle Accelerator",
+      "cost": {
+        "credits": 7200,
+        "bismor": 100,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 65,
+        "magnite": 120,
+        "umanite": 0
+      }
+    },
+    "D831B000F2A2C84C8749A5B182348574": {
+      "dwarf": "Scout",
+      "weapon": "DRAK-25 Plasma Carbine",
+      "name": "Aggressive Venting",
+      "cost": {
+        "credits": 8000,
+        "bismor": 130,
+        "croppa": 95,
+        "enor": 80,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "532714B803867C4F8AA6EA78FA4EAAEA": {
+      "dwarf": "Scout",
+      "weapon": "DRAK-25 Plasma Carbine",
+      "name": "Shield Battery Booster",
+      "cost": {
+        "credits": 8850,
+        "bismor": 65,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 120,
+        "magnite": 105,
+        "umanite": 0
+      }
+    },
+    "B63D1376D90DDD4C986851D791E737AB": {
+      "dwarf": "Engineer",
+      "weapon": "LOK-1 Smart Rifle",
+      "name": "Armor Break Module",
+      "cost": {
+        "credits": 7850,
+        "bismor": 0,
+        "croppa": 125,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 90,
+        "umanite": 80
+      }
+    },
+    "538A52E774FCB24C85E5F7F1CE63E3FA": {
+      "dwarf": "Engineer",
+      "weapon": "LOK-1 Smart Rifle",
+      "name": "Eraser",
+      "cost": {
+        "credits": 8000,
+        "bismor": 0,
+        "croppa": 135,
+        "enor": 90,
+        "jadiz": 0,
+        "magnite": 70,
+        "umanite": 0
+      }
+    },
+    "8884ED69B093E44681F36C74FD1E772F": {
+      "dwarf": "Engineer",
+      "weapon": "LOK-1 Smart Rifle",
+      "name": "Executioner",
+      "cost": {
+        "credits": 8750,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 130,
+        "jadiz": 105,
+        "magnite": 65,
+        "umanite": 0
+      }
+    },
+    "6FA83E783551F54A97BC04F09DF1A842": {
+      "dwarf": "Engineer",
+      "weapon": "LOK-1 Smart Rifle",
+      "name": "Explosive Chemical Rounds",
+      "cost": {
+        "credits": 8500,
+        "bismor": 0,
+        "croppa": 65,
+        "enor": 0,
+        "jadiz": 130,
+        "magnite": 95,
+        "umanite": 0
+      }
+    },
+    "798B9546AB16B34CAD766DAB554150D9": {
+      "dwarf": "Engineer",
+      "weapon": "LOK-1 Smart Rifle",
+      "name": "Seeker Rounds",
+      "cost": {
+        "credits": 8150,
+        "bismor": 60,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 135,
+        "umanite": 95
+      }
+    },
+    "956BB51F4D8F254291A0C0E740BD07CF": {
+      "dwarf": "Engineer",
+      "weapon": "LOK-1 Smart Rifle",
+      "name": "Neuro-Lasso",
+      "cost": {
+        "credits": 8950,
+        "bismor": 0,
+        "croppa": 125,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 80,
+        "umanite": 100
+      }
+    },
+    "5F614059B3ADA14E930831EF4B609802": {
+      "dwarf": "Driller",
+      "weapon": "Colette Wave Cooker",
+      "name": "Liquid Cooling System",
+      "cost": {
+        "credits": 7400,
+        "bismor": 125,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 65,
+        "magnite": 0,
+        "umanite": 95
+      }
+    },
+    "79A870ED00C9814A942BE4AD49A10B63": {
+      "dwarf": "Driller",
+      "weapon": "Colette Wave Cooker",
+      "name": "Super Focus Lens",
+      "cost": {
+        "credits": 7400,
+        "bismor": 125,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 65,
+        "magnite": 0,
+        "umanite": 95
+      }
+    },
+    "0CD9E18B85E271449901D38D50BA62B4": {
+      "dwarf": "Driller",
+      "weapon": "Colette Wave Cooker",
+      "name": "Diffusion Ray",
+      "cost": {
+        "credits": 8300,
+        "bismor": 0,
+        "croppa": 105,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 130,
+        "umanite": 65
+      }
+    },
+    "A3E85790ABCBC74ABCCB3CC636509A1B": {
+      "dwarf": "Driller",
+      "weapon": "Colette Wave Cooker",
+      "name": "Mega Power Supply",
+      "cost": {
+        "credits": 8100,
+        "bismor": 0,
+        "croppa": 95,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 95,
+        "umanite": 140
+      }
+    },
+    "48648832AA11E04DAE9F2E8ADF89AD8D": {
+      "dwarf": "Driller",
+      "weapon": "Colette Wave Cooker",
+      "name": "Blistering Necrosis",
+      "cost": {
+        "credits": 7850,
+        "bismor": 70,
+        "croppa": 130,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 100,
+        "umanite": 0
+      }
+    },
+    "5EDD2987DB047F498ADD72FCEB6C1EE3": {
+      "dwarf": "Driller",
+      "weapon": "Colette Wave Cooker",
+      "name": "Gamma Contamination",
+      "cost": {
+        "credits": 8350,
+        "bismor": 100,
+        "croppa": 0,
+        "enor": 130,
+        "jadiz": 0,
+        "magnite": 80,
+        "umanite": 0
+      }
+    },
+    "F1432F121F68E04DA0C5DD8E50CF717D": {
+      "dwarf": "Engineer",
+      "weapon": "Shard Diffractor",
+      "name": "Efficiency Tweaks",
+      "cost": {
+        "credits": 7650,
+        "bismor": 0,
+        "croppa": 120,
+        "enor": 0,
+        "jadiz": 90,
+        "magnite": 70,
+        "umanite": 0
+      }
+    },
+    "71D81BC3DBC28F4D905A6C9F4A8B55AE": {
+      "dwarf": "Engineer",
+      "weapon": "Shard Diffractor",
+      "name": "Automated Beam Controller",
+      "cost": {
+        "credits": 8050,
+        "bismor": 90,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 130,
+        "magnite": 65,
+        "umanite": 0
+      }
+    },
+    "F1880C6F7BEF10478E77EE4FC63481F6": {
+      "dwarf": "Engineer",
+      "weapon": "Shard Diffractor",
+      "name": "Feedback Loop",
+      "cost": {
+        "credits": 7200,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 125,
+        "jadiz": 0,
+        "magnite": 65,
+        "umanite": 100
+      }
+    },
+    "7BB7C21FA1D1E64A8C007CE6A023A412": {
+      "dwarf": "Engineer",
+      "weapon": "Shard Diffractor",
+      "name": "Volatile Impact Reactor",
+      "cost": {
+        "credits": 8300,
+        "bismor": 65,
+        "croppa": 0,
+        "enor": 105,
+        "jadiz": 0,
+        "magnite": 125,
+        "umanite": 0
+      }
+    },
+    "D330723969BCE44CB1EBE9009A2F6E0D": {
+      "dwarf": "Engineer",
+      "weapon": "Shard Diffractor",
+      "name": "Plastcrete Catalyst",
+      "cost": {
+        "credits": 8300,
+        "bismor": 65,
+        "croppa": 0,
+        "enor": 105,
+        "jadiz": 0,
+        "magnite": 125,
+        "umanite": 0
+      }
+    },
+    "187A18BA5283D24C905A37F4FB123BA0": {
+      "dwarf": "Engineer",
+      "weapon": "Shard Diffractor",
+      "name": "Overdrive Booster",
+      "cost": {
+        "credits": 7900,
+        "bismor": 120,
+        "croppa": 110,
+        "enor": 0,
+        "jadiz": 75,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "8C5D24BD68D5F14A89A6B87A857CCD9B": {
+      "dwarf": "Gunner",
+      "weapon": "Armskore Coil Gun",
+      "name": "Re-atomizer",
+      "cost": {
+        "credits": 7750,
+        "bismor": 90,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 65,
+        "magnite": 135,
+        "umanite": 0
+      }
+    },
+    "26841EB5823A284B81BF7DA3792708D7": {
+      "dwarf": "Gunner",
+      "weapon": "Armskore Coil Gun",
+      "name": "Ultra-Magnetic Coils",
+      "cost": {
+        "credits": 7900,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 125,
+        "jadiz": 70,
+        "magnite": 110,
+        "umanite": 0
+      }
+    },
+    "F82F326576E8A74899753CB6316B7C20": {
+      "dwarf": "Gunner",
+      "weapon": "Armskore Coil Gun",
+      "name": "Backfeeding Module",
+      "cost": {
+        "credits": 8100,
+        "bismor": 125,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 105,
+        "magnite": 70,
+        "umanite": 0
+      }
+    },
+    "56471F219BE014448DFE5F087CABD447": {
+      "dwarf": "Gunner",
+      "weapon": "Armskore Coil Gun",
+      "name": "The Mole",
+      "cost": {
+        "credits": 8100,
+        "bismor": 70,
+        "croppa": 0,
+        "enor": 95,
+        "jadiz": 125,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "80DEA90AD5F3174695138FF47A32A96A": {
+      "dwarf": "Gunner",
+      "weapon": "Armskore Coil Gun",
+      "name": "Hellfire",
+      "cost": {
+        "credits": 8700,
+        "bismor": 0,
+        "croppa": 125,
+        "enor": 80,
+        "jadiz": 100,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "A6751DA1B87C134EBC5710C7431C1453": {
+      "dwarf": "Gunner",
+      "weapon": "Armskore Coil Gun",
+      "name": "Triple-tech Chambers",
+      "cost": {
+        "credits": 8500,
+        "bismor": 70,
+        "croppa": 125,
+        "enor": 0,
+        "jadiz": 100,
+        "magnite": 95,
+        "umanite": 0
+      }
+    },
+    "1CFA57FA35D0DB49A9AAF87CAA011EF4": {
+      "dwarf": "Scout",
+      "weapon": "Nishanka Boltshark X-80",
+      "name": "Quick Fire",
+      "cost": {
+        "credits": 8400,
+        "bismor": 0,
+        "croppa": 95,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 125
+      }
+    },
+    "6C464531820EA849BB3C80C0F190A74F": {
+      "dwarf": "Scout",
+      "weapon": "Nishanka Boltshark X-80",
+      "name": "The Specialist",
+      "cost": {
+        "credits": 7900,
+        "bismor": 0,
+        "croppa": 65,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 130,
+        "umanite": 90
+      }
+    },
+    "75CFD0A90F31C94A9D6A8D02147DE1FC": {
+      "dwarf": "Scout",
+      "weapon": "Nishanka Boltshark X-80",
+      "name": "Cryo Bolt",
+      "cost": {
+        "credits": 7350,
+        "bismor": 0,
+        "croppa": 75,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 135,
+        "umanite": 105
+      }
+    },
+    "DDCA81E29C6BE8488C2DF4F0B0C72A72": {
+      "dwarf": "Scout",
+      "weapon": "Nishanka Boltshark X-80",
+      "name": "Fire Bolt",
+      "cost": {
+        "credits": 7100,
+        "bismor": 0,
+        "croppa": 90,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 70,
+        "umanite": 130
+      }
+    },
+    "AECB0F241DFA194AB04BBB86563FA840": {
+      "dwarf": "Scout",
+      "weapon": "Nishanka Boltshark X-80",
+      "name": "Bodkin Points",
+      "cost": {
+        "credits": 8400,
+        "bismor": 0,
+        "croppa": 110,
+        "enor": 0,
+        "jadiz": 80,
+        "magnite": 140,
+        "umanite": 0
+      }
+    },
+    "62FE96DE32A5454EB0F1952BD68DBAF4": {
+      "dwarf": "Scout",
+      "weapon": "Nishanka Boltshark X-80",
+      "name": "Trifork Volley",
+      "cost": {
+        "credits": 7650,
+        "bismor": 130,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 100,
+        "magnite": 65,
+        "umanite": 0
+      }
+    },
+    "34B2EB764839C94CB7F96B5567317255": {
+      "dwarf": "Scout",
+      "weapon": "Deepcore GK2",
+      "name": "Burst Fire",
+      "cost": {
+        "credits": 8300,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 110,
+        "jadiz": 75,
+        "magnite": 0,
+        "umanite": 140
+      }
+    },
+    "F87380FA4EC44A41A79974F6BAC074A6": {
+      "dwarf": "Gunner",
+      "weapon": "'Thunderhead' Heavy Autocannon",
+      "name": "Mortar Rounds",
+      "cost": {
+        "credits": 7300,
+        "bismor": 0,
+        "croppa": 140,
+        "enor": 0,
+        "jadiz": 70,
+        "magnite": 110,
+        "umanite": 0
+      }
+    },
+    "4D2ACAFC30FFB542A645C75948EFE75F": {
+      "dwarf": "Scout",
+      "weapon": "M1000 Classic",
+      "name": "Marked For Death",
+      "cost": {
+        "credits": 7150,
+        "bismor": 90,
+        "croppa": 0,
+        "enor": 140,
+        "jadiz": 75,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "4AD58615AC68374F819663AD4C510B6D": {
+      "dwarf": "Engineer",
+      "weapon": "'Warthog' Auto 210",
+      "name": "Pump Action",
+      "cost": {
+        "credits": 8550,
+        "bismor": 100,
+        "croppa": 0,
+        "enor": 80,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 135
+      }
+    },
+    "2406E7980F5CCC449B3FF39C9B9F0807": {
+      "dwarf": "Driller",
+      "weapon": "Cryo Cannon",
+      "name": "Crystal Nucleation",
+      "cost": {
+        "credits": 8300,
+        "bismor": 0,
+        "croppa": 65,
+        "enor": 135,
+        "jadiz": 100,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "E5D05E38562B34408054603F41E99091": {
+      "dwarf": "Driller",
+      "weapon": "CRSPR Flamethrower",
+      "name": "Scorching Tide",
+      "cost": {
+        "credits": 7300,
+        "bismor": 70,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 0,
+        "magnite": 105,
+        "umanite": 140
+      }
+    },
+    "B6772BCBDAB2A8469058B4C0AC876413": {
+      "dwarf": "Gunner",
+      "weapon": "'Lead Storm' Powered Minigun",
+      "name": "Rotary Overdrive",
+      "cost": {
+        "credits": 8550,
+        "bismor": 110,
+        "croppa": 0,
+        "enor": 80,
+        "jadiz": 0,
+        "magnite": 120,
+        "umanite": 0
+      }
+    },
+    "48B4DE944D359341920EFCBBADD235C5": {
+      "dwarf": "Driller",
+      "weapon": "Corrosive Sludge Pump",
+      "name": "Combustive Goo Mix",
+      "cost": {
+        "credits": 8950,
+        "bismor": 135,
+        "croppa": 0,
+        "enor": 60,
+        "jadiz": 0,
+        "magnite": 0,
+        "umanite": 105
+      }
+    },
+    "4E71A830F4274647A5C763A1E9CBC41A": {
+      "dwarf": "Engineer",
+      "weapon": "LOK-1 Smart Rifle",
+      "name": "SmЯt Trigger OS™",
+      "cost": {
+        "credits": 7050,
+        "bismor": 130,
+        "croppa": 60,
+        "enor": 0,
+        "jadiz": 105,
+        "magnite": 0,
+        "umanite": 0
+      }
+    },
+    "22B4FA6E4CC458458BC3533E783E202D": {
+      "dwarf": "Gunner",
+      "weapon": "'Hurricane' Guided Rocket System",
+      "name": "Cluster Charges",
+      "cost": {
+        "credits": 8150,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 120,
+        "jadiz": 75,
+        "magnite": 0,
+        "umanite": 95
+      }
+    },
+    "943DA878EBA6F1428B1866736EE08395": {
+      "dwarf": "Scout",
+      "weapon": "DRAK-25 Plasma Carbine",
+      "name": "Conductive Thermals",
+      "cost": {
+        "credits": 7600,
+        "bismor": 70,
+        "croppa": 0,
+        "enor": 110,
+        "jadiz": 0,
+        "magnite": 140,
+        "umanite": 0
+      }
+    },
+    "464B23599A0DDE489B152C4D730B6EF4": {
+      "dwarf": "Engineer",
+      "weapon": "'Stubby' Voltaic SMG",
+      "name": "Hyperalloy Assembly",
+      "cost": {
+        "credits": 7100,
+        "bismor": 0,
+        "croppa": 0,
+        "enor": 0,
+        "jadiz": 105,
+        "magnite": 80,
+        "umanite": 130
+      }
+    }
+  },
+  "Cosmetic - Headwear": {
+    "DA6D56BA7CFF804CB56C4D905570D9D3": {
+      "name": "First Blood",
+      "dwarf": "Driller"
+    },
+    "CC5D0702B7DE394496C1527D6DB5D3AB": {
+      "name": "First Blood",
+      "dwarf": "Engineer"
+    },
+    "232EF84A0CD7D04F8FCF5783FBEEDDBC": {
+      "name": "First Blood",
+      "dwarf": "Gunner"
+    },
+    "99B72A198F5B1D499C0BA4F7A65682C8": {
+      "name": "First Blood",
+      "dwarf": "Scout"
+    },
+    "CE52A5A360F6FB4789B71D412E01DF25": {
+      "name": "Full Headwrap",
+      "dwarf": "Driller"
+    },
+    "48747363FFF2A347991DCD722042802C": {
+      "name": "Full Headwrap",
+      "dwarf": "Engineer"
+    },
+    "06DB567FBC5B784DAF5FEBACB4CA472F": {
+      "name": "Full Headwrap",
+      "dwarf": "Gunner"
+    },
+    "2EBF4A7813BB4E419503599C8E723019": {
+      "name": "Full Headwrap",
+      "dwarf": "Scout"
+    },
+    "9CE216AD96A3C74E913CB269FB12B92B": {
+      "name": "Goggled Headwrap",
+      "dwarf": "Driller"
+    },
+    "3F4C96339E806649AC0CF092D1B600C7": {
+      "name": "Goggled Headwrap",
+      "dwarf": "Engineer"
+    },
+    "2B2C4F363532E34493B8EE3B94DDE297": {
+      "name": "Goggled Headwrap",
+      "dwarf": "Gunner"
+    },
+    "93FAADCBE779354198547C4C5FC11822": {
+      "name": "Goggled Headwrap",
+      "dwarf": "Scout"
+    },
+    "4EB8302EF7A91141979A329AA98E7C82": {
+      "name": "Grim Specter - Full Face",
+      "dwarf": "Driller"
+    },
+    "CAD7453FF0DE264F8C6FE900205E7165": {
+      "name": "Grim Specter - Full Face",
+      "dwarf": "Engineer"
+    },
+    "7115FE6C1FFD7B469CCEE3F39A68004D": {
+      "name": "Grim Specter - Full Face",
+      "dwarf": "Gunner"
+    },
+    "BB3FDC1D4A938D4EB02661444A616EE1": {
+      "name": "Grim Specter - Full Face",
+      "dwarf": "Scout"
+    },
+    "6173D956142C894DAB000B80C29A80CA": {
+      "name": "Grim Specter - Half Face",
+      "dwarf": "Driller"
+    },
+    "2A3F4BA95D41CA4DA146088BA798B7B3": {
+      "name": "Grim Specter - Half Face",
+      "dwarf": "Engineer"
+    },
+    "7C3E58144AB94A49A881132F986BCA0F": {
+      "name": "Grim Specter - Half Face",
+      "dwarf": "Gunner"
+    },
+    "1EEDEDCECE00554D8F1CE5863D728021": {
+      "name": "Grim Specter - Half Face",
+      "dwarf": "Scout"
+    },
+    "B79F62AADB90494F9DE08BB9804872D6": {
+      "name": "Heatwave",
+      "dwarf": "Driller"
+    },
+    "56CC637212D44249BBAA9804086A5375": {
+      "name": "Heatwave",
+      "dwarf": "Engineer"
+    },
+    "56AC1604B196144FA650970A8F766FDF": {
+      "name": "Heatwave",
+      "dwarf": "Gunner"
+    },
+    "1D515C163D8A7947B936DEFC2AD897D1": {
+      "name": "Heatwave",
+      "dwarf": "Scout"
+    },
+    "3D5F5C0F91BD174AB06ADE6F21F8F3CA": {
+      "name": "Iron Cyclops",
+      "dwarf": "Driller"
+    },
+    "D717AA5755B05F48B14BBFF2DB9A4A40": {
+      "name": "Iron Cyclops",
+      "dwarf": "Engineer"
+    },
+    "0B8E6DE74813A541AA5980D46687AD18": {
+      "name": "Iron Cyclops",
+      "dwarf": "Gunner"
+    },
+    "E259B87F6E458345BFE25091738F2BE4": {
+      "name": "Iron Cyclops",
+      "dwarf": "Scout"
+    },
+    "BA6555FCD26DC04D983E53D8AA4B4B27": {
+      "name": "Spiked Mohawk",
+      "dwarf": "Driller"
+    },
+    "C2E43B3AF2F5EA438F3B7111FEDFFA48": {
+      "name": "Spiked Mohawk",
+      "dwarf": "Engineer"
+    },
+    "F5F8EFDA78D0AE4FAC19C86D426852CB": {
+      "name": "Spiked Mohawk",
+      "dwarf": "Gunner"
+    },
+    "463635FF771AC143B7B20375BFE46F8B": {
+      "name": "Spiked Mohawk",
+      "dwarf": "Scout"
+    },
+    "F2011EC3C60F9647B703DECFE4A99DB2": {
+      "name": "Techy Hard Hat",
+      "dwarf": "Driller"
+    },
+    "4D3F1FDBB4A65E42AB91B9A277CBB956": {
+      "name": "Techy Hard Hat",
+      "dwarf": "Engineer"
+    },
+    "459FA7CBB507D143B70462F2FC3B06ED": {
+      "name": "Techy Hard Hat",
+      "dwarf": "Gunner"
+    },
+    "A6C5053EDD564B4E9990F6A8E1A42816": {
+      "name": "Techy Hard Hat",
+      "dwarf": "Scout"
+    }
+  },
+  "Cosmetic - Moustache": {
+    "206E82CB0C3916488970FAC71A03FC64": {
+      "name": "Bangled Braids",
+      "dwarf": "Driller"
+    },
+    "2F9F5358A42A9D4AA43E24AD8B509466": {
+      "name": "Bangled Braids",
+      "dwarf": "Engineer"
+    },
+    "5B480F3DAAB4CE47A88E2BA3D5253E6A": {
+      "name": "Bangled Braids",
+      "dwarf": "Gunner"
+    },
+    "E8385FD4C8D94F4586BFC7DBA0D03127": {
+      "name": "Bangled Braids",
+      "dwarf": "Scout"
+    },
+    "D26CB8AB8915914AA069A724AE74A41B": {
+      "name": "Bound Braids",
+      "dwarf": "Driller"
+    },
+    "E6C8FE21260C724694A0017F165DF0FB": {
+      "name": "Bound Braids",
+      "dwarf": "Engineer"
+    },
+    "792CD558DAE5744EA4F8F6FFCAFB5FA1": {
+      "name": "Bound Braids",
+      "dwarf": "Gunner"
+    },
+    "B2D7363C9E72884A9BC87DD412B7F98C": {
+      "name": "Bound Braids",
+      "dwarf": "Scout"
+    },
+    "54ECFE7314721F4FB982948B58263471": {
+      "name": "Bushy Goodguy",
+      "dwarf": "Driller"
+    },
+    "BBA07C6D7BEDDD44873B692A6E2619CA": {
+      "name": "Bushy Goodguy",
+      "dwarf": "Engineer"
+    },
+    "1C85DFE7F200844CAE560316CAE83462": {
+      "name": "Bushy Goodguy",
+      "dwarf": "Gunner"
+    },
+    "D478A9A710689B4A8B121DC6C9353DE6": {
+      "name": "Bushy Goodguy",
+      "dwarf": "Scout"
+    },
+    "5925EC01971ADE47A3B7F97266F52E2D": {
+      "name": "Crescent Moon",
+      "dwarf": "Driller"
+    },
+    "452639C663B41942B46593B1E365EAA1": {
+      "name": "Crescent Moon",
+      "dwarf": "Engineer"
+    },
+    "00E852DA04EC1F41A7453C44E43734AC": {
+      "name": "Crescent Moon",
+      "dwarf": "Gunner"
+    },
+    "27D63D799D0D714E8BA7ADF0E2ABF4D2": {
+      "name": "Crescent Moon",
+      "dwarf": "Scout"
+    },
+    "2879F88BDA5E6E41A19F53D89D6A98ED": {
+      "name": "Curly Optimist",
+      "dwarf": "Driller"
+    },
+    "0AC503D713EC504E885C890C79C1DF21": {
+      "name": "Curly Optimist",
+      "dwarf": "Engineer"
+    },
+    "921AFA83858ACD4C851CF4E48679039B": {
+      "name": "Curly Optimist",
+      "dwarf": "Gunner"
+    },
+    "49D503FEB77D4840842378D5ED9F9E02": {
+      "name": "Curly Optimist",
+      "dwarf": "Scout"
+    },
+    "CC654EEBB409CB419C6595820F29DFCD": {
+      "name": "Dandy Handlebar",
+      "dwarf": "Driller"
+    },
+    "756E2E98500C2A4E94145AD1C74A8310": {
+      "name": "Dandy Handlebar",
+      "dwarf": "Engineer"
+    },
+    "D39157F7E7B63E42A6AA878D72428958": {
+      "name": "Dandy Handlebar",
+      "dwarf": "Gunner"
+    },
+    "79D6A03B9C8B5C46B62B71B8A9CE8E65": {
+      "name": "Dandy Handlebar",
+      "dwarf": "Scout"
+    },
+    "ADA4588578300343A7AAEEF69A5B887C": {
+      "name": "Exquisite Handlebar",
+      "dwarf": "Driller"
+    },
+    "1A8E5E30D8E6DD408886B8040C76A967": {
+      "name": "Exquisite Handlebar",
+      "dwarf": "Engineer"
+    },
+    "C9B5582A06C9E246BD4A227C423ED3CB": {
+      "name": "Exquisite Handlebar",
+      "dwarf": "Gunner"
+    },
+    "D5BE9E531322534C80BD965B9C6EC567": {
+      "name": "Exquisite Handlebar",
+      "dwarf": "Scout"
+    },
+    "A9E0A5F7A1776F4BAD3BD1B00FC274E6": {
+      "name": "Lowrider",
+      "dwarf": "Driller"
+    },
+    "EF2F700C45230E4FB6B3ADAEE2037D2D": {
+      "name": "Lowrider",
+      "dwarf": "Engineer"
+    },
+    "7A849BA73AE86B40AF4CEBB892EA28AA": {
+      "name": "Lowrider",
+      "dwarf": "Gunner"
+    },
+    "C84AA40C83D32741928E24E568ACE897": {
+      "name": "Lowrider",
+      "dwarf": "Scout"
+    },
+    "27736089E56F9E4BA69E9F5C5B22B482": {
+      "name": "Magnificent Raider",
+      "dwarf": "Driller"
+    },
+    "33E40CC6BFE7E640A99A078C23C7D63B": {
+      "name": "Magnificent Raider",
+      "dwarf": "Engineer"
+    },
+    "26E427636D622449B3D73D974D51582B": {
+      "name": "Magnificent Raider",
+      "dwarf": "Gunner"
+    },
+    "0F977ADDE207194DAC0DF3E1882C5D98": {
+      "name": "Magnificent Raider",
+      "dwarf": "Scout"
+    },
+    "23C1CFAF0735B948B2BED64B9FB3BED1": {
+      "name": "Marshall",
+      "dwarf": "Driller"
+    },
+    "E0095EEFFCB1BE48A77F5333786075E6": {
+      "name": "Marshall",
+      "dwarf": "Engineer"
+    },
+    "283CF849EC0C5B46A0C283AC6ABCFCEC": {
+      "name": "Marshall",
+      "dwarf": "Gunner"
+    },
+    "283035CD8B1D4D449195E6F8DE2AAAA6": {
+      "name": "Marshall",
+      "dwarf": "Scout"
+    },
+    "F40A692448F67642904B7453D48820AC": {
+      "name": "Spiky Neurotic",
+      "dwarf": "Driller"
+    },
+    "EFBB4BAF9F385444976CA76793B465E5": {
+      "name": "Spiky Neurotic",
+      "dwarf": "Engineer"
+    },
+    "282205748C61084B86E24E53E0AB0514": {
+      "name": "Spiky Neurotic",
+      "dwarf": "Gunner"
+    },
+    "A594B2DCAD9E0346A7EB06FDF9DD1812": {
+      "name": "Spiky Neurotic",
+      "dwarf": "Scout"
+    }
+  },
+  "Cosmetic - Beard": {
+    "61663AF76E9AF24998F5AF8FB3DCED56": {
+      "name": "Bound Goatee",
+      "dwarf": "Driller"
+    },
+    "2EDC6A088537CA44AA730FA9447D96BE": {
+      "name": "Bound Goatee",
+      "dwarf": "Engineer"
+    },
+    "A195250E9D631045A8E71374DE0D53BC": {
+      "name": "Bound Goatee",
+      "dwarf": "Gunner"
+    },
+    "9AF35F0E0B3E5F4FBEDD48253A94677D": {
+      "name": "Bound Goatee",
+      "dwarf": "Scout"
+    },
+    "77AE3CF6FFB74B4D950B5348FB4580E6": {
+      "name": "Bound Goatee - Armored",
+      "dwarf": "Driller"
+    },
+    "A1B114BD2FE7BC40B1E8A8EBF831528C": {
+      "name": "Bound Goatee - Armored",
+      "dwarf": "Engineer"
+    },
+    "6ABB2D979F899F46A4003A78E28DA772": {
+      "name": "Bound Goatee - Armored",
+      "dwarf": "Gunner"
+    },
+    "F3A4FD0D86E26B4785C392CD93D148A4": {
+      "name": "Bound Goatee - Armored",
+      "dwarf": "Scout"
+    },
+    "46A9352EAB5A394C90713AA077486B5A": {
+      "name": "Bound Goatee - Gilded",
+      "dwarf": "Driller"
+    },
+    "A7775DA690D0C844ABD6535F66E78713": {
+      "name": "Bound Goatee - Gilded",
+      "dwarf": "Engineer"
+    },
+    "0BC76BADA06BC245A007110844909239": {
+      "name": "Bound Goatee - Gilded",
+      "dwarf": "Gunner"
+    },
+    "5FE209EEE7058148B03FEFE5763EFE55": {
+      "name": "Bound Goatee - Gilded",
+      "dwarf": "Scout"
+    },
+    "57BF86EFB094414FB94DF8746AEE5C90": {
+      "name": "Bound Unicord",
+      "dwarf": "Driller"
+    },
+    "94817E5E51C7294EB69B17A30CA068DC": {
+      "name": "Bound Unicord",
+      "dwarf": "Engineer"
+    },
+    "3A06DD6F2F76554593C94191A1A613FA": {
+      "name": "Bound Unicord",
+      "dwarf": "Gunner"
+    },
+    "49CC572057012B4C80F83EBE56607F80": {
+      "name": "Bound Unicord",
+      "dwarf": "Scout"
+    },
+    "D9C01925A51F904F9D313F8EB78D7F48": {
+      "name": "Bound Unicord - Armored",
+      "dwarf": "Driller"
+    },
+    "341A8AB1A90485468015FAA18943633D": {
+      "name": "Bound Unicord - Armored",
+      "dwarf": "Engineer"
+    },
+    "48CD86C5E0379147BAB8093104D6F808": {
+      "name": "Bound Unicord - Armored",
+      "dwarf": "Gunner"
+    },
+    "A2D3228DDD596740831648D9757E38C3": {
+      "name": "Bound Unicord - Armored",
+      "dwarf": "Scout"
+    },
+    "747D361F64AC0547AEDF36A328766C15": {
+      "name": "Bound Unicord - Gilded",
+      "dwarf": "Driller"
+    },
+    "0CAD4C95A5835944ACD9EFE3E78D1EE7": {
+      "name": "Bound Unicord - Gilded",
+      "dwarf": "Engineer"
+    },
+    "B43BCC79097F6649B36555EA6AB32F51": {
+      "name": "Bound Unicord - Gilded",
+      "dwarf": "Gunner"
+    },
+    "712152EFDF39C94AA495AEBBFB7A5D26": {
+      "name": "Bound Unicord - Gilded",
+      "dwarf": "Scout"
+    },
+    "6EDE2D9C7818A246AEF45C3F68B4F9B8": {
+      "name": "Braided Abundance",
+      "dwarf": "Driller"
+    },
+    "091BFE94651B334789B4E42067D1E4B3": {
+      "name": "Braided Abundance",
+      "dwarf": "Engineer"
+    },
+    "18E222CA8EF67F4296C7E909ED3A6E09": {
+      "name": "Braided Abundance",
+      "dwarf": "Gunner"
+    },
+    "BD914AD6F462094DA623C71909366B95": {
+      "name": "Braided Abundance",
+      "dwarf": "Scout"
+    },
+    "A2AF969236A6DC4BB78A7E8D4F1B0645": {
+      "name": "Braided Abundance - Armored",
+      "dwarf": "Driller"
+    },
+    "C77015CEBF7E2A4EA8C18B08635F77F9": {
+      "name": "Braided Abundance - Armored",
+      "dwarf": "Engineer"
+    },
+    "AC02259A24298A428B470AEF9D64327E": {
+      "name": "Braided Abundance - Armored",
+      "dwarf": "Gunner"
+    },
+    "87949A5AFAA4FB43BCD8EBE7504EDB88": {
+      "name": "Braided Abundance - Armored",
+      "dwarf": "Scout"
+    },
+    "D02429EC2893674B8FDBB753BC2DFABC": {
+      "name": "Braided Abundance - Gilded",
+      "dwarf": "Driller"
+    },
+    "7E0FA6BAC77A4F4ABFEAC7D51211AF0D": {
+      "name": "Braided Abundance - Gilded",
+      "dwarf": "Engineer"
+    },
+    "B43D5935A920F24B85BAEECC71E9C52F": {
+      "name": "Braided Abundance - Gilded",
+      "dwarf": "Gunner"
+    },
+    "ED87D40EBD80C04E9F0C8351296F49A2": {
+      "name": "Braided Abundance - Gilded",
+      "dwarf": "Scout"
+    },
+    "2844DCB20127444E94C068B7084CB031": {
+      "name": "Crested Waterfall",
+      "dwarf": "Driller"
+    },
+    "514A30AC6C540041BC58223822458D0C": {
+      "name": "Crested Waterfall",
+      "dwarf": "Engineer"
+    },
+    "7F0F810880273940ABEDE6AE30FF3E45": {
+      "name": "Crested Waterfall",
+      "dwarf": "Gunner"
+    },
+    "97CC57439D913E449649C6BFAE88D928": {
+      "name": "Crested Waterfall",
+      "dwarf": "Scout"
+    },
+    "C0937CAEA404434F9063D68E6EED92A6": {
+      "name": "Double Horsetails",
+      "dwarf": "Driller"
+    },
+    "76CE71B801D0894C8A1810D376BC5B3D": {
+      "name": "Double Horsetails",
+      "dwarf": "Engineer"
+    },
+    "705BBC79EEF9D24CAFE0E8305D8DEA12": {
+      "name": "Double Horsetails",
+      "dwarf": "Gunner"
+    },
+    "0FB8C9B027D47F42944B4FFA20026CA8": {
+      "name": "Double Horsetails",
+      "dwarf": "Scout"
+    },
+    "7237D4E441033741A01DCAD1A3322356": {
+      "name": "Double Horsetails - Armored",
+      "dwarf": "Driller"
+    },
+    "0F6401EE87EC5D4A9BC8EFFC9E4E6EFB": {
+      "name": "Double Horsetails - Armored",
+      "dwarf": "Engineer"
+    },
+    "36DF1A56E859BD4A9F825A537D6D3657": {
+      "name": "Double Horsetails - Armored",
+      "dwarf": "Gunner"
+    },
+    "B01F1940D854DD45ADD878507E9C0BEB": {
+      "name": "Double Horsetails - Armored",
+      "dwarf": "Scout"
+    },
+    "F24CE6922AA30E45BA2656FEDD69DBC6": {
+      "name": "Double Horsetails - Gilded",
+      "dwarf": "Driller"
+    },
+    "8DDF83BE38810947BF21547CF610DA09": {
+      "name": "Double Horsetails - Gilded",
+      "dwarf": "Engineer"
+    },
+    "4B0DD8DDA2D83646AD3D60F81D09DC00": {
+      "name": "Double Horsetails - Gilded",
+      "dwarf": "Gunner"
+    },
+    "55521FB82C61704EB140237137E8A5A3": {
+      "name": "Double Horsetails - Gilded",
+      "dwarf": "Scout"
+    },
+    "757F08E2D7323741A8922F3E0CCB764E": {
+      "name": "Great Fork",
+      "dwarf": "Driller"
+    },
+    "92572EB18EF9454E9C7FE106D43E8BD6": {
+      "name": "Great Fork",
+      "dwarf": "Engineer"
+    },
+    "031B1191B0EF4C40A88722EFF502A5BC": {
+      "name": "Great Fork",
+      "dwarf": "Gunner"
+    },
+    "729C82F348779743A3B10EC818918D8E": {
+      "name": "Great Fork",
+      "dwarf": "Scout"
+    },
+    "3B7A940A555AB541818CE8D288288543": {
+      "name": "Great Fork - Armored",
+      "dwarf": "Driller"
+    },
+    "4F7834795AE9ED4B96B408B21DC9D59E": {
+      "name": "Great Fork - Armored",
+      "dwarf": "Engineer"
+    },
+    "F64339BD891D7A418A0A3F8F67BB6339": {
+      "name": "Great Fork - Armored",
+      "dwarf": "Gunner"
+    },
+    "FA2A811F7BA02143A8DC720BC10965C5": {
+      "name": "Great Fork - Armored",
+      "dwarf": "Scout"
+    },
+    "DB32FE0A13D017428F8A297C7A3AC0D2": {
+      "name": "Great Fork - Gilded",
+      "dwarf": "Driller"
+    },
+    "55548FEB0CD0054CA8AF13B20DB032B3": {
+      "name": "Great Fork - Gilded",
+      "dwarf": "Engineer"
+    },
+    "BA0CB1E455B2124EB0CECF94DFE26190": {
+      "name": "Great Fork - Gilded",
+      "dwarf": "Gunner"
+    },
+    "0CA7BA9F689C254288C747B80507CC95": {
+      "name": "Great Fork - Gilded",
+      "dwarf": "Scout"
+    },
+    "BEA34DCB785EF045A4EA02D4FFDB2AEB": {
+      "name": "Massive Braid",
+      "dwarf": "Driller"
+    },
+    "D8F42571DACC934283A600A3C9B54C2C": {
+      "name": "Massive Braid",
+      "dwarf": "Engineer"
+    },
+    "378E5279CF6C1C439745F9AEDC0B5B6D": {
+      "name": "Massive Braid",
+      "dwarf": "Gunner"
+    },
+    "9D69BAFC803C79468C1BD4F19DC68F8F": {
+      "name": "Massive Braid",
+      "dwarf": "Scout"
+    },
+    "528272F06CAF124AB0B94491874638DB": {
+      "name": "Massive Braid - Armored",
+      "dwarf": "Driller"
+    },
+    "7A792906B704CD46AF84BC1AABB92B70": {
+      "name": "Massive Braid - Armored",
+      "dwarf": "Engineer"
+    },
+    "C5C7B98A618CC148A3E52D5C79662F9A": {
+      "name": "Massive Braid - Armored",
+      "dwarf": "Gunner"
+    },
+    "07293708DAA389498156F44643A7ECB4": {
+      "name": "Massive Braid - Armored",
+      "dwarf": "Scout"
+    },
+    "343D44CF8B8A784E8173EBAE6ECEE284": {
+      "name": "Massive Braid - Gilded",
+      "dwarf": "Driller"
+    },
+    "8273FA7F2EEF5B49A74ACB1CD31D79AB": {
+      "name": "Massive Braid - Gilded",
+      "dwarf": "Engineer"
+    },
+    "8EBED52E802A074C97694420ACD7B2FE": {
+      "name": "Massive Braid - Gilded",
+      "dwarf": "Gunner"
+    },
+    "30571AA459A4D64FB2E250DBE61ABCA7": {
+      "name": "Massive Braid - Gilded",
+      "dwarf": "Scout"
+    },
+    "041C5654EDE9584DA5D9F90FD78E5A00": {
+      "name": "Mighty Pelt",
+      "dwarf": "Driller"
+    },
+    "073AAD3FD24DFE4F8B33E9F9996F1DAA": {
+      "name": "Mighty Pelt",
+      "dwarf": "Engineer"
+    },
+    "A72C0AB07899024294326854A8D1FF22": {
+      "name": "Mighty Pelt",
+      "dwarf": "Gunner"
+    },
+    "0462C6C099A9FC48BBBE1497243DC38F": {
+      "name": "Mighty Pelt",
+      "dwarf": "Scout"
+    },
+    "26B8B7DE93212944964B671FBF161F25": {
+      "name": "Mighty Pelt - Armored",
+      "dwarf": "Driller"
+    },
+    "3109AFD12BD54041B2C15F5374E6C37D": {
+      "name": "Mighty Pelt - Armored",
+      "dwarf": "Engineer"
+    },
+    "8398B4FB4EE510419D81D747DF0CADF2": {
+      "name": "Mighty Pelt - Armored",
+      "dwarf": "Gunner"
+    },
+    "8582E2FDF59D094D863D1A1C463E8465": {
+      "name": "Mighty Pelt - Armored",
+      "dwarf": "Scout"
+    },
+    "A86118E5A6F0854E88A77593DB738240": {
+      "name": "Mighty Pelt - Gilded",
+      "dwarf": "Driller"
+    },
+    "DFCA2BF2A68C10408D4A6237244E46D4": {
+      "name": "Mighty Pelt - Gilded",
+      "dwarf": "Engineer"
+    },
+    "05FCD97020B35443AF7543C94ABE40BC": {
+      "name": "Mighty Pelt - Gilded",
+      "dwarf": "Gunner"
+    },
+    "1A16C6C4EF1B2F4CA7FE15530A96C293": {
+      "name": "Mighty Pelt - Gilded",
+      "dwarf": "Scout"
+    },
+    "4CCC6A8770AD184A8BB3BAE25BA52932": {
+      "name": "Monumental Goatee",
+      "dwarf": "Driller"
+    },
+    "EB30CC3220457C46951D3D92D07E8600": {
+      "name": "Monumental Goatee",
+      "dwarf": "Engineer"
+    },
+    "C784FC098B2C2349B7903746728BB233": {
+      "name": "Monumental Goatee",
+      "dwarf": "Gunner"
+    },
+    "B462EA1392801C43A28E68CC8A6867DD": {
+      "name": "Monumental Goatee",
+      "dwarf": "Scout"
+    },
+    "3EA08519D1926141BE8B4450A5073F96": {
+      "name": "Monumental Goatee - Armored",
+      "dwarf": "Driller"
+    },
+    "D0C23786AD6B4B469A962118E02F1BDA": {
+      "name": "Monumental Goatee - Armored",
+      "dwarf": "Engineer"
+    },
+    "E2BFB9AFCBF39846BBFC7C971B614620": {
+      "name": "Monumental Goatee - Armored",
+      "dwarf": "Gunner"
+    },
+    "F099AE9CD104D74DA179016B6BFF8117": {
+      "name": "Monumental Goatee - Armored",
+      "dwarf": "Scout"
+    },
+    "4E86BCF8F790974CBB68F8EC7D9EFDE1": {
+      "name": "Monumental Goatee - Gilded",
+      "dwarf": "Driller"
+    },
+    "3C775FA87476CB42ACED368E8E0333FC": {
+      "name": "Monumental Goatee - Gilded",
+      "dwarf": "Engineer"
+    },
+    "B555BDECAA29FF4AABDC65CE3815CF59": {
+      "name": "Monumental Goatee - Gilded",
+      "dwarf": "Gunner"
+    },
+    "DFE84FD9F09C854C85123700C4190B0A": {
+      "name": "Monumental Goatee - Gilded",
+      "dwarf": "Scout"
+    },
+    "128351533F04524ABB7E24E54F45267B": {
+      "name": "Rambunctious Elder",
+      "dwarf": "Driller"
+    },
+    "368B17796751344293E5D71E263A5614": {
+      "name": "Rambunctious Elder",
+      "dwarf": "Engineer"
+    },
+    "B0D569831E40A84F8919CBEEB104E4CA": {
+      "name": "Rambunctious Elder",
+      "dwarf": "Gunner"
+    },
+    "458F51D8016F684E81EB2DBB75F44DB6": {
+      "name": "Rambunctious Elder",
+      "dwarf": "Scout"
+    },
+    "2AEC94AE81C36242AA23CE16E548F593": {
+      "name": "Savage Full",
+      "dwarf": "Driller"
+    },
+    "26C8A60E73E5E24D925CC7C10DF85E23": {
+      "name": "Savage Full",
+      "dwarf": "Engineer"
+    },
+    "3D463858E978E741B61DDA4926432333": {
+      "name": "Savage Full",
+      "dwarf": "Gunner"
+    },
+    "6FE1292C2C141B4FA6C87ED3027AEAE9": {
+      "name": "Savage Full",
+      "dwarf": "Scout"
+    },
+    "FB8EBB0CEDC5724D83DA4A0D7433BD1F": {
+      "name": "Savage Full - Armored",
+      "dwarf": "Driller"
+    },
+    "6D480C024E38A548B5FF2ECFA9941C0D": {
+      "name": "Savage Full - Armored",
+      "dwarf": "Engineer"
+    },
+    "A1CC6CE747B1B1428936BA7A00CF2794": {
+      "name": "Savage Full - Armored",
+      "dwarf": "Gunner"
+    },
+    "73BC4FE02D65E342A6F9E9C432111C0D": {
+      "name": "Savage Full - Armored",
+      "dwarf": "Scout"
+    },
+    "83E4075044FCF0409114E72C7927508F": {
+      "name": "Savage Full - Gilded",
+      "dwarf": "Driller"
+    },
+    "71D5D7BAD7A94A4EB2DF6B184EC18FB4": {
+      "name": "Savage Full - Gilded",
+      "dwarf": "Engineer"
+    },
+    "9E2A10282436CF4CB9F091CC04AACED6": {
+      "name": "Savage Full - Gilded",
+      "dwarf": "Gunner"
+    },
+    "0D06CC9B496832468D395406EA52AC98": {
+      "name": "Savage Full - Gilded",
+      "dwarf": "Scout"
+    },
+    "3B329409A6767B468F0A0B8D5B484111": {
+      "name": "Tank Division",
+      "dwarf": "Driller"
+    },
+    "439CB5C60B61C549BD881C8D75FF9230": {
+      "name": "Tank Division",
+      "dwarf": "Engineer"
+    },
+    "001CFF15DA69B345A83081A45F98F41E": {
+      "name": "Tank Division",
+      "dwarf": "Gunner"
+    },
+    "73BF23D043373E4580A5531F3C359BA2": {
+      "name": "Tank Division",
+      "dwarf": "Scout"
+    },
+    "72F68C80C914ED4093054D4D35824A67": {
+      "name": "Triple Trouble",
+      "dwarf": "Driller"
+    },
+    "A7F00BC5E57E714FBFF80223D5AE85FB": {
+      "name": "Triple Trouble",
+      "dwarf": "Engineer"
+    },
+    "BFDFFEE79961C941B8A0625D805260A2": {
+      "name": "Triple Trouble",
+      "dwarf": "Gunner"
+    },
+    "8C083C3258255D49B1C925CD4BF3F0E7": {
+      "name": "Triple Trouble",
+      "dwarf": "Scout"
+    },
+    "21B2CC029A6B7841A66350804000B108": {
+      "name": "Triple Trouble - Armored",
+      "dwarf": "Driller"
+    },
+    "B2C965FB4B2B00459AD10EFE8EBD55E2": {
+      "name": "Triple Trouble - Armored",
+      "dwarf": "Engineer"
+    },
+    "093AD89BB93BDB499BE1511522C727C5": {
+      "name": "Triple Trouble - Armored",
+      "dwarf": "Gunner"
+    },
+    "3752FAAF585EFC4EA7494AE773D79CAB": {
+      "name": "Triple Trouble - Armored",
+      "dwarf": "Scout"
+    },
+    "2369AC77ED54F34B8B8F765930885303": {
+      "name": "Triple Trouble - Gilded",
+      "dwarf": "Driller"
+    },
+    "51A6D632B1ACEA4BB78425233FC82ACA": {
+      "name": "Triple Trouble - Gilded",
+      "dwarf": "Engineer"
+    },
+    "CAF94833431465479E273D7D3FEB7883": {
+      "name": "Triple Trouble - Gilded",
+      "dwarf": "Gunner"
+    },
+    "9401F67C636BDB4A8C6697E3390EAC63": {
+      "name": "Triple Trouble - Gilded",
+      "dwarf": "Scout"
+    },
+    "9905F0216445204A95D6A5202748F70E": {
+      "name": "Twinned Wintry",
+      "dwarf": "Driller"
+    },
+    "C39A70CB15263D4CBCA802DDE7A88B81": {
+      "name": "Twinned Wintry",
+      "dwarf": "Engineer"
+    },
+    "FFB1FC9B64CB7948B2847F99DDE6B0ED": {
+      "name": "Twinned Wintry",
+      "dwarf": "Gunner"
+    },
+    "68A33ABA5F066947A4583BFA66E9AAF7": {
+      "name": "Twinned Wintry",
+      "dwarf": "Scout"
+    },
+    "0BB901474E86B044BD087ACEF991677B": {
+      "name": "Twinned Wintry - Armored",
+      "dwarf": "Driller"
+    },
+    "E2678693893BFE43A92C096943E733F7": {
+      "name": "Twinned Wintry - Armored",
+      "dwarf": "Engineer"
+    },
+    "ED2A578660B8E8498805C9DBF7BE7FA4": {
+      "name": "Twinned Wintry - Armored",
+      "dwarf": "Gunner"
+    },
+    "B7B5D45E868EC845B1C7D70006589DC6": {
+      "name": "Twinned Wintry - Armored",
+      "dwarf": "Scout"
+    },
+    "410001063419AD47B7E92F266F5EDD89": {
+      "name": "Twinned Wintry - Gilded",
+      "dwarf": "Driller"
+    },
+    "4B380C099A35CC4E92ABD3BE4F9EAB53": {
+      "name": "Twinned Wintry - Gilded",
+      "dwarf": "Engineer"
+    },
+    "0790ADF11BE56649B329854A150639FD": {
+      "name": "Twinned Wintry - Gilded",
+      "dwarf": "Gunner"
+    },
+    "6D3A35EECE87514E96AFADA3AE96324F": {
+      "name": "Twinned Wintry - Gilded",
+      "dwarf": "Scout"
+    }
+  },
+  "Cosmetic - Sideburns": {
+    "D5AD7FC62BD72546A0BF55D9836C29FA": {
+      "name": "Berserker",
+      "dwarf": "Driller"
+    },
+    "7D3BF914FDB10249905409A74A79EB9B": {
+      "name": "Berserker",
+      "dwarf": "Engineer"
+    },
+    "436AF44E2E79CA4492972DC2CEB7B1D9": {
+      "name": "Berserker",
+      "dwarf": "Gunner"
+    },
+    "AA0B1D5009B1F545BAD1F2CA91B38513": {
+      "name": "Berserker",
+      "dwarf": "Scout"
+    },
+    "B110F25DF0110145866AEC14F14A828C": {
+      "name": "Braided Bangles",
+      "dwarf": "Driller"
+    },
+    "EEE903E5FAC9F545BB5422E7B2274B6C": {
+      "name": "Braided Bangles",
+      "dwarf": "Engineer"
+    },
+    "37EB7CCE89C86C4C9859D21140DB6C5B": {
+      "name": "Braided Bangles",
+      "dwarf": "Gunner"
+    },
+    "F3CAC802683BF44F81D266224BE21B2F": {
+      "name": "Braided Bangles",
+      "dwarf": "Scout"
+    },
+    "652CFF7E036DA54CAE43CE799487466C": {
+      "name": "Immense Danglies",
+      "dwarf": "Driller"
+    },
+    "727FFDC15B70B54195262E40DA3DCB5F": {
+      "name": "Immense Danglies",
+      "dwarf": "Engineer"
+    },
+    "30F143E8DE86D14382EC0021C543D0B3": {
+      "name": "Immense Danglies",
+      "dwarf": "Gunner"
+    },
+    "5D6E2C425F16B04290EB879CBE60CE25": {
+      "name": "Immense Danglies",
+      "dwarf": "Scout"
+    },
+    "A207791FB142564B87950918537DE93B": {
+      "name": "Pointed Noble",
+      "dwarf": "Driller"
+    },
+    "7257830C565EF042A0FC5013D8F2565B": {
+      "name": "Pointed Noble",
+      "dwarf": "Engineer"
+    },
+    "252837B28E95AC4CB99AB163A3A8FBB5": {
+      "name": "Pointed Noble",
+      "dwarf": "Gunner"
+    },
+    "4326EA0E6E2A4147B041B995B22CE901": {
+      "name": "Pointed Noble",
+      "dwarf": "Scout"
+    },
+    "1FC76A1B1306A64CB12CC19D65B67B4A": {
+      "name": "The Thickest",
+      "dwarf": "Driller"
+    },
+    "4C595231465DAC468D03A0863A2FBF07": {
+      "name": "The Thickest",
+      "dwarf": "Engineer"
+    },
+    "20CF7A9319FA8C46870BBA7CBD4C26D4": {
+      "name": "The Thickest",
+      "dwarf": "Gunner"
+    },
+    "2B27BF047EC90142B4FB2D43CF97D6FE": {
+      "name": "The Thickest",
+      "dwarf": "Scout"
+    },
+    "55857CDB2310954E84D4B743B884BE78": {
+      "name": "Upbeat Youngling",
+      "dwarf": "Driller"
+    },
+    "81772335FD25C944BC212B28D0BA5E5E": {
+      "name": "Upbeat Youngling",
+      "dwarf": "Engineer"
+    },
+    "677B92A272909846A69BFCA07E8DD57F": {
+      "name": "Upbeat Youngling",
+      "dwarf": "Gunner"
+    },
+    "5DD169F8FC31B245B4D29F849E1C49E9": {
+      "name": "Upbeat Youngling",
+      "dwarf": "Scout"
+    },
+    "9FC413521E119C4FA3EF305D412C9443": {
+      "name": "Valiant Berserker",
+      "dwarf": "Driller"
+    },
+    "A27A24157207564385FC9CC02E38A71E": {
+      "name": "Valiant Berserker",
+      "dwarf": "Engineer"
+    },
+    "F95D01CB98D06F468AC2F61A12BCCE20": {
+      "name": "Valiant Berserker",
+      "dwarf": "Gunner"
+    },
+    "10E8A47EFCAE994CA3C0FEDA6E2AD770": {
+      "name": "Valiant Berserker",
+      "dwarf": "Scout"
+    }
+  },
+  "Victory Moves": {
+    "A5482D68A2F8D64AB7372582E8DAA032": {
+      "name": "Barrel Drop",
+      "dwarf": "Driller"
+    },
+    "975EA783C10E4342BFF67F1370DF29A4": {
+      "name": "Barrel Drop",
+      "dwarf": "Engineer"
+    },
+    "9FF744DE9DE2D743B61E0417569A6E5F": {
+      "name": "Barrel Drop",
+      "dwarf": "Gunner"
+    },
+    "AF862486216347459F0582F9DF6E5F8D": {
+      "name": "Barrel Drop",
+      "dwarf": "Scout"
+    },
+    "1F2A0E1480086047BE16AC075B600890": {
+      "name": "Crystal Lover",
+      "dwarf": "Driller"
+    },
+    "DE38C69FCC4A604FA6C5B12B992757D6": {
+      "name": "Crystal Lover",
+      "dwarf": "Engineer"
+    },
+    "B064BB0C780BEB499A8A3C742685BDC1": {
+      "name": "Crystal Lover",
+      "dwarf": "Gunner"
+    },
+    "E88A42A1DA699D4499AB66C44237A5AD": {
+      "name": "Crystal Lover",
+      "dwarf": "Scout"
+    },
+    "DC680DA7101FA846A14E4A56505FFB7C": {
+      "name": "Dual Drink Drop",
+      "dwarf": "Driller"
+    },
+    "16BD6F06CEDB0A49AE526B708B9E3304": {
+      "name": "Dual Drink Drop",
+      "dwarf": "Engineer"
+    },
+    "4C4C0724600339478741F7937D5EA4DB": {
+      "name": "Dual Drink Drop",
+      "dwarf": "Gunner"
+    },
+    "8AEF822867E04E42833C4495A21B9D42": {
+      "name": "Dual Drink Drop",
+      "dwarf": "Scout"
+    },
+    "579D94DF13434544893AAD7EE4236C94": {
+      "name": "Fingerguns",
+      "dwarf": "Driller"
+    },
+    "2501DB6FB63D9146A23ABB4B76BDF059": {
+      "name": "Fingerguns",
+      "dwarf": "Engineer"
+    },
+    "652B2CCAF98A654482312A5B32F5D8F0": {
+      "name": "Fingerguns",
+      "dwarf": "Gunner"
+    },
+    "C5AF5E9B34ECA6418147939B2170B3F4": {
+      "name": "Fingerguns",
+      "dwarf": "Scout"
+    },
+    "6AD6EE737359854390F383A5063E818F": {
+      "name": "Flex Them Guns",
+      "dwarf": "Driller"
+    },
+    "45C213444AF4C54BA5ADBA78BA3F8863": {
+      "name": "Flex Them Guns",
+      "dwarf": "Engineer"
+    },
+    "603D8975A5930843933F550244B64F03": {
+      "name": "Flex Them Guns",
+      "dwarf": "Gunner"
+    },
+    "252A3B113AB95F41ABC3D806CCBF7353": {
+      "name": "Flex Them Guns",
+      "dwarf": "Scout"
+    },
+    "D06F793D8403044EBF8F5289A522016A": {
+      "name": "Furious Clown",
+      "dwarf": "Driller"
+    },
+    "6579EF11C006FC43A61A3C5DBD8FB320": {
+      "name": "Furious Clown",
+      "dwarf": "Engineer"
+    },
+    "5F9C249980B7F14188405876B613E95A": {
+      "name": "Furious Clown",
+      "dwarf": "Gunner"
+    },
+    "1AC31D79EE76CD4FB0C30F5E4B6B1B07": {
+      "name": "Furious Clown",
+      "dwarf": "Scout"
+    },
+    "6E3CCD1072151F45AC3FFC585B8C082F": {
+      "name": "Smooches",
+      "dwarf": "Driller"
+    },
+    "880C5D886F25EA4E9AB7A39C252C98F6": {
+      "name": "Smooches",
+      "dwarf": "Engineer"
+    },
+    "96FF392D81DB6645AB797EAB207B0414": {
+      "name": "Smooches",
+      "dwarf": "Gunner"
+    },
+    "2C6E9634F6EC494DAEE4E7AA07DA31D7": {
+      "name": "Smooches",
+      "dwarf": "Scout"
+    },
+    "EECB02473469334CA7C740B024B20951": {
+      "name": "Swarmer Stomp",
+      "dwarf": "Driller"
+    },
+    "2D65FB86EFB65C4B95B80C58AD7DB8BF": {
+      "name": "Swarmer Stomp",
+      "dwarf": "Engineer"
+    },
+    "4D7DD0C473708B43AC0B02B6EEB83732": {
+      "name": "Swarmer Stomp",
+      "dwarf": "Gunner"
+    },
+    "23836E524FFB4847AC0D741C755F52F6": {
+      "name": "Swarmer Stomp",
+      "dwarf": "Scout"
+    },
+    "CEAE52BFC7396D4FBFF23CF5A375B9FA": {
+      "name": "Theatrical Bow",
+      "dwarf": "Driller"
+    },
+    "7915F391D912494D94BCDE8E5FEB31E3": {
+      "name": "Theatrical Bow",
+      "dwarf": "Engineer"
+    },
+    "0D930FA90469BB4F906160013DF89500": {
+      "name": "Theatrical Bow",
+      "dwarf": "Gunner"
+    },
+    "B2F054F8C4409B4D9951708E25E1D848": {
+      "name": "Theatrical Bow",
+      "dwarf": "Scout"
+    }
+  },
+  "Weapon Skins": {
+    "78FD630A6E171948AE7971FA6E2D8938": {
+      "name": "Beyond the Circuit",
+      "dwarf": "Driller"
+    },
+    "6D10449F24DD664B9A74BBC5F27ACB45": {
+      "name": "Beyond the Circuit",
+      "dwarf": "Engineer"
+    },
+    "18A46CD106DB914EA97E83969CB2F5AA": {
+      "name": "Beyond the Circuit",
+      "dwarf": "Gunner"
+    },
+    "00A771FF5D0E0A4A99EA88742216979F": {
+      "name": "Beyond the Circuit",
+      "dwarf": "Scout"
+    },
+    "9A0E1103F2A70047AE9107344562D08A": {
+      "name": "Bubblegum",
+      "dwarf": "Driller"
+    },
+    "8F3EE4D221E177419A37C7B07FB4FDFA": {
+      "name": "Bubblegum",
+      "dwarf": "Engineer"
+    },
+    "F47574AFF5C2E84BA8D756D6CDC8F23A": {
+      "name": "Bubblegum",
+      "dwarf": "Gunner"
+    },
+    "AC03E8E22DB9DF4AA8F2FD927EE7D679": {
+      "name": "Bubblegum",
+      "dwarf": "Scout"
+    },
+    "505C06CEDB127947BBB3440FCA85E0C7": {
+      "name": "Buff",
+      "dwarf": "Driller"
+    },
+    "220F2F1BAA39E641B9FC075172D05EF0": {
+      "name": "Buff",
+      "dwarf": "Engineer"
+    },
+    "09459420543A6B42A7732A520BB4FBD8": {
+      "name": "Buff",
+      "dwarf": "Gunner"
+    },
+    "10F8262C2CD4DE479BE31E704F8E13FE": {
+      "name": "Buff",
+      "dwarf": "Scout"
+    },
+    "271E933D027AC143B4A66DEAEF7751F2": {
+      "name": "Dark Descent",
+      "dwarf": "Driller"
+    },
+    "97BC96DADBC9454086FA5AD869A4B267": {
+      "name": "Dark Descent",
+      "dwarf": "Engineer"
+    },
+    "40EDCF0270C14D49A6D9A2ABBFB9C72B": {
+      "name": "Dark Descent",
+      "dwarf": "Gunner"
+    },
+    "423651EE4BD218478DAAC0E6EDA454A4": {
+      "name": "Dark Descent",
+      "dwarf": "Scout"
+    },
+    "E90A88FF1C5F21469B05C127E91E742E": {
+      "name": "Desert Ranger",
+      "dwarf": "Driller"
+    },
+    "155AF38BBE9B5845952E516057FB58A7": {
+      "name": "Desert Ranger",
+      "dwarf": "Engineer"
+    },
+    "7C24E9B36958914A988B44228B28947A": {
+      "name": "Desert Ranger",
+      "dwarf": "Gunner"
+    },
+    "30F5B84AB6C163469A817A7FB24C04D9": {
+      "name": "Desert Ranger",
+      "dwarf": "Scout"
+    },
+    "DD099E18A977854B8D598DC6F571CFD1": {
+      "name": "Digital Danger",
+      "dwarf": "Driller"
+    },
+    "AD6637CBDC4129448AD5EAD550DBD821": {
+      "name": "Digital Danger",
+      "dwarf": "Engineer"
+    },
+    "CB16F211D171CB4AAF0BCA6654E90F34": {
+      "name": "Digital Danger",
+      "dwarf": "Gunner"
+    },
+    "E3757D9719D1D54F9812D68760FEE738": {
+      "name": "Digital Danger",
+      "dwarf": "Scout"
+    },
+    "32DD081B9019954B96CEBEC0FB6DA0AC": {
+      "name": "FlamingHot",
+      "dwarf": "Driller"
+    },
+    "F8529400C3325E4C975BF783F626574E": {
+      "name": "FlamingHot",
+      "dwarf": "Engineer"
+    },
+    "F2C943DF1F0F8A4D902A5CF66C03E1FE": {
+      "name": "FlamingHot",
+      "dwarf": "Gunner"
+    },
+    "B9A48A7CE5D31247B74E3E053695A32F": {
+      "name": "FlamingHot",
+      "dwarf": "Scout"
+    },
+    "7C4A8041FAB53744835782DCBC680BF3": {
+      "name": "Ghostly Pale",
+      "dwarf": "Driller"
+    },
+    "8500B75544EEAC41AD48486F36662352": {
+      "name": "Ghostly Pale",
+      "dwarf": "Engineer"
+    },
+    "AA29C52DC8E3C144A64AF5085354D95D": {
+      "name": "Ghostly Pale",
+      "dwarf": "Gunner"
+    },
+    "AEB31F34C467AB47B1A3171D01204280": {
+      "name": "Ghostly Pale",
+      "dwarf": "Scout"
+    },
+    "F1AF1C0FFA2F0E41BBABE5C3E1FA2FF5": {
+      "name": "Jungle Raid",
+      "dwarf": "Driller"
+    },
+    "1918F6DC5B8304408A8529DFC1082826": {
+      "name": "Jungle Raid",
+      "dwarf": "Engineer"
+    },
+    "2C96A7F1A58DD44084C30EC13E927ACF": {
+      "name": "Jungle Raid",
+      "dwarf": "Gunner"
+    },
+    "03DD947E247E31498A465DE4E1C5DEFD": {
+      "name": "Jungle Raid",
+      "dwarf": "Scout"
+    },
+    "54FA656BB5C13045B014FC3FA6B44F2B": {
+      "name": "Metallic Vintage",
+      "dwarf": "Driller"
+    },
+    "33E8BCA42DD7414FA117A3BA91E9033B": {
+      "name": "Metallic Vintage",
+      "dwarf": "Engineer"
+    },
+    "00433EDBCE2C7C429E73C083F5E343FB": {
+      "name": "Metallic Vintage",
+      "dwarf": "Gunner"
+    },
+    "69B282971E7C7C4AAC5459A866DDA508": {
+      "name": "Metallic Vintage",
+      "dwarf": "Scout"
+    },
+    "268CD890C6FBFA4BA45276EA2F765B43": {
+      "name": "Mint Assault",
+      "dwarf": "Driller"
+    },
+    "D73DF2942A28AC4487C942ADA0B0E3C9": {
+      "name": "Mint Assault",
+      "dwarf": "Engineer"
+    },
+    "898F556E7FB0E24A82BAE1B632B63FDC": {
+      "name": "Mint Assault",
+      "dwarf": "Gunner"
+    },
+    "0AD58675EBBE9D4D9F74FDA8F01A0AB3": {
+      "name": "Mint Assault",
+      "dwarf": "Scout"
+    },
+    "88582CAC3BAE11468101A90365A9D408": {
+      "name": "Primal Blood",
+      "dwarf": "Driller"
+    },
+    "2E3D76F816A102458CB7ECE40A3EE379": {
+      "name": "Primal Blood",
+      "dwarf": "Engineer"
+    },
+    "A61ED1A342B6CD46904FB0E72B14A2A4": {
+      "name": "Primal Blood",
+      "dwarf": "Gunner"
+    },
+    "837261BE1333C145B4EB5A516B2051A8": {
+      "name": "Primal Blood",
+      "dwarf": "Scout"
+    },
+    "448A069E1A2E6146A4D7A128BFB95BDA": {
+      "name": "Tool of Destruction",
+      "dwarf": "Driller"
+    },
+    "0FD44B1BCA3D5247932CB6E71F3E96EF": {
+      "name": "Tool of Destruction",
+      "dwarf": "Engineer"
+    },
+    "2CA9299DB4E7B54987FED5DA8339C5DA": {
+      "name": "Tool of Destruction",
+      "dwarf": "Gunner"
+    },
+    "B6005D67F948404BB4EC5D8E65EDC5D9": {
+      "name": "Tool of Destruction",
+      "dwarf": "Scout"
+    },
+    "C2946BCF130E67458BFA362975CA5041": {
+      "name": "Trusty Rusty",
+      "dwarf": "Driller"
+    },
+    "2A80200C16DB0A4E875411B6DD06A648": {
+      "name": "Trusty Rusty",
+      "dwarf": "Engineer"
+    },
+    "7EDAE191C63AF54E94BC93446C855E73": {
+      "name": "Trusty Rusty",
+      "dwarf": "Gunner"
+    },
+    "78125D11F52EFC4494AFA3F4CEEE8268": {
+      "name": "Trusty Rusty",
+      "dwarf": "Scout"
+    },
+    "E41681A6A2EA8444B2E75BDF8970DADA": {
+      "name": "Warmonger",
+      "dwarf": "Driller"
+    },
+    "D15B2C0C2F865C4A8F5EB354CB11C78F": {
+      "name": "Warmonger",
+      "dwarf": "Engineer"
+    },
+    "E880C5F6E793A44FBAC97FAD188ACF5F": {
+      "name": "Warmonger",
+      "dwarf": "Gunner"
+    },
+    "EC3273875A4E724482CF62D7D8EECF16": {
+      "name": "Warmonger",
+      "dwarf": "Scout"
     }
   }
 }

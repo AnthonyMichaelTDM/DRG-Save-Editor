@@ -3,8 +3,9 @@ from copy import deepcopy
 from typing import Literal
 
 from definitions import RESOURCE_GUIDS, SEASON_GUIDS
-from helpers.enums import Dwarf, Resource
+from helpers.enums import Dwarf, Resource, Category, Status
 from helpers.overclock import Overclock, Cost
+from helpers.datatypes import Item
 
 
 class Parser:
@@ -163,7 +164,7 @@ class Parser:
 
 
 class OverclockParser:
-    def __init__(self, guid_dict: dict) -> None:
+    def __init__(self, guid_dict: dict[str, Item]) -> None:
         self.guid_dict = guid_dict
         self.overclocks: list[Overclock] = []
 
@@ -172,22 +173,21 @@ class OverclockParser:
             start = self._find_overclocks_start(save_data)
         except LookupError:
             for i in self.guid_dict.values():
-                i.status = "Unacquired"
+                i.status = Status.UNACQUIRED
             self._fill_missing_overclocks()
             return
         end = self._find_overclocks_end(save_data)
 
         for i in self.guid_dict.values():
-            i.status = "Unacquired"
+            i.status = Status.UNACQUIRED
 
         self._get_forged_overclocks(save_data, start)
 
         oc_data = save_data[start:end]
         has_unforged: bool = oc_data.find(b"Owned") > 0
-        if not has_unforged:
-            return
 
-        self._get_unforged_overclocks(save_data, start)
+        if has_unforged:
+            self._get_unforged_overclocks(save_data, start)
 
         # fill out overclocks that are known, but do not appear in the save
         self._fill_missing_overclocks()
@@ -196,9 +196,10 @@ class OverclockParser:
         loaded_ocs = [x.guid for x in self.overclocks]
         for uuid in self.guid_dict:
             if uuid not in loaded_ocs:
+                self.guid_dict[uuid].status = Status.UNACQUIRED
                 self._add_overclock(uuid)
 
-    def _get_unforged_overclocks(self, save_data, start):
+    def _get_unforged_overclocks(self, save_data: bytes, start: int):
         num_pos = save_data.find(b"Owned", start) + 62
         num_unforged = struct.unpack("i", save_data[num_pos : num_pos + 4])[0]
         unforged_pos = num_pos + 77
@@ -209,22 +210,23 @@ class OverclockParser:
                 end=unforged_pos + (j * 16) + 16,
             )
             try:
-                self.guid_dict[uuid].status = "Unforged"
+                self.guid_dict[uuid].status = Status.UNFORGED
                 self._add_overclock(uuid)
             except KeyError:
                 # handle found overclocks with unidentifiable guids
                 self.overclocks.append(
                     Overclock(
-                        dwarf="",
-                        weapon="Cosmetic",
+                        category=Category.UNKNOWN,
+                        dwarf=Dwarf.SCOUT,
+                        weapon="",
                         name="",
                         guid=uuid,
-                        status="Unforged",
+                        status=Status.UNFORGED,
                         cost=Cost(),
                     )
                 )
 
-    def _get_forged_overclocks(self, save_data, start):
+    def _get_forged_overclocks(self, save_data: bytes, start: int):
         oc_list_offset = 141
 
         num_forged: int = struct.unpack("i", save_data[start + 63 : start + 67])[0]
@@ -236,12 +238,12 @@ class OverclockParser:
                 end=start + oc_list_offset + (j * 16) + 16,
             )
             try:
-                self.guid_dict[uuid].status = "Forged"
+                self.guid_dict[uuid].status = Status.FORGED
                 self._add_overclock(uuid)
             except KeyError:
                 pass
 
-    def _find_overclocks_end(self, save_data):
+    def _find_overclocks_end(self, save_data: bytes):
         search_end = b"SkinFixupCounter"
         end = save_data.find(search_end)
         if end == -1:
@@ -249,25 +251,39 @@ class OverclockParser:
             end = save_data.find(search_end)
         return end
 
-    def _find_overclocks_start(self, save_data):
+    def _find_overclocks_start(self, save_data: bytes):
         search_term = b"ForgedSchematics"
         start = save_data.find(search_term)
         if start == -1:
             raise LookupError("Could not locate overclocks in the save file")
         return start
 
-    def _add_overclock(self, uuid):
+    def _add_overclock(self, uuid: str):
         overclock_data = self.guid_dict[uuid]
-        self.overclocks.append(
-            Overclock(
-                dwarf=overclock_data.dwarf,
-                weapon=overclock_data.weapon,
-                name=overclock_data.name,
-                guid=uuid,
-                status=overclock_data.status,
-                cost=Cost(**overclock_data.cost),
+        if overclock_data.cost and overclock_data.weapon:
+            self.overclocks.append(
+                Overclock(
+                    category=overclock_data.category,
+                    dwarf=overclock_data.dwarf,
+                    weapon=overclock_data.weapon,
+                    name=overclock_data.name,
+                    guid=uuid,
+                    status=overclock_data.status,
+                    cost=Cost(**overclock_data.cost),
+                )
             )
-        )
+        else:
+            self.overclocks.append(
+                Overclock(
+                    category=overclock_data.category,
+                    dwarf=overclock_data.dwarf,
+                    weapon="",
+                    cost=Cost(),
+                    name=overclock_data.name,
+                    guid=uuid,
+                    status=overclock_data.status,
+                )
+            )
 
     def _get_uuid(self, save_data: bytes, start: int, end: int):
         uuid = save_data[start:end].hex().upper()

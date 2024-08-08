@@ -1,13 +1,15 @@
 import os
-import sys
 
 from definitions import PROMO_RANKS
+from helpers.overclock import Overclock
+from helpers.enums import Category, Status
 
-from PySide6.QtCore import QFile, QIODevice, Signal
+from PySide6.QtCore import QFile, QIODevice, Signal, Qt
 from PySide6.QtGui import QAction, QFocusEvent
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import (QComboBox, QGroupBox, QLabel, QLineEdit,
-                               QListWidget, QPushButton, QTreeWidget)
+                               QListWidget, QPushButton, QTreeWidget, QTreeWidgetItem,
+                               QListWidgetItem, QFileDialog)
 
 
 class TextEditFocusChecking(QLineEdit):
@@ -33,14 +35,14 @@ class EditorUI:
         # specify and open the UI
         ui_file_name = "editor.ui"
 
-        # check if the UI file exists in the current working directory, if not, check the directory of the script (for PyInstaller)
+        # check if the UI file exists in the current working directory,
+        # if not, check the directory of the script (for PyInstaller)
         if not os.path.exists(ui_file_name):
             ui_file_name = os.path.join(os.path.dirname(__file__), ui_file_name)
 
         ui_file = QFile(ui_file_name)
         if not ui_file.open(QIODevice.ReadOnly):  # type: ignore
-            print("Cannot open {}: {}".format(ui_file_name, ui_file.errorString()))
-            sys.exit(-1)
+            raise Exception("Cannot open {}: {}".format(ui_file_name, ui_file.errorString()))
         ui_file.close()
 
         # load the UI and do a basic check
@@ -48,8 +50,7 @@ class EditorUI:
         loader.registerCustomWidget(TextEditFocusChecking)
         widget = loader.load(ui_file, None)
         if not widget:
-            print(loader.errorString())
-            sys.exit(-1)
+            raise Exception(loader.errorString())
 
         # set the inner widget to the loaded UI
         self.inner = widget
@@ -128,7 +129,7 @@ class EditorUI:
                 i.addItem(j)
 
         # populate the filter drop down for overclocks
-        sort_labels: list[str] = ["All", "Unforged", "Forged", "Unacquired"]
+        sort_labels: list[str] = ["All", Status.UNFORGED, Status.FORGED, Status.UNACQUIRED]
         for i in sort_labels:
             self.combo_oc_filter.addItem(i)
 
@@ -137,3 +138,99 @@ class EditorUI:
 
     def setWindowTitle(self, title: str) -> None:
         self.inner.setWindowTitle(title)
+
+    def show_empty_oc_tree(self):
+        overclock_tree = self.overclock_tree.invisibleRootItem()
+        error_text = QTreeWidgetItem(overclock_tree)
+        error_text.setText(0, "No dwarf promoted yet")
+        self.add_cores_button.setEnabled(False)
+
+    def build_oc_tree(self, oc_dict: dict, guid_dict: dict) -> None:
+        overclock_tree = self.overclock_tree.invisibleRootItem()
+
+        self.make_weapon_oc_tree(overclock_tree, oc_dict, guid_dict)
+        self.make_non_weapon_oc_trees(overclock_tree, oc_dict, guid_dict)
+
+        self.overclock_tree.sortItems(0, Qt.SortOrder.AscendingOrder)
+        self.add_cores_button.setEnabled(True)
+
+    def make_non_weapon_oc_trees(
+        self,
+        tree: QTreeWidgetItem,
+        oc_dict: dict,
+        guid_dict: dict
+    ):
+        for category in oc_dict.keys():
+            if category == Category.WEAPONS:
+                continue
+            non_weapon_category = QTreeWidgetItem(tree)
+            non_weapon_category.setText(0, category)
+            for oc_name, dwarves in oc_dict[category].items():
+                char_entry = QTreeWidgetItem(non_weapon_category)
+                char_entry.setText(0, oc_name)
+                for dwarf, uuid in dwarves.items():
+                    oc_entry = QTreeWidgetItem(char_entry)
+                    oc_entry.setText(0, dwarf)
+                    oc_entry.setText(1, guid_dict[uuid].status)
+                    oc_entry.setText(2, uuid)
+
+    def make_weapon_oc_tree(
+        self,
+        tree: QTreeWidgetItem,
+        oc_dict: dict,
+        guid_dict: dict
+    ):
+        weapon_category_entry = QTreeWidgetItem(tree)
+        weapon_category_entry.setText(0, Category.WEAPONS)
+        for char, weapons in oc_dict[Category.WEAPONS].items():
+            char_entry = QTreeWidgetItem(weapon_category_entry)
+            char_entry.setText(0, char)
+            for weapon, oc_names in weapons.items():
+                weapon_entry = QTreeWidgetItem(char_entry)
+                weapon_entry.setText(0, weapon)
+                for name, uuid in oc_names.items():
+                    oc_entry = QTreeWidgetItem(weapon_entry)
+                    oc_entry.setText(0, name)
+                    oc_entry.setText(1, guid_dict[uuid].status)
+                    oc_entry.setText(2, uuid)
+
+    def populate_unforged_list(self, unforged: list[Overclock]) -> None:
+        # populates the list on acquired but unforged overclocks (includes cosmetics)
+        self.unforged_list.clear()
+        for oc_item in unforged:
+            text = get_unforged_list_item_string(oc_item)
+            oc = QListWidgetItem(None)
+            oc.setText(text)
+            self.unforged_list.addItem(oc)
+
+    def get_file_name(self, steam_path: str):
+        return QFileDialog.getOpenFileName(
+            None,
+            "Open Save File...",
+            steam_path,
+            "Player Save Files (*.sav);;All Files (*.*)",
+        )[0]
+
+    def filter_overclocks(self) -> None:
+        item_filter = self.combo_oc_filter.currentText()
+        tree_root = self.overclock_tree.invisibleRootItem()
+        self._traverse_overclock_tree(tree_root, item_filter)
+
+    def _traverse_overclock_tree(self, node: QTreeWidgetItem, item_filter: str):
+        for i in range(node.childCount()):
+            child = node.child(i)
+            if not child.text(1):
+                self._traverse_overclock_tree(child, item_filter)
+            else:
+                hidden_state = not (child.text(1) == item_filter or item_filter == "All")
+                child.setHidden(hidden_state)
+
+
+def get_unforged_list_item_string(oc_item: Overclock):
+    if oc_item.category == Category.WEAPONS:
+        text = f"{oc_item.weapon}: {oc_item.name} ({oc_item.guid})"
+    elif oc_item.name:
+        text = f"Cosmetic: {oc_item.name} - {oc_item.dwarf} ({oc_item.guid})"
+    else:
+        text = f"Unknown: ({oc_item.guid})"
+    return text

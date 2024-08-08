@@ -1,16 +1,19 @@
-from dataclasses import dataclass
-from typing import Optional
+from dataclasses import dataclass, field
+
+from helpers.enums import Category, Dwarf, Status
 
 
 @dataclass
 class Cost:
-    credits: Optional[int] = 0
-    bismor: Optional[int] = 0
-    croppa: Optional[int] = 0
-    enor: Optional[int] = 0
-    jadiz: Optional[int] = 0
-    magnite: Optional[int] = 0
-    umanite: Optional[int] = 0
+    """Crafting cost associated with a forgeable item"""
+
+    credits: int = 0
+    bismor: int = 0
+    croppa: int = 0
+    enor: int = 0
+    jadiz: int = 0
+    magnite: int = 0
+    umanite: int = 0
 
     def __add__(self, other):
         newcost = Cost()
@@ -24,8 +27,11 @@ class Cost:
 
 @dataclass()
 class Item:
-    dwarf: str
-    weapon: str
+    """An item read from the known list of GUIDs"""
+
+    category: Category
+    dwarf: Dwarf
     name: str
-    cost: Cost
-    status: str = "Unforged"
+    cost: dict = field(default_factory=dict)
+    weapon: str | None = None
+    status: Status = Status.UNACQUIRED

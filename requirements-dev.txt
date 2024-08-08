@@ -2,4 +2,5 @@
 flake8>=7.1.0
 mypy>=1.11.0
 pytest>=8.3.1
-pytest-qt >= 4.4.0
+pytest-qt>=4.4.0
+black>=24.4.2
