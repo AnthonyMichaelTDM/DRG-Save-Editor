@@ -67,6 +67,10 @@ Some notes:
 
 ## Changelog
 
+- v1.9.2
+  - assorted bug fixes, refactoring, and maintenance (#90, #98, #100, #101)
+  - add cosmetic overclocks #102
+  - special thanks to [wahlp](https://github.com/wahlp) and [simon-wg](https://github.com/simon-wg) for their work on this release
 - v1.9.1
   - assorted bug fixes (#83, #84)
   - build release in console mode and as a single standalone binary (#88)
