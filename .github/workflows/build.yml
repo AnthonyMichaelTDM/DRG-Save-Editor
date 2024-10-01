@@ -36,7 +36,7 @@ jobs:
           powershell Compress-Archive -Path dist/* -DestinationPath dist/DRG-Save-Editor-windows.zip
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: DRG-Save-Editor-windows
           path: dist/DRG-Save-Editor-windows.zip
@@ -72,7 +72,7 @@ jobs:
           tar -czvf DRG-Save-Editor-linux.tar.gz *
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: DRG-Save-Editor-linux
           path: dist/DRG-Save-Editor-linux.tar.gz
