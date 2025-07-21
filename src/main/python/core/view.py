@@ -8,9 +8,18 @@ from helpers.datatypes import Item, OcData
 from PySide6.QtCore import QFile, QIODevice, Signal, Qt
 from PySide6.QtGui import QAction, QFocusEvent
 from PySide6.QtUiTools import QUiLoader
-from PySide6.QtWidgets import (QComboBox, QGroupBox, QLabel, QLineEdit,
-                               QListWidget, QPushButton, QTreeWidget, QTreeWidgetItem,
-                               QListWidgetItem, QFileDialog)
+from PySide6.QtWidgets import (
+    QComboBox,
+    QGroupBox,
+    QLabel,
+    QLineEdit,
+    QListWidget,
+    QPushButton,
+    QTreeWidget,
+    QTreeWidgetItem,
+    QListWidgetItem,
+    QFileDialog,
+)
 
 
 class TextEditFocusChecking(QLineEdit):
@@ -43,7 +52,9 @@ class EditorUI:
 
         ui_file = QFile(ui_file_name)
         if not ui_file.open(QIODevice.ReadOnly):  # type: ignore
-            raise Exception("Cannot open {}: {}".format(ui_file_name, ui_file.errorString()))
+            raise Exception(
+                "Cannot open {}: {}".format(ui_file_name, ui_file.errorString())
+            )
         ui_file.close()
 
         # load the UI and do a basic check
@@ -130,7 +141,12 @@ class EditorUI:
                 i.addItem(j)
 
         # populate the filter drop down for overclocks
-        sort_labels: list[str] = ["All", Status.UNFORGED, Status.FORGED, Status.UNACQUIRED]
+        sort_labels: list[str] = [
+            "All",
+            Status.UNFORGED,
+            Status.FORGED,
+            Status.UNACQUIRED,
+        ]
         for i in sort_labels:
             self.combo_oc_filter.addItem(i)
 
@@ -159,6 +175,10 @@ class EditorUI:
         self, tree: QTreeWidgetItem, oc_data: OcData, guid_dict: dict[str, Item]
     ):
         for category, data in oc_data.non_weapon.items():
+            if category == Category.WEAPONS:
+                continue
+            if category == Category.MINERAL_CONTAINERS:
+                continue
             non_weapon_category = QTreeWidgetItem(tree)
             non_weapon_category.setText(0, category)
             for oc_name, dwarves in data.items():
@@ -215,13 +235,17 @@ class EditorUI:
             if not child.text(1):
                 self._traverse_overclock_tree(child, item_filter)
             else:
-                hidden_state = not (child.text(1) == item_filter or item_filter == "All")
+                hidden_state = not (
+                    child.text(1) == item_filter or item_filter == "All"
+                )
                 child.setHidden(hidden_state)
 
 
 def get_unforged_list_item_string(oc_item: Overclock):
     if oc_item.category == Category.WEAPONS:
         text = f"{oc_item.weapon}: {oc_item.name} ({oc_item.guid})"
+    elif oc_item.category == Category.MINERAL_CONTAINERS:
+        text = f"Mineral: {oc_item.name} ({oc_item.guid})"
     elif oc_item.name:
         text = f"Cosmetic: {oc_item.name} - {oc_item.dwarf} ({oc_item.guid})"
     else:
