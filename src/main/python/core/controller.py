@@ -491,7 +491,10 @@ class Controller:
             total_xp = MAX_DWARF_XP
         level, remainder = utils.xp_total_to_level(total_xp)  # transform XP total
         bad_dwarf = False  # check for possible weirdness
-        total_box = level_box = remainder_box = None
+        total_box = None
+        level_box = None
+        remainder_box = None
+
         if dwarf == "driller":
             total_box = self.widget.driller_xp
             level_box = self.widget.driller_lvl_text
