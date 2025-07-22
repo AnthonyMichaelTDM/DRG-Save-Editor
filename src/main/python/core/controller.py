@@ -80,6 +80,7 @@ class Controller:
     def handle_focus_out(self, box_name: str, value: int):
         season = False
 
+        dwarf: str | None = None
         if box_name.startswith("driller"):
             dwarf = "driller"
         elif box_name.startswith("engineer"):
@@ -107,6 +108,9 @@ class Controller:
                     self.widget.season_lvl_text.setText("100")
                     self.widget.season_xp.setText("0")
         else:
+            assert dwarf is not None, "Dwarf should not be None here"
+
+            total: int = 0
             if box_name.endswith("xp"):  # total xp box changed
                 total = value
             elif box_name.endswith("text"):  # dwarf level box changed
@@ -487,6 +491,10 @@ class Controller:
             total_xp = MAX_DWARF_XP
         level, remainder = utils.xp_total_to_level(total_xp)  # transform XP total
         bad_dwarf = False  # check for possible weirdness
+        total_box = None
+        level_box = None
+        remainder_box = None
+
         if dwarf == "driller":
             total_box = self.widget.driller_xp
             level_box = self.widget.driller_lvl_text
@@ -508,6 +516,11 @@ class Controller:
             bad_dwarf = True
 
         if not bad_dwarf:  # update xp totals
+            assert (
+                total_box is not None
+                and level_box is not None
+                and remainder_box is not None
+            ), "Boxes should not be None"
             total_box.setText(str(total_xp))
             level_box.setText(str(level))
             remainder_box.setText(str(remainder))
@@ -567,8 +580,8 @@ class Controller:
     def init_overclock_tree(self):
         self.widget.overclock_tree.clear()
         if self.state_manager.get_max_promo() > 0:
-            oc_dict = self.state_manager.build_oc_dict()
-            self.widget.build_oc_tree(oc_dict, self.state_manager.guid_dict)
+            oc_data = self.state_manager.build_oc_data()
+            self.widget.build_oc_tree(oc_data, self.state_manager.guid_dict)
         else:
             self.widget.show_empty_oc_tree()
 

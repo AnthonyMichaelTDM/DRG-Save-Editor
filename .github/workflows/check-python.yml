@@ -24,10 +24,10 @@ jobs:
           sudo apt-get install -y libgl1-mesa-dev
       - name: Analyze with mypy
         run: |
-          mypy ./src/main/python
+          mypy ./src/main/python --check-untyped-defs
       - name: Lint with flake8
         run: |
-          flake8 ./src/main/python --ignore B011,E203,E501,E722,E731,W503,SIM119,SIM106
+          flake8 ./src/main/python --ignore E203,E501,W503
       - uses: tlambert03/setup-qt-libs@v1
       - name: Build "display"
         run: |

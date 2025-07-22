@@ -5,7 +5,7 @@ from typing import Literal
 from core.file_parser import Parser
 from helpers.enums import Dwarf, Resource, Category, Status
 from helpers.overclock import Overclock
-from helpers.datatypes import Item
+from helpers.datatypes import Item, OcData
 
 
 class Stats:
@@ -72,29 +72,12 @@ class Stats:
                     }
         return new_data
 
-    def build_oc_dict(self):
-        oc_dict = {
-            Category.WEAPONS: {
-                Dwarf.DRILLER: {},
-                Dwarf.ENGINEER: {},
-                Dwarf.GUNNER: {},
-                Dwarf.SCOUT: {},
-            },
-        }
+    def build_oc_data(self) -> OcData:
+        oc_data = OcData()
+        for guid, item in self.guid_dict.items():
+            oc_data.add_oc(item, guid)
 
-        for guid, oc in self.guid_dict.items():
-            if oc.category == Category.WEAPONS:
-                if oc.weapon not in oc_dict[oc.category][oc.dwarf]:
-                    oc_dict[oc.category][oc.dwarf][oc.weapon] = {}
-                oc_dict[oc.category][oc.dwarf][oc.weapon][oc.name] = guid
-            else:
-                if oc.category not in oc_dict:
-                    oc_dict[oc.category] = {}
-                if oc.name not in oc_dict[oc.category]:
-                    oc_dict[oc.category][oc.name] = {}
-                oc_dict[oc.category][oc.name][oc.dwarf] = guid
-
-        return oc_dict
+        return oc_data
 
     def get_unforged_overclocks(self):
         return [x for x in self.overclocks if x.status is Status.UNFORGED]

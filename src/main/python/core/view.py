@@ -3,6 +3,7 @@ import os
 from definitions import PROMO_RANKS
 from helpers.overclock import Overclock
 from helpers.enums import Category, Status
+from helpers.datatypes import Item, OcData
 
 from PySide6.QtCore import QFile, QIODevice, Signal, Qt
 from PySide6.QtGui import QAction, QFocusEvent
@@ -18,15 +19,15 @@ class TextEditFocusChecking(QLineEdit):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-    def focusOutEvent(self, e: QFocusEvent) -> None:
+    def focusOutEvent(self, arg__1: QFocusEvent) -> None:
         # check for blank text
         box: str = self.objectName()
         if self.text() == "":
-            return super().focusOutEvent(e)
+            return super().focusOutEvent(arg__1)
 
         value = int(self.text())
         self.focus_out_signal.emit(box, value)
-        return super().focusOutEvent(e)
+        return super().focusOutEvent(arg__1)
 
 
 # we use dependency injection to pass the widget to the EditorUI class
@@ -145,27 +146,22 @@ class EditorUI:
         error_text.setText(0, "No dwarf promoted yet")
         self.add_cores_button.setEnabled(False)
 
-    def build_oc_tree(self, oc_dict: dict, guid_dict: dict) -> None:
+    def build_oc_tree(self, oc_data: OcData, guid_dict: dict[str, Item]) -> None:
         overclock_tree = self.overclock_tree.invisibleRootItem()
 
-        self.make_weapon_oc_tree(overclock_tree, oc_dict, guid_dict)
-        self.make_non_weapon_oc_trees(overclock_tree, oc_dict, guid_dict)
+        self.make_weapon_oc_tree(overclock_tree, oc_data, guid_dict)
+        self.make_non_weapon_oc_trees(overclock_tree, oc_data, guid_dict)
 
         self.overclock_tree.sortItems(0, Qt.SortOrder.AscendingOrder)
         self.add_cores_button.setEnabled(True)
 
     def make_non_weapon_oc_trees(
-        self,
-        tree: QTreeWidgetItem,
-        oc_dict: dict,
-        guid_dict: dict
+        self, tree: QTreeWidgetItem, oc_data: OcData, guid_dict: dict[str, Item]
     ):
-        for category in oc_dict.keys():
-            if category == Category.WEAPONS:
-                continue
+        for category, data in oc_data.non_weapon.items():
             non_weapon_category = QTreeWidgetItem(tree)
             non_weapon_category.setText(0, category)
-            for oc_name, dwarves in oc_dict[category].items():
+            for oc_name, dwarves in data.items():
                 char_entry = QTreeWidgetItem(non_weapon_category)
                 char_entry.setText(0, oc_name)
                 for dwarf, uuid in dwarves.items():
@@ -175,14 +171,11 @@ class EditorUI:
                     oc_entry.setText(2, uuid)
 
     def make_weapon_oc_tree(
-        self,
-        tree: QTreeWidgetItem,
-        oc_dict: dict,
-        guid_dict: dict
+        self, tree: QTreeWidgetItem, oc_data: OcData, guid_dict: dict[str, Item]
     ):
         weapon_category_entry = QTreeWidgetItem(tree)
         weapon_category_entry.setText(0, Category.WEAPONS)
-        for char, weapons in oc_dict[Category.WEAPONS].items():
+        for char, weapons in oc_data.weapon.items():
             char_entry = QTreeWidgetItem(weapon_category_entry)
             char_entry.setText(0, char)
             for weapon, oc_names in weapons.items():
