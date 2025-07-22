@@ -4,6 +4,7 @@ from src.main.python.core.state_manager import Stats
 
 from PySide6.QtWidgets import QLineEdit
 from PySide6.QtCore import QCoreApplication, Qt
+
 QCoreApplication.setAttribute(Qt.ApplicationAttribute.AA_ShareOpenGLContexts, True)
 
 
@@ -43,6 +44,7 @@ def test_modify_overclocks(qtbot, save_data):
     tree = controller.widget.overclock_tree
     # navigate down one branch of the tree until there is a selectable item
     parent = tree.topLevelItem(0)
+    assert parent is not None, "Top level item should not be None"
     while parent and parent.childCount() > 0:
         parent = parent.child(0)
     # select the item

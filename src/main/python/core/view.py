@@ -18,15 +18,15 @@ class TextEditFocusChecking(QLineEdit):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-    def focusOutEvent(self, e: QFocusEvent) -> None:
+    def focusOutEvent(self, arg__1: QFocusEvent) -> None:
         # check for blank text
         box: str = self.objectName()
         if self.text() == "":
-            return super().focusOutEvent(e)
+            return super().focusOutEvent(arg__1)
 
         value = int(self.text())
         self.focus_out_signal.emit(box, value)
-        return super().focusOutEvent(e)
+        return super().focusOutEvent(arg__1)
 
 
 # we use dependency injection to pass the widget to the EditorUI class
