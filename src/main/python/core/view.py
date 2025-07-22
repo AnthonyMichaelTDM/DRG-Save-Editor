@@ -166,18 +166,17 @@ class EditorUI:
         overclock_tree = self.overclock_tree.invisibleRootItem()
 
         self.make_weapon_oc_tree(overclock_tree, oc_data, guid_dict)
-        self.make_non_weapon_oc_trees(overclock_tree, oc_data, guid_dict)
+        self.make_mineral_container_tree(overclock_tree, oc_data, guid_dict)
+        self.make_other_oc_trees(overclock_tree, oc_data, guid_dict)
 
         self.overclock_tree.sortItems(0, Qt.SortOrder.AscendingOrder)
         self.add_cores_button.setEnabled(True)
 
-    def make_non_weapon_oc_trees(
+    def make_other_oc_trees(
         self, tree: QTreeWidgetItem, oc_data: OcData, guid_dict: dict[str, Item]
     ):
-        for category, data in oc_data.non_weapon.items():
-            if category == Category.WEAPONS:
-                continue
-            if category == Category.MINERAL_CONTAINERS:
+        for category, data in oc_data.other.items():
+            if category == Category.WEAPONS or category == Category.MINERAL_CONTAINERS:
                 continue
             non_weapon_category = QTreeWidgetItem(tree)
             non_weapon_category.setText(0, category)
@@ -206,6 +205,17 @@ class EditorUI:
                     oc_entry.setText(0, name)
                     oc_entry.setText(1, guid_dict[uuid].status)
                     oc_entry.setText(2, uuid)
+
+    def make_mineral_container_tree(
+        self, tree: QTreeWidgetItem, oc_data: OcData, guid_dict: dict[str, Item]
+    ):
+        mineral_container_entry = QTreeWidgetItem(tree)
+        mineral_container_entry.setText(0, Category.MINERAL_CONTAINERS)
+        for name, uuid in oc_data.mineral_containers.items():
+            oc_entry = QTreeWidgetItem(mineral_container_entry)
+            oc_entry.setText(0, name)
+            oc_entry.setText(1, guid_dict[uuid].status)
+            oc_entry.setText(2, uuid)
 
     def populate_unforged_list(self, unforged: list[Overclock]) -> None:
         # populates the list on acquired but unforged overclocks (includes cosmetics)
