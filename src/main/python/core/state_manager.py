@@ -60,8 +60,14 @@ class Stats:
                 "cost": v.get("cost"),
                 "weapon": v.get("weapon"),
             }
+        for k, v in data[Category.MINERAL_CONTAINERS.value].items():
+            new_data[k] = {
+                "category": Category.MINERAL_CONTAINERS,
+                "dwarf": "",
+                "name": v["name"]
+            }
         for category_name in data.keys():
-            if category_name != Category.WEAPONS:
+            if category_name != Category.WEAPONS and category_name != Category.MINERAL_CONTAINERS:
                 for k, v in data[category_name].items():
                     new_data[k] = {
                         "category": Category(category_name),
