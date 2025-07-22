@@ -577,8 +577,8 @@ class Controller:
     def init_overclock_tree(self):
         self.widget.overclock_tree.clear()
         if self.state_manager.get_max_promo() > 0:
-            oc_dict = self.state_manager.build_oc_dict()
-            self.widget.build_oc_tree(oc_dict, self.state_manager.guid_dict)
+            oc_data = self.state_manager.build_oc_data()
+            self.widget.build_oc_tree(oc_data, self.state_manager.guid_dict)
         else:
             self.widget.show_empty_oc_tree()
 
