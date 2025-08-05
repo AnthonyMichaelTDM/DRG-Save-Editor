@@ -71,7 +71,7 @@ def test_parse_without_errors(save_data: bytes):
     assert stats.weapons == expected_weapons
 
     expected_unacquired_weapon_overclocks = 143
-    expected_unacquired_overclocks = 479
+    expected_unacquired_overclocks = 485
     expected_unforged_overclocks = 18
     assert (
         len([

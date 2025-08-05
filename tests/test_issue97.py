@@ -107,7 +107,7 @@ def test_ensure_oc_panel_gets_reenabled_on_new_save(
         == 0
     )
     assert controller.widget.add_cores_button.isEnabled()
-    assert controller.widget.overclock_tree.topLevelItemCount() == 7
+    assert controller.widget.overclock_tree.topLevelItemCount() == 8
 
 
 def test_parse_new_save_without_errors(save_data):
