@@ -17,7 +17,7 @@ def test_load_save(qtbot, save_data):
     controller.setup(save_data)
 
     # can add overclocks
-    assert controller.widget.overclock_tree.topLevelItemCount() == 7
+    assert controller.widget.overclock_tree.topLevelItemCount() == 8
     assert controller.widget.add_cores_button.isEnabled()
     assert controller.widget.unforged_list.count() == 18
 

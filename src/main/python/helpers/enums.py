@@ -34,6 +34,7 @@ class Category(StrEnum):
     VICTORY_MOVES = "Victory Moves"
     WEAPONS = "Weapons"
     WEAPON_SKINS = "Weapon Skins"
+    MINERAL_CONTAINERS = "Mineral Containers"
     UNKNOWN = "Unknown"
 
 
