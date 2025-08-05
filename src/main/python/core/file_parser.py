@@ -276,7 +276,7 @@ class OverclockParser:
             self.overclocks.append(
                 Overclock(
                     category=overclock_data.category,
-                    dwarf="",
+                    dwarf=Dwarf.SCOUT,
                     weapon="",
                     cost=Cost(credits=600),
                     name=overclock_data.name,
