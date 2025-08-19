@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>DRG Save Editor</string>
+   <string>深岩银河存档修改器</string>
   </property>
   <property name="autoFillBackground">
    <bool>true</bool>
@@ -32,7 +32,7 @@
      </font>
     </property>
     <property name="title">
-     <string>Minerals</string>
+     <string>矿物</string>
     </property>
     <widget class="QLabel" name="bismor_label">
      <property name="geometry">
@@ -53,7 +53,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Bismor</string>
+      <string>蜂母石</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -102,7 +102,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Croppa</string>
+      <string>铜矿</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -151,7 +151,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Enor Pearl</string>
+      <string>妙绝珠</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -200,7 +200,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Jadiz</string>
+      <string>绿宝石</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -285,7 +285,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Magnite</string>
+      <string>吸铁石</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -316,7 +316,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Umanite</string>
+      <string>乌玛石</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -344,7 +344,7 @@
      </font>
     </property>
     <property name="title">
-     <string>Brewing</string>
+     <string>酿造材料</string>
     </property>
     <widget class="QWidget" name="verticalLayoutWidget_4">
      <property name="geometry">
@@ -368,7 +368,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Barley Bulb</string>
+         <string>大麦球果</string>
         </property>
         <property name="textFormat">
          <enum>Qt::PlainText</enum>
@@ -393,7 +393,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Malt Star</string>
+         <string>麦芽星果</string>
         </property>
         <property name="textFormat">
          <enum>Qt::PlainText</enum>
@@ -418,7 +418,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Starch Nut</string>
+         <string>淀粉坚果</string>
         </property>
         <property name="textFormat">
          <enum>Qt::PlainText</enum>
@@ -443,7 +443,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Yeast Cone</string>
+         <string>酵母松果</string>
         </property>
         <property name="textFormat">
          <enum>Qt::PlainText</enum>
@@ -546,7 +546,7 @@
      </font>
     </property>
     <property name="title">
-     <string>Miscellaneous</string>
+     <string>杂项</string>
     </property>
     <property name="checkable">
      <bool>false</bool>
@@ -570,7 +570,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Error Cubes</string>
+      <string>错误方块</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -619,7 +619,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Blank Cores</string>
+      <string>空白核心</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -668,7 +668,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Credits</string>
+      <string>钱钱</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -717,7 +717,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Perk Points</string>
+      <string>特长点数</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -766,7 +766,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Data Cells</string>
+      <string>数据单元</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -815,7 +815,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Phazyonite</string>
+      <string>方晶辉石</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -861,7 +861,7 @@
      </font>
     </property>
     <property name="title">
-     <string>Experience Points</string>
+     <string>存档经验值</string>
     </property>
     <widget class="QLabel" name="drill_class_label">
      <property name="geometry">
@@ -882,7 +882,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Driller</string>
+      <string>钻机手</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -931,7 +931,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Lvl:</string>
+      <string>等级:</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -980,7 +980,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Progress:</string>
+      <string>荣誉徽章:</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -1029,7 +1029,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Promotion:</string>
+      <string>晋升次数:</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -1070,7 +1070,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Engineer</string>
+      <string>工程师</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -1119,7 +1119,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Lvl:</string>
+      <string>等级:</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -1168,7 +1168,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Progress:</string>
+      <string>荣誉徽章:</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -1217,7 +1217,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Promotion:</string>
+      <string>矮人经验:</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -1258,7 +1258,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Gunner</string>
+      <string>枪手</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -1307,7 +1307,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Lvl:</string>
+      <string>等级:</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -1356,7 +1356,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Progress:</string>
+      <string>荣誉徽章:</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -1405,7 +1405,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Promotion:</string>
+      <string>矮人经验:</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -1446,7 +1446,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Scout</string>
+      <string>侦察兵</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -1495,7 +1495,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Lvl:</string>
+      <string>等级:</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -1544,7 +1544,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Progress:</string>
+      <string>荣誉徽章:</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -1593,7 +1593,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Promotion:</string>
+      <string>矮人经验:</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -1631,7 +1631,7 @@
      </font>
     </property>
     <property name="title">
-     <string>Seasonal</string>
+     <string>赛季相关</string>
     </property>
     <widget class="QLabel" name="season_lvl_progress_label">
      <property name="geometry">
@@ -1650,7 +1650,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Lvl Progress</string>
+      <string>赛季经验</string>
      </property>
     </widget>
     <widget class="TextEditFocusChecking" name="season_xp">
@@ -1690,7 +1690,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Lvl:</string>
+      <string>赛季等级:</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -1739,7 +1739,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Scrip</string>
+      <string>数据节点</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -1798,7 +1798,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Season</string>
+      <string>赛季</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -1826,7 +1826,7 @@
      </font>
     </property>
     <property name="title">
-     <string>Overclocks</string>
+     <string>模组</string>
     </property>
     <property name="checkable">
      <bool>false</bool>
@@ -1913,7 +1913,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Add to Inventory &gt;&gt;&gt;</string>
+      <string>添加到库存 &gt;&gt;&gt;</string>
      </property>
     </widget>
    </widget>
@@ -1932,7 +1932,7 @@
      </font>
     </property>
     <property name="title">
-     <string>Acquired but Unforged</string>
+     <string>已获取但未锻造</string>
     </property>
     <widget class="QListWidget" name="unforged_list">
      <property name="geometry">
@@ -1968,7 +1968,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Remove Selected</string>
+      <string>移除选中项</string>
      </property>
     </widget>
     <widget class="QPushButton" name="remove_all_ocs">
@@ -1981,7 +1981,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Remove All</string>
+      <string>移除所有</string>
      </property>
     </widget>
    </widget>
@@ -2010,19 +2010,19 @@
     </property>
     <widget class="QMenu" name="menuXP_operations">
      <property name="title">
-      <string>XP operations</string>
+      <string>经验操作</string>
      </property>
      <addaction name="actionSet_All_Classes_to_25"/>
     </widget>
     <widget class="QMenu" name="menuMineral_operations">
      <property name="title">
-      <string>Mineral operations</string>
+      <string>矿物操作</string>
      </property>
      <addaction name="actionAdd_overclock_crafting_materials"/>
     </widget>
     <widget class="QMenu" name="menuWeapon_operations">
      <property name="title">
-      <string>Weapon maintenance operations</string>
+      <string>武器维护操作</string>
      </property>
      <addaction name="actionMax_all_available_weapons"/>
     </widget>
@@ -2035,7 +2035,7 @@
   </widget>
   <action name="actionOpen_Save_File">
    <property name="text">
-    <string>Open save file</string>
+    <string>打开存档文件</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -2046,7 +2046,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Reset to original values</string>
+    <string>重置为原始值</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+R</string>
@@ -2057,7 +2057,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Save changes</string>
+    <string>保存更改</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
@@ -2070,27 +2070,27 @@
   </action>
   <action name="actionBrewing_operations">
    <property name="text">
-    <string>Brewing operations</string>
+    <string>酿造操作</string>
    </property>
   </action>
   <action name="actionDriller_25">
    <property name="text">
-    <string>Driller</string>
+    <string>钻机手</string>
    </property>
   </action>
   <action name="actionEngineer_25">
    <property name="text">
-    <string>Engineer</string>
+    <string>工程师</string>
    </property>
   </action>
   <action name="actionGunner_25">
    <property name="text">
-    <string>Gunner</string>
+    <string>枪手</string>
    </property>
   </action>
   <action name="actionScout_25">
    <property name="text">
-    <string>Scout</string>
+    <string>侦察兵</string>
    </property>
   </action>
   <action name="actionAll_25">
@@ -2100,22 +2100,22 @@
   </action>
   <action name="actionDriller_2">
    <property name="text">
-    <string>Driller</string>
+    <string>钻机手</string>
    </property>
   </action>
   <action name="actionEngineer_2">
    <property name="text">
-    <string>Engineer</string>
+    <string>工程师</string>
    </property>
   </action>
   <action name="actionGunner_2">
    <property name="text">
-    <string>Gunner</string>
+    <string>枪手</string>
    </property>
   </action>
   <action name="actionScout_2">
    <property name="text">
-    <string>Scout</string>
+    <string>侦察兵</string>
    </property>
   </action>
   <action name="actionAll_2">
@@ -2125,17 +2125,17 @@
   </action>
   <action name="actionAdd_overclock_crafting_materials">
    <property name="text">
-    <string>Add overclock crafting materials</string>
+    <string>添加模组锻造素材</string>
    </property>
   </action>
   <action name="actionSet_All_Classes_to_25">
    <property name="text">
-    <string>Set All Classes to 25</string>
+    <string>将所有职业设置为25级</string>
    </property>
   </action>
   <action name="actionMax_all_available_weapons">
    <property name="text">
-    <string>Set all available weapon maintenance to max level</string>
+    <string>将所有可用武器维护设为满级</string>
    </property>
   </action>
  </widget>
