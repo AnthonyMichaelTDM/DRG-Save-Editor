@@ -46,6 +46,8 @@ XP_PER_WEAPON_LEVEL: dict[int, int] = {
     5: 50000,
     6: 60000,
     7: 70000,
+    8: 80000,
+    9: 90000,
 }
 
 # ordered list of the promotion ranks (low -> high)
