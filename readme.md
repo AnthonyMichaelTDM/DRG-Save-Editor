@@ -67,6 +67,10 @@ Some notes:
 
 ## Changelog
 
+- v1.10.0
+  - assorted bug fixes and maintenance (#112, #113)
+  - Updated for season 6
+    - updated season guid (special thanks to [wahlp](https://github.com/wahlp) for contributing the update)
 - v1.9.2
   - assorted bug fixes, refactoring, and maintenance (#90, #98, #100, #101)
   - add cosmetic overclocks #102
