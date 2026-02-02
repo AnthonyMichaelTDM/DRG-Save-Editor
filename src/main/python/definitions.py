@@ -46,6 +46,8 @@ XP_PER_WEAPON_LEVEL: dict[int, int] = {
     5: 50000,
     6: 60000,
     7: 70000,
+    8: 80000,
+    9: 90000,
 }
 
 # ordered list of the promotion ranks (low -> high)
@@ -179,6 +181,7 @@ SEASON_GUIDS: dict[int, str] = {
     3: "D8810F6C76D374419AE6A18EF5B3BA26",
     4: "0A3AE2198CA5B649B56E4E11D6762AC6",
     5: "82F3091744BBDE4DB1A0C6766C0716EF",
+    6: "E1BF9763D4582E4FB4F6DE7F40554632",
 }
 
 LATEST_SEASON: int = list(SEASON_GUIDS.keys())[-1]
