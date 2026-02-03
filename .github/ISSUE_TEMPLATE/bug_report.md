@@ -47,7 +47,7 @@ For example, if your issue is similar to an existing issue, you can link it here
 
 ## Checklist
 
-- [ ] I know how to use check boxes
+- [x] I know how to use check boxes
 - [ ] I am using the most recent version of the editor
 - [ ] I have installed the editor correctly:
   - Check only one:
