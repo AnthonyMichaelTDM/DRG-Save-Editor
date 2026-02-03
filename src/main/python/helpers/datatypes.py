@@ -50,21 +50,24 @@ class OcData:
             Dwarf.SCOUT: {},
         }
     )
+    # dict[name] = guid
+    mineral_containers: dict[str, str] = field(default_factory=dict)
     # dict[Category][overclock_name][Dwarf] = guid
-    non_weapon: dict[Category, dict[str, dict[Dwarf, str]]] = field(
-        default_factory=dict
-    )
+    other: dict[Category, dict[str, dict[Dwarf, str]]] = field(default_factory=dict)
 
     def add_oc(self, oc: Item, guid: str) -> None:
-        if oc.category == Category.WEAPONS:
-            if not oc.weapon:
-                return
-            if oc.weapon not in self.weapon[oc.dwarf]:
-                self.weapon[oc.dwarf][oc.weapon] = {}
-            self.weapon[oc.dwarf][oc.weapon][oc.name] = guid
-        else:
-            if oc.category not in self.non_weapon:
-                self.non_weapon[oc.category] = {}
-            if oc.name not in self.non_weapon[oc.category]:
-                self.non_weapon[oc.category][oc.name] = {}
-            self.non_weapon[oc.category][oc.name][oc.dwarf] = guid
+        match oc.category:
+            case Category.WEAPONS:
+                if not oc.weapon:
+                    return
+                if oc.weapon not in self.weapon[oc.dwarf]:
+                    self.weapon[oc.dwarf][oc.weapon] = {}
+                self.weapon[oc.dwarf][oc.weapon][oc.name] = guid
+            case Category.MINERAL_CONTAINERS:
+                self.mineral_containers[oc.name] = guid
+            case _:
+                if oc.category not in self.other:
+                    self.other[oc.category] = {}
+                if oc.name not in self.other[oc.category]:
+                    self.other[oc.category][oc.name] = {}
+                self.other[oc.category][oc.name][oc.dwarf] = guid
