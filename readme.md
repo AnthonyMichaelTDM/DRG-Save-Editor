@@ -39,6 +39,7 @@ That said, I'm in college right now and likely won't have time to implement many
 if these instructions are unclear a member of the community, [NerdyJosh1](https://github.com/NerdyJosh1), has made a [video tutorial for windows users](https://www.youtube.com/watch?v=2h2-nZ2ptRo&ab_channel=NerdyJosh)
 
 - Note: this tutorial was made for version 1.7.0/1.8.0 of the editor, some things have changed since then
+- If you are running NixOS, while on the root of the project write "nix-shell" in your terminal, then follow the steps as normal.
 
 ## Known Issues
 
