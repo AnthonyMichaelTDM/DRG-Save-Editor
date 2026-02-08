@@ -31,8 +31,8 @@ pkgs.mkShell {
     unset QT_PLUGIN_PATH
     export QT_QPA_PLATFORM=wayland
 
-    if [ -d ".venv" ]; then
-      source .venv/bin/activate
+    if [ -d "venv" ]; then
+      source venv/bin/activate
     fi
   '';
 }
