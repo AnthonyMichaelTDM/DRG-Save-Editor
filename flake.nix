@@ -1,57 +1,71 @@
 {
-  description = "DRG Save Editor environment";
+  description = "DRG Save Editor flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
   outputs =
     { self, nixpkgs }:
     let
-      systems = [
-        "x86_64-linux"
-      ];
+      systems = [ "x86_64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs systems;
     in
     {
+      packages = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          pythonEnv = pkgs.python3.withPackages (
+            ps: with ps; [
+              pyqt6
+              pyside6
+            ]
+          );
+        in
+        {
+          default = pkgs.stdenv.mkDerivation {
+            pname = "drg-save-editor";
+            version = "git";
+            src = ./.;
+
+            nativeBuildInputs = [ pkgs.makeWrapper ];
+
+            installPhase = ''
+              mkdir -p $out/share/drg-save-editor
+              cp -r src $out/share/drg-save-editor/
+              cp guids.json $out/share/drg-save-editor/
+              cp editor.ui $out/share/drg-save-editor/
+              cp readme.md $out/share/drg-save-editor/
+
+              mkdir -p $out/bin
+              makeWrapper ${pythonEnv}/bin/python $out/bin/drg-save-editor \
+                --add-flags "$out/share/drg-save-editor/src/main/python/main.py" \
+                --set QT_QPA_PLATFORM "" \
+                --chdir "$out/share/drg-save-editor"
+            '';
+          };
+        }
+      );
+
       devShells = forAllSystems (
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
+          pythonEnv = pkgs.python3.withPackages (
+            ps: with ps; [
+              pyqt6
+              pyside6
+            ]
+          );
         in
         {
           default = pkgs.mkShell {
-            buildInputs = with pkgs; [
-              python3
-              zstd
-              libGL
-              fontconfig
-              freetype
-              libxkbcommon
-              wayland
-              libdecor
-            ];
+            buildInputs = [ pythonEnv ];
 
             shellHook = ''
-              export LD_LIBRARY_PATH="${
-                pkgs.lib.makeLibraryPath [
-                  pkgs.zstd
-                  pkgs.libGL
-                  pkgs.fontconfig
-                  pkgs.freetype
-                  pkgs.libxkbcommon
-                  pkgs.wayland
-                  pkgs.libdecor
-                ]
-              }:$LD_LIBRARY_PATH"
-
-              # Clear QT_PLUGIN_PATH so it only uses PySide6's bundled plugins
-              unset QT_PLUGIN_PATH
-              export QT_QPA_PLATFORM=wayland
-
-              if [ -d "venv" ]; then
-                source venv/bin/activate
-              fi
+              # Support both Wayland and X11
+              export QT_QPA_PLATFORM="''${QT_QPA_PLATFORM:-}"
             '';
           };
         }
