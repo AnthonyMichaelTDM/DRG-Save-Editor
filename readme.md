@@ -39,7 +39,22 @@ That said, I'm in college right now and likely won't have time to implement many
 if these instructions are unclear a member of the community, [NerdyJosh1](https://github.com/NerdyJosh1), has made a [video tutorial for windows users](https://www.youtube.com/watch?v=2h2-nZ2ptRo&ab_channel=NerdyJosh)
 
 - Note: this tutorial was made for version 1.7.0/1.8.0 of the editor, some things have changed since then
-- If you are using Nix you can run this program using this command in your terminal "nix run github:AnthonyMichaelTDM/DRG-Save-Editor" or install it permanently with "nix profile install github:AnthonyMichaelTDM/DRG-Save-Editor". Either way you can run this program with "drg-save-editor".
+
+##
+### Nix/NixOS
+
+Run directly without installing:
+```bash
+nix run github:AnthonyMichaelTDM/DRG-Save-Editor
+```
+
+Or install permanently:
+```bash
+nix profile install github:AnthonyMichaelTDM/DRG-Save-Editor
+drg-save-editor
+```
+
+**Note:** Requires [Nix flakes](https://wiki.nixos.org/wiki/Flakes) to be enabled.
 
 ## Known Issues
 
