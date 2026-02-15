@@ -73,7 +73,7 @@ jobs:
       - name: Compress files to tar.gz
         working-directory: dist
         run: |
-          tar -czvf DRG-Save-Editor-linux.tar.gz *
+          tar -czvf DRG-Save-Editor-linux.tar.gz ./*
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -97,7 +97,7 @@ jobs:
 
       - name: Get the release tag
         id: get_release_tag
-        run: echo "RELEASE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+        run: echo "RELEASE_TAG=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
 
       - name: Create Release
         id: create_release

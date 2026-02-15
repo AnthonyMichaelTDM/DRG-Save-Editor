@@ -40,6 +40,22 @@ if these instructions are unclear a member of the community, [NerdyJosh1](https:
 
 - Note: this tutorial was made for version 1.7.0/1.8.0 of the editor, some things have changed since then
 
+##
+### Nix/NixOS
+
+Run directly without installing:
+```bash
+nix run github:AnthonyMichaelTDM/DRG-Save-Editor
+```
+
+Or install permanently:
+```bash
+nix profile install github:AnthonyMichaelTDM/DRG-Save-Editor
+drg-save-editor
+```
+
+**Note:** Requires [Nix flakes](https://wiki.nixos.org/wiki/Flakes) to be enabled.
+
 ## Known Issues
 
 - The editor works by looking for specific values in the raw data of the save, it doesn't decode the data into a nice, neat python object. As a result if certain things aren't present in the save (e.g., >0 forged overclocks, certain resources) the editor will malfunction and give nonsensical results. The solution is to acquire at least one of the resources in game _then_ use the editor.
