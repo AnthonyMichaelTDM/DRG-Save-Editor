@@ -272,6 +272,18 @@ class OverclockParser:
                     cost=Cost(**overclock_data.cost),
                 )
             )
+        elif overclock_data.category == Category.MINERAL_CONTAINERS:
+            self.overclocks.append(
+                Overclock(
+                    category=overclock_data.category,
+                    dwarf=Dwarf.SCOUT,
+                    weapon="",
+                    cost=Cost(credits=600),
+                    name=overclock_data.name,
+                    guid=uuid,
+                    status=overclock_data.status
+                )
+            )
         else:
             self.overclocks.append(
                 Overclock(

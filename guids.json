@@ -3644,5 +3644,25 @@
       "name": "Warmonger",
       "dwarf": "Scout"
     }
+  },
+  "Mineral Containers": {
+    "37F3FD324A5C754B90D51F906550C756": {
+      "name": "Magnite"
+    },
+    "A7D29BAC4DFD414A8A007D37229D1AD3": {
+      "name": "Umanite"
+    },
+    "C997A5D594AD3643A9999078A6D21A4D": {
+      "name": "Enor Pearl"
+    },
+    "5DD7E1623F091C468343B426528799B0": {
+      "name": "Croppa"
+    },
+    "314D27DB302AF1418ED9995978964145": {
+      "name": "Jadiz"
+    },
+    "C709D1191B260041AA40086FE578C104": {
+      "name": "Bismor"
+    }
   }
 }
